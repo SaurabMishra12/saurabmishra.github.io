@@ -1,6 +1,6 @@
 # Data Scientist
 
-#### Technical Skills: Python, SQL, AWS, Snowflake, MATLAB
+#### Technical Skills: Python, SQL, AWS, Machine Learning, AI, IBM Watson, Fire Base
 
 ## Education
 - BS-MS Programme
