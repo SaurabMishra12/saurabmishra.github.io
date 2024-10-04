@@ -9,10 +9,10 @@
 
 
 ## Experiences
-** Data Scientist | Certified by IBM
+- Data Scientist | Certified by IBM
 A data science professional with expertise in machine learning, data analysis, and predictive modeling. Certified by IBM, with hands-on experience in applying advanced analytics and AI-driven solutions across diverse projects.
 
-** Developed a fully operational website. 
+- Developed a fully operational website. 
 [View Demo](https://www.youtube.com/watch?v=RVKZBXkMGrI&t=65s)
 
 ## Projects
