@@ -3,53 +3,103 @@
 #### Technical Skills: Python, SQL, AWS, Snowflake, MATLAB
 
 ## Education
-- Ph.D., Physics | The University of Texas at Dallas (_May 2022_)								       		
-- M.S., Physics	| The University of Texas at Dallas (_December 2019_)	 			        		
-- B.S., Physics | The University of Texas at Dallas (_May 2017_)
+- BS-MS Programme
+  Indian Institute of Science Education and Research (IISER), Thiruvananthapuram
+  2023 – 2028						       		
 
-## Work Experience
-**Data Scientist @ Toyota Financial Services (_June 2022 - Present_)**
-- Uncovered and corrected missing step in production data pipeline which impacted over 70% of active accounts
-- Redeveloped loan originations model which resulted in 50% improvement in model performance and saving 1 million dollars in potential losses
 
-**Data Science Consultant @ Shawhin Talebi Ventures LLC (_December 2020 - Present_)**
-- Conducted data collection, processing, and analysis for novel study evaluating the impact of over 300 biometrics variables on human performance in hyper-realistic, live-fire training scenarios
-- Applied unsupervised deep learning approaches to longitudinal ICU data to discover novel sepsis sub-phenotypes
+## Experiences
+**Data Scientist | Certified by IBM
+A data science professional with expertise in machine learning, data analysis, and predictive modeling. Certified by IBM, with hands-on experience in applying advanced analytics and AI-driven solutions across diverse projects.
+
+**Developed a fully operational website. 
+[View Demo](https://www.youtube.com/watch?v=RVKZBXkMGrI&t=65s)
 
 ## Projects
-### Data-Driven EEG Band Discovery with Decision Trees
-[Publication](https://www.mdpi.com/1424-8220/22/8/3048)
 
-Developed objective strategy for discovering optimal EEG bands based on signal power spectra using **Python**. This data-driven approach led to better characterization of the underlying power spectrum by identifying bands that outperformed the more commonly used band boundaries by a factor of two. The proposed method provides a fully automated and flexible approach to capturing key signal components and possibly discovering new indices of brain activity.
+### AI-Driven Educational Platform Developer(Step Mentor)
+[View Demo](https://www.youtube.com/watch?v=RVKZBXkMGrI&t=65s)
+
+
+Developed an AI-powered educational platform that leverages artificial intelligence, data science, and machine learning, integrating advanced Large Language Models to provide personalized study plans and many intelligent features for competitive exam preparation.
+
+### Predicting Falcon 9 Landing Success for Cost-Effective Space Exploration.
+[Publication](https://github.com/SaurabMishra12/Predicting-the-Landing-Success-of-Falcon-9-First-Stages)
+
+This project aims to predict the SpaceX Falcon 9 rocket landing success using  advanced data science techniques. Founded in 2002 by Elon Musk, SpaceX revolutionized space transportation with the cost-saving reusability of its Falcon 9.Here, We are trying to increase the prediction accuracy for a successful first-stage landing of the Falcon 9 through historical data analysis and applying different machine learning models. This prediction is crucial for the optimization of launch costs, improvement of operational efficiencies, and advances in the accessibility of space exploration.
 
 ![EEG Band Discovery](/assets/img/eeg_band_discovery.jpeg)
 
-### Decoding Physical and Cognitive Impacts of Particulate Matter Concentrations at Ultra-Fine Scales
-[Publication](https://www.mdpi.com/1424-8220/22/11/4240)
+### Customer Segmentation for Telecom Services
+Apr 2024 - Jun 2024
+[Publication](https://github.com/SaurabMishra12/Predictive-Customer-Segmentation-for-Telecom-Services)
 
-Used **Matlab** to train over 100 machine learning models which estimated particulate matter concentrations based on a suite of over 300 biometric variables. We found biometric variables can be used to accurately estimate particulate matter concentrations at ultra-fine spatial scales with high fidelity (r2 = 0.91) and that smaller particles are better estimated than larger ones. Inferring environmental conditions solely from biometric measurements allows us to disentangle key interactions between the environment and the body.
+This Project aims to predict customer usage patterns in the telecommunications sector using demographic data. By categorizing customers into groups based on their service usage, the project enables personalized service offerings and targeted marketing strategies. Through machine learning techniques, the model identifies patterns from demographic attributes like region, age, and marital status to enhance customer engagement and retention.
 
 ![Bike Study](/assets/img/bike_study.jpeg)
 
-## Talks & Lectures
-- Causality: The new science of an old question - GSP Seminar, Fall 2021
-- Guest Lecture: Dimensionality Reduction - Big Data and Machine Learning for Scientific Discovery (PHYS 5336), Spring 2021
-- Guest Lecture: Fourier and Wavelet Transforms - Scientific Computing (PHYS 5315), Fall 2020
-- A Brief Introduction to Optimization - GSP Seminar, Fall 2019
-- Weeks of Welcome Poster Competition - UTD, Fall 2019
-- A Brief Introduction to Networks - GSP Seminar, Spring 2019
+### Estimating Carbon Footprints in Automobiles
+Apr 2024 - Jun 2024
+[Publication](https://www.linkedin.com/in/saurab-mishra-493a73178/details/projects/1718610888761/single-media-viewer?type=LINK&profileId=ACoAACopBe8BVahfbQFuJ1MAjJB0JrYU9D67PPk&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_projects_details%3BCZmCefT5QDuZXkZdgQ6sFw%3D%3D)
 
-- [Data Science YouTube](https://www.youtube.com/channel/UCa9gErQ9AE5jT2DZLjXBIdA)
+Automobiles are a main source of CO2 emissions, making the transport sector an important contributor to carbon gases worldwide. To develop emissions reduction strategies and promote sustainable transportation, it’s essential to comprehend and forecast vehicle carbon footprints. This study titled “Estimating Carbon Footprints in Automobiles” will focus on numerous characteristics towards determining the amount of CO2 they emit.
 
-## Publications
-1. Talebi S., Lary D.J., Wijeratne L. OH., and Lary, T. Modeling Autonomic Pupillary Responses from External Stimuli Using Machine Learning (2019). DOI: 10.26717/BJSTR.2019.20.003446
-2. Wijeratne, L.O.; Kiv, D.R.; Aker, A.R.; Talebi, S.; Lary, D.J. Using Machine Learning for the Calibration of Airborne Particulate Sensors. Sensors 2020, 20, 99.
-3. Lary, D.J.; Schaefer, D.; Waczak, J.; Aker, A.; Barbosa, A.; Wijeratne, L.O.H.; Talebi, S.; Fernando, B.; Sadler, J.; Lary, T.; Lary, M.D. Autonomous Learning of New Environments with a Robotic Team Employing Hyper-Spectral Remote Sensing, Comprehensive In-Situ Sensing and Machine Learning. Sensors 2021, 21, 2240. https://doi.org/10.3390/s21062240
-4. Zhang, Y.; Wijeratne, L.O.H.; Talebi, S.; Lary, D.J. Machine Learning for Light Sensor Calibration. Sensors 2021, 21, 6259. https://doi.org/10.3390/s21186259
-5. Talebi, S.; Waczak, J.; Fernando, B.; Sridhar, A.; Lary, D.J. Data-Driven EEG Band Discovery with Decision Trees. Preprints 2022, 2022030145 (doi: 10.20944/preprints202203.0145.v1).
-6. Fernando, B.A.; Sridhar, A.; Talebi, S.; Waczak, J.; Lary, D.J. Unsupervised Blink Detection Using Eye Aspect Ratio Values. Preprints 2022, 2022030200 (doi: 10.20944/preprints202203.0200.v1).
-7. Talebi, S. et al. Decoding Physical and Cognitive Impacts of PM Concentrations at Ultra-fine Scales, 29 March 2022, PREPRINT (Version 1) available at Research Square [https://doi.org/10.21203/rs.3.rs-1499191/v1]
-8. Lary, D.J. et al. (2022). Machine Learning, Big Data, and Spatial Tools: A Combination to Reveal Complex Facts That Impact Environmental Health. In: Faruque, F.S. (eds) Geospatial Technology for Human Well-Being and Health. Springer, Cham. https://doi.org/10.1007/978-3-030-71377-5_12
-9. Wijerante, L.O.H. et al. (2022). Advancement in Airborne Particulate Estimation Using Machine Learning. In: Faruque, F.S. (eds) Geospatial Technology for Human Well-Being and Health. Springer, Cham. https://doi.org/10.1007/978-3-030-71377-5_13
+![Bike Study](/assets/img/bike_study.jpeg)
 
-- [Data Science Blog](https://medium.com/@shawhin)
+### Medical-Help-Drug-Recommendation-for-Accurate-Prescriptions
+May 2024 - Jun 2024
+[Publication](https://github.com/SaurabMishra12/Medical-Solutions-Comprehensive-Drug-Recommendation-for-Accurate-Prescriptions)
+
+This model is designed to build a decision support system for personalized drug recommendations based on patient data. By leveraging historical patient data and their responses to different medications, this project employs a Decision Tree classification algorithm to predict the most suitable drug for new patients. The system aims to enhance the precision and efficacy of medical prescriptions, thereby improving patient outcomes and optimizing healthcare delivery.
+![Bike Study](/assets/img/bike_study.jpeg)
+
+### Morphological-Discrimination-of-Neoplastic-Cells-for-Cancer-Diagnostic
+May 2024 - Jun 2024
+[Publication](https://github.com/SaurabMishra12/Morphological-Discrimination-of-Neoplastic-Cells-for-Cancer-Diagnostic)
+
+The aim of this project is to improve on cancer tests through morphological examination aimed at distinguishing cancer cells from benign cells. The study will employ a number of machine learning techniques particularly Support Vector Machines (SVM) on samples of cells considering their morphological characteristics like size shape formation among other features. We aim to come up with an automatic tool that helps doctors make correct and timely decisions during cancer diagnoses which are usually life threatening.n.
+
+![Bike Study](/assets/img/bike_study.jpeg)
+
+### Estimating CarWorthAI
+Mar 2024 - May 2024
+[Publication](https://github.com/SaurabMishra12/VehicularValuationPredictorAI)
+
+Developed a AI-driven model to accurately estimate the prices of used cars. The project involved comprehensive data science techniques and machine learning models with improved algorithm-data synthesis to enhance the overall stability and efficiency of the model.
+
+This version maintains the original intent and includes the additional emphasis on data science techniques and machine learning models.
+
+![Bike Study](/assets/img/bike_study.jpeg)
+
+### Algorithmic-Trading-and-Market-Insights-engine
+Jan 2024 - Apr 2024
+[Publication](https://github.com/SaurabMishra12/Predictive-Customer-Segmentation-for-Telecom-Services)
+
+Algorithmic Trading and Market Insights Engine, uses data science process such as Data Extraction,Data cleaning,Data preprocessing, visualisation,advanced algorithms and analytics to streamline trading strategies and offer deep market insights. Ideal for traders, investors, and financial institutions, it optimizes trading strategies and provides actionable market trends.
+
+  
+### DataCraft: SQL & Python
+Feb 2024 - Mar 2024 
+[Link](https://github.com/SaurabMishra12/Analyzing-Datasets-with-SQL-and-Python)
+
+This project demonstrates versatile applications across various domains. Explore datasets, leverage SQL for efficient querying, and harness Python's data analysis capabilities to unveil insights in unique ways.
+This project demonstrates versatile applications across various domains. Explore datasets, leverage SQL for efficient querying, and harness Python's data analysis capabilities to unveil insights in unique ways.
+Skills: SQL · Python · Relational Database Management System (RDBMS) · IBM Cloud · IBM Watson
+
+![Bike Study](/assets/img/bike_study.jpeg)
+
+## Certifications
+### 2023 What is Data Science? (IBM Certification)
+### 2023 Tools for Data Science (IBM Certification)
+### 2024 Data Science Methodology (IBM Certification)
+### 2024 Python for Data Science and AI (IBM Certification)
+### 2024 Python Project for Data Science (IBM Certification)
+### 2024 Databases and SQL for Data Science (IBM Certification)
+### 2024 Data Analysis with Python (IBM Certification)
+### 2024 Data Visualization with Python(IBM Certification)
+### 2024 Machine Learning with Python(IBM Certification)
+### 2024 Generative AI: Elevate Your Data Science Career
+
+
+
+
