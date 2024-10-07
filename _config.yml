@@ -2,14 +2,14 @@ title: Saurab Mishra
 logo: /assets/img/profile-pic(1).png
 description: Data Scientist | AI Researcher | Machine Learning Engineer | AI Systems Enthusiast
 show_downloads: true
-theme: jekyll-theme-minimal
+theme: jekyll-theme-hacker
 
 # Social links
 github_username: SaurabMishra12
 linkedin_username: saurab-mishra-493a73178
 
 # Additional settings
-google_analytics: UA-XXXXXXXXX-X # Replace with your Google Analytics tracking ID
+google_analytics: UA-XXXXXXXXX-X
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
@@ -20,27 +20,14 @@ plugins:
 nav:
   - {name: 'Home', link: '/'}
   - {name: 'Projects', link: '/projects'}
-  - {name: 'Research', link: '/research'}  # Added a research section for more professional tone
+  - {name: 'Research', link: '/research'}
   - {name: 'Experience', link: '/experience'}
   - {name: 'Education', link: '/education'}
   - {name: 'Certifications', link: '/certifications'}
-  - {name: 'Publications', link: '/publications'}  # A section for technical papers or blogs, can be optional
+  - {name: 'Publications', link: '/publications'}
   - {name: 'Contact', link: '/contact'}
-  - {name: 'Blog', link: '/blog'}  # Optional for adding your thoughts, insights, or tutorials in your domain
+  - {name: 'Blog', link: '/blog'}
 
-# Footer settings
+# Footer
 footer:
-  - {name: 'GitHub', link: 'https://github.com/SaurabMishra12'}
-  - {name: 'LinkedIn', link: 'https://www.linkedin.com/in/saurab-mishra-493a73178/'}
-  - {name: 'Email', link: 'mailto:saurab.mishra@example.com'}  # Add your professional email here
-
-# Contact information
-email: saurab.mishra@example.com  # Replace with your email
-phone: '+1-XXX-XXX-XXXX'  # Optional, add if relevant
-
-# SEO settings
-seo:
-  title: Saurab Mishra | AI & Data Science Professional
-  description: Explore the portfolio of Saurab Mishra, a Data Scientist and AI Researcher with experience in machine learning, AI systems, and data-driven solutions for big firms.
-  author: Saurab Mishra
-  image: /assets/img/profile-pic(1).png  # Update the path to your profile image
+  - {name: 'About', link: '/about'}
