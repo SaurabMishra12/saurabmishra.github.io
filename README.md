@@ -75,6 +75,6 @@ Passionate data scientist with expertise in machine learning, AI, and predictive
 ## 📫 Let's Connect
 Feel free to reach out for collaborations or just a chat about data science and AI!
 
-- Email: [saurab23@iisertvm.ac.in]
+- Email: saurab23@iisertvm.ac.in
 - LinkedIn: [Saurab Mishra](https://www.linkedin.com/in/saurab-mishra-493a73178/)
 - GitHub: [@SaurabMishra12](https://github.com/SaurabMishra12)
