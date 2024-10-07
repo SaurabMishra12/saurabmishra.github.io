@@ -69,8 +69,8 @@ Passionate data scientist with expertise in machine learning, AI, and predictive
 - Utilized data extraction, preprocessing, and advanced analytics for actionable market trends
 
 ## 📜 Certifications
-- IBM Data Science Professional Certification (9 courses completed)
-- Generative AI: Elevate Your Data Science Career
+- IBM Data Science Professional Certification (12 courses completed)
+
 
 ## 📫 Let's Connect
 Feel free to reach out for collaborations or just a chat about data science and AI!
