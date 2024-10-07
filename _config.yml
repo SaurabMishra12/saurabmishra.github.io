@@ -2,7 +2,7 @@ title: Saurab Mishra
 logo: /assets/img/profile-pic(1).png
 description: Data Scientist | AI Researcher | Machine Learning Engineer | AI Systems Enthusiast
 show_downloads: true
-theme: jekyll-theme-hacker
+theme: jekyll-theme-architect
 
 # Social links
 github_username: SaurabMishra12
@@ -24,10 +24,8 @@ nav:
   - {name: 'Experience', link: '/experience'}
   - {name: 'Education', link: '/education'}
   - {name: 'Certifications', link: '/certifications'}
-  - {name: 'Publications', link: '/publications'}
   - {name: 'Contact', link: '/contact'}
-  - {name: 'Blog', link: '/blog'}
 
 # Footer
 footer:
-  - {name: 'About', link: '/about'}
+  - {name: 'Terms', link: '/terms'}
