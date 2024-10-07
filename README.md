@@ -1,5 +1,5 @@
 # Saurab Mishra
-## Data Scientist | Machine Learning Engineer | AI Enthusiast
+## Data Science | Machine Learning | AI Enthusiast
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://www.linkedin.com/in/saurab-mishra-493a73178/)
 [![GitHub](https://img.shields.io/badge/GitHub-Follow-lightgrey)](https://github.com/SaurabMishra12)
@@ -8,11 +8,11 @@ Passionate data scientist with expertise in machine learning, AI, and predictive
 
 ### 🛠 Technical Skills
 - **Languages:** Python, SQL
-- **Cloud Platforms:** AWS, IBM Cloud
+- **Cloud Platforms:** AWS, IBM Cloud, Google Cloud
 - **Machine Learning & AI:** TensorFlow, PyTorch, Scikit-learn, IBM Watson
 - **Big Data:** Hadoop, Spark
 - **Tools:** Git, Docker, Jupyter Notebooks
-- **Databases:** MySQL, MongoDB, Firebase
+- **Databases:** MySQL, Firebase
 
 ## 🎓 Education
 **BS-MS Programme**  
@@ -22,7 +22,7 @@ Passionate data scientist with expertise in machine learning, AI, and predictive
 ## 💼 Professional Experience
 **Data Scientist | IBM Certified**
 - Applied advanced analytics and AI-driven solutions across diverse projects
-- Expertise in machine learning, data analysis, and predictive modeling
+- Expertise in machine learning, LLMs, data analysis, and predictive modeling
 - Developed fully operational websites integrating AI technologies
 
 ## 🚀 Featured Projects
@@ -75,6 +75,6 @@ Passionate data scientist with expertise in machine learning, AI, and predictive
 ## 📫 Let's Connect
 Feel free to reach out for collaborations or just a chat about data science and AI!
 
-- Email: [your.email@example.com]
+- Email: [saurab23@iisertvm.ac.in]
 - LinkedIn: [Saurab Mishra](https://www.linkedin.com/in/saurab-mishra-493a73178/)
 - GitHub: [@SaurabMishra12](https://github.com/SaurabMishra12)
