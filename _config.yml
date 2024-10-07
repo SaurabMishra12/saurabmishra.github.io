@@ -1,23 +1,46 @@
 title: Saurab Mishra
 logo: /assets/img/profile-pic(1).png
-description: Data Scientist | Machine Learning Engineer | AI Enthusiast
+description: Data Scientist | AI Researcher | Machine Learning Engineer | AI Systems Enthusiast
 show_downloads: true
-theme: jekyll-theme-minimal
+
 
 # Social links
 github_username: SaurabMishra12
 linkedin_username: saurab-mishra-493a73178
 
 # Additional settings
-google_analytics: # Add your Google Analytics tracking ID here
+google_analytics: UA-XXXXXXXXX-X # Replace with your Google Analytics tracking ID
 plugins:
   - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-paginate
 
 # Navigation
 nav:
   - {name: 'Home', link: '/'}
   - {name: 'Projects', link: '/projects'}
+  - {name: 'Research', link: '/research'}  # Added a research section for more professional tone
   - {name: 'Experience', link: '/experience'}
   - {name: 'Education', link: '/education'}
   - {name: 'Certifications', link: '/certifications'}
+  - {name: 'Publications', link: '/publications'}  # A section for technical papers or blogs, can be optional
   - {name: 'Contact', link: '/contact'}
+  - {name: 'Blog', link: '/blog'}  # Optional for adding your thoughts, insights, or tutorials in your domain
+
+# Footer settings
+footer:
+  - {name: 'GitHub', link: 'https://github.com/SaurabMishra12'}
+  - {name: 'LinkedIn', link: 'https://www.linkedin.com/in/saurab-mishra-493a73178/'}
+  - {name: 'Email', link: 'mailto:saurab.mishra@example.com'}  # Add your professional email here
+
+# Contact information
+email: saurab.mishra@example.com  # Replace with your email
+phone: '+1-XXX-XXX-XXXX'  # Optional, add if relevant
+
+# SEO settings
+seo:
+  title: Saurab Mishra | AI & Data Science Professional
+  description: Explore the portfolio of Saurab Mishra, a Data Scientist and AI Researcher with experience in machine learning, AI systems, and data-driven solutions for big firms.
+  author: Saurab Mishra
+  image: /assets/img/profile-pic(1).png  # Update the path to your profile image
