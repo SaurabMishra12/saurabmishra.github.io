@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saurab Mishra </title>
+    <title>Saurab Mishra - AI Powered Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
     <style>
         body {
-            background-image: linear-gradient(to right, #00b4db, #0083b0);
+            background-image: linear-gradient(to right, #0077b6, #00a8e8);
             background-size: 200% 200%;
             animation: gradient-animation 15s ease infinite;
         }
@@ -35,7 +35,7 @@
         .nav-link:before {
             content: "";
             position: absolute;
-            width: 40%;
+            width: 100%;
             height: 2px;
             bottom: 0;
             left: 0;
@@ -52,10 +52,32 @@
 
         .project-card {
             transition: transform 0.3s ease;
+            background-image: linear-gradient(to right, #0077b6, #00a8e8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .project-card:hover {
             transform: translateY(-5px);
+        }
+
+        .project-card h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .project-card p {
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-card a {
+            color: white;
+            font-weight: bold;
+            text-decoration: underline;
         }
 
         .toggle-nav {
@@ -99,7 +121,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 30%;
             height: 100%;
             background-color: #343a40;
             z-index: 90;
@@ -136,11 +158,22 @@
         .nav-bar a:hover {
             color: #0073e6;
         }
+
+        .profile-picture {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-image: url('https://via.placeholder.com/150');
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body class="font-sans">
     <div class="flex">
         <div class="nav-bar" id="nav-bar">
+            <div class="profile-picture"></div>
             <ul>
                 <li><a href="#about" class="nav-link">About Me</a></li>
                 <li><a href="#skills" class="nav-link">Technical Skills</a></li>
@@ -185,29 +218,29 @@
             <section id="projects" class="py-16 px-8 bg-white shadow-lg rounded-lg" data-aos="fade-up" data-aos-delay="400">
                 <h2 class="text-3xl font-bold mb-4 text-gray-800">🚀 Featured Projects</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="project-card bg-gray-100 rounded-lg p-6 animate__animated animate__fadeInUp">
-                        <h3 class="text-lg font-bold mb-2 text-gray-800">AI-Driven Educational Platform (Step Mentor)</h3>
-                        <p class="text-gray-600 mb-4">Developed an AI-powered platform for exam preparation with personalized study plans.</p>
-                        <a href="#" class="text-blue-500 hover:underline">🎥 View Demo</a>
+                    <div class="project-card animate__animated animate__fadeInUp">
+                        <h3>AI-Driven Educational Platform (Step Mentor)</h3>
+                        <p>Developed an AI-powered platform for exam preparation with personalized study plans.</p>
+                        <a href="#" class="font-bold">🎥 View Demo</a>
                     </div>
-                    <div class="project-card bg-gray-100 rounded-lg p-6 animate__animated animate__fadeInUp" data-aos-delay="100">
-                        <h3 class="text-lg font-bold mb-2 text-gray-800">Predicting Falcon 9 Landing Success</h3>
-                        <p class="text-gray-600 mb-4">Analyzed data to predict SpaceX rocket landing success.</p>
-                        <a href="#" class="text-blue-500 hover:underline">📊 GitHub Repository</a>
+                    <div class="project-card animate__animated animate__fadeInUp" data-aos-delay="100">
+                        <h3>Predicting Falcon 9 Landing Success</h3>
+                        <p>Analyzed data to predict SpaceX rocket landing success.</p>
+                        <a href="#" class="font-bold">📊 GitHub Repository</a>
                     </div>
-                    <div class="project-card bg-gray-100 rounded-lg p-6 animate__animated animate__fadeInUp" data-aos-delay="200">
-                        <h3 class="text-lg font-bold mb-2 text-gray-800">Customer Segmentation for Telecom Services</h3>
-                        <p class="text-gray-600 mb-4">Created predictive models for customer usage patterns.</p>
-                        <a href="#" class="text-blue-500 hover:underline">📱 GitHub Repository</a>
+                    <div class="project-card animate__animated animate__fadeInUp" data-aos-delay="200">
+                        <h3>Customer Segmentation for Telecom Services</h3>
+                        <p>Created predictive models for customer usage patterns.</p>
+                        <a href="#" class="font-bold">📱 GitHub Repository</a>
                     </div>
-                    <div class="project-card bg-gray-100 rounded-lg p-6 animate__animated animate__fadeInUp" data-aos-delay="300">
-                        <h3 class="text-lg font-bold mb-2 text-gray-800">Estimating Carbon Footprints in Automobiles</h3>
-                        <p class="text-gray-600 mb-4">Determined CO2 emissions for sustainable transportation.</p>
+                    <div class="project-card animate__animated animate__fadeInUp" data-aos-delay="300">
+                        <h3>Estimating Carbon Footprints in Automobiles</h3>
+                        <p>Determined CO2 emissions for sustainable transportation.</p>
                     </div>
-                    <div class="project-card bg-gray-100 rounded-lg p-6 animate__animated animate__fadeInUp" data-aos-delay="400">
-                        <h3 class="text-lg font-bold mb-2 text-gray-800">Medical Drug Recommendation System</h3>
-                        <p class="text-gray-600 mb-4">Built a decision support system for personalized medication.</p>
-                        <a href="#" class="text-blue-500 hover:underline">💊 GitHub Repository</a>
+                    <div class="project-card animate__animated animate__fadeInUp" data-aos-delay="400">
+                        <h3>Medical Drug Recommendation System</h3>
+                        <p>Built a decision support system for personalized medication.</p>
+                        <a href="#" class="font-bold">💊 GitHub Repository</a>
                     </div>
                 </div>
             </section>
@@ -225,8 +258,6 @@
                 <p class="text-gray-600 mb-4">LinkedIn: <a href="https://www.linkedin.com/in/saurabmishra" target="_blank" class="text-blue-500 hover:underline">Saurab Mishra</a></p>
                 <p class="text-gray-600 mb-4">GitHub: <a href="https://github.com/SaurabMishra12" target="_blank" class="text-blue-500 hover:underline">@SaurabMishra12</a></p>
             </section>
-
-           
         </div>
     </div>
 
