@@ -3,270 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saurab Mishra - Professional Portfolio</title>
+    <title>Saurab Mishra - Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        :root {
-            --main-bg-color: #f8f9fa;
-            --main-text-color: #343a40;
-            --accent-color: #007bff;
-            --secondary-color: #6c757d;
-            --section-bg-color: #fff;
-            --section-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        body {
-            font-family: 'Montserrat', Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: var(--main-bg-color);
-            color: var(--main-text-color);
+            box-sizing: border-box;
         }
-
-        .container {
-            width: 80%;
-            margin: 2rem auto;
-            background-color: var(--section-bg-color);
-            border-radius: 8px;
-            box-shadow: var(--section-shadow);
-            padding: 2rem;
-            animation: fade-in 0.5s ease-in-out;
-        }
-
-        .navbar {
-            background-color: var(--accent-color);
-            padding: 1rem;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            background-color: #e9ecef;
+            color: #333;
+        }
+        nav {
+            width: 250px;
+            background-color: #343a40;
             color: #fff;
-            border-radius: 0 0 8px 8px;
-            animation: slide-in 0.5s ease-in-out;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            position: fixed;
+            height: 100%;
+            padding: 20px;
         }
-
-        .navbar .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-decoration: none;
-            color: #fff;
-            transition: color 0.3s;
-        }
-
-        .navbar .logo:hover {
-            color: var(--secondary-color);
-        }
-
-        .navbar nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .navbar nav a {
-            color: #fff;
-            text-decoration: none;
-            margin-right: 1.5rem;
-            font-size: 1.1rem;
-            font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        .navbar nav a:hover {
-            color: var(--secondary-color);
-        }
-
-        .navbar nav a::after {
-            content: "";
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background-color: var(--secondary-color);
-            left: 0;
-            bottom: -5px;
-            transition: width 0.3s;
-        }
-
-        .navbar nav a:hover::after {
-            width: 100%;
-        }
-
-        .section {
-            margin-bottom: 2rem;
-            padding: 2rem;
-            border-radius: 8px;
-            background-color: var(--section-bg-color);
-            box-shadow: var(--section-shadow);
-            animation: fade-in-up 0.5s ease-in-out;
-        }
-
-        h2 {
+        nav h1 {
             text-align: center;
-            color: var(--accent-color);
-            animation: slide-in-top 0.5s ease-in-out;
+            margin-bottom: 30px;
+            color: #0073e6;
         }
-
-        .skills-list, .project-list {
+        nav ul {
             list-style: none;
-            padding: 0;
-            animation: fade-in-up 0.5s ease-in-out;
         }
-
-        .skills-list li, .project-list li {
-            margin-bottom: 1rem;
+        nav ul li {
+            margin-bottom: 20px;
         }
-
-        .project-list {
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        nav ul li a:hover {
+            color: #0073e6;
+        }
+        nav ul li a i {
+            margin-right: 10px;
+        }
+        .main-container {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+        }
+        .section {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+        .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+            gap: 20px;
         }
-
-        .project-item {
-            background-color: var(--main-bg-color);
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: var(--section-shadow);
-            transition: transform 0.3s, box-shadow 0.3s;
-            animation: scale-in 0.5s ease-in-out;
+        .project-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
-
-        .project-item:hover {
+        .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         }
-
-        .project-item img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .project-links a {
-            text-decoration: none;
-            color: var(--accent-color);
-            transition: color 0.3s;
-        }
-
-        .project-links a:hover {
-            color: var(--secondary-color);
-        }
-
-        .certifications-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            animation: fade-in-up 0.5s ease-in-out;
-        }
-
-        .certifications-list li {
-            background-color: var(--accent-color);
-            color: #fff;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            margin: 0.5rem;
-            box-shadow: var(--section-shadow);
-            transition: transform 0.3s, box-shadow 0.3s;
-            animation: scale-in 0.5s ease-in-out;
-        }
-
-        .certifications-list li:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-        }
-
-        footer {
+        .footer {
             text-align: center;
-            padding: 1rem;
-            background-color: var(--accent-color);
+            padding: 10px;
+            background-color: #343a40;
             color: #fff;
-            border-radius: 8px 8px 0 0;
-            animation: slide-in-up 0.5s ease-in-out;
-        }
-
-        @keyframes fade-in {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slide-in {
-            0% {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes slide-in-top {
-            0% {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes slide-in-up {
-            0% {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes fade-in-up {
-            0% {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes scale-in {
-            0% {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <a href="#" class="logo">Saurab Mishra</a>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#education">Education</a>
-            <a href="#projects">Projects</a>
-            <a href="#certifications">Certifications</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </div>
+    <nav>
+        <h1>Saurab Mishra</h1>
+        <ul>
+            <li><a href="#about"><i class="fas fa-user"></i> About Me</a></li>
+            <li><a href="#skills"><i class="fas fa-tools"></i> Technical Skills</a></li>
+            <li><a href="#education"><i class="fas fa-graduation-cap"></i> Education</a></li>
+            <li><a href="#projects"><i class="fas fa-project-diagram"></i> Projects</a></li>
+            <li><a href="#certifications"><i class="fas fa-certificate"></i> Certifications</a></li>
+            <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </nav>
 
-    <div class="container">
+    <div class="main-container">
         <section id="about" class="section">
             <h2>About Me</h2>
             <p>Passionate data scientist with expertise in machine learning, AI, and predictive modeling. Currently pursuing a BS-MS Programme at the Indian Institute of Science Education and Research (IISER), Thiruvananthapuram. IBM-certified professional with a track record of developing innovative solutions across various domains.</p>
@@ -274,7 +105,7 @@
 
         <section id="skills" class="section">
             <h2>🛠 Technical Skills</h2>
-            <ul class="skills-list">
+            <ul>
                 <li><strong>Languages:</strong> Python, SQL</li>
                 <li><strong>Cloud Platforms:</strong> AWS, IBM Cloud, Google Cloud</li>
                 <li><strong>Machine Learning & AI:</strong> TensorFlow, PyTorch, Scikit-learn, IBM Watson</li>
@@ -291,79 +122,37 @@
 
         <section id="projects" class="section">
             <h2>🚀 Featured Projects</h2>
-            <ul class="project-list">
-                <li class="project-item">
-                    <img src="https://via.placeholder.com/300x200" alt="Project 1">
+            <div class="projects-grid">
+                <div class="project-card">
                     <h3>AI-Driven Educational Platform (Step Mentor)</h3>
                     <p>Developed an AI-powered platform for exam preparation with personalized study plans.</p>
-                    <div class="project-links">
-                        <a href="#">🎥 View Demo</a>
-                    </div>
-                </li>
-                <li class="project-item">
-                    <img src="https://via.placeholder.com/300x200" alt="Project 2">
+                    <a href="#">🎥 View Demo</a>
+                </div>
+                <div class="project-card">
                     <h3>Predicting Falcon 9 Landing Success</h3>
                     <p>Analyzed data to predict SpaceX rocket landing success.</p>
-                    <div class="project-links">
-                        <a href="#">📊 GitHub Repository</a>
-                    </div>
-                </li>
-                <li class="project-item">
-                    <img src="https://via.placeholder.com/300x200" alt="Project 3">
+                    <a href="#">📊 GitHub Repository</a>
+                </div>
+                <div class="project-card">
                     <h3>Customer Segmentation for Telecom Services</h3>
                     <p>Created predictive models for customer usage patterns.</p>
-                    <div class="project-links">
-                        <a href="#">📱 GitHub Repository</a>
-                    </div>
-                </li>
-                <li class="project-item">
-                    <img src="https://via.placeholder.com/300x200" alt="Project 4">
+                    <a href="#">📱 GitHub Repository</a>
+                </div>
+                <div class="project-card">
                     <h3>Estimating Carbon Footprints in Automobiles</h3>
-                    <p>Focused on determining CO2 emissions for sustainable solutions.</p>
-                </li>
-                <li class="project-item">
-                    <img src="https://via.placeholder.com/300x200" alt="Project 5">
+                    <p>Determined CO2 emissions for sustainable transportation.</p>
+                </div>
+                <div class="project-card">
                     <h3>Medical Drug Recommendation System</h3>
                     <p>Built a decision support system for personalized medication.</p>
-                    <div class="project-links">
-                        <a href="#">💊 GitHub Repository</a>
-                    </div>
-                </li>
-                <li class="project-item">
-                    <img src="https://via.placeholder.com/300x200" alt="Project 6">
-                    <h3>Morphological Discrimination of Neoplastic Cells</h3>
-                    <p>Developed a tool for cancer cell identification.</p>
-                    <div class="project-links">
-                        <a href="#">🔬 GitHub Repository</a>
-                    </div>
-                </li>
-                <li class="project-item">
-                    <img src="https://via.placeholder.com/300x200" alt="Project 7">
-                    <h3>CarWorthAI: Used Car Price Estimator</h3>
-                    <p>Created an AI model for price estimation.</p>
-                    <div class="project-links">
-                        <a href="#">🚙 GitHub Repository</a>
-                    </div>
-                </li>
-                <li class="project-item">
-                    <img src="https://via.placeholder.com/300x200" alt="Project 8">
-                    <h3>Algorithmic Trading and Market Insights Engine</h3>
-                    <p>Built for strategy optimization and market analysis.</p>
-                    <div class="project-links">
-                        <a href="#">📈 GitHub Repository</a>
-                    </div>
-                </li>
-            </ul>
+                    <a href="#">💊 GitHub Repository</a>
+                </div>
+            </div>
         </section>
 
         <section id="certifications" class="section">
             <h2>📜 Certifications</h2>
-            <ul class="certifications-list">
-                <li>IBM Data Science Professional Certification</li>
-                <li>Google Cloud Certified Associate Cloud Engineer</li>
-                <li>AWS Certified Solutions Architect - Associate</li>
-                <li>Microsoft Certified: Azure Fundamentals</li>
-            </ul>
+            <p>IBM Data Science Professional Certification (12 courses completed)</p>
         </section>
 
         <section id="contact" class="section">
@@ -372,10 +161,10 @@
             <p>LinkedIn: <a href="https://www.linkedin.com/in/saurabmishra" target="_blank">Saurab Mishra</a></p>
             <p>GitHub: <a href="https://github.com/SaurabMishra12" target="_blank">@SaurabMishra12</a></p>
         </section>
-    </div>
 
-    <footer>
-        <p>&copy; 2024 Saurab Mishra | All Rights Reserved</p>
-    </footer>
+        <div class="footer">
+            <p>&copy; 2024 Saurab Mishra | All Rights Reserved</p>
+        </div>
+    </div>
 </body>
 </html>
