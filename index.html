@@ -3,168 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saurab Mishra - Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            background-color: #e9ecef;
-            color: #333;
-        }
-        nav {
-            width: 250px;
-            background-color: #343a40;
-            color: #fff;
-            position: fixed;
-            height: 100%;
-            padding: 20px;
-        }
-        nav h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #0073e6;
-        }
-        nav ul {
-            list-style: none;
-        }
-        nav ul li {
-            margin-bottom: 20px;
-        }
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-        nav ul li a:hover {
-            color: #0073e6;
-        }
-        nav ul li a i {
-            margin-right: 10px;
-        }
-        .main-container {
-            margin-left: 250px;
-            padding: 20px;
-            width: calc(100% - 250px);
-        }
-        .section {
-            background: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-        }
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .project-card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        .project-card:hover {
-            transform: translateY(-5px);
-        }
-        .footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #343a40;
-            color: #fff;
-            border-radius: 10px;
-        }
-    </style>
+    <title>Saurab Mishra - Professional Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
 </head>
-<body>
-    <nav>
-        <h1>Saurab Mishra</h1>
-        <ul>
-            <li><a href="#about"><i class="fas fa-user"></i> About Me</a></li>
-            <li><a href="#skills"><i class="fas fa-tools"></i> Technical Skills</a></li>
-            <li><a href="#education"><i class="fas fa-graduation-cap"></i> Education</a></li>
-            <li><a href="#projects"><i class="fas fa-project-diagram"></i> Projects</a></li>
-            <li><a href="#certifications"><i class="fas fa-certificate"></i> Certifications</a></li>
-            <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-        </ul>
-    </nav>
-
-    <div class="main-container">
-        <section id="about" class="section">
-            <h2>About Me</h2>
-            <p>Passionate data scientist with expertise in machine learning, AI, and predictive modeling. Currently pursuing a BS-MS Programme at the Indian Institute of Science Education and Research (IISER), Thiruvananthapuram. IBM-certified professional with a track record of developing innovative solutions across various domains.</p>
-        </section>
-
-        <section id="skills" class="section">
-            <h2>🛠 Technical Skills</h2>
-            <ul>
-                <li><strong>Languages:</strong> Python, SQL</li>
-                <li><strong>Cloud Platforms:</strong> AWS, IBM Cloud, Google Cloud</li>
-                <li><strong>Machine Learning & AI:</strong> TensorFlow, PyTorch, Scikit-learn, IBM Watson</li>
-                <li><strong>Big Data:</strong> Hadoop, Spark</li>
-                <li><strong>Tools:</strong> Git, Docker, Jupyter Notebooks</li>
-                <li><strong>Databases:</strong> MySQL, Firebase</li>
-            </ul>
-        </section>
-
-        <section id="education" class="section">
-            <h2>🎓 Education</h2>
-            <p><strong>BS-MS Programme</strong><br>Indian Institute of Science Education and Research (IISER), Thiruvananthapuram<br>2023 – 2028</p>
-        </section>
-
-        <section id="projects" class="section">
-            <h2>🚀 Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <h3>AI-Driven Educational Platform (Step Mentor)</h3>
-                    <p>Developed an AI-powered platform for exam preparation with personalized study plans.</p>
-                    <a href="#">🎥 View Demo</a>
-                </div>
-                <div class="project-card">
-                    <h3>Predicting Falcon 9 Landing Success</h3>
-                    <p>Analyzed data to predict SpaceX rocket landing success.</p>
-                    <a href="#">📊 GitHub Repository</a>
-                </div>
-                <div class="project-card">
-                    <h3>Customer Segmentation for Telecom Services</h3>
-                    <p>Created predictive models for customer usage patterns.</p>
-                    <a href="#">📱 GitHub Repository</a>
-                </div>
-                <div class="project-card">
-                    <h3>Estimating Carbon Footprints in Automobiles</h3>
-                    <p>Determined CO2 emissions for sustainable transportation.</p>
-                </div>
-                <div class="project-card">
-                    <h3>Medical Drug Recommendation System</h3>
-                    <p>Built a decision support system for personalized medication.</p>
-                    <a href="#">💊 GitHub Repository</a>
-                </div>
+<body class="font-sans bg-gray-100">
+    <div class="flex">
+        <nav class="bg-gray-800 text-white w-64 h-screen fixed">
+            <div class="py-8 px-6">
+                <h1 class="text-2xl font-bold text-blue-500 mb-8 animate__animated animate__fadeInDown">Saurab Mishra</h1>
+                <ul class="space-y-4">
+                    <li><a href="#about" class="flex items-center hover:text-blue-500 transition-colors duration-300 animate__animated animate__fadeInLeft" data-aos="fade-right" data-aos-delay="100"><i class="fas fa-user mr-2"></i> About Me</a></li>
+                    <li><a href="#skills" class="flex items-center hover:text-blue-500 transition-colors duration-300 animate__animated animate__fadeInLeft" data-aos="fade-right" data-aos-delay="200"><i class="fas fa-tools mr-2"></i> Technical Skills</a></li>
+                    <li><a href="#education" class="flex items-center hover:text-blue-500 transition-colors duration-300 animate__animated animate__fadeInLeft" data-aos="fade-right" data-aos-delay="300"><i class="fas fa-graduation-cap mr-2"></i> Education</a></li>
+                    <li><a href="#projects" class="flex items-center hover:text-blue-500 transition-colors duration-300 animate__animated animate__fadeInLeft" data-aos="fade-right" data-aos-delay="400"><i class="fas fa-project-diagram mr-2"></i> Projects</a></li>
+                    <li><a href="#certifications" class="flex items-center hover:text-blue-500 transition-colors duration-300 animate__animated animate__fadeInLeft" data-aos="fade-right" data-aos-delay="500"><i class="fas fa-certificate mr-2"></i> Certifications</a></li>
+                    <li><a href="#contact" class="flex items-center hover:text-blue-500 transition-colors duration-300 animate__animated animate__fadeInLeft" data-aos="fade-right" data-aos-delay="600"><i class="fas fa-envelope mr-2"></i> Contact</a></li>
+                </ul>
             </div>
-        </section>
+        </nav>
 
-        <section id="certifications" class="section">
-            <h2>📜 Certifications</h2>
-            <p>IBM Data Science Professional Certification (12 courses completed)</p>
-        </section>
+        <div class="ml-64 w-full">
+            <section id="about" class="py-16 px-8 animate__animated animate__fadeIn" data-aos="fade-up" data-aos-delay="100">
+                <h2 class="text-3xl font-bold mb-4">About Me</h2>
+                <p class="text-gray-700 leading-relaxed">Passionate data scientist with expertise in machine learning, AI, and predictive modeling. Currently pursuing a BS-MS Programme at the Indian Institute of Science Education and Research (IISER), Thiruvananthapuram. IBM-certified professional with a track record of developing innovative solutions across various domains.</p>
+            </section>
 
-        <section id="contact" class="section">
-            <h2>📫 Let's Connect</h2>
-            <p>Email: <a href="mailto:saurab23@iisertvm.ac.in">saurab23@iisertvm.ac.in</a></p>
-            <p>LinkedIn: <a href="https://www.linkedin.com/in/saurabmishra" target="_blank">Saurab Mishra</a></p>
-            <p>GitHub: <a href="https://github.com/SaurabMishra12" target="_blank">@SaurabMishra12</a></p>
-        </section>
+            <section id="skills" class="py-16 px-8 bg-white shadow-lg rounded-lg animate__animated animate__fadeIn" data-aos="fade-up" data-aos-delay="200">
+                <h2 class="text-3xl font-bold mb-4">🛠 Technical Skills</h2>
+                <ul class="grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-700">
+                    <li><strong>Languages:</strong> Python, SQL</li>
+                    <li><strong>Cloud Platforms:</strong> AWS, IBM Cloud, Google Cloud</li>
+                    <li><strong>Machine Learning & AI:</strong> TensorFlow, PyTorch, Scikit-learn, IBM Watson</li>
+                    <li><strong>Big Data:</strong> Hadoop, Spark</li>
+                    <li><strong>Tools:</strong> Git, Docker, Jupyter Notebooks</li>
+                    <li><strong>Databases:</strong> MySQL, Firebase</li>
+                </ul>
+            </section>
 
-        <div class="footer">
-            <p>&copy; 2024 Saurab Mishra | All Rights Reserved</p>
+            <section id="education" class="py-16 px-8 animate__animated animate__fadeIn" data-aos="fade-up" data-aos-delay="300">
+                <h2 class="text-3xl font-bold mb-4">🎓 Education</h2>
+                <div class="bg-white shadow-lg rounded-lg p-6">
+                    <p><strong>BS-MS Programme</strong><br>Indian Institute of Science Education and Research (IISER), Thiruvananthapuram<br>2023 – 2028</p>
+                </div>
+            </section>
+
+            <section id="projects" class="py-16 px-8 bg-white shadow-lg rounded-lg animate__animated animate__fadeIn" data-aos="fade-up" data-aos-delay="400">
+                <h2 class="text-3xl font-bold mb-4">🚀 Featured Projects</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-gray-100 rounded-lg p-6 hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-lg font-bold mb-2">AI-Driven Educational Platform (Step Mentor)</h3>
+                        <p class="text-gray-700 mb-4">Developed an AI-powered platform for exam preparation with personalized study plans.</p>
+                        <a href="#" class="text-blue-500 hover:underline">🎥 View Demo</a>
+                    </div>
+                    <div class="bg-gray-100 rounded-lg p-6 hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-lg font-bold mb-2">Predicting Falcon 9 Landing Success</h3>
+                        <p class="text-gray-700 mb-4">Analyzed data to predict SpaceX rocket landing success.</p>
+                        <a href="#" class="text-blue-500 hover:underline">📊 GitHub Repository</a>
+                    </div>
+                    <div class="bg-gray-100 rounded-lg p-6 hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-lg font-bold mb-2">Customer Segmentation for Telecom Services</h3>
+                        <p class="text-gray-700 mb-4">Created predictive models for customer usage patterns.</p>
+                        <a href="#" class="text-blue-500 hover:underline">📱 GitHub Repository</a>
+                    </div>
+                    <div class="bg-gray-100 rounded-lg p-6 hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-lg font-bold mb-2">Estimating Carbon Footprints in Automobiles</h3>
+                        <p class="text-gray-700 mb-4">Determined CO2 emissions for sustainable transportation.</p>
+                    </div>
+                    <div class="bg-gray-100 rounded-lg p-6 hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-lg font-bold mb-2">Medical Drug Recommendation System</h3>
+                        <p class="text-gray-700 mb-4">Built a decision support system for personalized medication.</p>
+                        <a href="#" class="text-blue-500 hover:underline">💊 GitHub Repository</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="certifications" class="py-16 px-8 animate__animated animate__fadeIn" data-aos="fade-up" data-aos-delay="500">
+                <h2 class="text-3xl font-bold mb-4">📜 Certifications</h2>
+                <div class="bg-white shadow-lg rounded-lg p-6">
+                    <p>IBM Data Science Professional Certification (12 courses completed)</p>
+                </div>
+            </section>
+
+            <section id="contact" class="py-16 px-8 bg-white shadow-lg rounded-lg animate__animated animate__fadeIn" data-aos="fade-up" data-aos-delay="600">
+                <h2 class="text-3xl font-bold mb-4">📫 Let's Connect</h2>
+                <p class="text-gray-700 mb-4">Email: <a href="mailto:saurab23@iisertvm.ac.in" class="text-blue-500 hover:underline">saurab23@iisertvm.ac.in</a></p>
+                <p class="text-gray-700 mb-4">LinkedIn: <a href="https://www.linkedin.com/in/saurabmishra" target="_blank" class="text-blue-500 hover:underline">Saurab Mishra</a></p>
+                <p class="text-gray-700 mb-4">GitHub: <a href="https://github.com/SaurabMishra12" target="_blank" class="text-blue-500 hover:underline">@SaurabMishra12</a></p>
+            </section>
+
+            <footer class="bg-gray-800 text-white py-4 px-8 rounded-t-lg animate__animated animate__fadeInUp">
+                <p class="text-center">&copy; 2024 Saurab Mishra | All Rights Reserved</p>
+            </footer>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            duration: 1000,
+        });
+    </script>
 </body>
 </html>
