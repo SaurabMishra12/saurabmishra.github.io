@@ -9,48 +9,79 @@
         :root {
             --main-bg-color: #f4f4f4;
             --main-text-color: #333;
-            --dark-bg-color: #1e1e2f;
-            --dark-text-color: #eaeaea;
-            --highlight-color: #0073e6;
+            --dark-bg-color: #202124;
+            --dark-text-color: #e8eaed;
+            --highlight-color: #1a73e8;
+            --gradient-start: #1a73e8;
+            --gradient-end: #4285f4;
         }
+
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Google Sans', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--main-bg-color);
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
             color: var(--main-text-color);
             transition: background-color 0.3s, color 0.3s;
         }
+
+        .body.dark-mode {
+            background: var(--dark-bg-color);
+            color: var(--dark-text-color);
+        }
+
+        .container {
+            width: 80%;
+            margin: 2rem auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .body.dark-mode .container {
+            background-color: var(--dark-bg-color);
+            color: var(--dark-text-color);
+        }
+
         .navbar {
-            background-color: #333;
+            background-color: var(--dark-bg-color);
             padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: #fff;
+            color: var(--dark-text-color);
+            border-radius: 8px 8px 0 0;
         }
+
         .navbar a {
-            color: #fff;
+            color: var(--dark-text-color);
             text-decoration: none;
             margin-right: 1rem;
         }
+
         .navbar a:hover {
             color: var(--highlight-color);
         }
-        .container {
-            width: 80%;
-            margin: 2rem auto;
-        }
+
         .section {
             margin-bottom: 2rem;
             padding: 2rem;
-            border-radius: 10px;
+            border-radius: 8px;
             background-color: #fff;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
+
+        .body.dark-mode .section {
+            background-color: var(--dark-bg-color);
+            color: var(--dark-text-color);
+        }
+
         h2 {
             text-align: center;
+            color: var(--highlight-color);
         }
+
         .toggle-button {
             padding: 0.5rem 1rem;
             background-color: var(--highlight-color);
@@ -59,37 +90,36 @@
             cursor: pointer;
             border-radius: 5px;
         }
+
         .toggle-button:hover {
-            background-color: #005bb5;
+            background-color: #1c60c8;
         }
+
         .skills-list, .project-list {
             list-style: none;
             padding: 0;
         }
+
         .skills-list li, .project-list li {
             margin-bottom: 1rem;
         }
+
         .project-links a {
             text-decoration: none;
             color: var(--highlight-color);
         }
+
         footer {
             text-align: center;
             padding: 1rem;
-            background: #333;
-            color: #fff;
+            background: var(--dark-bg-color);
+            color: var(--dark-text-color);
+            border-radius: 0 0 8px 8px;
         }
     </style>
     <script>
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
-            if (document.body.classList.contains('dark-mode')) {
-                document.documentElement.style.setProperty('--main-bg-color', '#1e1e2f');
-                document.documentElement.style.setProperty('--main-text-color', '#eaeaea');
-            } else {
-                document.documentElement.style.setProperty('--main-bg-color', '#f4f4f4');
-                document.documentElement.style.setProperty('--main-text-color', '#333');
-            }
         }
     </script>
 </head>
