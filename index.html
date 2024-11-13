@@ -3,72 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saurab Mishra - Data Scientist Portfolio</title>
+    <title>Saurab Mishra - Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        :root {
+            --main-bg-color: #f4f4f4;
+            --main-text-color: #333;
+            --dark-bg-color: #1e1e2f;
+            --dark-text-color: #eaeaea;
+            --highlight-color: #0073e6;
+        }
         body {
             font-family: 'Arial', sans-serif;
-            line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: var(--main-bg-color);
+            color: var(--main-text-color);
+            transition: background-color 0.3s, color 0.3s;
         }
-        header {
-            background: #333;
+        .navbar {
+            background-color: #333;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             color: #fff;
-            padding: 1rem 2rem;
-            text-align: center;
+        }
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 1rem;
+        }
+        .navbar a:hover {
+            color: var(--highlight-color);
         }
         .container {
             width: 80%;
-            margin: auto;
-            overflow: hidden;
-            padding: 2rem 0;
+            margin: 2rem auto;
         }
-        .profile-section, .projects-section, .certifications-section, .contact-section {
-            background: #fff;
-            padding: 2rem;
+        .section {
             margin-bottom: 2rem;
+            padding: 2rem;
             border-radius: 10px;
+            background-color: #fff;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         h2 {
             text-align: center;
-            margin-bottom: 1rem;
+        }
+        .toggle-button {
+            padding: 0.5rem 1rem;
+            background-color: var(--highlight-color);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .toggle-button:hover {
+            background-color: #005bb5;
+        }
+        .skills-list, .project-list {
+            list-style: none;
+            padding: 0;
         }
         .skills-list li, .project-list li {
             margin-bottom: 1rem;
         }
-        .contact-info a {
-            color: #0073e6;
+        .project-links a {
             text-decoration: none;
+            color: var(--highlight-color);
         }
-        .footer {
+        footer {
             text-align: center;
             padding: 1rem;
             background: #333;
             color: #fff;
         }
     </style>
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                document.documentElement.style.setProperty('--main-bg-color', '#1e1e2f');
+                document.documentElement.style.setProperty('--main-text-color', '#eaeaea');
+            } else {
+                document.documentElement.style.setProperty('--main-bg-color', '#f4f4f4');
+                document.documentElement.style.setProperty('--main-text-color', '#333');
+            }
+        }
+    </script>
 </head>
 <body>
-    <header>
+    <div class="navbar">
         <h1>Saurab Mishra</h1>
-        <p>Data Science | Machine Learning | AI Enthusiast</p>
-        <div>
-            <a href="https://www.linkedin.com/in/saurabmishra" target="_blank" class="fab fa-linkedin" style="color: #fff; margin-right: 1rem;"></a>
-            <a href="https://github.com/SaurabMishra12" target="_blank" class="fab fa-github" style="color: #fff;"></a>
-        </div>
-    </header>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#education">Education</a>
+            <a href="#projects">Projects</a>
+            <a href="#certifications">Certifications</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <button class="toggle-button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    </div>
 
     <div class="container">
-        <section class="profile-section">
+        <section id="about" class="section">
             <h2>About Me</h2>
             <p>Passionate data scientist with expertise in machine learning, AI, and predictive modeling. Currently pursuing a BS-MS Programme at the Indian Institute of Science Education and Research (IISER), Thiruvananthapuram. IBM-certified professional with a track record of developing innovative solutions across various domains.</p>
         </section>
 
-        <section class="profile-section">
+        <section id="skills" class="section">
             <h2>🛠 Technical Skills</h2>
             <ul class="skills-list">
                 <li><strong>Languages:</strong> Python, SQL</li>
@@ -80,47 +125,31 @@
             </ul>
         </section>
 
-        <section class="profile-section">
+        <section id="education" class="section">
             <h2>🎓 Education</h2>
             <p><strong>BS-MS Programme</strong><br>Indian Institute of Science Education and Research (IISER), Thiruvananthapuram<br>2023 – 2028</p>
         </section>
 
-        <section class="projects-section">
+        <section id="projects" class="section">
             <h2>🚀 Featured Projects</h2>
             <ul class="project-list">
-                <li>
-                    <strong>AI-Driven Educational Platform (Step Mentor)</strong> – Developed an AI-powered platform for exam preparation with personalized study plans. <a href="#">🎥 View Demo</a>
-                </li>
-                <li>
-                    <strong>Predicting Falcon 9 Landing Success</strong> – Analyzed data to predict SpaceX rocket landing success. <a href="#">📊 GitHub Repository</a>
-                </li>
-                <li>
-                    <strong>Customer Segmentation for Telecom Services</strong> – Created predictive models for customer usage patterns. <a href="#">📱 GitHub Repository</a>
-                </li>
-                <li>
-                    <strong>Estimating Carbon Footprints in Automobiles</strong> – Focused on determining CO2 emissions for sustainable solutions.
-                </li>
-                <li>
-                    <strong>Medical Drug Recommendation System</strong> – Built a decision support system for personalized medication. <a href="#">💊 GitHub Repository</a>
-                </li>
-                <li>
-                    <strong>Morphological Discrimination of Neoplastic Cells</strong> – Developed a tool for cancer cell identification. <a href="#">🔬 GitHub Repository</a>
-                </li>
-                <li>
-                    <strong>CarWorthAI: Used Car Price Estimator</strong> – Created an AI model for price estimation. <a href="#">🚙 GitHub Repository</a>
-                </li>
-                <li>
-                    <strong>Algorithmic Trading and Market Insights Engine</strong> – Built for strategy optimization and market analysis. <a href="#">📈 GitHub Repository</a>
-                </li>
+                <li><strong>AI-Driven Educational Platform (Step Mentor)</strong> – Developed an AI-powered platform for exam preparation with personalized study plans. <span class="project-links"><a href="#">🎥 View Demo</a></span></li>
+                <li><strong>Predicting Falcon 9 Landing Success</strong> – Analyzed data to predict SpaceX rocket landing success. <span class="project-links"><a href="#">📊 GitHub Repository</a></span></li>
+                <li><strong>Customer Segmentation for Telecom Services</strong> – Created predictive models for customer usage patterns. <span class="project-links"><a href="#">📱 GitHub Repository</a></span></li>
+                <li><strong>Estimating Carbon Footprints in Automobiles</strong> – Focused on determining CO2 emissions for sustainable solutions.</li>
+                <li><strong>Medical Drug Recommendation System</strong> – Built a decision support system for personalized medication. <span class="project-links"><a href="#">💊 GitHub Repository</a></span></li>
+                <li><strong>Morphological Discrimination of Neoplastic Cells</strong> – Developed a tool for cancer cell identification. <span class="project-links"><a href="#">🔬 GitHub Repository</a></span></li>
+                <li><strong>CarWorthAI: Used Car Price Estimator</strong> – Created an AI model for price estimation. <span class="project-links"><a href="#">🚙 GitHub Repository</a></span></li>
+                <li><strong>Algorithmic Trading and Market Insights Engine</strong> – Built for strategy optimization and market analysis. <span class="project-links"><a href="#">📈 GitHub Repository</a></span></li>
             </ul>
         </section>
 
-        <section class="certifications-section">
+        <section id="certifications" class="section">
             <h2>📜 Certifications</h2>
             <p>IBM Data Science Professional Certification (12 courses completed)</p>
         </section>
 
-        <section class="contact-section">
+        <section id="contact" class="section">
             <h2>📫 Let's Connect</h2>
             <p>Email: <a href="mailto:saurab23@iisertvm.ac.in">saurab23@iisertvm.ac.in</a></p>
             <p>LinkedIn: <a href="https://www.linkedin.com/in/saurabmishra" target="_blank">Saurab Mishra</a></p>
@@ -128,7 +157,7 @@
         </section>
     </div>
 
-    <footer class="footer">
+    <footer>
         <p>&copy; 2024 Saurab Mishra | All Rights Reserved</p>
     </footer>
 </body>
