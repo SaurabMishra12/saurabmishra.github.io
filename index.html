@@ -7,62 +7,79 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --main-bg-color: #121212;
-            --main-text-color: #e0e0e0;
-            --accent-color: #2196f3;
-            --secondary-color: #ff6b6b;
-            --gradient-start: #2196f3;
-            --gradient-end: #ff6b6b;
+            --main-bg-color: #f5f5f5;
+            --main-text-color: #333;
+            --dark-bg-color: #121212;
+            --dark-text-color: #f5f5f5;
+            --accent-color: #007bff;
+            --secondary-color: #dc3545;
         }
 
         body {
-            font-family: 'Orbitron', Arial, sans-serif;
+            font-family: 'Poppins', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            background-color: var(--main-bg-color);
             color: var(--main-text-color);
             transition: background-color 0.3s, color 0.3s;
+        }
+
+        .body.dark-mode {
+            background-color: var(--dark-bg-color);
+            color: var(--dark-text-color);
         }
 
         .container {
             width: 80%;
             margin: 2rem auto;
-            background-color: var(--main-bg-color);
+            background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             padding: 2rem;
             animation: fade-in 0.5s ease-in-out;
         }
 
+        .body.dark-mode .container {
+            background-color: var(--dark-bg-color);
+            color: var(--dark-text-color);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+
         .navbar {
-            background-color: var(--main-bg-color);
+            background-color: var(--accent-color);
             padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: var(--main-text-color);
+            color: #fff;
             border-radius: 8px 8px 0 0;
             animation: slide-in 0.5s ease-in-out;
         }
 
         .navbar a {
-            color: var(--main-text-color);
+            color: #fff;
             text-decoration: none;
             margin-right: 1rem;
             transition: color 0.3s;
         }
 
         .navbar a:hover {
-            color: var(--accent-color);
+            color: var(--secondary-color);
         }
 
         .section {
             margin-bottom: 2rem;
             padding: 2rem;
             border-radius: 8px;
-            background-color: var(--main-bg-color);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             animation: fade-in 0.5s ease-in-out;
+        }
+
+        .body.dark-mode .section {
+            background-color: var(--dark-bg-color);
+            color: var(--dark-text-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         h2 {
@@ -80,10 +97,16 @@
             border-radius: 5px;
             animation: pulse 1s infinite;
             transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
         }
 
         .toggle-button:hover {
-            background-color: #1976d2;
+            background-color: #0056b3;
+        }
+
+        .toggle-button i {
+            margin-right: 0.5rem;
         }
 
         .skills-list, .project-list {
@@ -94,15 +117,37 @@
 
         .skills-list li, .project-list li {
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
         }
 
-        .skills-list li:before, .project-list li:before {
-            content: "▶";
-            color: var(--accent-color);
-            margin-right: 0.5rem;
-            animation: pulse-small 1s infinite;
+        .project-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-item {
+            background-color: #f5f5f5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .body.dark-mode .project-item {
+            background-color: #222;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1rem;
         }
 
         .project-links a {
@@ -115,18 +160,38 @@
             color: var(--secondary-color);
         }
 
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--accent-color);
-            animation: rotate-in 0.5s ease-in-out;
+        .certifications-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fade-in-up 0.5s ease-in-out;
+        }
+
+        .certifications-list li {
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            margin: 0.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .body.dark-mode .certifications-list li {
+            background-color: #007bff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .certifications-list li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
         }
 
         footer {
             text-align: center;
             padding: 1rem;
-            background: var(--main-bg-color);
-            color: var(--main-text-color);
+            background-color: var(--accent-color);
+            color: #fff;
             border-radius: 0 0 8px 8px;
             animation: slide-in-up 0.5s ease-in-out;
         }
@@ -195,29 +260,6 @@
                 transform: scale(1);
             }
         }
-
-        @keyframes pulse-small {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.3);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        @keyframes rotate-in {
-            0% {
-                transform: rotate(-360deg);
-                opacity: 0;
-            }
-            100% {
-                transform: rotate(0deg);
-                opacity: 1;
-            }
-        }
     </style>
     <script>
         function toggleDarkMode() {
@@ -227,9 +269,7 @@
 </head>
 <body>
     <div class="navbar">
-        <div class="logo">
-            <i class="fas fa-code"></i> Saurab Mishra
-        </div>
+        <a href="#" class="logo">Saurab Mishra</a>
         <nav>
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
@@ -239,7 +279,7 @@
             <a href="#contact">Contact</a>
         </nav>
         <button class="toggle-button" onclick="toggleDarkMode()">
-            <i class="fas fa-moon"></i> Toggle Dark Mode
+            <i class="fas fa-moon"></i> Dark Mode
         </button>
     </div>
 
@@ -269,20 +309,78 @@
         <section id="projects" class="section">
             <h2>🚀 Featured Projects</h2>
             <ul class="project-list">
-                <li><strong>AI-Driven Educational Platform (Step Mentor)</strong> – Developed an AI-powered platform for exam preparation with personalized study plans. <span class="project-links"><a href="#">🎥 View Demo</a></span></li>
-                <li><strong>Predicting Falcon 9 Landing Success</strong> – Analyzed data to predict SpaceX rocket landing success. <span class="project-links"><a href="#">📊 GitHub Repository</a></span></li>
-                <li><strong>Customer Segmentation for Telecom Services</strong> – Created predictive models for customer usage patterns. <span class="project-links"><a href="#">📱 GitHub Repository</a></span></li>
-                <li><strong>Estimating Carbon Footprints in Automobiles</strong> – Focused on determining CO2 emissions for sustainable solutions.</li>
-                <li><strong>Medical Drug Recommendation System</strong> – Built a decision support system for personalized medication. <span class="project-links"><a href="#">💊 GitHub Repository</a></span></li>
-                <li><strong>Morphological Discrimination of Neoplastic Cells</strong> – Developed a tool for cancer cell identification. <span class="project-links"><a href="#">🔬 GitHub Repository</a></span></li>
-                <li><strong>CarWorthAI: Used Car Price Estimator</strong> – Created an AI model for price estimation. <span class="project-links"><a href="#">🚙 GitHub Repository</a></span></li>
-                <li><strong>Algorithmic Trading and Market Insights Engine</strong> – Built for strategy optimization and market analysis. <span class="project-links"><a href="#">📈 GitHub Repository</a></span></li>
+                <li class="project-item">
+                    <img src="https://via.placeholder.com/300x200" alt="Project 1">
+                    <h3>AI-Driven Educational Platform (Step Mentor)</h3>
+                    <p>Developed an AI-powered platform for exam preparation with personalized study plans.</p>
+                    <div class="project-links">
+                        <a href="#">🎥 View Demo</a>
+                    </div>
+                </li>
+                <li class="project-item">
+                    <img src="https://via.placeholder.com/300x200" alt="Project 2">
+                    <h3>Predicting Falcon 9 Landing Success</h3>
+                    <p>Analyzed data to predict SpaceX rocket landing success.</p>
+                    <div class="project-links">
+                        <a href="#">📊 GitHub Repository</a>
+                    </div>
+                </li>
+                <li class="project-item">
+                    <img src="https://via.placeholder.com/300x200" alt="Project 3">
+                    <h3>Customer Segmentation for Telecom Services</h3>
+                    <p>Created predictive models for customer usage patterns.</p>
+                    <div class="project-links">
+                        <a href="#">📱 GitHub Repository</a>
+                    </div>
+                </li>
+                <li class="project-item">
+                    <img src="https://via.placeholder.com/300x200" alt="Project 4">
+                    <h3>Estimating Carbon Footprints in Automobiles</h3>
+                    <p>Focused on determining CO2 emissions for sustainable solutions.</p>
+                </li>
+                <li class="project-item">
+                    <img src="https://via.placeholder.com/300x200" alt="Project 5">
+                    <h3>Medical Drug Recommendation System</h3>
+                    <p>Built a decision support system for personalized medication.</p>
+                    <div class="project-links">
+                        <a href="#">💊 GitHub Repository</a>
+                    </div>
+                </li>
+                <li class="project-item">
+                    <img src="https://via.placeholder.com/300x200" alt="Project 6">
+                    <h3>Morphological Discrimination of Neoplastic Cells</h3>
+                    <p>Developed a tool for cancer cell identification.</p>
+                    <div class="project-links">
+                        <a href="#">🔬 GitHub Repository</a>
+                    </div>
+                </li>
+                <li class="project-item">
+                    <img src="https://via.placeholder.com/300x200" alt="Project 7">
+                    <h3>CarWorthAI: Used Car Price Estimator</h3>
+                    <p>Created an AI model for price estimation.</p>
+                    <div class="project-links">
+                        <a href="#">🚙 GitHub Repository</a>
+                    </div>
+                </li>
+                <li class="project-item">
+                    <img src="https://via.placeholder.com/300x200" alt="Project 8">
+                    <h3>Algorithmic Trading and Market Insights Engine</h3>
+                    <p>Built for strategy optimization and market analysis.</p>
+                    <div class="project-links">
+                        <a href="#">📈 GitHub Repository</a>
+                    </div>
+                </li>
             </ul>
         </section>
 
         <section id="certifications" class="section">
             <h2>📜 Certifications</h2>
-            <p>IBM Data Science Professional Certification (12 courses completed)</p>
+            <ul class="certifications-list">
+                <li>IBM Data Science Professional Certification</li>
+                <li>Google Cloud Certified Associate Cloud Engineer</li>
+                <li>AWS Certified Solutions Architect - Associate</li>
+                <li>Microsoft Certified: Azure Fundamentals</li>
+            </ul>
         </section>
 
         <section id="contact" class="section">
