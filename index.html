@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saurab Mishra - Portfolio</title>
+    <title>Saurab Mishra </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
@@ -68,42 +68,96 @@
             border-radius: 5px;
             cursor: pointer;
             z-index: 100;
-            transition: left 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            box-sizing: content-box;
         }
 
-        .toggle-nav.nav-hidden {
-            left: -50px;
+        .toggle-nav span {
+            display: block;
+            height: 3px;
+            background-color: white;
+            transition: all 0.3s ease;
         }
 
-        .toggle-nav i {
-            font-size: 20px;
+        .toggle-nav.open span:first-child {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .toggle-nav.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .toggle-nav.open span:last-child {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #343a40;
+            z-index: 90;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .nav-bar.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-bar ul {
+            list-style: none;
+            text-align: center;
+        }
+
+        .nav-bar li {
+            margin-bottom: 30px;
+        }
+
+        .nav-bar a {
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-bar a:hover {
+            color: #0073e6;
         }
     </style>
 </head>
 <body class="font-sans">
     <div class="flex">
-        <nav class="bg-gray-800 text-white w-64 h-screen fixed animate__animated animate__fadeInLeft" id="nav-bar">
-            <div class="py-8 px-6">
-                <div class="flex items-center justify-between mb-8">
-                    <img src="/api/placeholder/100/100" alt="Logo" class="h-12 w-12 rounded-full animate__animated animate__zoomIn">
-                    <h1 class="text-2xl font-bold text-blue-500 animate__animated animate__fadeInDown">Saurab Mishra</h1>
-                </div>
-                <ul class="space-y-4">
-                    <li><a href="#about" class="nav-link flex items-center hover:text-blue-500 transition-colors duration-300 animate__animated animate__fadeInLeft" data-aos="fade-right" data-aos-delay="100"><i class="fas fa-user mr-2"></i> About Me</a></li>
-                    <li><a href="#skills" class="nav-link flex items-center hover:text-blue-500 transition-colors duration-300 animate__animated animate__fadeInLeft" data-aos="fade-right" data-aos-delay="200"><i class="fas fa-tools mr-2"></i> Technical Skills</a></li>
-                    <li><a href="#education" class="nav-link flex items-center hover:text-blue-500 transition-colors duration-300 animate__animated animate__fadeInLeft" data-aos="fade-right" data-aos-delay="300"><i class="fas fa-graduation-cap mr-2"></i> Education</a></li>
-                    <li><a href="#projects" class="nav-link flex items-center hover:text-blue-500 transition-colors duration-300 animate__animated animate__fadeInLeft" data-aos="fade-right" data-aos-delay="400"><i class="fas fa-project-diagram mr-2"></i> Projects</a></li>
-                    <li><a href="#certifications" class="nav-link flex items-center hover:text-blue-500 transition-colors duration-300 animate__animated animate__fadeInLeft" data-aos="fade-right" data-aos-delay="500"><i class="fas fa-certificate mr-2"></i> Certifications</a></li>
-                    <li><a href="#contact" class="nav-link flex items-center hover:text-blue-500 transition-colors duration-300 animate__animated animate__fadeInLeft" data-aos="fade-right" data-aos-delay="600"><i class="fas fa-envelope mr-2"></i> Contact</a></li>
-                </ul>
-            </div>
-        </nav>
+        <div class="nav-bar" id="nav-bar">
+            <ul>
+                <li><a href="#about" class="nav-link">About Me</a></li>
+                <li><a href="#skills" class="nav-link">Technical Skills</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#certifications" class="nav-link">Certifications</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
 
-        <div class="ml-64 w-full animate__animated animate__fadeIn">
-            <div class="toggle-nav" id="toggle-nav">
-                <i class="fas fa-bars"></i>
-            </div>
+        <div class="toggle-nav" id="toggle-nav">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 
+        <div class="ml-0 w-full animate__animated animate__fadeIn">
             <section id="about" class="py-16 px-8" data-aos="fade-up" data-aos-delay="100">
                 <h2 class="text-3xl font-bold mb-4 text-gray-100">About Me</h2>
                 <p class="text-gray-200 leading-relaxed">Passionate data scientist with expertise in machine learning, AI, and predictive modeling. Currently pursuing a BS-MS Programme at the Indian Institute of Science Education and Research (IISER), Thiruvananthapuram. IBM-certified professional with a track record of developing innovative solutions across various domains.</p>
@@ -187,9 +241,8 @@
         const navBar = document.getElementById('nav-bar');
 
         toggleNav.addEventListener('click', () => {
-            toggleNav.classList.toggle('nav-hidden');
-            navBar.classList.toggle('animate__fadeOutLeft');
-            navBar.classList.toggle('animate__fadeInLeft');
+            toggleNav.classList.toggle('open');
+            navBar.classList.toggle('open');
         });
     </script>
 </body>
