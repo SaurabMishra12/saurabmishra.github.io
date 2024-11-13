@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saurab Mishra - Professional Portfolio</title>
+    <title>Saurab Mishra - Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
@@ -57,15 +57,36 @@
         .project-card:hover {
             transform: translateY(-5px);
         }
+
+        .toggle-nav {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #0073e6;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 100;
+            transition: left 0.3s ease;
+        }
+
+        .toggle-nav.nav-hidden {
+            left: -50px;
+        }
+
+        .toggle-nav i {
+            font-size: 20px;
+        }
     </style>
 </head>
 <body class="font-sans">
     <div class="flex">
-        <nav class="bg-gray-800 text-white w-64 h-screen fixed">
+        <nav class="bg-gray-800 text-white w-64 h-screen fixed animate__animated animate__fadeInLeft" id="nav-bar">
             <div class="py-8 px-6">
-                <div class="flex items-center justify-between mb-8 animate__animated animate__fadeInDown">
-                    <img src="/api/placeholder/100/100" alt="Logo" class="h-12 w-12 rounded-full">
-                    <h1 class="text-2xl font-bold text-blue-500">Saurab Mishra</h1>
+                <div class="flex items-center justify-between mb-8">
+                    <img src="/api/placeholder/100/100" alt="Logo" class="h-12 w-12 rounded-full animate__animated animate__zoomIn">
+                    <h1 class="text-2xl font-bold text-blue-500 animate__animated animate__fadeInDown">Saurab Mishra</h1>
                 </div>
                 <ul class="space-y-4">
                     <li><a href="#about" class="nav-link flex items-center hover:text-blue-500 transition-colors duration-300 animate__animated animate__fadeInLeft" data-aos="fade-right" data-aos-delay="100"><i class="fas fa-user mr-2"></i> About Me</a></li>
@@ -78,14 +99,18 @@
             </div>
         </nav>
 
-        <div class="ml-64 w-full">
-            <section id="about" class="py-16 px-8 animate__animated animate__fadeIn" data-aos="fade-up" data-aos-delay="100">
-                <h2 class="text-3xl font-bold mb-4">About Me</h2>
-                <p class="text-gray-100 leading-relaxed">Passionate data scientist with expertise in machine learning, AI, and predictive modeling. Currently pursuing a BS-MS Programme at the Indian Institute of Science Education and Research (IISER), Thiruvananthapuram. IBM-certified professional with a track record of developing innovative solutions across various domains.</p>
+        <div class="ml-64 w-full animate__animated animate__fadeIn">
+            <div class="toggle-nav" id="toggle-nav">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <section id="about" class="py-16 px-8" data-aos="fade-up" data-aos-delay="100">
+                <h2 class="text-3xl font-bold mb-4 text-gray-100">About Me</h2>
+                <p class="text-gray-200 leading-relaxed">Passionate data scientist with expertise in machine learning, AI, and predictive modeling. Currently pursuing a BS-MS Programme at the Indian Institute of Science Education and Research (IISER), Thiruvananthapuram. IBM-certified professional with a track record of developing innovative solutions across various domains.</p>
             </section>
 
-            <section id="skills" class="py-16 px-8 bg-white shadow-lg rounded-lg animate__animated animate__fadeIn" data-aos="fade-up" data-aos-delay="200">
-                <h2 class="text-3xl font-bold mb-4">🛠 Technical Skills</h2>
+            <section id="skills" class="py-16 px-8 bg-white shadow-lg rounded-lg" data-aos="fade-up" data-aos-delay="200">
+                <h2 class="text-3xl font-bold mb-4 text-gray-800">🛠 Technical Skills</h2>
                 <ul class="grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-700">
                     <li><strong>Languages:</strong> Python, SQL</li>
                     <li><strong>Cloud Platforms:</strong> AWS, IBM Cloud, Google Cloud</li>
@@ -96,58 +121,58 @@
                 </ul>
             </section>
 
-            <section id="education" class="py-16 px-8 animate__animated animate__fadeIn" data-aos="fade-up" data-aos-delay="300">
-                <h2 class="text-3xl font-bold mb-4">🎓 Education</h2>
+            <section id="education" class="py-16 px-8" data-aos="fade-up" data-aos-delay="300">
+                <h2 class="text-3xl font-bold mb-4 text-gray-100">🎓 Education</h2>
                 <div class="bg-white shadow-lg rounded-lg p-6">
                     <p><strong>BS-MS Programme</strong><br>Indian Institute of Science Education and Research (IISER), Thiruvananthapuram<br>2023 – 2028</p>
                 </div>
             </section>
 
-            <section id="projects" class="py-16 px-8 bg-white shadow-lg rounded-lg animate__animated animate__fadeIn" data-aos="fade-up" data-aos-delay="400">
-                <h2 class="text-3xl font-bold mb-4">🚀 Featured Projects</h2>
+            <section id="projects" class="py-16 px-8 bg-white shadow-lg rounded-lg" data-aos="fade-up" data-aos-delay="400">
+                <h2 class="text-3xl font-bold mb-4 text-gray-800">🚀 Featured Projects</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="project-card bg-gray-100 rounded-lg p-6">
-                        <h3 class="text-lg font-bold mb-2">AI-Driven Educational Platform (Step Mentor)</h3>
-                        <p class="text-gray-700 mb-4">Developed an AI-powered platform for exam preparation with personalized study plans.</p>
+                    <div class="project-card bg-gray-100 rounded-lg p-6 animate__animated animate__fadeInUp">
+                        <h3 class="text-lg font-bold mb-2 text-gray-800">AI-Driven Educational Platform (Step Mentor)</h3>
+                        <p class="text-gray-600 mb-4">Developed an AI-powered platform for exam preparation with personalized study plans.</p>
                         <a href="#" class="text-blue-500 hover:underline">🎥 View Demo</a>
                     </div>
-                    <div class="project-card bg-gray-100 rounded-lg p-6">
-                        <h3 class="text-lg font-bold mb-2">Predicting Falcon 9 Landing Success</h3>
-                        <p class="text-gray-700 mb-4">Analyzed data to predict SpaceX rocket landing success.</p>
+                    <div class="project-card bg-gray-100 rounded-lg p-6 animate__animated animate__fadeInUp" data-aos-delay="100">
+                        <h3 class="text-lg font-bold mb-2 text-gray-800">Predicting Falcon 9 Landing Success</h3>
+                        <p class="text-gray-600 mb-4">Analyzed data to predict SpaceX rocket landing success.</p>
                         <a href="#" class="text-blue-500 hover:underline">📊 GitHub Repository</a>
                     </div>
-                    <div class="project-card bg-gray-100 rounded-lg p-6">
-                        <h3 class="text-lg font-bold mb-2">Customer Segmentation for Telecom Services</h3>
-                        <p class="text-gray-700 mb-4">Created predictive models for customer usage patterns.</p>
+                    <div class="project-card bg-gray-100 rounded-lg p-6 animate__animated animate__fadeInUp" data-aos-delay="200">
+                        <h3 class="text-lg font-bold mb-2 text-gray-800">Customer Segmentation for Telecom Services</h3>
+                        <p class="text-gray-600 mb-4">Created predictive models for customer usage patterns.</p>
                         <a href="#" class="text-blue-500 hover:underline">📱 GitHub Repository</a>
                     </div>
-                    <div class="project-card bg-gray-100 rounded-lg p-6">
-                        <h3 class="text-lg font-bold mb-2">Estimating Carbon Footprints in Automobiles</h3>
-                        <p class="text-gray-700 mb-4">Determined CO2 emissions for sustainable transportation.</p>
+                    <div class="project-card bg-gray-100 rounded-lg p-6 animate__animated animate__fadeInUp" data-aos-delay="300">
+                        <h3 class="text-lg font-bold mb-2 text-gray-800">Estimating Carbon Footprints in Automobiles</h3>
+                        <p class="text-gray-600 mb-4">Determined CO2 emissions for sustainable transportation.</p>
                     </div>
-                    <div class="project-card bg-gray-100 rounded-lg p-6">
-                        <h3 class="text-lg font-bold mb-2">Medical Drug Recommendation System</h3>
-                        <p class="text-gray-700 mb-4">Built a decision support system for personalized medication.</p>
+                    <div class="project-card bg-gray-100 rounded-lg p-6 animate__animated animate__fadeInUp" data-aos-delay="400">
+                        <h3 class="text-lg font-bold mb-2 text-gray-800">Medical Drug Recommendation System</h3>
+                        <p class="text-gray-600 mb-4">Built a decision support system for personalized medication.</p>
                         <a href="#" class="text-blue-500 hover:underline">💊 GitHub Repository</a>
                     </div>
                 </div>
             </section>
 
-            <section id="certifications" class="py-16 px-8 animate__animated animate__fadeIn" data-aos="fade-up" data-aos-delay="500">
-                <h2 class="text-3xl font-bold mb-4">📜 Certifications</h2>
+            <section id="certifications" class="py-16 px-8" data-aos="fade-up" data-aos-delay="500">
+                <h2 class="text-3xl font-bold mb-4 text-gray-100">📜 Certifications</h2>
                 <div class="bg-white shadow-lg rounded-lg p-6">
                     <p>IBM Data Science Professional Certification (12 courses completed)</p>
                 </div>
             </section>
 
-            <section id="contact" class="py-16 px-8 bg-white shadow-lg rounded-lg animate__animated animate__fadeIn" data-aos="fade-up" data-aos-delay="600">
-                <h2 class="text-3xl font-bold mb-4">📫 Let's Connect</h2>
-                <p class="text-gray-700 mb-4">Email: <a href="mailto:saurab23@iisertvm.ac.in" class="text-blue-500 hover:underline">saurab23@iisertvm.ac.in</a></p>
-                <p class="text-gray-700 mb-4">LinkedIn: <a href="https://www.linkedin.com/in/saurabmishra" target="_blank" class="text-blue-500 hover:underline">Saurab Mishra</a></p>
-                <p class="text-gray-700 mb-4">GitHub: <a href="https://github.com/SaurabMishra12" target="_blank" class="text-blue-500 hover:underline">@SaurabMishra12</a></p>
+            <section id="contact" class="py-16 px-8 bg-white shadow-lg rounded-lg" data-aos="fade-up" data-aos-delay="600">
+                <h2 class="text-3xl font-bold mb-4 text-gray-800">📫 Let's Connect</h2>
+                <p class="text-gray-600 mb-4">Email: <a href="mailto:saurab23@iisertvm.ac.in" class="text-blue-500 hover:underline">saurab23@iisertvm.ac.in</a></p>
+                <p class="text-gray-600 mb-4">LinkedIn: <a href="https://www.linkedin.com/in/saurabmishra" target="_blank" class="text-blue-500 hover:underline">Saurab Mishra</a></p>
+                <p class="text-gray-600 mb-4">GitHub: <a href="https://github.com/SaurabMishra12" target="_blank" class="text-blue-500 hover:underline">@SaurabMishra12</a></p>
             </section>
 
-            
+           
         </div>
     </div>
 
@@ -156,6 +181,15 @@
         AOS.init({
             once: true,
             duration: 1000,
+        });
+
+        const toggleNav = document.getElementById('toggle-nav');
+        const navBar = document.getElementById('nav-bar');
+
+        toggleNav.addEventListener('click', () => {
+            toggleNav.classList.toggle('nav-hidden');
+            navBar.classList.toggle('animate__fadeOutLeft');
+            navBar.classList.toggle('animate__fadeInLeft');
         });
     </script>
 </body>
