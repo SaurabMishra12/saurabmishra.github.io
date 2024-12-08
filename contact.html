@@ -3,324 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Saurab Mishra</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Contact Me</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #4285F4;
-            --secondary-color: #34A853;
-            --accent-color: #FBBC05;
-            --text-primary: #202124;
-            --text-secondary: #5F6368;
-            --background-color: #FFFFFF;
-            --dark-background: #121212;
-            --dark-surface: #1E1E1E;
-            --hover-overlay: rgba(0, 0, 0, 0.04);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            scroll-behavior: smooth;
         }
-
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+        }
         body {
-            font-family: 'Roboto', Arial, sans-serif;
-            background-color: var(--dark-background);
-            color: #f0f0f0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(180deg, #000000 0%, #121212 100%);
+            color: #f5f5f7;
             line-height: 1.6;
         }
-
-        /* Google-style Navigation */
-        .google-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 24px;
-            background-color: var(--dark-surface);
-            box-shadow: 0 1px 6px 0 rgba(255, 255, 255, 0.1);
+        .container {
+            max-width: 100%;
+            width: 100%;
+            padding: 0 40px;
+            margin: 0 auto;
+        }
+        header {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: saturate(180%) blur(20px);
             z-index: 1000;
+            box-shadow: 0 1px 10px rgba(0,0,0,0.1);
         }
-
-        .nav-logo {
+        .nav-wrapper {
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            height: 60px;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        .logo {
+            color: #f5f5f7;
+            font-weight: 600;
             font-size: 22px;
-            font-weight: 500;
-            color: var(--primary-color);
-        }
-
-        .nav-menu {
             display: flex;
             align-items: center;
         }
-
-        .nav-links {
-            display: flex;
-            margin-right: 16px;
+        .logo i {
+            margin-right: 10px;
+            font-size: 24px;
         }
-
-        .nav-links a {
+        nav {
+            display: flex;
+            align-items: center;
+        }
+        nav a {
+            color: #f5f5f7;
             text-decoration: none;
-            color: #e0e0e0;
-            margin: 0 12px;
-            font-size: 14px;
-            transition: color 0.3s ease;
+            margin-left: 30px;
+            font-size: 16px;
+            opacity: 0.7;
+            transition: all 0.3s ease;
             position: relative;
         }
-
-        .nav-links a::after {
+        nav a:hover {
+            opacity: 1;
+        }
+        nav a::after {
             content: '';
             position: absolute;
+            bottom: -5px;
+            left: 0;
             width: 0;
             height: 2px;
-            bottom: -5px;
-            left: 50%;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease, left 0.3s ease;
+            background-color: #2997ff;
+            transition: width 0.3s ease;
         }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .nav-links a:hover::after {
+        nav a:hover::after {
             width: 100%;
-            left: 0;
         }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-        }
-
-        .profile-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-left: 16px;
-            border: 2px solid var(--primary-color);
-        }
-
-        /* About Section */
-        .about-section {
+        .contact-hero {
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            padding: 100px 24px 50px;
             text-align: center;
+            padding-top: 60px;
         }
-
-        .about-avatar {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
-            transition: transform 0.4s ease;
-        }
-
-        .about-avatar:hover {
-            transform: scale(1.05) rotate(3deg);
-        }
-
-        .about-title {
-            font-size: 48px;
+        .contact-hero h1 {
+            font-size: 64px;
             font-weight: 700;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(90deg, #f5f5f7, #86868b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 16px;
+            margin-bottom: 30px;
         }
-
-        .about-description {
-            max-width: 800px;
-            color: #e0e0e0;
-            margin-bottom: 32px;
-            line-height: 1.8;
-        }
-
-        /* Skill Sections */
-        .skills-section {
-            display: flex;
-            justify-content: center;
-            padding: 50px 24px;
-            background-color: var(--dark-surface);
-        }
-
-        .skill-card {
-            background-color: #2a2a2a;
-            border-radius: 12px;
-            padding: 24px;
-            margin: 0 12px;
-            width: 300px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .contact-details {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 700px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            text-align: center;
             transition: all 0.4s ease;
         }
-
-        .skill-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 20px rgba(255, 255, 255, 0.1);
+        .contact-details:hover {
+            transform: scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
         }
-
-        .skill-title {
-            font-size: 22px;
-            color: var(--primary-color);
-            margin-bottom: 16px;
+        .contact-details h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, #f5f5f7, #86868b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        .skill-list {
-            list-style-type: none;
-        }
-
-        .skill-list li {
-            color: #e0e0e0;
-            margin-bottom: 10px;
-            position: relative;
-            padding-left: 20px;
-        }
-
-        .skill-list li::before {
-            content: '•';
-            color: var(--secondary-color);
-            position: absolute;
-            left: 0;
-        }
-
-        /* Certification Section */
-        .certification-section {
-            padding: 50px 24px;
-            background-color: var(--dark-background);
-            text-align: center;
-        }
-
-        .certification-title {
-            color: var(--primary-color);
-            margin-bottom: 24px;
-        }
-
-        .certification-grid {
+        .contact-info {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 20px;
         }
-
-        .certification-card {
-            background-color: var(--dark-surface);
-            border-radius: 12px;
-            padding: 20px;
-            width: 300px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
+        .contact-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
         }
-
-        .certification-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 20px rgba(255, 255, 255, 0.1);
+        .contact-item i {
+            font-size: 24px;
+            color: #2997ff;
         }
-
-        .certification-name {
-            color: var(--secondary-color);
-            margin-bottom: 10px;
+        .contact-item a {
+            color: #f5f5f7;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
         }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .skills-section {
-                flex-direction: column;
-            }
-
-            .skill-card {
-                width: 100%;
-                margin: 12px 0;
-            }
-
-            .about-title {
-                font-size: 36px;
-            }
+        .contact-item a:hover {
+            color: #2997ff;
+        }
+        .social-links {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .social-links a {
+            color: #86868b;
+            font-size: 24px;
+            transition: color 0.3s ease;
+        }
+        .social-links a:hover {
+            color: #f5f5f7;
         }
     </style>
 </head>
 <body>
-    <!-- Google-style Navigation -->
-    <nav class="google-nav">
-        <div class="nav-menu">
-            <div class="nav-links">
+    <header>
+        <div class="nav-wrapper">
+
+            <nav>
                 <a href="index.html">Home</a>
+                <a href="about.html">About</a>
                 <a href="projects.html">Projects</a>
                 <a href="blogs.html">Blogs</a>
-                <a href="contact.html">Contact</a>
                 <a href="chatbot.html">Chatbot</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="contact-hero">
+            <div class="contact-details">
+                <h2>Get In Touch</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:saurab23@iisertvm.ac.in">saurab23@iisertvm.ac.in</a>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/saurab-mishra-493a73178/" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/saurabm12/" title="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
             </div>
-        </div>
-    </nav>
-
-    <!-- About Section -->
-    <section class="about-section">
-        <img src="saurabprofile.jpg" alt="Saurab Mishra" class="about-avatar">
-        <h1 class="about-title">About Me</h1>
-        <p class="about-description">
-            Passionate research student with expertise in machine learning, Data Science, artificial intelligence, and predictive modeling.
-            Dedicated to pushing the boundaries of technological innovation through cutting-edge research and practical applications.
-            Committed to solving complex challenges by leveraging advanced analytical techniques and deep domain knowledge.
-        </p>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="skills-section">
-        <div class="skill-card">
-            <h3 class="skill-title">Technical Skills</h3>
-            <ul class="skill-list">
-                <li>Machine Learning</li>
-                <li>Deep Learning, LLMs</li>
-                <li>Natural Language Processing</li>
-                <li>Python, R, JavaScript, C, C+ </li>
-                <li>TensorFlow, PyTorch</li>
-            </ul>
-        </div>
-        <div class="skill-card">
-            <h3 class="skill-title">Research Domains</h3>
-            <ul class="skill-list">
-                <li>Artificial Intelligence</li>
-                <li>Data Science</li>
-                <li>Predictive Analytics</li>
-                <li>Computer Vision</li>
-                <li>Distributed Computing</li>
-            </ul>
-        </div>
-        <div class="skill-card">
-            <h3 class="skill-title">Soft Skills</h3>
-            <ul class="skill-list">
-                <li>Problem Solving</li>
-                <li>Critical Thinking</li>
-                <li>Technical Communication</li>
-                <li>Team Collaboration</li>
-                <li>Project Management</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Certification Section -->
-    <section class="certification-section">
-        <h2 class="certification-title">Certifications</h2>
-        <div class="certification-grid">
-            <div class="certification-card">
-                <h3 class="certification-name">IBM Certified Professional</h3>
-                <p>Data Science Professional</p>
-            </div>
-
-        </div>
-    </section>
+        </section>
+    </div>
 </body>
 </html>
