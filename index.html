@@ -3,279 +3,412 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saurab Mishra </title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+    <title>My Projects</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
-            background-image: linear-gradient(to right, #0077b6, #00a8e8);
-            background-size: 200% 200%;
-            animation: gradient-animation 15s ease infinite;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        @keyframes gradient-animation {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        .nav-link {
-            position: relative;
-            display: inline-block;
-            padding: 8px 0;
-        }
-
-        .nav-link:before {
-            content: "";
-            position: absolute;
+        html, body {
+            height: 100%;
             width: 100%;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: #0073e6;
-            visibility: hidden;
-            transform: scaleX(0);
-            transition: all 0.3s ease-in-out;
+            overflow-x: hidden;
         }
-
-        .nav-link:hover:before {
-            visibility: visible;
-            transform: scaleX(1);
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(180deg, #000000 0%, #121212 100%);
+            color: #f5f5f7;
+            line-height: 1.6;
         }
-
-        .project-card {
-            transition: transform 0.3s ease;
-            background-image: linear-gradient(to right, #0077b6, #00a8e8);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .container {
+            max-width: 100%;
+            width: 100%;
+            padding: 0 40px;
+            margin: 0 auto;
         }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .project-card h3 {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .project-card p {
-            font-size: 0.875rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-card a {
-            color: white;
-            font-weight: bold;
-            text-decoration: underline;
-        }
-
-        .toggle-nav {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background-color: #0073e6;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 21px;
-            box-sizing: content-box;
-        }
-
-        .toggle-nav span {
-            display: block;
-            height: 3px;
-            background-color: white;
-            transition: all 0.3s ease;
-        }
-
-        .toggle-nav.open span:first-child {
-            transform: translateY(9px) rotate(45deg);
-        }
-
-        .toggle-nav.open span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .toggle-nav.open span:last-child {
-            transform: translateY(-9px) rotate(-45deg);
-        }
-
-        .nav-bar {
+        header {
             position: fixed;
             top: 0;
             left: 0;
-            width: 30%;
-            height: 100%;
-            background-color: #343a40;
-            z-index: 90;
+            width: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: saturate(180%) blur(20px);
+            z-index: 1000;
+            box-shadow: 0 1px 10px rgba(0,0,0,0.1);
+        }
+        .nav-wrapper {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
+            height: 60px;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 40px;
         }
-
-        .nav-bar.open {
-            opacity: 1;
-            visibility: visible;
+        .logo {
+            color: #f5f5f7;
+            font-weight: 600;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
         }
-
-        .nav-bar ul {
-            list-style: none;
-            text-align: center;
-        }
-
-        .nav-bar li {
-            margin-bottom: 30px;
-        }
-
-        .nav-bar a {
-            color: white;
+        .logo i {
+            margin-right: 10px;
             font-size: 24px;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+        }
+        nav a {
+            color: #f5f5f7;
             text-decoration: none;
-            transition: color 0.3s ease;
+            margin-left: 30px;
+            font-size: 16px;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            position: relative;
         }
-
-        .nav-bar a:hover {
-            color: #0073e6;
+        nav a:hover {
+            opacity: 1;
         }
-
-        .profile-picture {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-image: url('https://via.placeholder.com/150');
-            background-size: cover;
-            background-position: center;
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #2997ff;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        .projects-hero {
+            padding-top: 120px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .projects-hero h1 {
+            font-size: 64px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #f5f5f7, #86868b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+        .project-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+        .project-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+        .project-card-content {
+            padding: 40px;
+            position: relative;
+            z-index: 2;
+        }
+        .project-card h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #f5f5f7, #86868b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .project-details {
+            color: #86868b;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        .project-technologies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .tech-tag {
+            background: rgba(255,255,255,0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #2997ff;
+        }
+        .project-card a {
+            display: inline-block;
+            color: #2997ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.3s ease;
+        }
+        .project-card a:hover {
+            transform: translateX(5px);
+        }
+        .project-icon {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 50px;
+            color: rgba(255,255,255,0.1);
+            z-index: 1;
+        }
+        @media (max-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .projects-hero h1 {
+                font-size: 48px;
+            }
         }
     </style>
 </head>
-<body class="font-sans">
-    <div class="flex">
-        <div class="nav-bar" id="nav-bar">
-            <div class="profile-picture"> <img src="profile-pic (1).png" alt="me" id="profile-img"></div>
-            <ul>
-                <li><a href="#about" class="nav-link">About Me</a></li>
-                <li><a href="#skills" class="nav-link">Technical Skills</a></li>
-                <li><a href="#education" class="nav-link">Education</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#certifications" class="nav-link">Certifications</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
+<body>
+    <header>
+        <div class="nav-wrapper">
+            <div class="logo">
+                <i class="fas fa-cubes"></i>
+                Projects
+            </div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="blogs.html">Blogs</a>
+                <a href="contact.html">Contact</a>
+                <a href="chatbot.html">Chatbot</a>
+            </nav>
         </div>
+    </header>
 
-        <div class="toggle-nav" id="toggle-nav">
-            <span></span>
-            <span></span>
-            <span></span>
+    <div class="container">
+        <section class="projects-hero">
+            <h1>My Project</h1>
+        </section>
+
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-card-content">
+                    <i class="project-icon fas fa-brain"></i>
+                    <h2>Step Mentor</h2>
+                    <div class="project-details">
+                        An innovative learning solution leveraging Large Language Models (LLMs) to personalize learning pathways for competitive exam preparation. Integrated advanced natural language understanding, adaptive learning models, and intelligent scheduling systems to optimize learning outcomes.
+
+                     <p> Key Innovations: LLM integration, adaptive algorithms, personalized curriculum design.</p>
+                     <p> Research Impact: Demonstrated enhanced user engagement and improved study efficiency.</p>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag">LLMs</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">Data Science</span>
+                        <span class="tech-tag">UI/UX Design</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=RVKZBXkMGrI">Learn more ></a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-card-content">
+                    <i class="project-icon fas fa-rocket"></i>
+                    <h2>Predicting Falcon 9 Landing Success</h2>
+                    <div class="project-details">
+                        Developed a predictive model to analyze the success of SpaceX Falcon 9 rocket landings using historical data. Implemented machine learning techniques to improve prediction accuracy, optimizing launch costs and enhancing space exploration efficiency.
+                    <p>Key Contributions: Developed novel feature engineering pipelines and applied ensemble models for improved prediction accuracy.</p>
+                        <p>Research Significance: Boosted reliability and cost-effectiveness in aerospace systems.</p>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag">TensorFlow</span>
+                        <span class="tech-tag">Scikit-learn</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                    <a href="#">Explore project ></a>
+                </div>
+            </div>
+
+
+
+ <div class="project-card">
+                <div class="project-card-content">
+                    <i class="project-icon fas fa-rocket"></i>
+                    <h2>Estimating Carbon Footprints in Automobiles</h2>
+                    <div class="project-details">
+                        Developed an ML-based solution to analyze car attributes and predict CO2 emissions, fostering sustainable transportation strategies.
+
+                        <p>Research Applications: Environmental impact assessment, sustainable design innovation.</p>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag">Data Science</span>
+                        <span class="tech-tag">Cloud</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                    <a href="#">Explore project ></a>
+                </div>
+            </div>
+
+         <div class="project-card">
+                <div class="project-card-content">
+                    <i class="project-icon fas fa-brain"></i>
+                    <h2>Predictive Modeling for Market and Vehicle Insights</h2>
+                    <div class="project-details">
+
+                     <p><h3>Tech Market Predictive Modeller:</h3> Designed a regression-based pipeline for laptop price prediction, incorporating advanced feature engineering and model tuning.
+</p>
+                     <p><h3> Vehicular Valuation Predictor:</h3> Created a comprehensive car valuation system using machine learning models for precise price estimation and market insights.</p>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag">Data Science</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">Data Analysis</span>
+                        <span class="tech-tag">Python</span>
+
+                    </div>
+                    <a href="#">view</a>
+                </div>
+            </div>
+
+
+
+
+             <div class="project-card">
+                <div class="project-card-content">
+                    <i class="project-icon fas fa-brain"></i>
+                    <h2>Noteworthy</h2>
+                    <div class="project-details">
+                        Designed an intelligent interface combining automatic natural language processing to generate precise, context-aware notes from YouTube videos. Advanced AI solutions were deployed to create concise summaries while enabling user customization.
+                     <p> Key Innovations: LLM integration, ML algorithms, Text Summarization.</p>
+                     <p> Applications: Educational content curation, knowledge distillation, and e-learning.</p>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag">LLMs</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">API</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                    </div>
+                    <a href="#">view</a>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+            <div class="project-card">
+                <div class="project-card-content">
+                    <i class="project-icon fas fa-chart-line"></i>
+                    <h2>Customer Segmentation</h2>
+                    <div class="project-details">
+                       Built a machine learning model to analyze and predict customer behavior in the telecommunications sector, enabling personalized service recommendations and marketing strategies.
+                    <p>Key Insights: Behavioral analytics, clustering, and classification for targeted engagement.
+</p>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag">Jupyter</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">SQL</span>
+                    </div>
+                    <a href="#">View details ></a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-card-content">
+                    <i class="project-icon fas fa-capsules"></i>
+                    <h2>Medical Drug Recommendation</h2>
+                    <div class="project-details">
+                       Built a robust ML-driven system for precision medicine, utilizing patient data and decision tree algorithms to recommend drugs tailored to individual needs.
+                    <p>Key Methodologies: Predictive analytics, healthcare data modeling, and classification algorithms.
+   </p><p>Research Outcome: Improved prescription accuracy and enhanced patient outcomes.</p>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag">ML</span>
+                        <span class="tech-tag">Data Science</span>
+                        <span class="tech-tag"> Data Analysis</span>
+                    </div>
+                    <a href="#">View  ></a>
+                </div>
+            </div>
+
+
+              <div class="project-card">
+    <div class="project-card-content">
+        <i class="project-icon fas fa-lightbulb"></i>
+        <h2>Retrieval-Augmented Generation Research Framework</h2>
+        <div class="project-details">
+            Revolutionized generative AI by integrating real-time knowledge retrieval, enabling contextually rich and accurate query responses.
+            <p>Key Innovations: Knowledge graph integration, model retrieval optimization, and hybrid generative systems.</p>
+            <p>Research Outcome: Enhanced AI systems' ability to handle complex queries across domains like scientific research and legal advisory.</p>
         </div>
-
-        <div class="ml-0 w-full animate__animated animate__fadeIn">
-            <section id="about" class="py-16 px-8" data-aos="fade-up" data-aos-delay="100">
-                <h2 class="text-3xl font-bold mb-4 text-gray-100">About Me</h2>
-                <p class="text-gray-200 leading-relaxed">Passionate data scientist with expertise in machine learning, AI, and predictive modeling. Currently pursuing a BS-MS Programme at the Indian Institute of Science Education and Research (IISER), Thiruvananthapuram. IBM-certified professional with a track record of developing innovative solutions across various domains.</p>
-            </section>
-
-            <section id="skills" class="py-16 px-8 bg-white shadow-lg rounded-lg" data-aos="fade-up" data-aos-delay="200">
-                <h2 class="text-3xl font-bold mb-4 text-gray-800">🛠 Technical Skills</h2>
-                <ul class="grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-700">
-                    <li><strong>Languages:</strong> Python, SQL</li>
-                    <li><strong>Cloud Platforms:</strong> AWS, IBM Cloud, Google Cloud</li>
-                    <li><strong>Machine Learning & AI:</strong> TensorFlow, PyTorch, Scikit-learn, IBM Watson</li>
-                    <li><strong>Big Data:</strong> Hadoop, Spark</li>
-                    <li><strong>Tools:</strong> Git, Docker, Jupyter Notebooks</li>
-                    <li><strong>Databases:</strong> MySQL, Firebase</li>
-                </ul>
-            </section>
-
-            <section id="education" class="py-16 px-8" data-aos="fade-up" data-aos-delay="300">
-                <h2 class="text-3xl font-bold mb-4 text-gray-100">🎓 Education</h2>
-                <div class="bg-white shadow-lg rounded-lg p-6">
-                    <p><strong>BS-MS Programme</strong><br>Indian Institute of Science Education and Research (IISER), Thiruvananthapuram<br>2023 – 2028</p>
-                </div>
-            </section>
-
-            <section id="projects" class="py-16 px-8 bg-white shadow-lg rounded-lg" data-aos="fade-up" data-aos-delay="400">
-                <h2 class="text-3xl font-bold mb-4 text-gray-800">🚀 Featured Projects</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="project-card animate__animated animate__fadeInUp">
-                        <h3>AI-Driven Educational Platform (Step Mentor)</h3>
-                        <p>Developed an AI-powered platform for exam preparation with personalized study plans.</p>
-                        <a href="https://youtu.be/RVKZBXkMGrI?si=KyFvZPgziSzoHepD" class="font-bold">🎥 View Demo</a>
-                    </div>
-                    <div class="project-card animate__animated animate__fadeInUp" data-aos-delay="100">
-                        <h3>Predicting Falcon 9 Landing Success</h3>
-                        <p>Analyzed data to predict SpaceX rocket landing success.</p>
-                        <a href="https://github.com/SaurabMishra12/Predicting-the-Landing-Success-of-Falcon-9-First-Stages" class="font-bold">📊 GitHub Repository</a>
-                    </div>
-                    <div class="project-card animate__animated animate__fadeInUp" data-aos-delay="200">
-                        <h3>Customer Segmentation for Telecom Services</h3>
-                        <p>Created predictive models for customer usage patterns.</p>
-                        <a href="https://github.com/SaurabMishra12/Predictive-Customer-Segmentation-for-Telecom-Services" class="font-bold">📱 GitHub Repository</a>
-                    </div>
-                    <div class="project-card animate__animated animate__fadeInUp" data-aos-delay="300">
-                        <h3>Estimating Carbon Footprints in Automobiles</h3>
-                        <p>Determined CO2 emissions for sustainable transportation.</p>
-                         <a href="https://github.com/SaurabMishra12/Estimating-Carbon-Footprints-in-Automobiles" class="font-bold">💊 GitHub Repository</a>
-                    </div>
-                    <div class="project-card animate__animated animate__fadeInUp" data-aos-delay="400">
-                        <h3>Medical Drug Recommendation System</h3>
-                        <p>Built a decision support system for personalized medication.</p>
-                        <a href="https://github.com/SaurabMishra12/Medical-Solutions-Comprehensive-Drug-Recommendation-for-Accurate-Prescriptions" class="font-bold">💊 GitHub Repository</a>
-                    </div>
-                </div>
-            </section>
-
-            <section id="certifications" class="py-16 px-8" data-aos="fade-up" data-aos-delay="500">
-                <h2 class="text-3xl font-bold mb-4 text-gray-100">📜 Certifications</h2>
-                <div class="bg-white shadow-lg rounded-lg p-6">
-                    <p>IBM Data Science Professional Certification (12 courses completed)</p>
-                </div>
-            </section>
-
-            <section id="contact" class="py-16 px-8 bg-white shadow-lg rounded-lg" data-aos="fade-up" data-aos-delay="600">
-                <h2 class="text-3xl font-bold mb-4 text-gray-800">📫 Let's Connect</h2>
-                <p class="text-gray-600 mb-4">Email: <a href="mailto:saurab23@iisertvm.ac.in" class="text-blue-500 hover:underline">saurab23@iisertvm.ac.in</a></p>
-                <p class="text-gray-600 mb-4">LinkedIn: <a href="https://www.linkedin.com/in/saurab-mishra-493a73178/" target="_blank" class="text-blue-500 hover:underline">Saurab Mishra</a></p>
-                <p class="text-gray-600 mb-4">GitHub: <a href="https://github.com/SaurabMishra12" target="_blank" class="text-blue-500 hover:underline">@SaurabMishra12</a></p>
-            </section>
+        <div class="project-technologies">
+            <span class="tech-tag">RAG</span>
+            <span class="tech-tag">Knowledge Graphs</span>
+            <span class="tech-tag">Generative AI</span>
         </div>
+        <a href="#">View ></a>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            once: true,
-            duration: 1000,
-        });
+<div class="project-card">
+    <div class="project-card-content">
+        <i class="project-icon fas fa-user-check"></i>
+        <h2>Reinforcement Learning from Human Feedback</h2>
+        <div class="project-details">
+            Advanced AI training pipelines by incorporating human feedback to align systems with ethical standards and values.
+            <p>Key Innovations: Reinforcement learning algorithms and human-in-the-loop systems.</p>
+            <p>Research Outcome: Enabled the development of ethical AI systems that prioritize fairness, transparency, and inclusivity.</p>
+        </div>
+        <div class="project-technologies">
+            <span class="tech-tag">RLHF</span>
+            <span class="tech-tag">Ethical AI</span>
+            <span class="tech-tag">Human-in-the-Loop</span>
+        </div>
+        <a href="#">View ></a>
+    </div>
+</div>
 
-        const toggleNav = document.getElementById('toggle-nav');
-        const navBar = document.getElementById('nav-bar');
+<div class="project-card">
+    <div class="project-card-content">
+        <i class="project-icon fas fa-network-wired"></i>
+        <h2>Multi-Agent Systems for Enhanced LLM Performance</h2>
+        <div class="project-details">
+            Leveraged multi-agent frameworks to refine language model performance through collaboration and contextual optimization.
+            <p>Key Innovations: Agent coordination, knowledge fusion, and dynamic contextual systems.</p>
+            <p>Research Outcome: Improved multi-faceted decision-making and conversational AI accuracy.</p>
+        </div>
+        <div class="project-technologies">
+            <span class="tech-tag">MAS</span>
+            <span class="tech-tag">Collaborative AI</span>
+            <span class="tech-tag">Language Models</span>
+        </div>
+        <a href="#">View ></a>
+    </div>
+</div>
 
-        toggleNav.addEventListener('click', () => {
-            toggleNav.classList.toggle('open');
-            navBar.classList.toggle('open');
-        });
-    </script>
+
+
+
+        </div>
+
+
+    </div>
 </body>
 </html>
