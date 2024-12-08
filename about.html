@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Saurab Mishra</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4285F4;
+            --secondary-color: #34A853;
+            --accent-color: #FBBC05;
+            --text-primary: #202124;
+            --text-secondary: #5F6368;
+            --background-color: #FFFFFF;
+            --dark-background: #121212;
+            --dark-surface: #1E1E1E;
+            --hover-overlay: rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: var(--dark-background);
+            color: #f0f0f0;
+            line-height: 1.6;
+        }
+
+        /* Google-style Navigation */
+        .google-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background-color: var(--dark-surface);
+            box-shadow: 0 1px 6px 0 rgba(255, 255, 255, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            margin-right: 16px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #e0e0e0;
+            margin: 0 12px;
+            font-size: 14px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 16px;
+            border: 2px solid var(--primary-color);
+        }
+
+        /* About Section */
+        .about-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 100px 24px 50px;
+            text-align: center;
+        }
+
+        .about-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+            transition: transform 0.4s ease;
+        }
+
+        .about-avatar:hover {
+            transform: scale(1.05) rotate(3deg);
+        }
+
+        .about-title {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .about-description {
+            max-width: 800px;
+            color: #e0e0e0;
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        /* Skill Sections */
+        .skills-section {
+            display: flex;
+            justify-content: center;
+            padding: 50px 24px;
+            background-color: var(--dark-surface);
+        }
+
+        .skill-card {
+            background-color: #2a2a2a;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 0 12px;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .skill-title {
+            font-size: 22px;
+            color: var(--primary-color);
+            margin-bottom: 16px;
+        }
+
+        .skill-list {
+            list-style-type: none;
+        }
+
+        .skill-list li {
+            color: #e0e0e0;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .skill-list li::before {
+            content: '•';
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Certification Section */
+        .certification-section {
+            padding: 50px 24px;
+            background-color: var(--dark-background);
+            text-align: center;
+        }
+
+        .certification-title {
+            color: var(--primary-color);
+            margin-bottom: 24px;
+        }
+
+        .certification-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .certification-card {
+            background-color: var(--dark-surface);
+            border-radius: 12px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .certification-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .certification-name {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .skills-section {
+                flex-direction: column;
+            }
+
+            .skill-card {
+                width: 100%;
+                margin: 12px 0;
+            }
+
+            .about-title {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Google-style Navigation -->
+    <nav class="google-nav">
+        <div class="nav-logo">
+            <span>Saurab Mishra</span>
+        </div>
+        <div class="nav-menu">
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="blogs.html">Blogs</a>
+                <a href="contact.html">Contact</a>
+                <a href="chatbot.html">Chatbot</a>
+            </div>
+            <div class="nav-actions">
+                <img src="saurabprofile.jpg" alt="Saurab Mishra" class="profile-icon">
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <img src="saurabprofile.jpg" alt="Saurab Mishra" class="about-avatar">
+        <h1 class="about-title">About Me</h1>
+        <p class="about-description">
+            Passionate data scientist with expertise in machine learning, artificial intelligence, and predictive modeling.
+            Dedicated to pushing the boundaries of technological innovation through cutting-edge research and practical applications.
+            Committed to solving complex challenges by leveraging advanced analytical techniques and deep domain knowledge.
+        </p>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section">
+        <div class="skill-card">
+            <h3 class="skill-title">Technical Skills</h3>
+            <ul class="skill-list">
+                <li>Machine Learning</li>
+                <li>Deep Learning, LLMs</li>
+                <li>Natural Language Processing</li>
+                <li>Python, R, JavaScript, C, C+ </li>
+                <li>TensorFlow, PyTorch</li>
+            </ul>
+        </div>
+        <div class="skill-card">
+            <h3 class="skill-title">Research Domains</h3>
+            <ul class="skill-list">
+                <li>Artificial Intelligence</li>
+                <li>Data Science</li>
+                <li>Predictive Analytics</li>
+                <li>Computer Vision</li>
+                <li>Distributed Computing</li>
+            </ul>
+        </div>
+        <div class="skill-card">
+            <h3 class="skill-title">Soft Skills</h3>
+            <ul class="skill-list">
+                <li>Problem Solving</li>
+                <li>Critical Thinking</li>
+                <li>Technical Communication</li>
+                <li>Team Collaboration</li>
+                <li>Project Management</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Certification Section -->
+    <section class="certification-section">
+        <h2 class="certification-title">Certifications</h2>
+        <div class="certification-grid">
+            <div class="certification-card">
+                <h3 class="certification-name">IBM Certified Professional</h3>
+                <p>Advanced Machine Learning Specialist</p>
+            </div>
+            <div class="certification-card">
+                <h3 class="certification-name">AI & Data Science</h3>
+                <p>Advanced Analytics Certification</p>
+            </div>
+            <div class="certification-card">
+                <h3 class="certification-name">Cloud Computing</h3>
+                <p>Distributed Systems Certification</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

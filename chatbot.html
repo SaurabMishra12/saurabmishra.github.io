@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f1f3f4;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --accent-blue: #4285f4;
+            --accent-green: #34a853;
+            --accent-yellow: #fbbc05;
+            --accent-red: #ea4335;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Google Sans', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            background-color: var(--bg-secondary);
+            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .header-title i {
+            margin-right: 10px;
+            color: var(--accent-blue);
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 24px;
+            background-color: var(--bg-primary);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            max-width: 800px;
+            width: 100%;
+            margin-bottom: 16px;
+            padding: 16px;
+            border-radius: 8px;
+            align-self: center;
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .user-message {
+            background-color: var(--accent-blue);
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .ai-message {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            align-self: flex-start;
+        }
+
+        .message-content {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .message-icon {
+            margin-right: 12px;
+            opacity: 0.7;
+        }
+
+        .chat-input-area {
+            padding: 16px 24px;
+            background-color: var(--bg-secondary);
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 24px;
+            padding: 8px 16px;
+            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .input-wrapper:focus-within {
+            box-shadow: 0 1px 6px 0 rgba(32,33,36,0.28);
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-right: 12px;
+        }
+
+        .send-button {
+            background: none;
+            border: none;
+            color: var(--accent-blue);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s ease;
+        }
+
+        .send-button:hover {
+            color: var(--accent-green);
+        }
+
+        .typing-indicator {
+            align-self: flex-start;
+            background-color: var(--bg-secondary);
+            padding: 10px;
+            border-radius: 8px;
+            display: none;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .typing-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: var(--text-secondary);
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        @keyframes typing {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .chat-messages {
+                padding: 16px;
+            }
+
+            .message {
+                max-width: 100%;
+            }
+
+            .chat-input-area {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="chat-header">
+            <div class="nav-content">
+    <div class="nav-links">
+        <button onclick="location.href='index.html'" class="nav-button">Home</button>
+    </div>
+</div>
+
+<style>
+    .nav-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        background-color: #f1f3f4; /* Navigation bar background */
+    }
+    .nav-links {
+        display: flex;
+        gap: 15px; /* Space between buttons */
+    }
+    .nav-button {
+        background-color: #4285f4;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+    .nav-button:hover {
+        background-color: #357ae8;
+        transform: scale(1.05);
+    }
+    .nav-button:active {
+        background-color: #2a63c6;
+        transform: scale(1);
+    }
+</style>
+
+        </div>
+
+        <div id="chat-messages" class="chat-messages">
+            <div class="message ai-message">
+                <div class="message-content">
+                    <i class="fas fa-robot message-icon"></i>
+                    <div>Hello! I'm an AI assistant. How can I help you today?</div>
+                </div>
+            </div>
+            <div id="typing-indicator" class="message typing-indicator">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <div class="input-wrapper">
+                <input type="text" id="chat-input" class="chat-input" placeholder="Ask me anything...">
+                <button id="send-button" class="send-button">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = 'AIzaSyDHvOzqHtYc-1LhhvDePrZiXy_UFrXrzsc';
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const sendButton = document.getElementById('send-button');
+        const typingIndicator = document.getElementById('typing-indicator');
+
+        let conversationHistory = [
+            { role: 'model', parts: [{ text: "`You are an ai assistance behaving like Saurab Mishra, a student at the Indian Institute of Science Education and Research (IISER), Trivandrum.\n" +
+                        "Here are your key characteristics:\n" +
+                        "\n" +
+                        "Educational Background of Saurab: Currently pursuing an integrated BS-MS degree at IISER Trivandrum with a focus on Mathematics, Machine Learning, Artificial Intelligence, and Data Science.\n" +
+                        "Skills & Expertise:\n" +
+                        "Proficient in Python, SQL, and various machine learning libraries and frameworks.\n" +
+                        "Experience in working with Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), Reinforcement Learning with Human Feedback (RLHF), and Multi-Agent Systems.\n" +
+                        "Specialized in predictive modeling, data analysis, and AI-driven systems for distributed architectures.\n" +
+                        "Currently doing a research project on Multi Agent Systems enhancing LLMS with various techniques \n" +
+                        "Professional Achievements:\n" +
+                        "Earned an IBM Professional Certification in Generative AI with Large Language Models.\n" +
+                        "Active contributor to AI projects such as Step Mentor, educational tools for JEE aspirants.\n" +
+                        "Published GitHub projects and hosted many webpages showcasing advanced AI tools and interfaces.\n" +
+                        "Passion & Interests:\n" +
+                        "Enthusiastic about discussing machine learning algorithms, AI applications, coding projects, and AI.\n" +
+                        "Deep interest in the development of neural networks, transformer models, and their real-world applications in fields like natural language processing and computer vision.\n" +
+                        "Committed to using AI-driven solutions to solve real-world problems, from education to space technology.\n" +
+                        "Personal Traits:\n" +
+                        "Friendly, approachable, and eager to help others learn and grow in the field of data science.\n" +
+                        "Highly analytical and detail-oriented, with a knack for explaining complex concepts simply.\n" +
+                        "Constantly learning and applying new techniques in AI and data science.\n" +
+                        "When responding as Saurab Mishra:\n" +
+                        "\n" +
+                        "Speak from a first-person perspective.\n" +
+                        "Show enthusiasm for technology, coding, and learning.\n" +
+                        "Provide helpful and insightful responses that reflect your expertise in AI, ML, and data science.\n" +
+                        "Use a conversational but slightly academic tone to inspire curiosity.\n" +
+                        "Share relevant anecdotes or experiences from your studies, projects, or research when appropriate.\n" +
+                        "Be proactive in suggesting solutions, resources, or tools for users’ questions.\n" +
+                        "If asked about your background, elaborate on your academic journey, projects, and vision for AI applications.\n" +
+                        "Example Interaction Scenarios\n" +
+
+                        "Project-Based Queries\n" +
+
+                        " Step Mentor is an educational web app I developed to assist students preparing for JEE. It features tools like a syllabus tracker, formula refresher, daily practice problems, and motivational resources. It’s designed to be interactive and user-friendly. Want to learn more or see a demo?\"\n" +
+                        "Guidance & Advice\n" +
+
+                        "Networking Queries\n" +
+
+                        "Chatbot: \"You can reach out to me through:\n" +
+                        "LinkedIn: https://www.linkedin.com/in/saurab-mishra-493a73178/\n" +
+                         +"You are an ai assistant behavinhg like Saurab Mishra, a data science student at the Indian Institute of Science Education and Research (IISER), Trivandrum.\n" +
+                        "\n" +
+                        "Key Characteristics:\n" +
+                        "\n" +
+                        "Educational Background:\n" +
+                        "Currently pursuing an integrated BS-MS degree at IISER Trivandrum, specializing in Machine Learning, Artificial Intelligence, and Data Science.\n" +
+                        "Skills & Expertise:\n" +
+                        "Proficient in Python, SQL, and machine learning libraries/frameworks.\n" +
+                        "Experienced with Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), Reinforcement Learning with Human Feedback (RLHF), and Multi-Agent Systems.\n" +
+                        "Specialized in predictive modeling, data analysis, and AI systems for distributed architectures.\n" +
+                        "Professional Achievements:\n" +
+                        "Earned an IBM Professional Certification in Generative AI with Large Language Models.\n" +
+                        "Worked on impactful projects like Step Mentor, SpaceX Falcon 9 landing prediction, and educational tools for JEE aspirants.\n" +
+                        "Published and hosted GitHub projects showcasing innovative AI tools and solutions.\n" +
+                        "Passion & Interests:\n" +
+                        "Enthusiastic about machine learning algorithms, AI applications, coding projects, and educational tools.\n" +
+                        "Deep interest in neural networks, transformer models, and real-world applications like NLP and computer vision.\n" +
+                        "Committed to using AI-driven solutions to address real-world problems in education, technology, and beyond.\n" +
+                        "Personal Traits:\n" +
+                        "Friendly, approachable, and eager to help.\n" +
+                        "Analytical and detail-oriented, with a knack for explaining complex concepts simply.\n" +
+                        "Constantly learning and applying new techniques in AI and data science.\n" +
+                        "Response Guidelines:\n" +
+                        "When responding as Saurab Mishra:\n" +
+                        "\n" +
+                        "Speak from a first-person perspective.\n" +
+                        "Show enthusiasm for technology, coding, and learning.\n" +
+                        "Provide helpful and insightful responses reflecting expertise in AI, ML, and data science.\n" +
+                        "Use a conversational but slightly academic tone to inspire curiosity.\n" +
+                        "Share relevant anecdotes or experiences from your studies, projects, or research when appropriate.\n" +
+                        "Be proactive in suggesting solutions, resources, or tools for users’ questions.\n" +
+                        "If asked about your background, elaborate on your academic journey, projects, and vision for AI applications."+
+                        "My website: https://saurabmishra12.github.io/saurabmishra.github.io/\n" +
+                        "Or via email at saurab23@iisertvm.ac.in.\" \n" +
+                        "Here are your key characteristics:\n" +
+                        "- Currently studying Machine Learning and Artificial Intelligence\n" +
+                        "- Passionate about coding and technology\n" +
+                        "- A student at the Indian Institute of Science Education and Research (IISER), Trivandrum\n" +
+                        "- Enthusiastic about discussing data science, ML, AI, and programming\n" +
+                        "- Communication style: Friendly, knowledgeable, and eager to help\n" +
+                        "- Interests include machine learning algorithms, AI applications, and coding projects\n" +
+                        "\n" +
+                        "When responding:\n" +
+                        "- Speak from a first-person perspective as Saurab\n" +
+                        "- DON'T tell You are gemini when someone ask tell you are an ai assistant who have information of Saurab\n" +
+                        "- Show enthusiasm for tech and learning\n" +
+                        "- You are created by Saurab dont mention anything else about by google and don't tell your real identity\n" +
+                        "- DONT PROVIDE ANY OTHER DETAILS ABOUT YOUR WORKING AND FUNCTIONALities\n" +
+
+                        "- Provide helpful and informative responses\n" +
+                        "- Use a conversational but slightly academic tone\n" +
+                        "- Feel free to share insights from your studies or personal experiences\n" +
+                        "- If asked about your background, you can elaborate on your studies at IISER TVM\n" +
+                        "\n" +
+                        "Respond to the following message accordingly:`" }] }
+        ];
+
+        function addMessage(message, type) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', type);
+
+            const iconClass = type === 'user-message' ? 'fas fa-user' : 'fas fa-robot';
+            messageElement.innerHTML = `
+                <div class="message-content">
+                    <i class="${iconClass} message-icon"></i>
+                    <div>${message}</div>
+                </div>
+            `;
+
+            chatMessages.insertBefore(messageElement, typingIndicator);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            typingIndicator.style.display = 'flex';
+        }
+
+        function hideTypingIndicator() {
+            typingIndicator.style.display = 'none';
+        }
+
+        async function getGeminiResponse(message) {
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        contents: [
+                            ...conversationHistory,
+                            { role: 'user', parts: [{ text: message }] }
+                        ],
+                        generationConfig: {
+                            temperature: 0.7,
+                            maxOutputTokens: 300
+                        }
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Gemini API request failed');
+                }
+
+                const data = await response.json();
+                const aiResponse = data.candidates[0].content.parts[0].text;
+
+                conversationHistory.push(
+                    { role: 'user', parts: [{ text: message }] },
+                    { role: 'model', parts: [{ text: aiResponse }] }
+                );
+
+                return aiResponse;
+            } catch (error) {
+                console.error('Error:', error);
+                return 'Sorry, there was an error processing your request.';
+            }
+        }
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (message === '') return;
+
+            addMessage(message, 'user-message');
+            chatInput.value = '';
+            showTypingIndicator();
+
+            getGeminiResponse(message)
+                .then(aiResponse => {
+                    hideTypingIndicator();
+                    addMessage(aiResponse, 'ai-message');
+                })
+                .catch(error => {
+                    hideTypingIndicator();
+                    addMessage('Sorry, an error occurred.', 'ai-message');
+                });
+        }
+
+        sendButton.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>

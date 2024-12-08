@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(180deg, #000000 0%, #121212 100%);
+            color: #f5f5f7;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 100%;
+            width: 100%;
+            padding: 0 40px;
+            margin: 0 auto;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: saturate(180%) blur(20px);
+            z-index: 1000;
+            box-shadow: 0 1px 10px rgba(0,0,0,0.1);
+        }
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        .logo {
+            color: #f5f5f7;
+            font-weight: 600;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+        }
+        .logo i {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+        }
+        nav a {
+            color: #f5f5f7;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 16px;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        nav a:hover {
+            opacity: 1;
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #2997ff;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        .projects-hero {
+            padding-top: 120px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .projects-hero h1 {
+            font-size: 64px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #f5f5f7, #86868b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+        .project-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+        .project-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+        .project-card-content {
+            padding: 40px;
+            position: relative;
+            z-index: 2;
+        }
+        .project-card h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #f5f5f7, #86868b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .project-details {
+            color: #86868b;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        .project-technologies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .tech-tag {
+            background: rgba(255,255,255,0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #2997ff;
+        }
+        .project-card a {
+            display: inline-block;
+            color: #2997ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.3s ease;
+        }
+        .project-card a:hover {
+            transform: translateX(5px);
+        }
+        .project-icon {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 50px;
+            color: rgba(255,255,255,0.1);
+            z-index: 1;
+        }
+        @media (max-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .projects-hero h1 {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-wrapper">
+            <div class="logo">
+                <i class="fas fa-cubes"></i>
+                Projects
+            </div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="blogs.html">Blogs</a>
+                <a href="contact.html">Contact</a>
+                <a href="chatbot.html">Chatbot</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="projects-hero">
+            <h1>My Project</h1>
+        </section>
+
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-card-content">
+                    <i class="project-icon fas fa-brain"></i>
+                    <h2>Step Mentor</h2>
+                    <div class="project-details">
+                        An innovative learning solution leveraging Large Language Models (LLMs) to personalize learning pathways for competitive exam preparation. Integrated advanced natural language understanding, adaptive learning models, and intelligent scheduling systems to optimize learning outcomes.
+
+                     <p> Key Innovations: LLM integration, adaptive algorithms, personalized curriculum design.</p>
+                     <p> Research Impact: Demonstrated enhanced user engagement and improved study efficiency.</p>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag">LLMs</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">Data Science</span>
+                        <span class="tech-tag">UI/UX Design</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=RVKZBXkMGrI">Learn more ></a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-card-content">
+                    <i class="project-icon fas fa-rocket"></i>
+                    <h2>Predicting Falcon 9 Landing Success</h2>
+                    <div class="project-details">
+                        Developed a predictive model to analyze the success of SpaceX Falcon 9 rocket landings using historical data. Implemented machine learning techniques to improve prediction accuracy, optimizing launch costs and enhancing space exploration efficiency.
+                    <p>Key Contributions: Developed novel feature engineering pipelines and applied ensemble models for improved prediction accuracy.</p>
+                        <p>Research Significance: Boosted reliability and cost-effectiveness in aerospace systems.</p>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag">TensorFlow</span>
+                        <span class="tech-tag">Scikit-learn</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                    <a href="#">Explore project ></a>
+                </div>
+            </div>
+
+
+
+ <div class="project-card">
+                <div class="project-card-content">
+                    <i class="project-icon fas fa-rocket"></i>
+                    <h2>Estimating Carbon Footprints in Automobiles</h2>
+                    <div class="project-details">
+                        Developed an ML-based solution to analyze car attributes and predict CO2 emissions, fostering sustainable transportation strategies.
+
+                        <p>Research Applications: Environmental impact assessment, sustainable design innovation.</p>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag">Data Science</span>
+                        <span class="tech-tag">Cloud</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                    <a href="#">Explore project ></a>
+                </div>
+            </div>
+
+         <div class="project-card">
+                <div class="project-card-content">
+                    <i class="project-icon fas fa-brain"></i>
+                    <h2>Predictive Modeling for Market and Vehicle Insights</h2>
+                    <div class="project-details">
+
+                     <p><h3>Tech Market Predictive Modeller:</h3> Designed a regression-based pipeline for laptop price prediction, incorporating advanced feature engineering and model tuning.
+</p>
+                     <p><h3> Vehicular Valuation Predictor:</h3> Created a comprehensive car valuation system using machine learning models for precise price estimation and market insights.</p>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag">Data Science</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">Data Analysis</span>
+                        <span class="tech-tag">Python</span>
+
+                    </div>
+                    <a href="#">view</a>
+                </div>
+            </div>
+
+
+
+
+             <div class="project-card">
+                <div class="project-card-content">
+                    <i class="project-icon fas fa-brain"></i>
+                    <h2>Noteworthy</h2>
+                    <div class="project-details">
+                        Designed an intelligent interface combining automatic natural language processing to generate precise, context-aware notes from YouTube videos. Advanced AI solutions were deployed to create concise summaries while enabling user customization.
+                     <p> Key Innovations: LLM integration, ML algorithms, Text Summarization.</p>
+                     <p> Applications: Educational content curation, knowledge distillation, and e-learning.</p>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag">LLMs</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">API</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                    </div>
+                    <a href="#">view</a>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+            <div class="project-card">
+                <div class="project-card-content">
+                    <i class="project-icon fas fa-chart-line"></i>
+                    <h2>Customer Segmentation</h2>
+                    <div class="project-details">
+                       Built a machine learning model to analyze and predict customer behavior in the telecommunications sector, enabling personalized service recommendations and marketing strategies.
+                    <p>Key Insights: Behavioral analytics, clustering, and classification for targeted engagement.
+</p>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag">Jupyter</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">SQL</span>
+                    </div>
+                    <a href="#">View details ></a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-card-content">
+                    <i class="project-icon fas fa-capsules"></i>
+                    <h2>Medical Drug Recommendation</h2>
+                    <div class="project-details">
+                       Built a robust ML-driven system for precision medicine, utilizing patient data and decision tree algorithms to recommend drugs tailored to individual needs.
+                    <p>Key Methodologies: Predictive analytics, healthcare data modeling, and classification algorithms.
+   </p><p>Research Outcome: Improved prescription accuracy and enhanced patient outcomes.</p>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag">ML</span>
+                        <span class="tech-tag">Data Science</span>
+                        <span class="tech-tag"> Data Analysis</span>
+                    </div>
+                    <a href="#">View  ></a>
+                </div>
+            </div>
+
+
+              <div class="project-card">
+    <div class="project-card-content">
+        <i class="project-icon fas fa-lightbulb"></i>
+        <h2>Retrieval-Augmented Generation Research Framework</h2>
+        <div class="project-details">
+            Revolutionized generative AI by integrating real-time knowledge retrieval, enabling contextually rich and accurate query responses.
+            <p>Key Innovations: Knowledge graph integration, model retrieval optimization, and hybrid generative systems.</p>
+            <p>Research Outcome: Enhanced AI systems' ability to handle complex queries across domains like scientific research and legal advisory.</p>
+        </div>
+        <div class="project-technologies">
+            <span class="tech-tag">RAG</span>
+            <span class="tech-tag">Knowledge Graphs</span>
+            <span class="tech-tag">Generative AI</span>
+        </div>
+        <a href="#">View ></a>
+    </div>
+</div>
+
+<div class="project-card">
+    <div class="project-card-content">
+        <i class="project-icon fas fa-user-check"></i>
+        <h2>Reinforcement Learning from Human Feedback</h2>
+        <div class="project-details">
+            Advanced AI training pipelines by incorporating human feedback to align systems with ethical standards and values.
+            <p>Key Innovations: Reinforcement learning algorithms and human-in-the-loop systems.</p>
+            <p>Research Outcome: Enabled the development of ethical AI systems that prioritize fairness, transparency, and inclusivity.</p>
+        </div>
+        <div class="project-technologies">
+            <span class="tech-tag">RLHF</span>
+            <span class="tech-tag">Ethical AI</span>
+            <span class="tech-tag">Human-in-the-Loop</span>
+        </div>
+        <a href="#">View ></a>
+    </div>
+</div>
+
+<div class="project-card">
+    <div class="project-card-content">
+        <i class="project-icon fas fa-network-wired"></i>
+        <h2>Multi-Agent Systems for Enhanced LLM Performance</h2>
+        <div class="project-details">
+            Leveraged multi-agent frameworks to refine language model performance through collaboration and contextual optimization.
+            <p>Key Innovations: Agent coordination, knowledge fusion, and dynamic contextual systems.</p>
+            <p>Research Outcome: Improved multi-faceted decision-making and conversational AI accuracy.</p>
+        </div>
+        <div class="project-technologies">
+            <span class="tech-tag">MAS</span>
+            <span class="tech-tag">Collaborative AI</span>
+            <span class="tech-tag">Language Models</span>
+        </div>
+        <a href="#">View ></a>
+    </div>
+</div>
+
+
+
+
+        </div>
+
+
+    </div>
+</body>
+</html>
