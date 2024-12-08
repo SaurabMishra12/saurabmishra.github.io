@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Saurab Mishra</title>
+    <title>Saurab Mishra | Blogs</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
@@ -11,12 +11,11 @@
             --primary-color: #4285F4;
             --secondary-color: #34A853;
             --accent-color: #FBBC05;
-            --text-primary: #202124;
-            --text-secondary: #5F6368;
-            --background-color: #FFFFFF;
-            --dark-background: #121212;
-            --dark-surface: #1E1E1E;
-            --hover-overlay: rgba(0, 0, 0, 0.04);
+            --text-primary: #ffffff;
+            --text-secondary: #BDC1C6;
+            --background-color: #202124;
+            --card-background: #2C2C2E;
+            --hover-overlay: rgba(255, 255, 255, 0.08);
         }
 
         * {
@@ -28,19 +27,20 @@
 
         body {
             font-family: 'Roboto', Arial, sans-serif;
-            background-color: var(--dark-background);
-            color: #f0f0f0;
+            background-color: var(--background-color);
+            color: var(--text-primary);
             line-height: 1.6;
         }
 
-        /* Google-style Navigation */
+        /* Navigation */
         .google-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 16px 24px;
-            background-color: var(--dark-surface);
-            box-shadow: 0 1px 6px 0 rgba(255, 255, 255, 0.1);
+            background-color: rgba(44, 44, 46, 0.8);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
             position: fixed;
             top: 0;
             left: 0;
@@ -56,22 +56,17 @@
             color: var(--primary-color);
         }
 
-        .nav-menu {
+        .nav-links {
             display: flex;
             align-items: center;
         }
 
-        .nav-links {
-            display: flex;
-            margin-right: 16px;
-        }
-
         .nav-links a {
             text-decoration: none;
-            color: #e0e0e0;
+            color: var(--text-secondary);
             margin: 0 12px;
             font-size: 14px;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             position: relative;
         }
 
@@ -87,17 +82,12 @@
         }
 
         .nav-links a:hover {
-            color: var(--primary-color);
+            color: var(--text-primary);
         }
 
         .nav-links a:hover::after {
             width: 100%;
             left: 0;
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
         }
 
         .profile-icon {
@@ -109,32 +99,14 @@
             border: 2px solid var(--primary-color);
         }
 
-        /* About Section */
-        .about-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 100px 24px 50px;
+        /* Blogs Header */
+        .blogs-header {
+            padding: 120px 24px 50px;
             text-align: center;
+            background: linear-gradient(135deg, var(--background-color) 0%, #1A1A1C 100%);
         }
 
-        .about-avatar {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
-            transition: transform 0.4s ease;
-        }
-
-        .about-avatar:hover {
-            transform: scale(1.05) rotate(3deg);
-        }
-
-        .about-title {
+        .blogs-title {
             font-size: 48px;
             font-weight: 700;
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
@@ -143,190 +115,181 @@
             margin-bottom: 16px;
         }
 
-        .about-description {
-            max-width: 800px;
-            color: #e0e0e0;
-            margin-bottom: 32px;
-            line-height: 1.8;
+        .blogs-subtitle {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        /* Skill Sections */
-        .skills-section {
-            display: flex;
-            justify-content: center;
+        /* Blogs Grid */
+        .blogs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
             padding: 50px 24px;
-            background-color: var(--dark-surface);
         }
 
-        .skill-card {
-            background-color: #2a2a2a;
+        .blog-card {
+            background-color: var(--card-background);
             border-radius: 12px;
-            padding: 24px;
-            margin: 0 12px;
-            width: 300px;
+            overflow: hidden;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
         }
 
-        .skill-card:hover {
+        .blog-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 12px 20px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .skill-title {
-            font-size: 22px;
+        .blog-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: filter 0.3s ease;
+        }
+
+        .blog-card:hover .blog-image {
+            filter: grayscale(0%);
+        }
+
+        .blog-content {
+            padding: 20px;
+        }
+
+        .blog-title {
+            font-size: 20px;
+            font-weight: 500;
             color: var(--primary-color);
+            margin-bottom: 12px;
+        }
+
+        .blog-description {
+            color: var(--text-secondary);
             margin-bottom: 16px;
         }
 
-        .skill-list {
-            list-style-type: none;
-        }
-
-        .skill-list li {
-            color: #e0e0e0;
-            margin-bottom: 10px;
-            position: relative;
-            padding-left: 20px;
-        }
-
-        .skill-list li::before {
-            content: '•';
-            color: var(--secondary-color);
-            position: absolute;
-            left: 0;
-        }
-
-        /* Certification Section */
-        .certification-section {
-            padding: 50px 24px;
-            background-color: var(--dark-background);
-            text-align: center;
-        }
-
-        .certification-title {
-            color: var(--primary-color);
-            margin-bottom: 24px;
-        }
-
-        .certification-grid {
+        .blog-meta {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 12px;
         }
 
-        .certification-card {
-            background-color: var(--dark-surface);
+        .coming-soon {
+            text-align: center;
+            padding: 50px;
+            background-color: var(--card-background);
             border-radius: 12px;
-            padding: 20px;
-            width: 300px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .certification-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 20px rgba(255, 255, 255, 0.1);
+        .coming-soon-title {
+            color: var(--accent-color);
+            font-size: 32px;
+            margin-bottom: 16px;
         }
 
-        .certification-name {
-            color: var(--secondary-color);
-            margin-bottom: 10px;
+        .coming-soon-description {
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .skills-section {
-                flex-direction: column;
-            }
-
-            .skill-card {
-                width: 100%;
-                margin: 12px 0;
-            }
-
-            .about-title {
+            .blogs-title {
                 font-size: 36px;
+            }
+
+            .blogs-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Google-style Navigation -->
+    <!-- Navigation -->
     <nav class="google-nav">
-        <div class="nav-logo">
-            <span>Saurab Mishra</span>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="projects.html">Projects</a>
+            <a href="contact.html">Contact</a>
+            <a href="chatbot.html">Chatbot</a>
         </div>
-        <div class="nav-menu">
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="projects.html">Projects</a>
-                <a href="blogs.html">Blogs</a>
-                <a href="contact.html">Contact</a>
-                <a href="chatbot.html">Chatbot</a>
-            </div>
-            <div class="nav-actions">
-                <img src="saurabprofile.jpg" alt="Saurab Mishra" class="profile-icon">
-            </div>
-        </div>
+
     </nav>
 
-    <!-- About Section -->
-    <section class="about-section">
-        <img src="saurabprofile.jpg" alt="Saurab Mishra" class="about-avatar">
-        <h1 class="about-title">About Me</h1>
-        <p class="about-description">
-            Passionate research student with expertise in machine learning, Data Science, artificial intelligence, and predictive modeling.
-            Dedicated to pushing the boundaries of technological innovation through cutting-edge research and practical applications.
-            Committed to solving complex challenges by leveraging advanced analytical techniques and deep domain knowledge.
+    <!-- Blogs Header -->
+    <header class="blogs-header">
+        <h1 class="blogs-title">Blogs</h1>
+        <p class="blogs-subtitle">
+            Exploring the latest insights, innovations, and thoughts on artificial intelligence,
+            machine learning, and technological advancements.
+        </p>
+    </header>
+
+    <!-- Coming Soon Section -->
+    <section class="coming-soon">
+        <h2 class="coming-soon-title">Coming Soon!</h2>
+        <p class="coming-soon-description">
+            I'm currently working on creating high-quality, in-depth blog posts about AI,
+            machine learning, and technological innovations. Stay tuned for insightful content
+            that explores the cutting edge of technology.
         </p>
     </section>
 
-    <!-- Skills Section -->
-    <section class="skills-section">
-        <div class="skill-card">
-            <h3 class="skill-title">Technical Skills</h3>
-            <ul class="skill-list">
-                <li>Machine Learning</li>
-                <li>Deep Learning, LLMs</li>
-                <li>Natural Language Processing</li>
-                <li>Python, R, JavaScript, C, C+ </li>
-                <li>TensorFlow, PyTorch</li>
-            </ul>
-        </div>
-        <div class="skill-card">
-            <h3 class="skill-title">Research Domains</h3>
-            <ul class="skill-list">
-                <li>Artificial Intelligence</li>
-                <li>Data Science</li>
-                <li>Predictive Analytics</li>
-                <li>Computer Vision</li>
-                <li>Distributed Computing</li>
-            </ul>
-        </div>
-        <div class="skill-card">
-            <h3 class="skill-title">Soft Skills</h3>
-            <ul class="skill-list">
-                <li>Problem Solving</li>
-                <li>Critical Thinking</li>
-                <li>Technical Communication</li>
-                <li>Team Collaboration</li>
-                <li>Project Management</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Certification Section -->
-    <section class="certification-section">
-        <h2 class="certification-title">Certifications</h2>
-        <div class="certification-grid">
-            <div class="certification-card">
-                <h3 class="certification-name">IBM Certified Professional</h3>
-                <p>Data Science Professional</p>
+    <!-- Blog Grid (Placeholder for Future Blogs) -->
+   <section class="blogs-grid">
+    <!-- Blog 1: Multi-Agent Systems -->
+    <div class="blog-card">
+        <img src="masimg.webp" alt="Multi-Agent Systems" class="blog-image">
+        <div class="blog-content">
+            <h3 class="blog-title">Multi-Agent Systems: The Future of Collaborative AI</h3>
+            <p class="blog-description">
+                Exploring how Multi-Agent Systems enable coordinated decision-making and problem-solving in distributed AI environments.
+            </p>
+            <div class="blog-meta">
+                <span>Coming Soon</span>
+                <span>6 min read</span>
             </div>
-
         </div>
-    </section>
+    </div>
+    <!-- Blog 2: Advanced RAG -->
+    <div class="blog-card">
+        <img src="ragimg.png" alt="Advanced RAG" class="blog-image">
+        <div class="blog-content">
+            <h3 class="blog-title">Advanced Retrieval-Augmented Generation (RAG)</h3>
+            <p class="blog-description">
+                Delving into the cutting-edge integration of retrieval mechanisms with generative models to enhance knowledge-rich AI applications.
+            </p>
+            <div class="blog-meta">
+                <span>Coming Soon</span>
+                <span>7 min read</span>
+            </div>
+        </div>
+    </div>
+    <!-- Blog 3: MAS with RLHF -->
+    <div class="blog-card">
+        <img src="masrlhf.avif" alt="MAS with RLHF" class="blog-image">
+        <div class="blog-content">
+            <h3 class="blog-title">MAS with RLHF: Aligning Agents with Human Values</h3>
+            <p class="blog-description">
+                Investigating the synergy between Multi-Agent Systems and Reinforcement Learning from Human Feedback for ethical AI design.
+            </p>
+            <div class="blog-meta">
+                <span>Coming Soon</span>
+                <span>8 min read</span>
+            </div>
+        </div>
+    </div>
+</section>
+
 </body>
 </html>
