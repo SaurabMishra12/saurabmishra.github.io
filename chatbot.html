@@ -269,7 +269,7 @@
     </div>
 
     <script>
-        const API_KEY = 'AIzaSyDHvOzqHtYc-1LhhvDePrZiXy_UFrXrzsc';
+        const API_KEY = 'AIzaSyDJgXJg2rn0WS_j3ZI1C3OSa-RV1QubPas';
         const chatMessages = document.getElementById('chat-messages');
         const chatInput = document.getElementById('chat-input');
         const sendButton = document.getElementById('send-button');
@@ -413,8 +413,8 @@
                             { role: 'user', parts: [{ text: message }] }
                         ],
                         generationConfig: {
-                            temperature: 0.7,
-                            maxOutputTokens: 300
+                            temperature: 0.2,
+                            maxOutputTokens: 500
                         }
                     })
                 });
