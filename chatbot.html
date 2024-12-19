@@ -251,32 +251,36 @@
             background-color: rgba(37, 99, 235, 0.4);
         }
 
-        @media (max-width: 768px) {
-            .nav-header {
-                padding: 1rem;
-            }
+        @media (max-width: 480px) {
+    .nav-header {
+        flex-direction: column;
+        padding: 0.5rem;
+    }
 
-            .chat-messages {
-                padding: 1rem;
-            }
+    h1 {
+        font-size: 1.2rem;
+        text-align: center;
+    }
 
-            .message {
-                max-width: 85%;
-                padding: 0.8rem 1.2rem;
-            }
+    .chat-messages {
+        padding: 0.5rem;
+    }
 
-            .chat-input {
-                padding: 1rem;
-            }
+    .message {
+        max-width: 90%;
+        font-size: 0.9rem;
+    }
 
-            #message-input {
-                padding: 0.8rem 1.2rem;
-            }
+    #message-input {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
 
-            #send-button {
-                padding: 0.8rem 1.5rem;
-            }
-        }
+    #send-button {
+        padding: 0.6rem 1rem;
+    }
+}
+
     </style>
 </head>
 <body>
