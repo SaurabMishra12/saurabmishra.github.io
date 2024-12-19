@@ -30,6 +30,7 @@
             background-color: var(--background-color);
             height: 100vh;
             overflow: hidden;
+            overflow-x: hidden;
         }
 
         .container {
@@ -128,6 +129,7 @@
 
         .input-container {
             display: flex;
+            flex-wrap: wrap;
             gap: 1rem;
             align-items: center;
             max-width: 1200px;
@@ -136,6 +138,7 @@
 
         #message-input {
             flex-grow: 1;
+             max-width: 80%;
             padding: 1rem 1.5rem;
             border: 2px solid var(--border-color);
             border-radius: 12px;
@@ -155,6 +158,7 @@
             background-color: var(--primary-color);
             color: white;
             border: none;
+             max-width: 15%;
             padding: 1rem 2rem;
             border-radius: 12px;
             cursor: pointer;
