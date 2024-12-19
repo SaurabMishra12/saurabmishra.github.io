@@ -86,7 +86,7 @@
 
         .chat-container {
             background-color: var(--chat-bg);
-            
+
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -296,6 +296,44 @@
         padding: 0.6rem 1rem;
     }
 }
+         /* Mobile-specific styles */
+        @media (max-width: 480px) {
+            :root {
+                --nav-height: 56px;
+                --input-height: 64px;
+            }
+
+            .nav-header {
+                padding: 0.5rem 1rem;
+            }
+
+            .nav-header h1 {
+                font-size: 1.2rem;
+            }
+
+            .chat-input {
+                padding: 0.5rem;
+            }
+
+            .input-container {
+                gap: 0.5rem;
+            }
+
+            #message-input {
+                padding: 0.5rem;
+            }
+
+            #send-button {
+                padding: 0.5rem 1rem;
+            }
+
+            .message {
+                max-width: 85%;
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
 
     </style>
 
