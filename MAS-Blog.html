@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Blog </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <style>
+        :root {
+            /* Light Theme Variables */
+            --bg-primary-light: #ffffff;
+            --bg-secondary-light: #fafafa;
+            --text-primary-light: rgba(0, 0, 0, 0.84);
+            --text-secondary-light: rgba(0, 0, 0, 0.54);
+            --accent-light: #1a8917;
+            --border-light: rgba(0, 0, 0, 0.1);
+
+            /* Dark Theme Variables */
+            --bg-primary-dark: #121212;
+            --bg-secondary-dark: #1a1a1a;
+            --text-primary-dark: rgba(255, 255, 255, 0.87);
+            --text-secondary-dark: rgba(255, 255, 255, 0.6);
+            --accent-dark: #4caf50;
+            --border-dark: rgba(255, 255, 255, 0.1);
+        }
+
+        .light {
+            --bg-primary: var(--bg-primary-light);
+            --bg-secondary: var(--bg-secondary-light);
+            --text-primary: var(--text-primary-light);
+            --text-secondary: var(--text-secondary-light);
+            --accent: var(--accent-light);
+            --border: var(--border-light);
+        }
+
+        .dark {
+            --bg-primary: var(--bg-primary-dark);
+            --bg-secondary: var(--bg-secondary-dark);
+            --text-primary: var(--text-primary-dark);
+            --text-secondary: var(--text-secondary-dark);
+            --accent: var(--accent-dark);
+            --border: var(--border-dark);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 2rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr minmax(auto, 700px) 1fr;
+            gap: 2rem;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .article-content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            color: var(--text-secondary);
+        }
+
+        .author-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        /* Sharing Tools */
+        .share-tools {
+            position: sticky;
+            top: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .share-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .share-button:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Content Styles */
+        .content-section {
+            margin: 2rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        pre {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background: var(--bg-secondary) !important;
+            overflow-x: auto;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .table-of-contents {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .toc-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .toc-item:hover {
+            color: var(--accent);
+        }
+
+        .reading-time {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="blogs.html" class="back-button">← Back </a>
+            </div>
+            <button class="theme-toggle" id="themeToggle">🌓</button>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="table-of-contents">
+                <h3>Contents</h3>
+                <a href="#intro1" class="toc-item">About</a>
+                <a href="#intro2" class="toc-item">Introduction</a>
+                <a href="#section1" class="toc-item">Framework Overview</a>
+                <a href="#section2" class="toc-item">Large Language Model Configuration</a>
+                <a href="#section3" class="toc-item">Setting Up the Agents</a>
+                 <a href="#section4" class="toc-item">Defining Tasks</a>
+                 <a href="#section5" class="toc-item">Running the Crew</a>
+                <a href="#section6" class="toc-item">Conclusion</a>
+            </div>
+        </aside>
+
+        <article class="article-content">
+            <h1>Multi-Agent Systems: The Future of Collaborative AI</h1>
+            <div class="reading-time">6 min read · Dec 10, 2024</div>
+
+            <div class="article-meta">
+                <div class="author-image"></div>
+                <div>
+                    <h3>Saurab Mishra</h3>
+                    <span>^^_+</span>
+                </div>
+            </div>
+
+            <section id="intro1" class="content-section">
+
+                <p>In this blog, I will present a modular multi-agent system for collaborative participation in artificial intelligence tasks. In this system, agents with differing task-specific capabilities work cooperatively toward achieving a research challenge. Each participating agent has been assigned a specific role, and they collaborate to create a final result through inter-agent communication.
+
+                    Attached are the code snippets illustrating this framework, making it accessible for exploration and application in various domains.</p>
+            </section>
+
+             <section id="intro2" class="content-section">
+                <img src="introimg" alt="Image Source: U.S. Army CCDC Army Research Laboratory Public Affairs"/>
+                  <figcaption>Image Source: U.S. Army CCDC Army Research Laboratory Public Affairs
+</figcaption>
+                <h2>Introduction</h2>
+                <p><strong>Multi-Agent Systems (MAS)</strong> represent a paradigm where multiple independent agents work together to solve complex problems more efficiently than single systems. Inspired by human team dynamics, MAS splits tasks among specialized agents, enabling parallelism, adaptability, and modularity.</p> <p>In this work, I explore how MAS can streamline research tasks. The system utilizes four agents:</p> <ul> <li><strong>SearchAgent</strong>: Gathers relevant publications based on a research topic.</li> <li><strong>TrendAgent</strong>: Identifies trends and patterns in the collected data.</li> <li><strong>SummarizationAgent</strong>: Extracts concise insights from the findings.</li> <li><strong>ManagerAgent</strong>: Oversees and coordinates the workflow.</li> </ul>
+            </section>
+
+         <section id="section1" class="content-section">
+  <h2>Framework Overview</h2>
+  <p>
+    To implement this multi-agent system, we leverage the <strong>CrewAI framework</strong>.
+    It is designed to be developed in a modular architecture wherein the tasks are presented as independent, standalone units.
+    In such an architecture, every task is assigned to a particular agent with specific capabilities, enabling more focused and efficient execution.
+    The modularity offers flexibility, scalability, and adaptability to the scientific field in many aspects.
+  </p>
+  <figure>
+    <img src="flowchart" alt="The figure provides an overview of the agents’ operations." />
+    <figcaption>Figure: Overview of agents' operations within the system</figcaption>
+  </figure>
+  <p><strong>Code Snippet:</strong> Below is an example of the environment configuration and startup for the framework:</p>
+<pre style="background-color: #e3e3e8; color: #0f911a; padding: 15px; border-radius: 8px; font-size: 1rem; overflow: auto;">
+    <code>
+
+!pip install --quiet crewai crewai_tools
+    </code>
+  </pre><p>Next, we import the necessary libraries:</p>
+<pre style="background-color: #e3e3e8; color: #0f911a; padding: 15px; border-radius: 8px; font-size: 1rem; overflow: auto;">
+    <code>
+from crewai import Agent, Task, Crew
+from crewai import LLM
+    </code>
+  </pre>
+</section>
+
+
+
+<section id="section2" class="content-section">
+  <h2>Large Language Model Configuration</h2>
+  <p>
+    The system employs the NVIDIA NeMo framework as the foundation for LLM deployment and customization to achieve high performance and adaptability. Specifically, it uses LLaMA 3.3, which is a open source transformer model with 70 billion parameters optimized for domain-specific language tasks.</p>
+  <figure>
+    <img src="nvidia" alt="The figure provides an overview of the agents’ operations." />
+  </figure> <figcaption>Photo by BoliviaInteligente on Unsplash</figcaption>
+    <ul> <li><strong>Model Provider:</strong>NVIDIA NeMo</li> <li><strong>Model Version:</strong>LLaMA 3.3</li> <li><strong>Parameter Scale:</strong>70 billion parameters, enabling fine-grained contextual understanding and sophisticated semantic inference.
+</li> <li><strong>Temperature Settings: </strong> Adjusted according to task to balance exploration and determinism .</li> </ul>
+
+  <p> The system is designed with a dual-LLM architecture, and we can use multiple LLMs from different providers, enabling seamless interoperability between distinct models. This will allow us to select the most suitable model for a given task, optimizing computational efficiency and output quality.</p>
+  <pre style="background-color: #e3e3e8; color: #0f911a; padding: 15px; border-radius: 8px; font-size: 1rem; overflow: auto;">
+    <code>
+llm1 = LLM(
+    model="nvidia_nim/meta/llama-3.3-70b-instruct",
+    api_key=secret_key,
+    temperature=0.7
+)
+
+llm2 = LLM(
+    model="nvidia_nim/meta/llama-3.3-70b-instruct",
+    api_key=secret_key,
+    temperature=0.7
+)
+    </code>
+  </pre>
+</section>
+
+
+
+<section id="section3" class="content-section">
+  <h2>Setting Up the Agents</h2>
+    <h3>Literature Search Agent</h3>
+
+    <ul> <li>Queries databases such as PubMed and Google Scholar.</li> <li>Retrieves relevant papers on a given topic.</li>
+
+
+<pre style="background-color: #e3e3e8; color: #0f911a; padding: 15px; border-radius: 8px; font-size: 1rem; overflow: auto;">
+    <code>
+SearchAgent = Agent(
+    role="Literature Search Agent",
+    goal="Query scientific databases to retrieve relevant research on {topic}.",
+    backstory="""You are a specialized agent adept at navigating databases
+               like PubMed, arXiv, and Google Scholar to find the latest and
+               most relevant studies on {topic}.""",
+    allow_delegation=True,
+    memory=True,
+    cache=True,
+    tools=[SearchTool()],
+
+    llm=llm1
+)
+    </code>
+  </pre>
+
+
+
+
+    <h3>Summarization Agent</h3>
+
+    <ul> <li>Extracts methodologies, findings, and gaps from the retrieved literature.</li>
+
+
+ <pre style="background-color: #e3e3e8; color: #0f911a; padding: 15px; border-radius: 8px; font-size: 1rem; overflow: auto;">
+    <code>
+SummarizationAgent = Agent(
+    role= "Literature Summarization Agent",
+    goal= """Analyze retrieved research papers and extract detail
+          summaries on {topic}, highlighting methodologies, findings, and gaps.""",
+    backstory= """You are an expert in natural language processing
+                and scientific comprehension, capable of summarizing complex
+                research into actionable insights.""",
+    allow_delegation=True,
+    memory=True,
+    cache=True,
+    llm=llm2
+)
+    </code>
+  </pre>
+
+        <h3>Trend Analysis Agent</h3>
+
+    <ul> <li>Identifies trends and knowledge gaps from summarized data.</li>
+
+
+  <pre style="background-color: #e3e3e8; color: #0f911a; padding: 15px; border-radius: 8px; font-size: 1rem; overflow: auto;">
+    <code>
+TrendAgent = Agent(
+    role="Trend Analysis Agent",
+    goal="""Analyze summarized literature to detect emerging trends,
+          cross-disciplinary insights, and knowledge gaps in {topic} research.""",
+    backstory= """You specialize in synthesizing large volumes of information to identify
+               patterns, trends, and opportunities for further exploration.""",
+    allow_delegation=True,
+    memory=True,
+    cache=True,
+    llm=llm1
+)
+)</code>
+  </pre>
+
+
+
+            <h3>Project Manager Agent</h3>
+
+    <ul> <li>Orchestrates the workflow, ensuring quality and timely completion.</li>
+
+
+<pre style="background-color: #e3e3e8; color: #0f911a; padding: 15px; border-radius: 8px; font-size: 1rem; overflow: auto;">
+    <code>
+manager = Agent(
+    role="Project Manager",
+    goal="Efficiently manage the crew and ensure high-quality task completion",
+    backstory="""You're an experienced project manager, skilled in overseeing
+               complex projects and guiding teams to success. Your role is to coordinate
+               the efforts of the crew members, ensuring that each task is completed
+                on time and to the highest standard.""",
+    allow_delegation=True,
+) </code>
+  </pre>
+</section>
+
+<section id="section4" class="content-section">
+  <h2>Defining Tasks</h2>
+    <p>Tasks are defined as modular components, each assigned to a specific agent. The following tasks form the workflow:</p>
+    <h3>Search Task</h3>
+
+    <ul> <li>Searches for literature based on a given topic.</li>
+
+
+ <pre style="background-color: #e3e3e8; color: #0f911a; padding: 15px; border-radius: 8px; font-size: 1rem; overflow: auto;">
+    <code>
+SearchTask = Task(
+    description="""
+    Perform an automated search for scientific literature on {topic}.
+    - share your finding with other agents
+
+    INPUT: {topic} - A specific topic or keyword.
+
+    COMMUNICATION PROCESS:
+    1. The SearchAgent queries scientific databases to retrieve relevant articles.
+    2. The retrieved articles are organized into categories based on relevance and topic.
+    3. The results are passed to the SummarizationAgent for further processing.
+
+    OUTPUT FORMAT:
+    A structured list of retrieved articles with titles, abstracts, and links to full text.
+    """,
+    expected_output="A curated list of relevant literature with links and abstracts, ready for summarization.",
+    agent=SearchAgent
+)
+    </code>
+  </pre>
+
+
+
+
+    <h3> Summarization Task</h3>
+
+    <ul> <li>Summarizes findings from the retrieved literature.</li>
+
+
+ <pre style="background-color: #e3e3e8; color: #0f911a; padding: 15px; border-radius: 8px; font-size: 1rem; overflow: auto;">
+    <code>
+SummarizationTask = Task(
+    description="""
+    Summarize the findings, methodologies, and implications of retrieved articles
+      on {topic} accumlated by Literature Search Agent.
+
+    articles - A list of articles with titles, abstracts, and links.
+
+    COMMUNICATION PROCESS:
+    1. The SummarizationAgent analyzes each article, extracting key findings, methodologies, and conclusions.
+    2. The summaries are organized into thematic categories.
+    3. The results are passed to the TrendAgent for trend analysis.
+
+    OUTPUT FORMAT:
+    A collection of detail summaries organized by theme, highlighting key findings and gaps.
+    """,
+    expected_output="A set of detail summaries of the retrieved literature, categorized by thematic relevance.",
+    agent=SummarizationAgent
+)
+    </code>
+  </pre>
+
+        <h3>Trend Analysis Task</h3>
+
+    <ul> <li>Detects patterns and research gaps from the summarized data.</li>
+
+
+<pre style="background-color: #e3e3e8; color: #0f911a; padding: 15px; border-radius: 8px; font-size: 1rem; overflow: auto;">
+    <code>
+TrendAnalysisTask = Task(
+    description="""
+    Analyze summarized literature to identify trends, emerging areas of research, and interdisciplinary connections in {topic}.
+
+    INPUT: summaries - A collection of summaries categorized by theme. given by other agents
+
+    COMMUNICATION PROCESS:
+    1. The TrendAgent analyzes the summaries to detect patterns, recurring themes, and emerging trends.
+    2. Gaps in existing research are identified, and potential areas for further exploration are suggested.
+    3. Key insights and recommendations are compiled into a cohesive report.
+
+    OUTPUT FORMAT:
+    A structured report detailing:
+    - Identified trends and emerging areas of research
+    - Cross-disciplinary connections
+    - Research gaps and recommended areas for future exploration
+    """,
+    expected_output="A comprehensive report highlighting trends, gaps, and recommendations for future research on {topic}.",
+    agent=TrendAgent
+)
+    </code>
+  </pre>
+</section>
+            <section id="section5" class="content-section">
+  <h2>Running the Crew</h2>
+  <p>
+    The agents are grouped into a Crew, orchestrated by the manager. The workflow kicks off with the following command:</p>
+
+
+  <pre style="background-color: #e3e3e8; color: #0f911a; padding: 15px; border-radius: 8px; font-size: 1rem; overflow: auto;">
+    <code>
+text= "Chain of thoughts"
+result = research_crew.kickoff(inputs={"topic": text})
+    </code>
+  </pre>
+                <figure>
+    <img src="workingimg" alt="The image illustrates an example of agent coordination in collaboratively solving a complex task." />
+  </figure><figcaption>The image illustrates an example of agent coordination in collaboratively solving a complex task.</figcaption>
+</section>
+
+    <section id="section6" class="content-section">
+  <h2>Conclusion</h2>
+        <p>This multi-agent framework underscores the transformative potential of collaborative artificial intelligence in accelerating the process of scientific discovery. By automating labor-intensive and time-consuming tasks, the framework empowers researchers to focus on high-level analysis, strategic decision-making, and creative problem-solving. Integrating modular LLMs ensures adaptability, scalability, and efficiency, making it a powerful tool for diverse research workflows.</p>
+<p>Future iterations of this framework are envisioned to incorporate advanced capabilities such as automated code interpretation, retrieval-augmented generation (RAG), reinforcement learning with human feedback (RLHF) for multi-agent optimization, interactive visualization dashboards, and real-time collaborative features. These enhancements will further streamline research processes, fostering innovation and enabling seamless collaboration across disciplines. This framework represents a significant step towards AI-driven research ecosystems, paving the way for more efficient and impactful scientific advancements.</p>
+
+
+
+
+
+
+
+
+            <blockquote>
+                <p>Coordination in multi-agent systems isn't just strategy; it's evolution in action.</p>
+            </blockquote>
+        </article>
+
+        <aside class="sidebar">
+    <!-- Add Font Awesome CDN in the head of your HTML -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <div class="share-tools">
+        <!-- Enhanced buttons with Font Awesome icons -->
+        <button class="share-button general-share">
+            <i class="fa-solid fa-share-nodes"></i>
+            <span class="text">Share Content</span>
+        </button>
+        <button class="share-button whatsapp-share">
+            <i class="fab fa-whatsapp"></i>
+            <span class="text">Share on WhatsApp</span>
+        </button>
+        <button class="share-button instagram-share">
+            <i class="fab fa-instagram"></i>
+            <span class="text">Share on Instagram</span>
+        </button>
+    </div>
+</aside>
+
+<style>
+    /* Container styling */
+    .share-tools {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    /* Enhanced button styling */
+    .share-button {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        padding: 12px 16px;
+        border: none;
+        border-radius: 8px;
+        background-color: #f8f9fa;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Icon styling */
+    .share-button i {
+        width: 24px;
+        margin-right: 12px;
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    /* Text styling */
+    .share-button .text {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    /* Button-specific styling */
+    .general-share {
+        color: #2d3436;
+    }
+    .general-share:hover {
+        background-color: #e9ecef;
+    }
+
+    .whatsapp-share {
+        color: #25D366;
+    }
+    .whatsapp-share:hover {
+        background-color: #dcf8c6;
+    }
+
+    .instagram-share {
+        color: #E4405F;
+    }
+    .instagram-share:hover {
+        background-color: #fcebe8;
+    }
+
+    /* Hover animation for icons */
+    .share-button:hover i {
+        transform: scale(1.1);
+        transition: transform 0.2s ease;
+    }
+</style>
+
+<script>
+    // Add event listeners when the document is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Attach click handlers to buttons
+        document.querySelector('.general-share').addEventListener('click', shareGeneral);
+        document.querySelector('.whatsapp-share').addEventListener('click', shareWhatsApp);
+        document.querySelector('.instagram-share').addEventListener('click', shareInstagram);
+    });
+
+    // Get current page details for sharing
+    function getPageDetails() {
+        return {
+            url: encodeURIComponent(window.location.href),
+            title: encodeURIComponent(document.title)
+        };
+    }
+
+    // General share functionality
+    function shareGeneral() {
+        const details = getPageDetails();
+
+        if (navigator.share) {
+            navigator.share({
+                title: decodeURIComponent(details.title),
+                url: decodeURIComponent(details.url)
+            }).catch(error => {
+                console.log('Error sharing:', error);
+                copyToClipboard(decodeURIComponent(details.url));
+            });
+        } else {
+            copyToClipboard(decodeURIComponent(details.url));
+        }
+    }
+
+    // WhatsApp sharing functionality
+    function shareWhatsApp() {
+        const details = getPageDetails();
+        const text = `Check this out: ${details.title}`;
+        const whatsappURL = `https://api.whatsapp.com/send?text=${text}%20${details.url}`;
+        window.open(whatsappURL, '_blank', 'noopener,noreferrer');
+    }
+
+    // Instagram sharing functionality
+    function shareInstagram() {
+        const details = getPageDetails();
+
+        // Open Instagram in a new tab
+        window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer');
+
+        // Copy the URL to clipboard for easy sharing
+        setTimeout(() => {
+            copyToClipboard(decodeURIComponent(details.url));
+            alert('URL copied to clipboard! You can now paste it in your Instagram post or story.');
+        }, 300);
+    }
+
+    // Modern clipboard API with fallback
+    function copyToClipboard(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text)
+                .then(() => alert('Link copied to clipboard!'))
+                .catch(() => fallbackCopyToClipboard(text));
+        } else {
+            fallbackCopyToClipboard(text);
+        }
+    }
+
+    // Fallback clipboard copy method
+    function fallbackCopyToClipboard(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+            document.execCommand('copy');
+            alert('Link copied to clipboard!');
+        } catch (err) {
+            console.error('Failed to copy text:', err);
+            alert('Failed to copy link. Please try again.');
+        }
+
+        document.body.removeChild(textArea);
+    }
+</script>
+
+        </aside>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Connect With Me</h3>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/saurabm12/" class="social-link">Ig</a>
+                    <a href="https://www.linkedin.com/in/saurab-mishra-493a73178/" class="social-link">in</a>
+                    <a href="https://saurabmishra12.github.io/saurabmishra.github.io/" class="social-link">Me</a>
+                    <a href="https://www.youtube.com/@saurabmishra9376" class="social-link">yt</a>
+                </div>
+            </div><div class="footer-section">
+  <h3>More Articles</h3>
+  <a href="#" class="toc-item">Advanced Retrieval-Augmented Generation (RAG) <span style="color: gray; font-style: italic;">(Coming Soon)</span></a>
+  <a href="#" class="toc-item">MAS with RLHF: Aligning Agents with Human Values <span style="color: gray; font-style: italic;">(Coming Soon)</span></a>
+  <a href="#" class="toc-item">Generative AI & LLMs <span style="color: gray; font-style: italic;">(Coming Soon)</span></a>
+</div>
+
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Coming soon</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            themeToggle.textContent = html.classList.contains('dark') ? '☀️' : '🌓';
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate content sections
+        gsap.utils.toArray('.content-section').forEach(section => {
+            gsap.to(section, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 80%',
+                    end: 'top 20%',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+        });
+
+        // Share buttons hover animation
+        gsap.utils.toArray('.share-button').forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                gsap.to(button, {
+                    scale: 1.1,
+                    duration: 0.3
+                });
+            });
+
+            button.addEventListener('mouseleave', () => {
+                gsap.to(button, {
+                    scale: 1,
+                    duration: 0.3
+                });
+            });
+        });
+    </script>
+</body>
+</html>
