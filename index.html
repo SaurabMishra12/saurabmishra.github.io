@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saurab Mishra | Data Science | Machine Learning | AI | Multi-agent system</title>
 
-    <!-- Fonts and Icons -->
+    <!-- Essential External Resources -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- Particles.js for interactive background -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
-
     <style>
-        /* Core Variables */
+        /* Design System Variables - Centralized color and style management */
         :root {
             --primary-color: #4285F4;
             --secondary-color: #34A853;
@@ -22,49 +20,36 @@
             --text-secondary: #5F6368;
             --background-color: #FFFFFF;
             --hover-overlay: rgba(0, 0, 0, 0.04);
+            --transition-standard: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Base Styles */
+        /* Base Reset and Global Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
             scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Roboto', Arial, sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-primary);
             line-height: 1.6;
-            position: relative;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
             overflow-x: hidden;
         }
 
-        /* Interactive Background Elements */
+        /* Particles.js Container Styles */
         #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
-            z-index: -1;
-        }
-
-        .neural-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: -2;
-            opacity: 0.1;
-            background:
-                linear-gradient(90deg, var(--background-color) 21px, transparent 1%) center,
-                linear-gradient(var(--background-color) 21px, transparent 1%) center,
-                var(--primary-color);
-            background-size: 22px 22px;
-            animation: moveBackground 30s linear infinite;
+            z-index: -1;
         }
 
         /* Navigation Styles */
@@ -73,52 +58,52 @@
             justify-content: space-between;
             align-items: center;
             padding: 16px 24px;
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.08);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
             position: fixed;
+            width: 100%;
             top: 0;
-            left: 0;
-            right: 0;
             z-index: 1000;
+            transition: var(--transition-standard);
         }
 
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            font-size: 22px;
-            font-weight: 500;
-            color: var(--primary-color);
-        }
-
-        .nav-menu {
-            display: flex;
-            align-items: center;
+        .google-nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
         }
 
         .nav-links {
             display: flex;
-            margin-right: 16px;
+            gap: 24px;
         }
 
         .nav-links a {
+            position: relative;
             text-decoration: none;
             color: var(--text-secondary);
-            margin: 0 12px;
+            font-weight: 500;
             font-size: 14px;
-            transition: all 0.3s ease;
-            position: relative;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: var(--transition-standard);
         }
 
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
+            bottom: 0;
+            left: 50%;
             width: 0;
             height: 2px;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
+            background-color: var(--primary-color);
+            transition: var(--transition-standard);
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background: rgba(66, 133, 244, 0.1);
         }
 
         .nav-links a:hover::after {
@@ -126,29 +111,74 @@
         }
 
         .profile-icon {
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             object-fit: cover;
-            margin-left: 16px;
             border: 2px solid var(--primary-color);
-            transition: transform 0.3s ease;
+            transition: var(--transition-standard);
         }
 
         .profile-icon:hover {
             transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.2);
         }
 
-        /* Hero Section with Enhanced Animations */
+        /* Mobile Menu Styles */
+        .mobile-menu-button {
+            display: none;
+            cursor: pointer;
+            padding: 8px;
+            background: none;
+            border: none;
+        }
+
+        .mobile-menu-button span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-primary);
+            margin: 5px 0;
+            transition: var(--transition-standard);
+        }
+
+        #mobile-menu {
+            display: none;
+            background: var(--background-color);
+            padding: 16px;
+            position: fixed;
+            top: 72px;
+            left: 0;
+            width: 100%;
+             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        #mobile-menu.active {
+            display: block;
+        }
+
+        #mobile-menu a {
+            display: block;
+            padding: 12px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-standard);
+        }
+
+        #mobile-menu a:hover {
+            background: rgba(66, 133, 244, 0.1);
+            color: var(--primary-color);
+        }
+
+        /* Hero Section Styles */
         .hero-section {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
             padding: 100px 24px 50px;
             text-align: center;
-            position: relative;
         }
 
         .hero-avatar {
@@ -156,78 +186,58 @@
             height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            animation: float 6s ease-in-out infinite;
             border: 4px solid var(--primary-color);
+            margin-bottom: 32px;
+            animation: float 6s ease-in-out infinite;
         }
 
         .hero-title {
             font-size: 48px;
             font-weight: 700;
+            margin-bottom: 16px;
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 16px;
             animation: gradientText 4s linear infinite;
         }
 
         .hero-subtitle {
             max-width: 600px;
             color: var(--text-secondary);
-            margin-bottom: 32px;
             font-size: 18px;
             opacity: 0;
             animation: fadeIn 1s ease forwards 0.5s;
         }
 
-        /* Project Cards with Enhanced Interactions */
+        /* Project Cards Grid */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
             padding: 50px 24px;
-            position: relative;
-            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .card {
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition-standard);
+            transform: translateY(0);
         }
 
         .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
-        }
-
-        .card:hover::before {
-            opacity: 0.1;
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
         }
 
         .card-image {
             width: 100%;
-            height: 250px;
+            height: 200px;
             object-fit: cover;
-            transition: transform 0.4s ease;
+            transition: var(--transition-standard);
         }
 
         .card:hover .card-image {
@@ -235,20 +245,14 @@
         }
 
         .card-content {
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.95);
+            padding: 24px;
         }
 
         .card-title {
             font-size: 20px;
-            font-weight: 500;
-            margin-bottom: 12px;
+            font-weight: 600;
             color: var(--primary-color);
-            transition: color 0.3s ease;
-        }
-
-        .card:hover .card-title {
-            color: var(--secondary-color);
+            margin-bottom: 12px;
         }
 
         .card-description {
@@ -259,33 +263,14 @@
 
         /* Animations */
         @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
 
         @keyframes gradientText {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        @keyframes moveBackground {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 44px 44px;
-            }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         @keyframes fadeIn {
@@ -299,179 +284,308 @@
             }
         }
 
-        /* Responsive Design */
+        /* Mobile Responsive Design */
         @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-button {
+                display: block;
+            }
+
+            #mobile-menu.active {
+                display: block;
+            }
+
+            .google-nav {
+                padding: 12px 16px;
+            }
+
             .hero-title {
                 font-size: 36px;
             }
 
-            .card-grid {
-                grid-template-columns: 1fr;
+            .hero-subtitle {
+                font-size: 16px;
+                padding: 0 20px;
             }
 
-            .nav-links {
-                display: none;
+            .card-grid {
+                grid-template-columns: 1fr;
+                padding: 24px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Interactive Background Layers -->
+    <!-- Particles.js Container -->
     <div id="particles-js"></div>
-    <div class="neural-bg"></div>
 
-    <!-- Navigation -->
+    <!-- Navigation Bar -->
     <nav class="google-nav">
         <div class="nav-actions">
             <img src="saurabprofile.jpg" alt="Saurab Mishra" class="profile-icon">
         </div>
-        <div class="nav-menu">
-            <div class="nav-links">
-                <a href="about.html">About</a>
-                <a href="projects.html">Projects</a>
-                <a href="blogs.html">Blog</a>
-                <a href="contact.html">Contact</a>
-                <a href="chatbot.html">Chat</a>
-            </div>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#blog">Blog</a>
+            <a href="#contact">Contact</a>
+            <a href="#chat">Chat</a>
         </div>
+
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-button">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#blog">Blog</a>
+        <a href="#contact">Contact</a>
+        <a href="#chat">Chat</a>
+    </div>
+
 
     <!-- Hero Section -->
     <section class="hero-section">
         <img src="saurabprofile.jpg" alt="Saurab Mishra" class="hero-avatar">
         <h1 class="hero-title">Saurab Mishra</h1>
         <p class="hero-subtitle">
-            Data Science & AI enthusiast specializing in machine learning, LLMs, and distributed systems, driving real-world impact through innovative solutions.
+            Data Science & AI enthusiast specializing in machine learning, LLMs, and distributed systems,
+            driving real-world impact through innovative solutions.
         </p>
     </section>
 
-    <!-- Project Gallery -->
+    <!-- Projects Grid -->
     <section class="card-grid">
-        <!-- RLHF Research Card -->
         <div class="card">
-            <img src="rlhfimg.jpeg" alt="Reinforcement Learning from Human Feedback" class="card-image">
+            <img src="rlhfimg.jpeg" alt="RLHF" class="card-image">
             <div class="card-content">
-                <h3 class="card-title">Reinforcement Learning from Human Feedback (RLHF)</h3>
+                <h3 class="card-title">Reinforcement Learning from Human Feedback</h3>
                 <p class="card-description">
-                    Innovating AI systems through human-in-the-loop reinforcement learning. Enhancing alignment with ethical standards and real-world user preferences.
+                    Innovating AI systems through human-in-the-loop reinforcement learning.
+                    Enhancing alignment with ethical standards and real-world user preferences.
                 </p>
             </div>
         </div>
 
-        <!-- Multi-Agent Systems Card -->
         <div class="card">
-            <img src="masimg.webp" alt="Multi-Agent Systems Research" class="card-image">
+            <img src="masimg.webp" alt="MAS" class="card-image">
             <div class="card-content">
                 <h3 class="card-title">Multi-Agent Systems (MAS)</h3>
                 <p class="card-description">
-                    Advancing multi-agent frameworks for collaborative problem-solving and optimizing decision-making in distributed AI systems.
+                    Advancing multi-agent frameworks for collaborative problem-solving and
+                    optimizing decision-making in distributed AI systems.
                 </p>
             </div>
         </div>
 
-        <!-- RAG Card -->
         <div class="card">
-            <img src="ragimg.png" alt="Retrieval-Augmented Generation" class="card-image">
+            <img src="ragimg.png" alt="RAG" class="card-image">
             <div class="card-content">
-                <h3 class="card-title">Retrieval-Augmented Generation (RAG)</h3>
+                <h3 class="card-title">Retrieval-Augmented Generation</h3>
                 <p class="card-description">
-                    Integrating external knowledge into generative models for accurate and context-rich query responses, transforming NLP applications.
+                    Integrating external knowledge into generative models for accurate and
+                    context-rich query responses, transforming NLP applications.
                 </p>
             </div>
         </div>
 
-        <!-- Generative AI Card -->
         <div class="card">
-            <img src="llmimg.jpeg" alt="Generative AI Projects" class="card-image">
+            <img src="llmimg.jpeg" alt="LLMs" class="card-image">
             <div class="card-content">
                 <h3 class="card-title">Generative AI & LLMs</h3>
                 <p class="card-description">
-                    Building next-generation Large Language Models (LLMs) with adaptive learning, contextual understanding, and ethical design principles.
+                    Building next-generation Large Language Models with adaptive learning,
+                    contextual understanding, and ethical design principles.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Particles.js Configuration -->
     <script>
-        particlesJS('particles-js', {
-            particles: {
-                number: {
-                    value: 80,
-                    density: {
-                        enable: true,
-                        value_area: 800
-                    }
-                },
-                color: {
-                    value: '#4285F4'
-                },
-                shape: {
-                    type: 'circle'
-                },
-                opacity: {
-                    value: 0.5,
-                    random: false,
-                    anim: {
-                        enable: true,
-                        speed: 1,
-                        opacity_min: 0.1,
-                        sync: false
-                    }
-                },
-                size: {
-                    value: 3,
-                    random: true
-                },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: '#4285F4',
-                    opacity: 0.4,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 2,
-                    direction: 'none',
-                    random: false,
-                    straight: false,
-                    out_mode: 'out',
-                    bounce: false,
-                    attract: {
-                        enable: true,
-                        rotateX: 600,
-                        rotateY: 1200
-                    }
-                }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: {
-                        enable: true,
-                        mode: 'grab'
-                    },
-                    onclick: {
-                        enable: true,
-                        mode: 'push'
-                    },
-                    resize: true
-                },
-                modes: {
-                    grab: {
-                        distance: 140,
+        // Initialize particles.js with optimized configuration
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.particlesJS) {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: {
+                            value: 80,
+                            density: {
+                                enable: true,
+                                value_area: 800
+                            }
+                        },
+                        color: { value: '#4285F4' },
+                        shape: { type: 'circle' },
+                        opacity: {
+                            value: 0.5,
+                            random: false,
+                            anim: {
+                                enable: true,
+                                speed: 1,
+                                opacity_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        size: {
+                            value: 3,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 2,
+                                size_min: 0.1,
+                                sync: false
+                            }
+                        },
                         line_linked: {
-                            opacity: 1
+                            enable: true,
+                            distance: 150,
+                            color: '#4285F4',
+                            opacity: 0.3,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 2,
+                            direction: 'none',
+                            random: false,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false,
+                            attract: {
+                                enable: true,
+                                rotateX: 600,
+                                rotateY: 1200
+                            }
                         }
                     },
-                    push: {
-                        particles_nb: 4
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: 'grab'
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: 'push'
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            grab: {
+                                distance: 140,
+                                line_linked: { opacity: 1 }
+                            },
+                            push: { particles_nb: 4 }
+                        }
+                    },
+                    retina_detect: true
+                });
+            }
+        });
+
+        // Handle scroll effects for navigation
+        function handleScroll() {
+            const nav = document.querySelector('.google-nav');
+            const scrolled = window.scrollY > 50;
+            nav.classList.toggle('scrolled', scrolled);
+        }
+
+        // Performance optimization for scroll handling
+        function throttle(func, limit) {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            }
+        }
+
+        // Initialize scroll handling
+        window.addEventListener('scroll', throttle(handleScroll, 100));
+        handleScroll(); // Initial check
+    </script>
+<script>
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active');
+    });
+</script>
+ <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            // Animate hamburger menu
+            mobileMenuButton.classList.toggle('active');
+        });
+
+        // Navigation Background Change on Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.google-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                mobileMenuButton.classList.remove('active');
+            }
+        });
+
+        // Particles.js Configuration
+        particlesJS('particles-js',
+            {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#4285F4"
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "color": "#4285F4",
+                        "opacity": 0.4
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2
                     }
                 }
-            },
-            retina_detect: true
-        });
+            }
+        );
     </script>
+
 </body>
 </html>
