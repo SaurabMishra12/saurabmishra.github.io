@@ -1,13 +1,15 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Blog </title>
+    <title>Blog</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
     <style>
+        /* CSS Reset and Base Styles */
         :root {
             /* Light Theme Variables */
             --bg-primary-light: #ffffff;
@@ -48,7 +50,11 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -56,9 +62,11 @@
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Navigation */
+        /* Navigation Styles */
         .nav {
             position: fixed;
             top: 0;
@@ -72,17 +80,20 @@
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: min(90%, 1200px);
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .nav-left {
             display: flex;
             align-items: center;
             gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .back-button {
@@ -91,7 +102,8 @@
             gap: 0.5rem;
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            padding: 0.5rem;
         }
 
         .theme-toggle {
@@ -100,33 +112,51 @@
             color: var(--text-secondary);
             cursor: pointer;
             padding: 0.5rem;
+            font-size: clamp(0.875rem, 2vw, 1rem);
         }
 
-        /* Main Content */
+        /* Main Content Layout */
         .main-container {
-            max-width: 1200px;
+            max-width: min(90%, 1200px);
             margin: 0 auto;
-            padding: 80px 2rem 2rem;
+            padding: clamp(60px, 10vh, 80px) 1rem 2rem;
             display: grid;
-            grid-template-columns: 1fr minmax(auto, 700px) 1fr;
+            grid-template-columns: minmax(0, 1fr);
             gap: 2rem;
         }
 
-        .sidebar {
-            position: sticky;
-            top: 100px;
-            height: fit-content;
+        @media (min-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr minmax(auto, 700px) 1fr;
+            }
         }
 
+        /* Sidebar Styles */
+        .sidebar {
+            display: none;
+        }
+
+        @media (min-width: 1024px) {
+            .sidebar {
+                display: block;
+                position: sticky;
+                top: 100px;
+                height: fit-content;
+            }
+        }
+
+        /* Article Content Styles */
         .article-content {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
             line-height: 1.8;
+            max-width: 100%;
+            overflow-wrap: break-word;
         }
 
         h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(1.75rem, 5vw, 3.5rem);
             line-height: 1.2;
-            margin-bottom: 1rem;
+            margin-bottom: clamp(1rem, 3vw, 2rem);
         }
 
         .article-meta {
@@ -135,28 +165,36 @@
             gap: 1rem;
             margin: 2rem 0;
             color: var(--text-secondary);
+            flex-wrap: wrap;
         }
 
         .author-image {
-            width: 50px;
-            height: 50px;
+            width: clamp(40px, 8vw, 50px);
+            height: clamp(40px, 8vw, 50px);
             border-radius: 50%;
             background: var(--accent);
+            flex-shrink: 0;
         }
 
-        /* Sharing Tools */
+        /* Share Tools Styles */
         .share-tools {
-            position: sticky;
-            top: 100px;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            align-items: center;
+            display: none;
+        }
+
+        @media (min-width: 1024px) {
+            .share-tools {
+                display: flex;
+                position: sticky;
+                top: 100px;
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
         }
 
         .share-button {
-            width: 40px;
-            height: 40px;
+            width: clamp(35px, 5vw, 40px);
+            height: clamp(35px, 5vw, 40px);
             border-radius: 50%;
             background: var(--bg-secondary);
             border: 1px solid var(--border);
@@ -168,40 +206,42 @@
             transition: all 0.3s ease;
         }
 
-        .share-button:hover {
-            background: var(--accent);
-            color: white;
-        }
-
-        /* Footer */
+        /* Footer Styles */
         .footer {
             background: var(--bg-secondary);
-            padding: 4rem 2rem;
-            margin-top: 4rem;
+            padding: clamp(2rem, 5vw, 4rem) 1rem;
+            margin-top: clamp(2rem, 5vw, 4rem);
             border-top: 1px solid var(--border);
         }
 
         .footer-content {
-            max-width: 1200px;
+            max-width: min(90%, 1200px);
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: clamp(1.5rem, 4vw, 2rem);
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
         }
 
         .footer-section h3 {
             color: var(--text-primary);
             margin-bottom: 1rem;
+            font-size: clamp(1.1rem, 2.5vw, 1.25rem);
         }
 
         .social-links {
             display: flex;
             gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .social-link {
-            width: 40px;
-            height: 40px;
+            width: clamp(35px, 5vw, 40px);
+            height: clamp(35px, 5vw, 40px);
             border-radius: 50%;
             background: var(--bg-primary);
             display: flex;
@@ -212,37 +252,9 @@
             transition: all 0.3s ease;
         }
 
-        .social-link:hover {
-            background: var(--accent);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .main-container {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar {
-                display: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Content Styles */
+        /* Content Section Styles */
         .content-section {
-            margin: 2rem 0;
+            margin: clamp(1.5rem, 4vw, 2rem) 0;
             opacity: 0;
             transform: translateY(20px);
         }
@@ -250,6 +262,7 @@
         p {
             margin-bottom: 1.5rem;
             color: var(--text-primary);
+            font-size: clamp(1rem, 2vw, 1.1rem);
         }
 
         pre {
@@ -258,6 +271,7 @@
             border-radius: 8px;
             background: var(--bg-secondary) !important;
             overflow-x: auto;
+            font-size: clamp(0.875rem, 1.5vw, 1rem);
         }
 
         img {
@@ -273,6 +287,7 @@
             margin: 2rem 0;
             font-style: italic;
             color: var(--text-secondary);
+            font-size: clamp(1rem, 2vw, 1.1rem);
         }
 
         .table-of-contents {
@@ -280,6 +295,7 @@
             padding: 1.5rem;
             border-radius: 8px;
             margin-bottom: 2rem;
+            font-size: clamp(0.875rem, 2vw, 1rem);
         }
 
         .toc-item {
@@ -290,14 +306,45 @@
             transition: color 0.3s ease;
         }
 
-        .toc-item:hover {
-            color: var(--accent);
-        }
-
         .reading-time {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 1.5vw, 0.9rem);
             margin-bottom: 2rem;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 480px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            pre {
+                margin: 1rem -1rem;
+                border-radius: 0;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .nav, .sidebar, .share-tools, .footer {
+                display: none;
+            }
+
+            .main-container {
+                padding: 0;
+                display: block;
+            }
+
+            body {
+                color: black;
+                background: white;
+            }
         }
     </style>
 </head>
@@ -305,7 +352,7 @@
     <nav class="nav">
         <div class="nav-container">
             <div class="nav-left">
-                <a href="blogs.html" class="back-button">← Back </a>
+                <a href="#" class="back-button">← Back to Articles</a>
             </div>
             <button class="theme-toggle" id="themeToggle">🌓</button>
         </div>
