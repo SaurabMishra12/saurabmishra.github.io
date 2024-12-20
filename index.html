@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saurab Mishra | Data Science | Machine Learning | AI | Multi-agent system</title>
+
+    <!-- Fonts and Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Particles.js for interactive background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
     <style>
+        /* Core Variables */
         :root {
             --primary-color: #4285F4;
             --secondary-color: #34A853;
@@ -17,6 +24,7 @@
             --hover-overlay: rgba(0, 0, 0, 0.04);
         }
 
+        /* Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -29,15 +37,44 @@
             background-color: var(--background-color);
             color: var(--text-primary);
             line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* Google-style Navigation */
+        /* Interactive Background Elements */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            z-index: -1;
+        }
+
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            opacity: 0.1;
+            background:
+                linear-gradient(90deg, var(--background-color) 21px, transparent 1%) center,
+                linear-gradient(var(--background-color) 21px, transparent 1%) center,
+                var(--primary-color);
+            background-size: 22px 22px;
+            animation: moveBackground 30s linear infinite;
+        }
+
+        /* Navigation Styles */
         .google-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 16px 24px;
-            background-color: var(--background-color);
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.08);
             position: fixed;
             top: 0;
@@ -69,16 +106,23 @@
             color: var(--text-secondary);
             margin: 0 12px;
             font-size: 14px;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .nav-links a:hover {
-            color: var(--primary-color);
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
         }
 
-        .nav-actions {
-            display: flex;
-            align-items: center;
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .profile-icon {
@@ -88,9 +132,14 @@
             object-fit: cover;
             margin-left: 16px;
             border: 2px solid var(--primary-color);
+            transition: transform 0.3s ease;
         }
 
-        /* Hero Section */
+        .profile-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Hero Section with Enhanced Animations */
         .hero-section {
             display: flex;
             flex-direction: column;
@@ -99,7 +148,7 @@
             min-height: 100vh;
             padding: 100px 24px 50px;
             text-align: center;
-            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            position: relative;
         }
 
         .hero-avatar {
@@ -109,60 +158,85 @@
             object-fit: cover;
             margin-bottom: 24px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.4s ease;
-        }
-
-        .hero-avatar:hover {
-            transform: scale(1.05) rotate(3deg);
+            animation: float 6s ease-in-out infinite;
+            border: 4px solid var(--primary-color);
         }
 
         .hero-title {
             font-size: 48px;
             font-weight: 700;
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 16px;
+            animation: gradientText 4s linear infinite;
         }
 
         .hero-subtitle {
             max-width: 600px;
             color: var(--text-secondary);
             margin-bottom: 32px;
+            font-size: 18px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.5s;
         }
 
-        /* Card Grid */
+        /* Project Cards with Enhanced Interactions */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
             padding: 50px 24px;
-            background-color: #f8f9fa;
+            position: relative;
+            z-index: 1;
         }
 
         .card {
-            background-color: var(--background-color);
+            background-color: rgba(255, 255, 255, 0.9);
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
-            display: flex;
-            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
         }
 
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.02);
             box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .card:hover::before {
+            opacity: 0.1;
         }
 
         .card-image {
             width: 100%;
             height: 250px;
             object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover .card-image {
+            transform: scale(1.05);
         }
 
         .card-content {
             padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
         }
 
         .card-title {
@@ -170,33 +244,59 @@
             font-weight: 500;
             margin-bottom: 12px;
             color: var(--primary-color);
+            transition: color 0.3s ease;
+        }
+
+        .card:hover .card-title {
+            color: var(--secondary-color);
         }
 
         .card-description {
             color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
         }
 
-        /* Sections */
-        .section {
-            display: flex;
-            justify-content: space-between;
-            padding: 50px 24px;
-            background-color: var(--background-color);
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
         }
 
-        .section-content {
-            flex: 1;
-            margin: 0 12px;
+        @keyframes gradientText {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
-        .section-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 24px;
-            color: var(--primary-color);
-            position: relative;
-            padding-bottom: 12px;
-            border-bottom: 3px solid var(--primary-color);
+        @keyframes moveBackground {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 44px 44px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Responsive Design */
@@ -205,22 +305,26 @@
                 font-size: 36px;
             }
 
-            .section {
-                flex-direction: column;
+            .card-grid {
+                grid-template-columns: 1fr;
             }
 
-            .section-content {
-                margin: 12px 0;
+            .nav-links {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Google-style Navigation -->
+    <!-- Interactive Background Layers -->
+    <div id="particles-js"></div>
+    <div class="neural-bg"></div>
+
+    <!-- Navigation -->
     <nav class="google-nav">
         <div class="nav-actions">
-                <img src="saurabprofile.jpg" alt="Saurab Mishra" class="profile-icon">
-            </div>
+            <img src="saurabprofile.jpg" alt="Saurab Mishra" class="profile-icon">
+        </div>
         <div class="nav-menu">
             <div class="nav-links">
                 <a href="about.html">About</a>
@@ -229,7 +333,6 @@
                 <a href="contact.html">Contact</a>
                 <a href="chatbot.html">Chat</a>
             </div>
-
         </div>
     </nav>
 
@@ -238,59 +341,137 @@
         <img src="saurabprofile.jpg" alt="Saurab Mishra" class="hero-avatar">
         <h1 class="hero-title">Saurab Mishra</h1>
         <p class="hero-subtitle">
-             Data Science & AI enthusiast specializing in machine learning, LLMs, and distributed systems, driving real-world impact through innovative solutions.
+            Data Science & AI enthusiast specializing in machine learning, LLMs, and distributed systems, driving real-world impact through innovative solutions.
         </p>
     </section>
 
     <!-- Project Gallery -->
-    <!-- Project Gallery -->
-<section class="card-grid">
-    <!-- RLHF Research -->
-    <div class="card">
-        <img src="rlhfimg.jpeg" alt="Reinforcement Learning from Human Feedback" class="card-image">
-        <div class="card-content">
-            <h3 class="card-title">Reinforcement Learning from Human Feedback (RLHF)</h3>
-            <p class="card-description">
-                Innovating AI systems through human-in-the-loop reinforcement learning. Enhancing alignment with ethical standards and real-world user preferences.
-            </p>
+    <section class="card-grid">
+        <!-- RLHF Research Card -->
+        <div class="card">
+            <img src="rlhfimg.jpeg" alt="Reinforcement Learning from Human Feedback" class="card-image">
+            <div class="card-content">
+                <h3 class="card-title">Reinforcement Learning from Human Feedback (RLHF)</h3>
+                <p class="card-description">
+                    Innovating AI systems through human-in-the-loop reinforcement learning. Enhancing alignment with ethical standards and real-world user preferences.
+                </p>
+            </div>
         </div>
-    </div>
 
-    <!-- Multi-Agent Systems -->
-    <div class="card">
-        <img src="masimg.webp" alt="Multi-Agent Systems Research" class="card-image">
-        <div class="card-content">
-            <h3 class="card-title">Multi-Agent Systems (MAS)</h3>
-            <p class="card-description">
-                Advancing multi-agent frameworks for collaborative problem-solving and optimizing decision-making in distributed AI systems.
-            </p>
+        <!-- Multi-Agent Systems Card -->
+        <div class="card">
+            <img src="masimg.webp" alt="Multi-Agent Systems Research" class="card-image">
+            <div class="card-content">
+                <h3 class="card-title">Multi-Agent Systems (MAS)</h3>
+                <p class="card-description">
+                    Advancing multi-agent frameworks for collaborative problem-solving and optimizing decision-making in distributed AI systems.
+                </p>
+            </div>
         </div>
-    </div>
 
-    <!-- Retrieval-Augmented Generation -->
-    <div class="card">
-        <img src="ragimg.png" alt="Retrieval-Augmented Generation" class="card-image">
-        <div class="card-content">
-            <h3 class="card-title">Retrieval-Augmented Generation (RAG)</h3>
-            <p class="card-description">
-                Integrating external knowledge into generative models for accurate and context-rich query responses, transforming NLP applications.
-            </p>
+        <!-- RAG Card -->
+        <div class="card">
+            <img src="ragimg.png" alt="Retrieval-Augmented Generation" class="card-image">
+            <div class="card-content">
+                <h3 class="card-title">Retrieval-Augmented Generation (RAG)</h3>
+                <p class="card-description">
+                    Integrating external knowledge into generative models for accurate and context-rich query responses, transforming NLP applications.
+                </p>
+            </div>
         </div>
-    </div>
 
-    <!-- Generative AI Projects -->
-    <div class="card">
-        <img src="llmimg.jpeg" alt="Generative AI Projects" class="card-image">
-        <div class="card-content">
-            <h3 class="card-title">Generative AI & LLMs</h3>
-            <p class="card-description">
-                Building next-generation Large Language Models (LLMs) with adaptive learning, contextual understanding, and ethical design principles.
-            </p>
+        <!-- Generative AI Card -->
+        <div class="card">
+            <img src="llmimg.jpeg" alt="Generative AI Projects" class="card-image">
+            <div class="card-content">
+                <h3 class="card-title">Generative AI & LLMs</h3>
+                <p class="card-description">
+                    Building next-generation Large Language Models (LLMs) with adaptive learning, contextual understanding, and ethical design principles.
+                </p>
+            </div>
         </div>
-    </div>
+    </section>
 
-
-</section>
-
+    <!-- Particles.js Configuration -->
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#4285F4'
+                },
+                shape: {
+                    type: 'circle'
+                },
+                opacity: {
+                    value: 0.5,
+                    random: false,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#4285F4',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: {
+                        enable: true,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+    </script>
 </body>
 </html>
