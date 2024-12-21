@@ -126,10 +126,12 @@
 
         /* Mobile Menu Styles */
         .mobile-menu-button {
-            display: none;
+            display: none ;
             cursor: pointer;
             padding: 8px;
+            background-color: var(--text-primary);
             background: none;
+            z-index: 1001;
             border: none;
         }
 
@@ -149,6 +151,7 @@
             position: fixed;
             top: 72px;
             left: 0;
+             z-index: 1000;
             width: 100%;
              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
@@ -180,6 +183,12 @@
             padding: 100px 24px 50px;
             text-align: center;
         }
+        @media (max-width: 768px) {
+    .mobile-menu-button {
+        display: block;
+    }
+}
+
 
         .hero-avatar {
             width: 200px;
