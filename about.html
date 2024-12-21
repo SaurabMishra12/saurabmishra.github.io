@@ -13,7 +13,7 @@
             --accent-color: #FBBC05;
             --text-primary: #202124;
             --text-secondary: #5F6368;
-            --background-color: #FFFFFF;
+            --background-color: rgb(30, 30, 30);
             --dark-background: #121212;
             --dark-surface: #1E1E1E;
             --hover-overlay: rgba(0, 0, 0, 0.04);
@@ -197,42 +197,66 @@
             left: 0;
         }
 
-        /* Certification Section */
+         /* Certification Section */
         .certification-section {
-            padding: 50px 24px;
-            background-color: var(--dark-background);
+            padding: 80px 32px;
+            background-color: var(--background-color);
             text-align: center;
         }
 
         .certification-title {
             color: var(--primary-color);
-            margin-bottom: 24px;
+            margin-bottom: 32px;
+            font-size: 32px;
         }
 
         .certification-grid {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 24px;
         }
 
         .certification-card {
-            background-color: var(--dark-surface);
+            background-color: #2a2a2a;
             border-radius: 12px;
-            padding: 20px;
-            width: 300px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
+            padding: 24px;
+            width: 320px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            text-align: left;
         }
 
         .certification-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 20px rgba(255, 255, 255, 0.1);
+            transform: translateY(-12px);
+            box-shadow: 0 12px 24px rgba(255, 255, 255, 0.1);
         }
 
         .certification-name {
             color: var(--secondary-color);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+
+        .certification-card p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .certification-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 15px;
+        }
+
+        .certification-button:hover {
+            background-color: var(--secondary-color);
         }
 
         /* Responsive Design */
@@ -255,7 +279,7 @@
 <body>
     <!-- Google-style Navigation -->
     <nav class="google-nav">
-       
+
         <div class="nav-menu">
             <div class="nav-links">
                 <a href="index.html">Home</a>
@@ -264,7 +288,7 @@
                 <a href="contact.html">Contact</a>
                 <a href="chatbot.html">Chat</a>
             </div>
-           
+
         </div>
     </nav>
 
@@ -313,16 +337,25 @@
         </div>
     </section>
 
-    <!-- Certification Section -->
+ <!-- Certification Section -->
     <section class="certification-section">
-        <h2 class="certification-title">Certifications</h2>
+         <h2 class="certification-title">Certifications and Badges</h2>
         <div class="certification-grid">
             <div class="certification-card">
                 <h3 class="certification-name">IBM Certified Professional</h3>
                 <p>Data Science Professional</p>
             </div>
-
+            <div class="certification-card">
+            <h3 class="certification-name">Credly</h3>
+            <p>Data Science Professional</p>
+            <button
+                onclick="window.open('https://www.credly.com/users/saurab-mishra', '_blank')"
+                class="certification-button">
+                View Certification
+            </button>
         </div>
-    </section>
+    </div>
+</section>
+
 </body>
 </html>
