@@ -19,8 +19,8 @@
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            background: linear-gradient(180deg, #000000 0%, #121212 100%);
-            color: #f5f5f7;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(60, 60, 60, 0.88) 100%);
+            color: #0c0c0e;
             line-height: 1.6;
         }
         /* Canvas Styles for Neural Network Animation */
@@ -47,8 +47,8 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: saturate(180%) blur(20px);
+            background: rgb(223, 218, 218);
+            backdrop-filter: saturate(180%) blur(40px);
             z-index: 1000;
             box-shadow: 0 1px 10px rgba(0,0,0,0.1);
         }
@@ -62,7 +62,7 @@
             padding: 0 40px;
         }
         .logo {
-            color: #f5f5f7;
+            color: #121212;
             font-weight: 600;
             font-size: 22px;
             display: flex;
@@ -78,7 +78,7 @@
             margin-left: -40px;
         }
         nav a {
-            color: #f5f5f7;
+            color: #121212;
             text-decoration: none;
             margin-left: 30px;
             font-size: 16px;
@@ -105,6 +105,7 @@
         .contact-hero {
             display: flex;
             flex-direction: column;
+
             justify-content: center;
             align-items: center;
             min-height: 100vh;
@@ -114,7 +115,7 @@
         .contact-hero h1 {
             font-size: 64px;
             font-weight: 700;
-            background: linear-gradient(90deg, #f5f5f7, #86868b);
+            background: linear-gradient(90deg, #121212, #121212);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 30px;
@@ -137,7 +138,7 @@
         .contact-details h2 {
             font-size: 32px;
             margin-bottom: 30px;
-            background: linear-gradient(90deg, #f5f5f7, #86868b);
+            background: linear-gradient(90deg, #121212, #86868b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -157,7 +158,7 @@
             color: #2997ff;
         }
         .contact-item a {
-            color: #f5f5f7;
+            color: #050505;
             text-decoration: none;
             font-size: 18px;
             transition: color 0.3s ease;
@@ -177,7 +178,7 @@
             transition: color 0.3s ease;
         }
         .social-links a:hover {
-            color: #f5f5f7;
+            color: #121212;
         }
     </style>
 </head>
@@ -229,10 +230,10 @@
         });
 
         const nodes = [];
-        const numNodes = 100;
+        const numNodes = 40;
         const nodeRadius = 3;
-        const nodeColor = '#c2c4c6';
-        const connectionColor = 'rgb(25,68,234)'; // Semi-transparent blue
+        const nodeColor = '#031c87';
+        const connectionColor = 'rgb(3,4,9)'; // Semi-transparent blue
 
         class Node {
             constructor() {
