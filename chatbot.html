@@ -644,6 +644,22 @@
     </div>
 
     <script>
+        /*
+         * Security Note: This chatbot implementation uses secure API key handling.
+         * 
+         * - API keys are stored locally in browser localStorage only
+         * - No API keys are hardcoded in the source code
+         * - Users must provide their own Groq API key to use the chatbot
+         * - API keys are validated before use
+         * - Clear security warnings are provided to users
+         * 
+         * To use this chatbot:
+         * 1. Click "API Config" button
+         * 2. Get a free API key from https://console.groq.com/keys
+         * 3. Enter your API key in the configuration modal
+         * 4. Start chatting!
+         */
+        
         class ChatInterface {
             constructor() {
                 this.messageInput = document.getElementById('message-input');
