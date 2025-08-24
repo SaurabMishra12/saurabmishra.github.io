@@ -90,6 +90,164 @@
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
         }
 
+        .config-button {
+            background-color: rgba(0, 122, 255, 0.1);
+            border: 1px solid rgba(0, 122, 255, 0.3);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all var(--transition-speed) ease;
+            margin-right: 0.5rem;
+        }
+
+        .config-button:hover {
+            background-color: rgba(0, 122, 255, 0.2);
+            transform: translateY(-1px);
+            box-shadow: 0 1px 4px rgba(0, 122, 255, 0.3);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.3s ease;
+        }
+
+        .modal h2 {
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .modal p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            color: #856404;
+        }
+
+        .warning strong {
+            color: #6c5c11;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: border-color var(--transition-speed) ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close:hover {
+            color: var(--text-color);
+        }
+
+        .api-status {
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .api-status.configured {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .api-status.not-configured {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
         .chat-container {
             background-color: var(--chat-bg);
             flex: 1;
@@ -423,14 +581,23 @@
     <div class="container">
         <div class="nav-header">
             <h1>Chat with me</h1>
-            <button class="home-button" onclick="location.href='index.html';">
-                <i class="fas fa-home"></i>
-                Home
-            </button>
+            <div style="display: flex; align-items: center;">
+                <button class="config-button" id="config-button">
+                    <i class="fas fa-cog"></i>
+                    API Config
+                </button>
+                <button class="home-button" onclick="location.href='index.html';">
+                    <i class="fas fa-home"></i>
+                    Home
+                </button>
+            </div>
         </div>
         <div class="chat-container">
+            <div id="api-status" class="api-status not-configured">
+                ⚠️ API key not configured. Click "API Config" to set up your Groq API key.
+            </div>
             <div class="chat-messages" id="chat-messages">
-                <div class="message bot-message">Hi!</div>
+                <div class="message bot-message">Hi! Please configure your API key first to start chatting.</div>
             </div>
             <div class="typing-indicator" id="typing-indicator">
                 <span>thinking...</span>
@@ -452,6 +619,30 @@
         </div>
     </div>
 
+    <!-- API Configuration Modal -->
+    <div id="config-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="close-modal">&times;</span>
+            <h2>API Configuration</h2>
+            
+            <div class="warning">
+                <strong>Security Notice:</strong> Your API key will be stored locally in your browser only. Never share your API key with others or commit it to public repositories.
+            </div>
+            
+            <p>To use this chatbot, you need a Groq API key. Get yours for free at <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a></p>
+            
+            <div class="form-group">
+                <label for="api-key-input">Groq API Key:</label>
+                <input type="password" id="api-key-input" placeholder="gsk_..." />
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" id="cancel-config">Cancel</button>
+                <button class="btn btn-primary" id="save-config">Save Configuration</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         class ChatInterface {
             constructor() {
@@ -459,8 +650,16 @@
                 this.sendButton = document.getElementById('send-button');
                 this.chatMessages = document.getElementById('chat-messages');
                 this.typingIndicator = document.getElementById('typing-indicator');
-
+                this.apiStatus = document.getElementById('api-status');
+                this.configModal = document.getElementById('config-modal');
+                this.configButton = document.getElementById('config-button');
+                this.apiKeyInput = document.getElementById('api-key-input');
+                
+                this.apiKey = localStorage.getItem('groq_api_key') || '';
+                
                 this.setupEventListeners();
+                this.updateApiStatus();
+                this.checkApiKeyOnLoad();
                 this.defaultSystemPrompt = "`You are an ai assistance behaving like Saurab Mishra, a student at the Indian Institute of Science Education and Research (IISER), Trivandrum.\n" +
                     "Here are your key characteristics:\n" +
                     "\n" +
@@ -562,19 +761,92 @@
             }
 
             setupEventListeners() {
+                // Chat functionality
                 this.sendButton.addEventListener('click', () => this.sendMessage());
                 this.messageInput.addEventListener('keypress', (e) => {
                     if (e.key === 'Enter') {
                         this.sendMessage();
                     }
                 });
+
+                // Modal functionality
+                this.configButton.addEventListener('click', () => this.openConfigModal());
+                document.getElementById('close-modal').addEventListener('click', () => this.closeConfigModal());
+                document.getElementById('cancel-config').addEventListener('click', () => this.closeConfigModal());
+                document.getElementById('save-config').addEventListener('click', () => this.saveApiKey());
+                
+                // Close modal when clicking outside
+                this.configModal.addEventListener('click', (e) => {
+                    if (e.target === this.configModal) {
+                        this.closeConfigModal();
+                    }
+                });
+            }
+
+            openConfigModal() {
+                this.apiKeyInput.value = this.apiKey;
+                this.configModal.style.display = 'block';
+                this.apiKeyInput.focus();
+            }
+
+            closeConfigModal() {
+                this.configModal.style.display = 'none';
+                this.apiKeyInput.value = '';
+            }
+
+            saveApiKey() {
+                const newApiKey = this.apiKeyInput.value.trim();
+                if (!newApiKey) {
+                    alert('Please enter a valid API key.');
+                    return;
+                }
+                
+                if (!newApiKey.startsWith('gsk_')) {
+                    alert('Groq API keys typically start with "gsk_". Please check your key.');
+                    return;
+                }
+
+                this.apiKey = newApiKey;
+                localStorage.setItem('groq_api_key', newApiKey);
+                this.updateApiStatus();
+                this.closeConfigModal();
+                this.resetChat();
+            }
+
+            updateApiStatus() {
+                if (this.apiKey) {
+                    this.apiStatus.className = 'api-status configured';
+                    this.apiStatus.textContent = '✅ API key configured. You can now chat!';
+                    this.messageInput.disabled = false;
+                    this.sendButton.disabled = false;
+                } else {
+                    this.apiStatus.className = 'api-status not-configured';
+                    this.apiStatus.textContent = '⚠️ API key not configured. Click "API Config" to set up your Groq API key.';
+                    this.messageInput.disabled = true;
+                    this.sendButton.disabled = true;
+                }
+            }
+
+            checkApiKeyOnLoad() {
+                if (this.apiKey) {
+                    this.resetChat();
+                }
             }
 
             resetChat() {
-                this.chatMessages.innerHTML = '<div class="message bot-message">Hi!!</div>';
+                if (this.apiKey) {
+                    this.chatMessages.innerHTML = '<div class="message bot-message">Hi! I\'m ready to chat. How can I help you today?</div>';
+                } else {
+                    this.chatMessages.innerHTML = '<div class="message bot-message">Hi! Please configure your API key first to start chatting.</div>';
+                }
             }
 
             async sendMessage() {
+                if (!this.apiKey) {
+                    this.addMessage('Please configure your API key first by clicking "API Config".', 'bot');
+                    return;
+                }
+
                 const messageText = this.messageInput.value.trim();
                 if (!messageText) return;
 
@@ -586,7 +858,11 @@
                     const response = await this.getAIResponse(messageText);
                     this.addMessage(response, 'bot');
                 } catch (error) {
-                    this.addMessage('I apologize, but I encountered an error. Please try again.', 'bot');
+                    if (error.message.includes('401') || error.message.includes('403')) {
+                        this.addMessage('Authentication failed. Please check your API key in the configuration.', 'bot');
+                    } else {
+                        this.addMessage('I apologize, but I encountered an error. Please try again.', 'bot');
+                    }
                     console.error('Error:', error);
                 }
 
@@ -595,14 +871,17 @@
 
             async getAIResponse(message) {
                 const API_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
-                const API_KEY = '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';
+
+                if (!this.apiKey) {
+                    throw new Error('API key not configured');
+                }
 
                 try {
                     const response = await fetch(API_ENDPOINT, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${API_KEY}`
+                            'Authorization': `Bearer ${this.apiKey}`
                         },
                         body: JSON.stringify({
                             messages: [
