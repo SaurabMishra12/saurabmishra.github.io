@@ -3,598 +3,1204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saurab Mishra | Data Science | Machine Learning | AI | Multi-agent system</title>
-
-    <!-- Essential External Resources -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <title>Saurab Mishra | Windows Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <style>
-        /* Design System Variables - Centralized color and style management */
         :root {
-            --primary-color: #4285F4;
-            --secondary-color: #34A853;
-            --accent-color: #FBBC05;
+            --primary: #4285F4;
+            --secondary: #34A853;
+            --accent: #FBBC05;
             --text-primary: #202124;
             --text-secondary: #5F6368;
-            --background-color: #FFFFFF;
-            --hover-overlay: rgba(0, 0, 0, 0.04);
-            --transition-standard: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --background: #FFFFFF;
+            --light: #f5f5f5;
+            --dark: #1a1a1a;
+            --muted: #6b7280;
+            --windows-blue: #0078D4;
+            --windows-dark: #2D2D30;
+            --windows-light: #3C3C3C;
+            --taskbar-height: 48px;
         }
 
-        /* Base Reset and Global Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
+            font-family: 'Roboto', Arial, sans-serif;
         }
 
         body {
-            font-family: 'Roboto', Arial, sans-serif;
-            line-height: 1.6;
+            background: var(--dark);
             color: var(--text-primary);
-            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
-            overflow-x: hidden;
+            overflow: hidden;
+            user-select: none;
         }
 
-        /* Particles.js Container Styles */
-        #particles-js {
+        /* Desktop Background */
+        .desktop {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            z-index: -1;
+            height: calc(100vh - var(--taskbar-height));
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            cursor: default;
         }
 
-        /* Navigation Styles */
-        .google-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 24px;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(8px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: var(--transition-standard);
+        /* Wallpaper Options */
+        .wallpaper-coding {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
         }
 
-        .google-nav.scrolled {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 12px 24px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        .wallpaper-ocean {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
         }
 
-        .nav-links {
-            display: flex;
-            gap: 24px;
+        .wallpaper-sunset {
+            background: linear-gradient(135deg, #dc2626 0%, #ea580c 100%);
         }
 
-        .nav-links a {
-            position: relative;
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            font-size: 14px;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: var(--transition-standard);
+        .wallpaper-forest {
+            background: linear-gradient(135deg, #166534 0%, #14532d 100%);
         }
 
-        .nav-links a::after {
-            content: '';
+        .wallpaper-space {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+        }
+
+        /* Desktop Icons */
+        .desktop-icons {
             position: absolute;
+            top: 20px;
+            left: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 80px);
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .desktop-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .desktop-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .desktop-icon.selected {
+            background: rgba(0, 120, 212, 0.3);
+        }
+
+        .icon-image {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .icon-label {
+            font-size: 11px;
+            text-align: center;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            max-width: 70px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Windows */
+        .window {
+            position: absolute;
+            background: var(--windows-light);
+            border: 1px solid #555;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            min-width: 300px;
+            min-height: 200px;
+            z-index: 100;
+            display: none;
+            overflow: hidden;
+        }
+
+        .window.active {
+            z-index: 1000;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+        }
+
+        .window.minimized {
+            display: none !important;
+        }
+
+        .window.maximized {
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: calc(100vh - var(--taskbar-height)) !important;
+            border-radius: 0;
+        }
+
+        /* Window Title Bar */
+        .window-titlebar {
+            height: 32px;
+            background: var(--windows-blue);
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            cursor: move;
+            user-select: none;
+        }
+
+        .window-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            border-radius: 2px;
+            object-fit: cover;
+        }
+
+        .window-title {
+            color: white;
+            font-size: 12px;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .window-control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .window-control:hover {
+            opacity: 1;
+        }
+
+        .window-control.minimize { background: #ffbd2e; }
+        .window-control.maximize { background: #28ca42; }
+        .window-control.close { background: #ff5f57; }
+
+        /* Window Content */
+        .window-content {
+            height: calc(100% - 32px);
+            background: white;
+            overflow: auto;
+        }
+
+        .window-body {
+            padding: 20px;
+            height: 100%;
+        }
+
+        /* Taskbar */
+        .taskbar {
+            position: fixed;
             bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary-color);
-            transition: var(--transition-standard);
-            transform: translateX(-50%);
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-            background: rgba(66, 133, 244, 0.1);
-        }
-
-        .nav-links a:hover::after {
+            left: 0;
             width: 100%;
+            height: var(--taskbar-height);
+            background: var(--windows-dark);
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            z-index: 10000;
         }
 
-        .profile-icon {
+        .start-button {
+            width: 40px;
+            height: 32px;
+            background: var(--windows-blue);
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+        }
+
+        .taskbar-apps {
+            flex: 1;
+            display: flex;
+            gap: 2px;
+            margin: 0 8px;
+        }
+
+        .taskbar-app {
+            height: 32px;
+            min-width: 120px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+
+        .taskbar-app:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .taskbar-app.active {
+            background: var(--windows-blue);
+        }
+
+        .taskbar-app-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 2px;
+            object-fit: cover;
+        }
+
+        .taskbar-tray {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .system-tray {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: white;
+            font-size: 12px;
+        }
+
+        .clock {
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Start Menu */
+        .start-menu {
+            position: fixed;
+            bottom: var(--taskbar-height);
+            left: 0;
+            width: 320px;
+            background: var(--windows-light);
+            border: 1px solid #555;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            z-index: 10001;
+            display: none;
+        }
+
+        .start-menu.show {
+            display: block;
+        }
+
+        .start-menu-header {
+            padding: 16px;
+            background: var(--windows-blue);
+            color: white;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .start-menu-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .start-menu-avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid var(--primary-color);
-            transition: var(--transition-standard);
         }
 
-        .profile-icon:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.2);
-        }
-
-        /* Mobile Menu Styles */
-        .mobile-menu-button {
-            display: none ;
-            cursor: pointer;
+        .start-menu-apps {
             padding: 8px;
-            background-color: var(--text-primary);
-            background: none;
-            z-index: 1001;
-            border: none;
         }
 
-        .mobile-menu-button span {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background-color: var(--text-primary);
-            margin: 5px 0;
-            transition: var(--transition-standard);
-        }
-
-        #mobile-menu {
-            display: none;
-            background: var(--background-color);
-            padding: 16px;
-            position: fixed;
-            top: 72px;
-            left: 0;
-             z-index: 1000;
-            width: 100%;
-             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        #mobile-menu.active {
-            display: block;
-        }
-
-        #mobile-menu a {
-            display: block;
-            padding: 12px 16px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition-standard);
-        }
-
-        #mobile-menu a:hover {
-            background: rgba(66, 133, 244, 0.1);
-            color: var(--primary-color);
-        }
-
-        /* Hero Section Styles */
-        .hero-section {
-            min-height: 100vh;
+        .start-menu-app {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 100px 24px 50px;
-            text-align: center;
+            gap: 12px;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
         }
-        @media (max-width: 768px) {
-    .mobile-menu-button {
-        display: block;
-    }
-}
 
+        .start-menu-app:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
 
-        .hero-avatar {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
+        .start-menu-app-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
             object-fit: cover;
-            border: 4px solid var(--primary-color);
-            margin-bottom: 32px;
-            animation: float 6s ease-in-out infinite;
         }
 
-        .hero-title {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientText 4s linear infinite;
-        }
-
-        .hero-subtitle {
-            max-width: 600px;
-            color: var(--text-secondary);
-            font-size: 18px;
-            opacity: 0;
-            animation: fadeIn 1s ease forwards 0.5s;
-        }
-
-        /* Project Cards Grid */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
-            padding: 50px 24px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            transition: var(--transition-standard);
-            transform: translateY(0);
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: var(--transition-standard);
-        }
-
-        .card:hover .card-image {
-            transform: scale(1.05);
-        }
-
-        .card-content {
-            padding: 24px;
-        }
-
-        .card-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 12px;
-        }
-
-        .card-description {
-            color: var(--text-secondary);
+        .start-menu-app-info h4 {
+            color: white;
             font-size: 14px;
-            line-height: 1.6;
+            margin-bottom: 2px;
         }
 
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        .start-menu-app-info p {
+            color: #ccc;
+            font-size: 12px;
         }
 
-        @keyframes gradientText {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Context Menu */
+        .context-menu {
+            position: absolute;
+            background: var(--windows-light);
+            border: 1px solid #555;
+            border-radius: 4px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+            z-index: 10002;
+            display: none;
+            min-width: 160px;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .context-menu-item {
+            padding: 8px 16px;
+            color: white;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s;
         }
 
-        /* Mobile Responsive Design */
+        .context-menu-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .context-menu-separator {
+            height: 1px;
+            background: #555;
+            margin: 4px 0;
+        }
+
+        /* Wallpaper Selector */
+        .wallpaper-selector {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--windows-light);
+            border: 1px solid #555;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            z-index: 10003;
+            display: none;
+            width: 400px;
+        }
+
+        .wallpaper-selector.show {
+            display: block;
+        }
+
+        .wallpaper-selector-titlebar {
+            height: 32px;
+            background: var(--windows-blue);
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            cursor: move;
+        }
+
+        .wallpaper-selector-title {
+            color: white;
+            font-size: 12px;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .wallpaper-selector-content {
+            padding: 20px;
+        }
+
+        .wallpaper-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .wallpaper-option {
+            width: 100px;
+            height: 60px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border 0.2s;
+        }
+
+        .wallpaper-option:hover {
+            border-color: var(--windows-blue);
+        }
+
+        .wallpaper-option.selected {
+            border-color: var(--windows-blue);
+            box-shadow: 0 0 8px rgba(0, 120, 212, 0.5);
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--windows-light);
+            border: 1px solid #555;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+            z-index: 10004;
+            min-width: 300px;
+            max-width: 400px;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .notification-header {
+            padding: 12px 16px;
+            background: var(--windows-blue);
+            color: white;
+            border-radius: 8px 8px 0 0;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .notification-body {
+            padding: 16px;
+            color: white;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            .desktop-icons {
+                grid-template-columns: repeat(auto-fill, 60px);
+                gap: 15px;
             }
 
-            .mobile-menu-button {
-                display: block;
+            .icon-image {
+                width: 36px;
+                height: 36px;
             }
 
-            #mobile-menu.active {
-                display: block;
+            .icon-label {
+                font-size: 10px;
             }
 
-            .google-nav {
-                padding: 12px 16px;
-            }
-
-            .hero-title {
-                font-size: 36px;
-            }
-
-            .hero-subtitle {
-                font-size: 16px;
-                padding: 0 20px;
-            }
-
-            .card-grid {
-                grid-template-columns: 1fr;
-                padding: 24px;
+            .start-menu {
+                width: 280px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Particles.js Container -->
-    <div id="particles-js"></div>
-
-    <!-- Navigation Bar -->
-    <nav class="google-nav">
-        <div class="nav-actions">
-            <img src="saurabprofile.jpg" alt="Saurab Mishra" class="profile-icon">
+    <!-- Desktop -->
+    <div class="desktop wallpaper-coding" id="desktop">
+        <!-- Desktop Icons -->
+        <div class="desktop-icons" id="desktop-icons">
+            <div class="desktop-icon" data-app="about">
+                <img src="saurabprofile.jpg" alt="About" class="icon-image">
+                <span class="icon-label">About Me</span>
+            </div>
+            <div class="desktop-icon" data-app="projects">
+                <img src="airobo.webp" alt="Projects" class="icon-image">
+                <span class="icon-label">Projects</span>
+            </div>
+            <div class="desktop-icon" data-app="blogs">
+                <img src="llmimg.jpeg" alt="Blogs" class="icon-image">
+                <span class="icon-label">Blog Posts</span>
+            </div>
+            <div class="desktop-icon" data-app="contact">
+                <img src="profile-pic (1).png" alt="Contact" class="icon-image">
+                <span class="icon-label">Contact</span>
+            </div>
+            <div class="desktop-icon" data-app="github">
+                <img src="gemni.jpg" alt="GitHub" class="icon-image">
+                <span class="icon-label">GitHub</span>
+            </div>
+            <div class="desktop-icon" data-app="linkedin">
+                <img src="ragimg.png" alt="LinkedIn" class="icon-image">
+                <span class="icon-label">LinkedIn</span>
+            </div>
+            <div class="desktop-icon" data-app="code">
+                <img src="rlhfimg.jpeg" alt="Code" class="icon-image">
+                <span class="icon-label">Python Code</span>
+            </div>
+            <div class="desktop-icon" data-app="mas">
+                <img src="masimg.webp" alt="MAS" class="icon-image">
+                <span class="icon-label">Multi-Agent</span>
+            </div>
         </div>
-        <div class="nav-links">
-            <a href="about.html">About</a>
-            <a href="projects.html">Projects</a>
-            <a href="blogs.html">Blog</a>
-            <a href="contact.html">Contact</a>
-            <a href="chatbot.html">Chat</a>
+
+        <!-- Windows -->
+        <div class="window" id="about-window">
+            <div class="window-titlebar">
+                <img src="saurabprofile.jpg" alt="About" class="window-icon">
+                <span class="window-title">About Me</span>
+                <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('about-window')"></button>
+                    <button class="window-control maximize" onclick="maximizeWindow('about-window')"></button>
+                    <button class="window-control close" onclick="closeWindow('about-window')"></button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="window-body">
+                    <h2 style="color: var(--text-primary); margin-bottom: 16px;">👋 Hello World!</h2>
+                    <p style="margin-bottom: 16px;">I'm Saurab Mishra, a Data Science & AI enthusiast specializing in machine learning, LLMs, and distributed systems, driving real-world impact through innovative solutions.</p>
+                    <h3 style="color: var(--primary); margin: 24px 0 16px 0;">🚀 What I Do</h3>
+                    <ul style="margin-bottom: 16px;">
+                        <li>• Machine Learning & Deep Learning</li>
+                        <li>• Large Language Models (LLMs)</li>
+                        <li>• Multi-Agent Systems (MAS)</li>
+                        <li>• Retrieval-Augmented Generation (RAG)</li>
+                        <li>• Reinforcement Learning from Human Feedback (RLHF)</li>
+                        <li>• Generative AI & Ethical AI Development</li>
+                        <li>• Distributed Systems & Collaborative AI</li>
+                    </ul>
+                    <h3 style="color: var(--primary); margin: 24px 0 16px 0;">💡 My Philosophy</h3>
+                    <p>I believe in the power of AI to transform industries and improve lives through responsible and ethical development, with a focus on human-in-the-loop systems and collaborative problem-solving.</p>
+                </div>
+            </div>
         </div>
 
-        <!-- Mobile Menu Button -->
-        <button class="mobile-menu-button">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </nav>
+        <div class="window" id="projects-window">
+            <div class="window-titlebar">
+                <img src="airobo.webp" alt="Projects" class="window-icon">
+                <span class="window-title">My Projects</span>
+                <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('projects-window')"></button>
+                    <button class="window-control maximize" onclick="maximizeWindow('projects-window')"></button>
+                    <button class="window-control close" onclick="closeWindow('projects-window')"></button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="window-body">
+                    <h2 style="color: var(--text-primary); margin-bottom: 20px;">🚀 Featured Projects</h2>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 16px;">
+                        <div style="background: #f5f5f5; padding: 16px; border-radius: 8px;">
+                            <h3 style="color: var(--primary); margin-bottom: 8px;">Reinforcement Learning from Human Feedback (RLHF)</h3>
+                            <p>Innovating AI systems through human-in-the-loop reinforcement learning. Enhancing alignment with ethical standards and real-world user preferences.</p>
+                            <div style="margin-top: 8px;">
+                                <span style="background: var(--primary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;">RLHF</span>
+                                <span style="background: var(--secondary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;">AI Ethics</span>
+                                <span style="background: var(--accent); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Machine Learning</span>
+                            </div>
+                        </div>
+                        <div style="background: #f5f5f5; padding: 16px; border-radius: 8px;">
+                            <h3 style="color: var(--primary); margin-bottom: 8px;">Multi-Agent Systems (MAS)</h3>
+                            <p>Advancing multi-agent frameworks for collaborative problem-solving and optimizing decision-making in distributed AI systems.</p>
+                            <div style="margin-top: 8px;">
+                                <span style="background: var(--primary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Multi-Agent</span>
+                                <span style="background: var(--secondary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Distributed Systems</span>
+                                <span style="background: var(--accent); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;">AI</span>
+                            </div>
+                        </div>
+                        <div style="background: #f5f5f5; padding: 16px; border-radius: 8px;">
+                            <h3 style="color: var(--primary); margin-bottom: 8px;">Retrieval-Augmented Generation (RAG)</h3>
+                            <p>Integrating external knowledge into generative models for accurate and context-rich query responses, transforming NLP applications.</p>
+                            <div style="margin-top: 8px;">
+                                <span style="background: var(--primary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;">RAG</span>
+                                <span style="background: var(--secondary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;">NLP</span>
+                                <span style="background: var(--accent); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;">LLMs</span>
+                            </div>
+                        </div>
+                        <div style="background: #f5f5f5; padding: 16px; border-radius: 8px;">
+                            <h3 style="color: var(--primary); margin-bottom: 8px;">Generative AI & Large Language Models</h3>
+                            <p>Building next-generation Large Language Models with adaptive learning, contextual understanding, and ethical design principles.</p>
+                            <div style="margin-top: 8px;">
+                                <span style="background: var(--primary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;">LLMs</span>
+                                <span style="background: var(--secondary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Generative AI</span>
+                                <span style="background: var(--accent); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;">AI Ethics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu">
-        <a href="about.html">About</a>
-        <a href="projects.html">Projects</a>
-        <a href="blogs.html">Blog</a>
-        <a href="contact.html">Contact</a>
-        <a href="chatbot.html">Chat</a>
+        <!-- More windows for other apps -->
+        <div class="window" id="blogs-window">
+            <div class="window-titlebar">
+                <img src="llmimg.jpeg" alt="Blogs" class="window-icon">
+                <span class="window-title">Blog Posts</span>
+                <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('blogs-window')"></button>
+                    <button class="window-control maximize" onclick="maximizeWindow('blogs-window')"></button>
+                    <button class="window-control close" onclick="closeWindow('blogs-window')"></button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="window-body">
+                    <h2 style="color: var(--text-primary); margin-bottom: 20px;">📝 Latest Articles</h2>
+                    <div style="background: #f5f5f5; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+                        <h3 style="color: var(--primary); margin-bottom: 8px;">Multi-Agent Systems: The Future of Collaborative AI</h3>
+                        <p>Exploring how Multi-Agent Systems enable coordinated decision-making and problem-solving in distributed AI environments.</p>
+                        <a href="MAS-Blog.html" style="color: var(--primary); text-decoration: none; font-weight: 500;">Read more →</a>
+                    </div>
+                    <div style="background: #f5f5f5; padding: 16px; border-radius: 8px;">
+                        <h3 style="color: var(--primary); margin-bottom: 8px;">Coming Soon...</h3>
+                        <p>More articles on LLMs, RAG, RLHF, and cutting-edge AI research are in the works!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="window" id="contact-window">
+            <div class="window-titlebar">
+                <img src="profile-pic (1).png" alt="Contact" class="window-icon">
+                <span class="window-title">Contact Me</span>
+                <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('contact-window')"></button>
+                    <button class="window-control maximize" onclick="maximizeWindow('contact-window')"></button>
+                    <button class="window-control close" onclick="closeWindow('contact-window')"></button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="window-body">
+                    <h2 style="color: var(--text-primary); margin-bottom: 20px;">📬 Get In Touch</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+                        <div style="background: #f5f5f5; padding: 16px; border-radius: 8px; text-align: center;">
+                            <i class="fas fa-envelope" style="font-size: 24px; color: var(--primary); margin-bottom: 8px;"></i>
+                            <h4 style="color: var(--text-primary); margin-bottom: 4px;">Email</h4>
+                            <a href="mailto:saurab23@iisertvm.ac.in" style="color: var(--primary); text-decoration: none;">saurab23@iisertvm.ac.in</a>
+                        </div>
+                        <div style="background: #f5f5f5; padding: 16px; border-radius: 8px; text-align: center;">
+                            <i class="fas fa-clock" style="font-size: 24px; color: var(--primary); margin-bottom: 8px;"></i>
+                            <h4 style="color: var(--text-primary); margin-bottom: 4px;">Response Time</h4>
+                            <p style="color: var(--text-secondary);">Usually within 24 hours</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: center; gap: 16px;">
+                        <a href="https://github.com/SaurabMishra12" style="background: var(--primary); color: white; padding: 12px 16px; border-radius: 8px; text-decoration: none;"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://www.linkedin.com/in/saurab-mishra-493a73178/" style="background: var(--secondary); color: white; padding: 12px 16px; border-radius: 8px; text-decoration: none;"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Particles Background -->
+        <div id="particles-js"></div>
     </div>
 
-
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <img src="saurabprofile.jpg" alt="Saurab Mishra" class="hero-avatar">
-        <h1 class="hero-title">Saurab Mishra</h1>
-        <p class="hero-subtitle">
-            Data Science & AI enthusiast specializing in machine learning, LLMs, and distributed systems,
-            driving real-world impact through innovative solutions.
-        </p>
-    </section>
-
-    <!-- Projects Grid -->
-    <section class="card-grid">
-        <div class="card">
-            <img src="rlhfimg.jpeg" alt="RLHF" class="card-image">
-            <div class="card-content">
-                <h3 class="card-title">Reinforcement Learning from Human Feedback</h3>
-                <p class="card-description">
-                    Innovating AI systems through human-in-the-loop reinforcement learning.
-                    Enhancing alignment with ethical standards and real-world user preferences.
-                </p>
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <button class="start-button" onclick="toggleStartMenu()">
+            <i class="fab fa-windows"></i>
+        </button>
+        <div class="taskbar-apps" id="taskbar-apps"></div>
+        <div class="taskbar-tray">
+            <div class="system-tray">
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-volume-up"></i>
+                <div class="clock" id="clock">12:00 PM</div>
             </div>
         </div>
+    </div>
 
-        <div class="card">
-            <img src="masimg.webp" alt="MAS" class="card-image">
-            <div class="card-content">
-                <h3 class="card-title">Multi-Agent Systems (MAS)</h3>
-                <p class="card-description">
-                    Advancing multi-agent frameworks for collaborative problem-solving and
-                    optimizing decision-making in distributed AI systems.
-                </p>
+    <!-- Start Menu -->
+    <div class="start-menu" id="start-menu">
+        <div class="start-menu-header">
+            <div class="start-menu-user">
+                <img src="saurabprofile.jpg" alt="Saurab" class="start-menu-avatar">
+                <div>
+                    <div style="font-weight: 500;">Saurab Mishra</div>
+                    <div style="font-size: 12px; opacity: 0.8;">Data Science & AI Enthusiast</div>
+                </div>
             </div>
         </div>
-
-        <div class="card">
-            <img src="ragimg.png" alt="RAG" class="card-image">
-            <div class="card-content">
-                <h3 class="card-title">Retrieval-Augmented Generation</h3>
-                <p class="card-description">
-                    Integrating external knowledge into generative models for accurate and
-                    context-rich query responses, transforming NLP applications.
-                </p>
+        <div class="start-menu-apps">
+            <div class="start-menu-app" onclick="openApp('about')">
+                <img src="saurabprofile.jpg" alt="About" class="start-menu-app-icon">
+                <div class="start-menu-app-info">
+                    <h4>About Me</h4>
+                    <p>Learn more about my background</p>
+                </div>
+            </div>
+            <div class="start-menu-app" onclick="openApp('projects')">
+                <img src="airobo.webp" alt="Projects" class="start-menu-app-icon">
+                <div class="start-menu-app-info">
+                    <h4>My Projects</h4>
+                    <p>Explore my work and achievements</p>
+                </div>
+            </div>
+            <div class="start-menu-app" onclick="openApp('blogs')">
+                <img src="llmimg.jpeg" alt="Blogs" class="start-menu-app-icon">
+                <div class="start-menu-app-info">
+                    <h4>Blog Posts</h4>
+                    <p>Read my latest articles</p>
+                </div>
+            </div>
+            <div class="start-menu-app" onclick="openApp('contact')">
+                <img src="profile-pic (1).png" alt="Contact" class="start-menu-app-icon">
+                <div class="start-menu-app-info">
+                    <h4>Contact Me</h4>
+                    <p>Get in touch for collaborations</p>
+                </div>
             </div>
         </div>
+    </div>
 
-        <div class="card">
-            <img src="llmimg.jpeg" alt="LLMs" class="card-image">
-            <div class="card-content">
-                <h3 class="card-title">Generative AI & LLMs</h3>
-                <p class="card-description">
-                    Building next-generation Large Language Models with adaptive learning,
-                    contextual understanding, and ethical design principles.
-                </p>
+    <!-- Context Menu -->
+    <div class="context-menu" id="context-menu"></div>
+
+    <!-- Wallpaper Selector -->
+    <div class="wallpaper-selector" id="wallpaper-selector">
+        <div class="wallpaper-selector-titlebar">
+            <span class="wallpaper-selector-title">Change Wallpaper</span>
+            <div class="window-controls">
+                <button class="window-control close" onclick="closeWallpaperSelector()"></button>
             </div>
         </div>
-    </section>
+        <div class="wallpaper-selector-content">
+            <div class="wallpaper-grid">
+                <div class="wallpaper-option wallpaper-coding selected" onclick="changeWallpaper('wallpaper-coding')"></div>
+                <div class="wallpaper-option wallpaper-ocean" onclick="changeWallpaper('wallpaper-ocean')"></div>
+                <div class="wallpaper-option wallpaper-sunset" onclick="changeWallpaper('wallpaper-sunset')"></div>
+                <div class="wallpaper-option wallpaper-forest" onclick="changeWallpaper('wallpaper-forest')"></div>
+                <div class="wallpaper-option wallpaper-space" onclick="changeWallpaper('wallpaper-space')"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications -->
+    <div class="notification" id="notification">
+        <div class="notification-header">
+            <i class="fas fa-info-circle" style="margin-right: 8px;"></i>
+            Welcome to Windows Portfolio!
+        </div>
+        <div class="notification-body">
+            Double-click desktop icons to open applications. Right-click for more options.
+        </div>
+    </div>
 
     <script>
-        // Initialize particles.js with optimized configuration
+        // Windows OS Functionality
+        let windows = {};
+        let activeWindow = null;
+        let zIndexCounter = 100;
+        let selectedIcons = new Set();
+        let startMenuOpen = false;
+
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
+            initializeWindows();
+            initializeDesktop();
+            initializeClock();
+            initializeParticles();
+            showWelcomeNotification();
+        });
+
+        // Initialize Windows
+        function initializeWindows() {
+            document.querySelectorAll('.window').forEach(window => {
+                const windowId = window.id;
+                windows[windowId] = {
+                    element: window,
+                    isMaximized: false,
+                    isMinimized: false,
+                    originalBounds: null,
+                    zIndex: zIndexCounter++
+                };
+
+                // Make window draggable
+                makeDraggable(window);
+            });
+        }
+
+        // Make window draggable
+        function makeDraggable(windowElement) {
+            const titlebar = windowElement.querySelector('.window-titlebar');
+            let isDragging = false;
+            let startX, startY, startLeft, startTop;
+
+            titlebar.addEventListener('mousedown', function(e) {
+                if (e.target.classList.contains('window-control')) return;
+
+                isDragging = true;
+                startX = e.clientX;
+                startY = e.clientY;
+                const rect = windowElement.getBoundingClientRect();
+                startLeft = rect.left;
+                startTop = rect.top;
+
+                bringToFront(windowElement);
+                document.body.style.cursor = 'move';
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+
+                const deltaX = e.clientX - startX;
+                const deltaY = e.clientY - startY;
+
+                let newLeft = startLeft + deltaX;
+                let newTop = startTop + deltaY;
+
+                // Keep window within bounds
+                const maxLeft = window.innerWidth - windowElement.offsetWidth;
+                const maxTop = window.innerHeight - windowElement.offsetHeight - 48; // Taskbar height
+
+                newLeft = Math.max(0, Math.min(newLeft, maxLeft));
+                newTop = Math.max(0, Math.min(newTop, maxTop));
+
+                windowElement.style.left = newLeft + 'px';
+                windowElement.style.top = newTop + 'px';
+            });
+
+            document.addEventListener('mouseup', function() {
+                isDragging = false;
+                document.body.style.cursor = 'default';
+            });
+        }
+
+        // Bring window to front
+        function bringToFront(windowElement) {
+            const windowId = windowElement.id;
+            windows[windowId].zIndex = ++zIndexCounter;
+            windowElement.style.zIndex = windows[windowId].zIndex;
+
+            // Update active window
+            if (activeWindow) {
+                activeWindow.classList.remove('active');
+            }
+            activeWindow = windowElement;
+            activeWindow.classList.add('active');
+
+            updateTaskbar();
+        }
+
+        // Window controls
+        function minimizeWindow(windowId) {
+            const window = windows[windowId];
+            window.isMinimized = true;
+            window.element.classList.add('minimized');
+            updateTaskbar();
+        }
+
+        function maximizeWindow(windowId) {
+            const window = windows[windowId];
+            const element = window.element;
+
+            if (window.isMaximized) {
+                // Restore
+                if (window.originalBounds) {
+                    element.style.left = window.originalBounds.left;
+                    element.style.top = window.originalBounds.top;
+                    element.style.width = window.originalBounds.width;
+                    element.style.height = window.originalBounds.height;
+                }
+                element.classList.remove('maximized');
+                window.isMaximized = false;
+            } else {
+                // Maximize
+                window.originalBounds = {
+                    left: element.style.left,
+                    top: element.style.top,
+                    width: element.style.width,
+                    height: element.style.height
+                };
+
+                element.style.left = '0px';
+                element.style.top = '0px';
+                element.style.width = '100%';
+                element.style.height = 'calc(100vh - 48px)';
+                element.classList.add('maximized');
+                window.isMaximized = true;
+            }
+        }
+
+        function closeWindow(windowId) {
+            const window = windows[windowId];
+            window.element.style.display = 'none';
+            window.isMinimized = false;
+            updateTaskbar();
+        }
+
+        // Open app
+        function openApp(appName) {
+            const windowId = appName + '-window';
+            const window = windows[windowId];
+
+            if (window) {
+                window.element.style.display = 'block';
+                window.isMinimized = false;
+                window.element.classList.remove('minimized');
+
+                // Position window
+                if (!window.element.style.left) {
+                    const offset = Object.keys(windows).indexOf(windowId) * 30;
+                    window.element.style.left = (100 + offset) + 'px';
+                    window.element.style.top = (100 + offset) + 'px';
+                }
+
+                bringToFront(window.element);
+                toggleStartMenu(false);
+            } else {
+                // Handle external links
+                if (appName === 'github') {
+                    window.open('https://github.com/SaurabMishra12', '_blank');
+                } else if (appName === 'linkedin') {
+                    window.open('https://www.linkedin.com/in/saurab-mishra-493a73178/', '_blank');
+                } else if (appName === 'code') {
+                    window.open('main.py', '_blank');
+                } else if (appName === 'mas') {
+                    window.open('MAS-Blog.html', '_blank');
+                }
+            }
+        }
+
+        // Desktop functionality
+        function initializeDesktop() {
+            const desktop = document.getElementById('desktop');
+
+            // Desktop icons
+            document.querySelectorAll('.desktop-icon').forEach(icon => {
+                // Double click to open
+                icon.addEventListener('dblclick', function() {
+                    const appName = this.dataset.app;
+                    openApp(appName);
+                });
+
+                // Single click to select
+                icon.addEventListener('click', function(e) {
+                    if (!e.ctrlKey) {
+                        selectedIcons.forEach(selectedIcon => {
+                            selectedIcon.classList.remove('selected');
+                        });
+                        selectedIcons.clear();
+                    }
+                    this.classList.add('selected');
+                    selectedIcons.add(this);
+                });
+            });
+
+            // Desktop right-click
+            desktop.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                showContextMenu(e.clientX, e.clientY);
+            });
+
+            // Desktop click to clear selection
+            desktop.addEventListener('click', function(e) {
+                if (e.target === desktop) {
+                    selectedIcons.forEach(icon => {
+                        icon.classList.remove('selected');
+                    });
+                    selectedIcons.clear();
+                    hideContextMenu();
+                }
+            });
+        }
+
+        // Context menu
+        function showContextMenu(x, y) {
+            const contextMenu = document.getElementById('context-menu');
+            contextMenu.innerHTML = `
+                <div class="context-menu-item" onclick="openWallpaperSelector()">Change Wallpaper</div>
+                <div class="context-menu-separator"></div>
+                <div class="context-menu-item" onclick="refreshDesktop()">Refresh</div>
+                <div class="context-menu-separator"></div>
+                <div class="context-menu-item" onclick="showAbout()">About Windows Portfolio</div>
+            `;
+            contextMenu.style.left = x + 'px';
+            contextMenu.style.top = y + 'px';
+            contextMenu.style.display = 'block';
+        }
+
+        function hideContextMenu() {
+            document.getElementById('context-menu').style.display = 'none';
+        }
+
+        // Wallpaper functionality
+        function openWallpaperSelector() {
+            document.getElementById('wallpaper-selector').classList.add('show');
+            hideContextMenu();
+        }
+
+        function closeWallpaperSelector() {
+            document.getElementById('wallpaper-selector').classList.remove('show');
+        }
+
+        function changeWallpaper(wallpaperClass) {
+            const desktop = document.getElementById('desktop');
+            desktop.className = 'desktop ' + wallpaperClass;
+
+            // Update selected state
+            document.querySelectorAll('.wallpaper-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelector('.' + wallpaperClass).classList.add('selected');
+
+            closeWallpaperSelector();
+        }
+
+        // Start menu
+        function toggleStartMenu(forceClose = null) {
+            const startMenu = document.getElementById('start-menu');
+            if (forceClose === false) {
+                startMenu.classList.remove('show');
+                startMenuOpen = false;
+            } else if (forceClose === true) {
+                startMenu.classList.add('show');
+                startMenuOpen = true;
+            } else {
+                startMenu.classList.toggle('show');
+                startMenuOpen = !startMenuOpen;
+            }
+        }
+
+        // Close start menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const startMenu = document.getElementById('start-menu');
+            const startButton = document.querySelector('.start-button');
+
+            if (!startMenu.contains(e.target) && !startButton.contains(e.target)) {
+                toggleStartMenu(false);
+            }
+        });
+
+        // Taskbar
+        function updateTaskbar() {
+            const taskbarApps = document.getElementById('taskbar-apps');
+            taskbarApps.innerHTML = '';
+
+            Object.entries(windows).forEach(([windowId, window]) => {
+                if (window.element.style.display !== 'none' || window.isMinimized) {
+                    const appButton = document.createElement('button');
+                    appButton.className = 'taskbar-app';
+                    if (window.element.classList.contains('active')) {
+                        appButton.classList.add('active');
+                    }
+
+                    const iconSrc = window.element.querySelector('.window-icon').src;
+                    const title = window.element.querySelector('.window-title').textContent;
+
+                    appButton.innerHTML = `
+                        <img src="${iconSrc}" alt="${title}" class="taskbar-app-icon">
+                        <span>${title}</span>
+                    `;
+
+                    appButton.onclick = function() {
+                        if (window.isMinimized) {
+                            window.element.style.display = 'block';
+                            window.isMinimized = false;
+                            bringToFront(window.element);
+                        } else if (window.element.classList.contains('active')) {
+                            minimizeWindow(windowId);
+                        } else {
+                            bringToFront(window.element);
+                        }
+                    };
+
+                    taskbarApps.appendChild(appButton);
+                }
+            });
+        }
+
+        // Clock
+        function initializeClock() {
+            function updateClock() {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('en-US', {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                });
+                document.getElementById('clock').textContent = timeString;
+            }
+
+            updateClock();
+            setInterval(updateClock, 1000);
+        }
+
+        // Particles
+        function initializeParticles() {
             if (window.particlesJS) {
                 particlesJS('particles-js', {
                     particles: {
-                        number: {
-                            value: 80,
-                            density: {
-                                enable: true,
-                                value_area: 800
-                            }
-                        },
+                        number: { value: 50 },
                         color: { value: '#4285F4' },
                         shape: { type: 'circle' },
-                        opacity: {
-                            value: 0.5,
-                            random: false,
-                            anim: {
-                                enable: true,
-                                speed: 1,
-                                opacity_min: 0.1,
-                                sync: false
-                            }
-                        },
-                        size: {
-                            value: 3,
-                            random: true,
-                            anim: {
-                                enable: true,
-                                speed: 2,
-                                size_min: 0.1,
-                                sync: false
-                            }
-                        },
-                        line_linked: {
-                            enable: true,
-                            distance: 150,
-                            color: '#4285F4',
-                            opacity: 0.3,
-                            width: 1
-                        },
-                        move: {
-                            enable: true,
-                            speed: 2,
-                            direction: 'none',
-                            random: false,
-                            straight: false,
-                            out_mode: 'out',
-                            bounce: false,
-                            attract: {
-                                enable: true,
-                                rotateX: 600,
-                                rotateY: 1200
-                            }
-                        }
-                    },
-                    interactivity: {
-                        detect_on: 'canvas',
-                        events: {
-                            onhover: {
-                                enable: true,
-                                mode: 'grab'
-                            },
-                            onclick: {
-                                enable: true,
-                                mode: 'push'
-                            },
-                            resize: true
-                        },
-                        modes: {
-                            grab: {
-                                distance: 140,
-                                line_linked: { opacity: 1 }
-                            },
-                            push: { particles_nb: 4 }
-                        }
-                    },
-                    retina_detect: true
+                        opacity: { value: 0.3 },
+                        size: { value: 2 },
+                        move: { enable: true, speed: 1 }
+                    }
                 });
             }
-        });
-
-        // Handle scroll effects for navigation
-        function handleScroll() {
-            const nav = document.querySelector('.google-nav');
-            const scrolled = window.scrollY > 50;
-            nav.classList.toggle('scrolled', scrolled);
         }
 
-        // Performance optimization for scroll handling
-        function throttle(func, limit) {
-            let inThrottle;
-            return function() {
-                const args = arguments;
-                const context = this;
-                if (!inThrottle) {
-                    func.apply(context, args);
-                    inThrottle = true;
-                    setTimeout(() => inThrottle = false, limit);
-                }
-            }
+        // Notifications
+        function showWelcomeNotification() {
+            const notification = document.getElementById('notification');
+            notification.classList.add('show');
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
         }
 
-        // Initialize scroll handling
-        window.addEventListener('scroll', throttle(handleScroll, 100));
-        handleScroll(); // Initial check
-    </script>
-<script>
-    const mobileMenuButton = document.querySelector('.mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
+        // Utility functions
+        function refreshDesktop() {
+            location.reload();
+        }
 
-    mobileMenuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('active');
-    });
-</script>
- <script>
-        // Mobile Menu Toggle
-        const mobileMenuButton = document.querySelector('.mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+        function showAbout() {
+            alert('Windows Portfolio v1.0\\nCreated by Saurab Mishra\\nA fully functional Windows OS-inspired portfolio website');
+        }
 
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-            // Animate hamburger menu
-            mobileMenuButton.classList.toggle('active');
-        });
-
-        // Navigation Background Change on Scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('.google-nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!mobileMenuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
-                mobileMenu.classList.remove('active');
-                mobileMenuButton.classList.remove('active');
-            }
-        });
-
-        // Particles.js Configuration
-        particlesJS('particles-js',
-            {
-                "particles": {
-                    "number": {
-                        "value": 80,
-                        "density": {
-                            "enable": true,
-                            "value_area": 800
-                        }
-                    },
-                    "color": {
-                        "value": "#4285F4"
-                    },
-                    "size": {
-                        "value": 3,
-                        "random": true
-                    },
-                    "line_linked": {
-                        "enable": true,
-                        "color": "#4285F4",
-                        "opacity": 0.4
-                    },
-                    "move": {
-                        "enable": true,
-                        "speed": 2
-                    }
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey) {
+                switch(e.key) {
+                    case 'r':
+                        e.preventDefault();
+                        refreshDesktop();
+                        break;
+                    case 'a':
+                        e.preventDefault();
+                        openApp('about');
+                        break;
+                    case 'p':
+                        e.preventDefault();
+                        openApp('projects');
+                        break;
                 }
             }
-        );
+        });
     </script>
-
 </body>
 </html>

@@ -5,155 +5,260 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saurab Mishra | Blogs</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #4285F4;
-            --secondary-color: #34A853;
-            --accent-color: #FBBC05;
+            --primary: #4285F4;
+            --secondary: #34A853;
+            --accent: #FBBC05;
             --text-primary: #ffffff;
-            --text-secondary: #BDC1C6;
-            --background-color: #202124;
-            --card-background: #2C2C2E;
-            --hover-overlay: rgba(255, 255, 255, 0.08);
+            --text-secondary: #cccccc;
+            --background: #1e1e1e;
+            --light: #f5f5f5;
+            --dark: #1a1a1a;
+            --muted: #6b7280;
+            --vs-code-bg: #1e1e1e;
+            --vs-code-sidebar: #252526;
+            --vs-code-tab: #2d2d30;
+            --vs-code-border: #3e3e42;
+            --vs-code-blue: #007acc;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Roboto', Arial, sans-serif;
-            background-color: var(--background-color);
+            background: var(--dark);
             color: var(--text-primary);
-            line-height: 1.6;
+            overflow: hidden;
         }
 
-        /* Navigation */
-        .google-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 24px;
-            background-color: rgba(44, 44, 46, 0.8);
-            backdrop-filter: blur(15px);
-            box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
+        .desktop {
             position: fixed;
+            inset: 0;
+            background: var(--dark);
+            background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .window {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90vw;
+            height: 85vh;
+            background: var(--vs-code-bg);
+            border-radius: 8px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--vs-code-border);
+        }
+
+        .window.minimized {
+            transform: translate(-50%, 100vh) scale(0.1);
+            opacity: 0;
+        }
+
+        .window.maximized {
+            width: 100vw;
+            height: 100vh;
             top: 0;
             left: 0;
-            right: 0;
-            z-index: 1000;
+            transform: none;
+            border-radius: 0;
         }
 
-        .nav-logo {
+        .window-header {
             display: flex;
             align-items: center;
-            font-size: 22px;
-            font-weight: 500;
-            color: var(--primary-color);
+            height: 35px;
+            background: var(--vs-code-tab);
+            border-bottom: 1px solid var(--vs-code-border);
+            position: relative;
+            cursor: move;
         }
 
-        .nav-links {
+        .window-controls {
             display: flex;
             align-items: center;
+            padding: 0 12px;
+            gap: 8px;
         }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            margin: 0 12px;
-            font-size: 14px;
-            transition: all 0.3s ease;
+        .control-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
             position: relative;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 50%;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease, left 0.3s ease;
+        .control-btn.close {
+            background: #ff5f56;
         }
 
-        .nav-links a:hover {
-            color: var(--text-primary);
+        .control-btn.minimize {
+            background: #ffbd2e;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
-            left: 0;
+        .control-btn.maximize {
+            background: #27ca3f;
         }
 
-        .profile-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-left: 16px;
-            border: 2px solid var(--primary-color);
+        .control-btn:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
         }
 
-        /* Blogs Header */
-        .blogs-header {
-            padding: 120px 24px 50px;
+        .window-title {
+            flex: 1;
             text-align: center;
-            background: linear-gradient(135deg, var(--background-color) 0%, #1A1A1C 100%);
+            font-size: 13px;
+            color: var(--text-primary);
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        .blogs-title {
-            font-size: 48px;
-            font-weight: 700;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 16px;
+        .window-content {
+            flex: 1;
+            overflow-y: auto;
+            background: var(--vs-code-bg);
+            position: relative;
         }
 
-        .blogs-subtitle {
+        .wallpaper-coding {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+        }
+
+        .top-nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            z-index: 1000;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .nav-button:hover {
+            opacity: 1;
+        }
+
+        .nav-button.close { background: #ff5f57; }
+        .nav-button.minimize { background: #ffbd2e; }
+        .nav-button.maximize { background: #28ca42; }
+
+        .back-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: var(--secondary);
+        }
+
+        .content-window {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .content-window h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .blogs-intro {
+            text-align: center;
             color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
+            margin-bottom: 32px;
+            font-size: 1.1rem;
         }
 
-        /* Blogs Grid */
         .blogs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 24px;
-            padding: 50px 24px;
         }
 
         .blog-card {
-            background-color: var(--card-background);
+            background: var(--light);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
-            display: flex;
-            flex-direction: column;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .blog-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         }
 
         .blog-image {
             width: 100%;
-            height: 250px;
+            height: 200px;
             object-fit: cover;
-            filter: grayscale(20%);
-            transition: filter 0.3s ease;
-        }
-
-        .blog-card:hover .blog-image {
-            filter: grayscale(0%);
         }
 
         .blog-content {
@@ -161,14 +266,16 @@
         }
 
         .blog-title {
-            font-size: 20px;
-            font-weight: 500;
-            color: var(--primary-color);
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            font-weight: 600;
             margin-bottom: 12px;
+            line-height: 1.4;
         }
 
         .blog-description {
             color: var(--text-secondary);
+            line-height: 1.6;
             margin-bottom: 16px;
         }
 
@@ -176,115 +283,450 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: var(--text-secondary);
-            font-size: 12px;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .read-more:hover {
+            color: var(--secondary);
         }
 
         .coming-soon {
             text-align: center;
-            padding: 50px;
-            background-color: var(--card-background);
-            border-radius: 12px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .coming-soon-title {
-            color: var(--accent-color);
-            font-size: 32px;
-            margin-bottom: 16px;
-        }
-
-        .coming-soon-description {
+            padding: 40px;
             color: var(--text-secondary);
-            max-width: 500px;
-            margin: 0 auto;
+            font-style: italic;
         }
 
         @media (max-width: 768px) {
-            .blogs-title {
-                font-size: 36px;
+            .content-window {
+                width: 95%;
+                padding: 24px;
             }
 
             .blogs-grid {
                 grid-template-columns: 1fr;
             }
+
+            .content-window h1 {
+                font-size: 2rem;
+            }
+        }
+        /* Blog Cards */
+        .blog-card {
+            background: var(--vs-code-sidebar);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 1px solid var(--vs-code-border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            border-color: var(--vs-code-blue);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--vs-code-border);
+        }
+
+        .blog-content {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-title {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .blog-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+            flex: 1;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-top: auto;
+        }
+
+        .read-more {
+            color: var(--vs-code-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .read-more:hover {
+            color: var(--secondary);
+        }
+
+        .tech-icon {
+            color: var(--vs-code-blue);
+            font-size: 1.1em;
+        }
+
+        .coming-soon-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--vs-code-blue);
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--vs-code-tab) 0%, var(--vs-code-sidebar) 100%);
+        }
+
+        /* Resize Handle */
+        .resize-handle {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 15px;
+            height: 15px;
+            background: linear-gradient(-45deg, transparent 0%, transparent 40%, var(--vs-code-border) 40%, var(--vs-code-border) 60%, transparent 60%);
+            cursor: nw-resize;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .blog-card {
+            animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .blog-card:nth-child(1) { animation-delay: 0.1s; }
+        .blog-card:nth-child(2) { animation-delay: 0.2s; }
+        .blog-card:nth-child(3) { animation-delay: 0.3s; }
+
+        @media (max-width: 768px) {
+            .window {
+                width: 95vw;
+                height: 90vh;
+            }
+
+            .window-content {
+                padding: 16px;
+            }
+
+            .blogs-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .window-content h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="google-nav">
-
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="projects.html">Projects</a>
-            <a href="contact.html">Contact</a>
-            <a href="chatbot.html">Chat</a>
-        </div>
-
-    </nav>
-
-    <!-- Blogs Header -->
-    <header class="blogs-header">
-        <h1 class="blogs-title">Blogs</h1>
-        <p class="blogs-subtitle">
-            Exploring the latest insights, innovations, and thoughts on artificial intelligence,
-            machine learning, and technological advancements.
-        </p>
-    </header>
-
-    <!-- Coming Soon Section -->
-
-
-    <!-- Blog Grid (Placeholder for Future Blogs) -->
-   <section class="blogs-grid">
-    <!-- Blog 1: Multi-Agent Systems -->
-<div class="blog-card" onclick="location.href='MAS-Blog.html'" style="cursor: pointer;">
-    <img src="masimg.webp" alt="Multi-Agent Systems" class="blog-image">
-    <div class="blog-content">
-        <h3 class="blog-title">Multi-Agent Systems: The Future of Collaborative AI</h3>
-        <p class="blog-description">
-            Exploring how Multi-Agent Systems enable coordinated decision-making and problem-solving in distributed AI environments.
-        </p>
-        <div class="blog-meta">
-            <span>6 min read</span>
-            <span>Available</span>
-        </div>
-    </div>
-</div>
-
-       
-    <!-- Blog 2: Advanced RAG -->
-    <div class="blog-card" onclick="location.href='https://medium.com/towards-artificial-intelligence/is-this-the-future-of-financial-analysis-rag-multi-agent-systems-explained-cc43c1a269f9'" style="cursor: pointer;">
-        <img src="ragimg.png" alt="Advanced RAG" class="blog-image">
-        <div class="blog-content">
-            <h3 class="blog-title">Is This the Future of Financial Analysis? RAG & Multi-Agent Systems Explained</h3>
-            <p class="blog-description">
-                Dive into how next-gen LLMs are reshaping decision-making with speed, accuracy, and context-awareness.
-            </p>
-            <div class="blog-meta">
-                <span>Available</span>
-                <span>21 min read</span>
+    <div class="desktop">
+        <div class="window" id="blogsWindow">
+            <!-- Window Header -->
+            <div class="window-header">
+                <div class="window-controls">
+                    <button class="control-btn close" onclick="closeWindow()"></button>
+                    <button class="control-btn minimize" onclick="minimizeWindow()"></button>
+                    <button class="control-btn maximize" onclick="toggleMaximize()"></button>
+                </div>
+                <div class="window-title">
+                    <i class="fas fa-blog tech-icon"></i>
+                    Blogs - Saurab Mishra
+                </div>
             </div>
-        </div>
-    </div>
-    <!-- Blog 3: RLHF -->
-<div class="blog-card" onclick="location.href='https://medium.com/@saurabmishra/rlhf-the-engine-tuning-human-values-into-large-language-models-9c4bfd75fc79'" style="cursor: pointer;">
-        <img src="masrlhf.avif" alt="RLHF" class="blog-image">
-        <div class="blog-content">
-            <h3 class="blog-title">RLHF: Aligning LLMs with Human Values</h3>
-            <p class="blog-description">
-                Reinforcement Learning from Human Feedback for ethical AI design.
-            </p>
-            <div class="blog-meta">
-                <span>Available</span>
-                <span>8 min read</span>
-            </div>
-        </div>
-    </div>
-</section>
 
+            <!-- Window Content -->
+            <div class="window-content">
+                <div style="padding: 32px;">
+                    <h1 style="color: var(--text-primary); font-size: 2.5rem; margin-bottom: 24px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 12px;">
+                        <i class="fas fa-brain tech-icon"></i>
+                        My Blog
+                    </h1>
+                    <p style="text-align: center; color: var(--text-secondary); margin-bottom: 32px; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                        Exploring the latest insights, innovations, and thoughts on artificial intelligence,
+                        machine learning, and technological advancements.
+                    </p>
+
+                    <div class="blogs-grid">
+                        <!-- Multi-Agent Systems Blog -->
+                        <div class="blog-card" onclick="openBlog('MAS-Blog.html')">
+                            <img src="masimg.webp" alt="Multi-Agent Systems" class="blog-image">
+                            <div class="blog-content">
+                                <h3 class="blog-title">
+                                    <i class="fas fa-robot tech-icon"></i>
+                                    Multi-Agent Systems: The Future of Collaborative AI
+                                </h3>
+                                <p class="blog-description">
+                                    Exploring how Multi-Agent Systems enable coordinated decision-making and problem-solving in distributed AI environments. Learn about the architecture, challenges, and real-world applications.
+                                </p>
+                                <div class="blog-meta">
+                                    <span><i class="fas fa-microchip"></i> AI Research</span>
+                                    <a href="MAS-Blog.html" class="read-more" onclick="event.stopPropagation()">Read more →</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RAG Systems Blog -->
+                        <div class="blog-card" onclick="openBlog('https://medium.com/towards-artificial-intelligence/is-this-the-future-of-financial-analysis-rag-multi-agent-systems-explained-cc43c1a269f9')">
+                            <img src="ragimg.png" alt="Advanced RAG" class="blog-image">
+                            <div class="blog-content">
+                                <h3 class="blog-title">
+                                    <i class="fas fa-search tech-icon"></i>
+                                    Future of Financial Analysis: RAG & Multi-Agent Systems
+                                </h3>
+                                <p class="blog-description">
+                                    Dive into how next-gen LLMs are reshaping decision-making with speed, accuracy, and context-awareness. Exploring advanced RAG architectures and their applications.
+                                </p>
+                                <div class="blog-meta">
+                                    <span><i class="fas fa-chart-line"></i> Financial AI</span>
+                                    <a href="https://medium.com/towards-artificial-intelligence/is-this-the-future-of-financial-analysis-rag-multi-agent-systems-explained-cc43c1a269f9" class="read-more" onclick="event.stopPropagation()" target="_blank">Read more →</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RLHF Blog -->
+                        <div class="blog-card" onclick="openBlog('https://medium.com/@saurabmishra/rlhf-the-engine-tuning-human-values-into-large-language-models-9c4bfd75fc79')">
+                            <img src="masrlhf.avif" alt="RLHF" class="blog-image">
+                            <div class="blog-content">
+                                <h3 class="blog-title">
+                                    <i class="fas fa-balance-scale tech-icon"></i>
+                                    RLHF: Aligning LLMs with Human Values
+                                </h3>
+                                <p class="blog-description">
+                                    Understanding Reinforcement Learning from Human Feedback and its crucial role in creating ethical, aligned AI systems. Exploring the technical challenges and solutions.
+                                </p>
+                                <div class="blog-meta">
+                                    <span><i class="fas fa-users"></i> AI Ethics</span>
+                                    <a href="https://medium.com/@saurabmishra/rlhf-the-engine-tuning-human-values-into-large-language-models-9c4bfd75fc79" class="read-more" onclick="event.stopPropagation()" target="_blank">Read more →</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Future Blog Placeholder -->
+                        <div class="blog-card">
+                            <div class="coming-soon-placeholder" style="height: 200px;">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div class="blog-content">
+                                <h3 class="blog-title">
+                                    <i class="fas fa-lightbulb tech-icon"></i>
+                                    Advanced AI Architectures
+                                </h3>
+                                <p class="blog-description">
+                                    Deep dives into transformer architectures, attention mechanisms, and novel training techniques. Understanding the building blocks of modern AI systems.
+                                </p>
+                                <div class="blog-meta">
+                                    <span><i class="fas fa-cogs"></i> Technical Deep Dive</span>
+                                    <span style="color: var(--accent);">Coming Soon</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Another Future Blog -->
+                        <div class="blog-card">
+                            <div class="coming-soon-placeholder" style="height: 200px;">
+                                <i class="fas fa-network-wired"></i>
+                            </div>
+                            <div class="blog-content">
+                                <h3 class="blog-title">
+                                    <i class="fas fa-project-diagram tech-icon"></i>
+                                    Distributed AI Systems
+                                </h3>
+                                <p class="blog-description">
+                                    Exploring distributed computing paradigms for AI, federated learning, and edge AI deployment strategies for real-world applications.
+                                </p>
+                                <div class="blog-meta">
+                                    <span><i class="fas fa-server"></i> Systems Design</span>
+                                    <span style="color: var(--accent);">In Progress</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Machine Learning Blog -->
+                        <div class="blog-card">
+                            <div class="coming-soon-placeholder" style="height: 200px;">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="blog-content">
+                                <h3 class="blog-title">
+                                    <i class="fas fa-flask tech-icon"></i>
+                                    ML Research Frontiers
+                                </h3>
+                                <p class="blog-description">
+                                    Latest developments in machine learning research, from foundation models to specialized architectures and their practical implementations.
+                                </p>
+                                <div class="blog-meta">
+                                    <span><i class="fas fa-graduation-cap"></i> Research</span>
+                                    <span style="color: var(--accent);">Planned</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Back Navigation -->
+                    <div style="text-align: center; margin-top: 32px;">
+                        <a href="index.html" style="background: var(--vs-code-blue); color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 500; transition: all 0.3s ease;">
+                            <i class="fas fa-home"></i>
+                            Back to Desktop
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resize Handle -->
+            <div class="resize-handle"></div>
+        </div>
+    </div>
+
+    <script>
+        let isMaximized = false;
+        let isDragging = false;
+        let dragOffset = { x: 0, y: 0 };
+
+        // Window Management Functions
+        function closeWindow() {
+            window.location.href = 'index.html';
+        }
+
+        function minimizeWindow() {
+            const window = document.getElementById('blogsWindow');
+            window.classList.add('minimized');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 300);
+        }
+
+        function toggleMaximize() {
+            const window = document.getElementById('blogsWindow');
+            isMaximized = !isMaximized;
+            
+            if (isMaximized) {
+                window.classList.add('maximized');
+            } else {
+                window.classList.remove('maximized');
+            }
+        }
+
+        function openBlog(url) {
+            window.open(url, '_blank');
+        }
+
+        // Window Dragging
+        const windowHeader = document.querySelector('.window-header');
+        const window = document.getElementById('blogsWindow');
+
+        windowHeader.addEventListener('mousedown', (e) => {
+            if (e.target.closest('.control-btn') || isMaximized) return;
+            
+            isDragging = true;
+            const rect = window.getBoundingClientRect();
+            dragOffset.x = e.clientX - rect.left;
+            dragOffset.y = e.clientY - rect.top;
+            
+            document.addEventListener('mousemove', dragWindow);
+            document.addEventListener('mouseup', stopDragging);
+        });
+
+        function dragWindow(e) {
+            if (!isDragging) return;
+            
+            const newX = e.clientX - dragOffset.x;
+            const newY = e.clientY - dragOffset.y;
+            
+            window.style.left = newX + 'px';
+            window.style.top = newY + 'px';
+            window.style.transform = 'none';
+        }
+
+        function stopDragging() {
+            isDragging = false;
+            document.removeEventListener('mousemove', dragWindow);
+            document.removeEventListener('mouseup', stopDragging);
+        }
+
+        // Window Resizing
+        const resizeHandle = document.querySelector('.resize-handle');
+        let isResizing = false;
+
+        resizeHandle.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            e.preventDefault();
+            
+            document.addEventListener('mousemove', resizeWindow);
+            document.addEventListener('mouseup', stopResizing);
+        });
+
+        function resizeWindow(e) {
+            if (!isResizing) return;
+            
+            const rect = window.getBoundingClientRect();
+            const newWidth = e.clientX - rect.left;
+            const newHeight = e.clientY - rect.top;
+            
+            if (newWidth > 300) {
+                window.style.width = newWidth + 'px';
+            }
+            if (newHeight > 200) {
+                window.style.height = newHeight + 'px';
+            }
+        }
+
+        function stopResizing() {
+            isResizing = false;
+            document.removeEventListener('mousemove', resizeWindow);
+            document.removeEventListener('mouseup', stopResizing);
+        }
+
+        // Double-click to maximize
+        windowHeader.addEventListener('dblclick', (e) => {
+            if (e.target.closest('.control-btn')) return;
+            toggleMaximize();
+        });
+
+        // Smooth entrance animation
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                window.style.opacity = '1';
+                window.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 100);
+        });
+    </script>
 </body>
 </html>

@@ -3,135 +3,1429 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Projects</title>
+    <title>Research Projects & AI Innovation - Saurab Mishra</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <style>
+        :root {
+            --primary: #4285F4;
+            --secondary: #34A853;
+            --accent: #FBBC05;
+            --text-primary: #202124;
+            --text-secondary: #5F6368;
+            --background: #FFFFFF;
+            --light: #f5f5f5;
+            --dark: #1a1a1a;
+            --muted: #6b7280;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        html, body {
-            height: 100%;
-            width: 100%;
-            overflow-x: hidden;
-        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            background: linear-gradient(180deg, #000000 0%, #121212 100%);
-            color: #f5f5f7;
-            line-height: 1.6;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: var(--dark);
+            color: var(--text-primary);
+            overflow: hidden;
         }
-        .container {
-            max-width: 100%;
-            width: 100%;
-            padding: 0 40px;
-            margin: 0 auto;
-        }
-        header {
+
+        .desktop {
             position: fixed;
+            inset: 0;
+            background: var(--dark);
+        }
+
+        .wallpaper-coding {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             top: 0;
             left: 0;
-            width: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: saturate(180%) blur(20px);
+            z-index: 0;
+        }
+
+        .top-nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
             z-index: 1000;
-            box-shadow: 0 1px 10px rgba(0,0,0,0.1);
         }
-        .nav-wrapper {
-            display: flex;
-            justify-content: flex-start;;
-            align-items: center;
-            height: 60px;
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-        .logo {
-            color: #f5f5f7;
-            font-weight: 600;
-            font-size: 22px;
+
+        .nav-left {
             display: flex;
             align-items: center;
+            gap: 16px;
         }
-        .logo i {
-            margin-right: 10px;
-            font-size: 24px;
-        }
-        nav {
+
+        .nav-right {
+            margin-left: auto;
             display: flex;
             align-items: center;
-            margin-left: -40px;
+            gap: 8px;
         }
-        nav a {
-            color: #f5f5f7;
-            text-decoration: none;
-            margin-left: 30px;
-            font-size: 16px;
-            opacity: 0.7;
+
+        .nav-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
             transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
         }
-        nav a:hover {
+
+        .nav-button:hover {
+            opacity: 1;
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-button:active {
+            transform: scale(0.95);
+        }
+
+        .nav-button.close { 
+            background: #ff5f57; 
+        }
+        
+        .nav-button.close:hover {
+            background: #ff4444;
+        }
+        
+        .nav-button.close::before {
+            content: '×';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 8px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .nav-button.close:hover::before {
             opacity: 1;
         }
-        nav a::after {
+        
+        .nav-button.minimize { 
+            background: #ffbd2e; 
+        }
+        
+        .nav-button.minimize:hover {
+            background: #ffaa00;
+        }
+        
+        .nav-button.minimize::before {
+            content: '−';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 10px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .nav-button.minimize:hover::before {
+            opacity: 1;
+        }
+        
+        .nav-button.maximize { 
+            background: #28ca42; 
+        }
+        
+        .nav-button.maximize:hover {
+            background: #22bb33;
+        }
+        
+        .nav-button.maximize::before {
+            content: '⬜';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 6px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .nav-button.maximize:hover::before {
+            opacity: 1;
+        }
+
+        .back-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: var(--secondary);
+        }
+
+        .content-window {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.95);
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            opacity: 0;
+            animation: windowOpen 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        @keyframes windowOpen {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) scale(0.8) translateY(-20px);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateX(-50%) scale(1.02) translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1) translateY(0);
+            }
+        }
+
+        .content-window.minimized {
+            transform: translateX(-50%) scale(0.1) translateY(calc(100vh - 100px));
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .content-window.maximized {
+            top: 48px;
+            left: 0;
+            transform: none;
+            width: 100%;
+            max-width: none;
+            height: calc(100vh - 48px);
+            max-height: none;
+            border-radius: 0;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .content-window.closing {
+            animation: windowClose 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        @keyframes windowClose {
+            0% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1) translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) scale(0.8) translateY(-30px);
+            }
+        }
+
+        .content-window::before {
             content: '';
             position: absolute;
-            bottom: -5px;
+            top: 0;
             left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #2997ff;
-            transition: width 0.3s ease;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            border-radius: 20px 20px 0 0;
         }
-        nav a:hover::after {
-            width: 100%;
-        }
-        .projects-hero {
-            padding-top: 120px;
+
+        /* Hero Section */
+        .hero-section {
             text-align: center;
             margin-bottom: 60px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
         }
-        .projects-hero h1 {
-            font-size: 64px;
-            font-weight: 700;
-            background: linear-gradient(90deg, #f5f5f7, #86868b);
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
-        }
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-            max-width: 1440px;
-            margin: 0 auto;
-        }
-        .project-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            position: relative;
-            backdrop-filter: blur(10px);
-        }
-        .project-card:hover {
-            transform: scale(1.03);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-        }
-        .project-card-content {
-            padding: 40px;
+            font-weight: 700;
             position: relative;
             z-index: 2;
         }
-        .project-card h2 {
-            font-size: 28px;
-            margin-bottom: 15px;
-            background: linear-gradient(90deg, #f5f5f7, #86868b);
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        /* Project Categories */
+        .project-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 15px;
+        }
+
+        .category-btn {
+            padding: 12px 25px;
+            background: white;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 25px;
+            color: #666;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .category-btn:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-card.featured {
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            background: linear-gradient(145deg, #ffffff, #f8f9ff);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .project-badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .project-icon {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        /* VS Code Style Technology Icons */
+        .tech-icon {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            margin-right: 8px;
+            vertical-align: middle;
+            border-radius: 3px;
+            position: relative;
+        }
+
+        .tech-icon.python {
+            background: linear-gradient(135deg, #3776ab 0%, #ffd343 50%, #3776ab 100%);
+        }
+
+        .tech-icon.python::before {
+            content: 'Py';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 8px;
+            font-weight: bold;
+        }
+
+        .tech-icon.flask {
+            background: #000000;
+        }
+
+        .tech-icon.flask::before {
+            content: 'FL';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 8px;
+            font-weight: bold;
+        }
+
+        .tech-icon.tensorflow {
+            background: linear-gradient(135deg, #ff6f00, #ff8f00);
+        }
+
+        .tech-icon.tensorflow::before {
+            content: 'TF';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 8px;
+            font-weight: bold;
+        }
+
+        .tech-icon.ml {
+            background: linear-gradient(135deg, #4285f4, #34a853);
+        }
+
+        .tech-icon.ml::before {
+            content: 'ML';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 8px;
+            font-weight: bold;
+        }
+
+        .tech-icon.ai {
+            background: linear-gradient(135deg, #9c27b0, #e91e63);
+        }
+
+        .tech-icon.ai::before {
+            content: 'AI';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 8px;
+            font-weight: bold;
+        }
+
+        .tech-icon.jupyter {
+            background: linear-gradient(135deg, #f37626, #f37626);
+        }
+
+        .tech-icon.jupyter::before {
+            content: 'Jp';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 8px;
+            font-weight: bold;
+        }
+
+        .tech-icon.sql {
+            background: linear-gradient(135deg, #336791, #336791);
+        }
+
+        .tech-icon.sql::before {
+            content: 'SQL';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 7px;
+            font-weight: bold;
+        }
+
+        .tech-icon.api {
+            background: linear-gradient(135deg, #61dafb, #21759b);
+        }
+
+        .tech-icon.api::before {
+            content: 'API';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 7px;
+            font-weight: bold;
+        }
+
+        /* Project type icons in the header */
+        .project-type-icon {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .project-type-icon .main-icon {
+            font-size: 1.8rem;
+            color: #667eea;
+        }
+
+        .project-type-icon .tech-icons {
+            display: flex;
+            gap: 4px;
+        }
+
+        .project-card h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .project-summary {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .project-details {
+            margin-bottom: 25px;
+            display: none;
+        }
+
+        .project-card:hover .project-details {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(102, 126, 234, 0.03);
+            border-radius: 10px;
+            border-left: 3px solid #667eea;
+        }
+
+        .detail-section h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .detail-section p {
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .detail-section ul {
+            margin: 10px 0;
+            padding-left: 20px;
+            color: #666;
+        }
+
+        .detail-section li {
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .project-technologies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .tech-tag {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .tech-tag.primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: transparent;
+            font-weight: 600;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Publications Section */
+        .publications-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 40px;
+        }
+
+        .publications-section h3 {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .publication-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .publication-item {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .publication-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .pub-icon {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            flex-shrink: 0;
+        }
+
+        .pub-content h4 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .pub-content p {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .pub-content a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .pub-content a:hover {
+            color: #764ba2;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content-window {
+                width: 95%;
+                padding: 20px;
+                top: 60px;
+            }
+
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .project-categories {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .publication-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-actions {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .project-card {
+                padding: 20px;
+            }
+
+            .publication-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Animation for category filtering */
+        .project-card.hidden {
+            display: none;
+        }
+
+        .project-card.visible {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="desktop wallpaper-coding">
+        <!-- Particles Background -->
+        <div id="particles-js"></div>
+        
+        <!-- Navigation -->
+        <div class="top-nav">
+            <div class="nav-left">
+                <div class="nav-button close"></div>
+                <div class="nav-button minimize"></div>
+                <div class="nav-button maximize"></div>
+            </div>
+            <div class="nav-right">
+                <a href="index.html" class="back-button">← Back to Desktop</a>
+            </div>
+        </div>
+
+        <!-- Content Window -->
+        <div class="content-window">
+            <div class="hero-section">
+                <h1>Research Projects & AI Innovation</h1>
+                <p class="hero-subtitle">Pioneering advanced AI systems through cutting-edge research in Machine Learning, NLP, and Distributed Intelligence</p>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Core Research Areas</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Published Projects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">70B+</div>
+                        <div class="stat-label">Parameter Models</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Categories -->
+            <div class="project-categories">
+                <button class="category-btn active" data-category="all">All Projects</button>
+                <button class="category-btn" data-category="core">Core Research</button>
+                <button class="category-btn" data-category="applied">Applied AI</button>
+                <button class="category-btn" data-category="systems">Systems</button>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Step Mentor Project -->
+                <div class="project-card featured" data-category="core">
+                    <div class="project-header">
+                        <div class="project-badge">AI Education</div>
+                        <div class="project-type-icon">
+                            <i class="main-icon fas fa-graduation-cap"></i>
+                            <div class="tech-icons">
+                                <span class="tech-icon python"></span>
+                                <span class="tech-icon flask"></span>
+                                <span class="tech-icon ai"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Step Mentor</h2>
+                    <div class="project-summary">
+                        An innovative learning solution leveraging Large Language Models (LLMs) to personalize learning pathways for competitive exam preparation.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-section">
+                            <h4>🎯 Innovation Focus</h4>
+                            <p>Integrated advanced natural language understanding, adaptive learning models, and intelligent scheduling systems to optimize learning outcomes for competitive exam preparation.</p>
+                        </div>
+                        <div class="detail-section">
+                            <h4>🔬 Key Innovations</h4>
+                            <ul>
+                                <li>LLM integration for personalized learning</li>
+                                <li>Adaptive algorithms for curriculum optimization</li>
+                                <li>Personalized curriculum design</li>
+                                <li>Intelligent scheduling systems</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>📊 Research Impact</h4>
+                            <p>Demonstrated enhanced user engagement and improved study efficiency through personalized AI-driven learning pathways.</p>
+                        </div>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag primary">LLMs</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">Data Science</span>
+                        <span class="tech-tag">UI/UX Design</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="#" class="btn-primary">Learn more</a>
+                        <a href="#" class="btn-secondary">View Demo</a>
+                    </div>
+                </div>
+
+                <!-- Falcon 9 Landing Prediction -->
+                <div class="project-card featured" data-category="applied">
+                    <div class="project-header">
+                        <div class="project-badge">Aerospace ML</div>
+                        <div class="project-type-icon">
+                            <i class="main-icon fas fa-rocket"></i>
+                            <div class="tech-icons">
+                                <span class="tech-icon python"></span>
+                                <span class="tech-icon tensorflow"></span>
+                                <span class="tech-icon ml"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Predicting Falcon 9 Landing Success</h2>
+                    <div class="project-summary">
+                        Developed a predictive model to analyze the success of SpaceX Falcon 9 rocket landings using historical data and machine learning techniques.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-section">
+                            <h4>🎯 Objective</h4>
+                            <p>Implemented machine learning techniques to improve prediction accuracy, optimizing launch costs and enhancing space exploration efficiency.</p>
+                        </div>
+                        <div class="detail-section">
+                            <h4>🔬 Key Contributions</h4>
+                            <ul>
+                                <li>Developed novel feature engineering pipelines</li>
+                                <li>Applied ensemble models for improved prediction accuracy</li>
+                                <li>Historical data analysis and preprocessing</li>
+                                <li>Advanced predictive modeling techniques</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>📊 Research Significance</h4>
+                            <p>Boosted reliability and cost-effectiveness in aerospace systems through advanced machine learning approaches.</p>
+                        </div>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag primary">TensorFlow</span>
+                        <span class="tech-tag">Scikit-learn</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Machine Learning</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/SaurabMishra12/Predicting-the-Landing-Success-of-Falcon-9-First-Stages" class="btn-primary">Explore project</a>
+                    </div>
+                </div>
+
+                <!-- Carbon Footprint Analysis -->
+                <div class="project-card" data-category="applied">
+                    <div class="project-header">
+                        <div class="project-badge">Environmental AI</div>
+                        <div class="project-type-icon">
+                            <i class="main-icon fas fa-leaf"></i>
+                            <div class="tech-icons">
+                                <span class="tech-icon python"></span>
+                                <span class="tech-icon ml"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Estimating Carbon Footprints in Automobiles</h2>
+                    <div class="project-summary">
+                        Developed an ML-based solution to analyze car attributes and predict CO2 emissions, fostering sustainable transportation strategies.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-section">
+                            <h4>🌱 Environmental Impact</h4>
+                            <p>Built comprehensive carbon footprint analysis system for automotive industry sustainability assessment.</p>
+                        </div>
+                        <div class="detail-section">
+                            <h4>🔬 Research Applications</h4>
+                            <ul>
+                                <li>Environmental impact assessment</li>
+                                <li>Sustainable design innovation</li>
+                                <li>Emission prediction modeling</li>
+                                <li>Transportation sustainability strategies</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag primary">Data Science</span>
+                        <span class="tech-tag">Cloud</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Machine Learning</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="#" class="btn-primary">Explore project</a>
+                    </div>
+                </div>
+
+                <!-- Market and Vehicle Insights -->
+                <div class="project-card" data-category="applied">
+                    <div class="project-header">
+                        <div class="project-badge">Predictive Analytics</div>
+                        <div class="project-type-icon">
+                            <i class="main-icon fas fa-chart-line"></i>
+                            <div class="tech-icons">
+                                <span class="tech-icon python"></span>
+                                <span class="tech-icon ml"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Predictive Modeling for Market and Vehicle Insights</h2>
+                    <div class="project-summary">
+                        Comprehensive predictive modeling solutions for technology market analysis and automotive valuation systems.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-section">
+                            <h4>💻 Tech Market Predictive Modeller</h4>
+                            <p>Designed a regression-based pipeline for laptop price prediction, incorporating advanced feature engineering and model tuning.</p>
+                        </div>
+                        <div class="detail-section">
+                            <h4>🚗 Vehicular Valuation Predictor</h4>
+                            <p>Created a comprehensive car valuation system using machine learning models for precise price estimation and market insights.</p>
+                        </div>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag primary">Data Science</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">Data Analysis</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="#" class="btn-primary">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Noteworthy -->
+                <div class="project-card featured" data-category="core">
+                    <div class="project-header">
+                        <div class="project-badge">AI Content</div>
+                        <div class="project-type-icon">
+                            <i class="main-icon fas fa-video"></i>
+                            <div class="tech-icons">
+                                <span class="tech-icon python"></span>
+                                <span class="tech-icon flask"></span>
+                                <span class="tech-icon ai"></span>
+                                <span class="tech-icon api"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Noteworthy</h2>
+                    <div class="project-summary">
+                        Designed an intelligent interface combining automatic natural language processing to generate precise, context-aware notes from YouTube videos.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-section">
+                            <h4>🎯 Innovation Focus</h4>
+                            <p>Advanced AI solutions were deployed to create concise summaries while enabling user customization for educational content.</p>
+                        </div>
+                        <div class="detail-section">
+                            <h4>🔬 Key Innovations</h4>
+                            <ul>
+                                <li>LLM integration for content analysis</li>
+                                <li>ML algorithms for text summarization</li>
+                                <li>Context-aware note generation</li>
+                                <li>Advanced natural language processing</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>📚 Applications</h4>
+                            <p>Educational content curation, knowledge distillation, and e-learning platform integration.</p>
+                        </div>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag primary">LLMs</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">API</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="#" class="btn-primary">View Demo</a>
+                    </div>
+                </div>
+
+                <!-- Customer Segmentation -->
+                <div class="project-card" data-category="applied">
+                    <div class="project-header">
+                        <div class="project-badge">Business Analytics</div>
+                        <div class="project-type-icon">
+                            <i class="main-icon fas fa-users"></i>
+                            <div class="tech-icons">
+                                <span class="tech-icon python"></span>
+                                <span class="tech-icon jupyter"></span>
+                                <span class="tech-icon sql"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Customer Segmentation</h2>
+                    <div class="project-summary">
+                        Built a machine learning model to analyze and predict customer behavior in the telecommunications sector, enabling personalized service recommendations.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-section">
+                            <h4>📊 Business Intelligence</h4>
+                            <p>Comprehensive customer analytics platform enabling personalized service recommendations and targeted marketing strategies through behavioral analysis.</p>
+                        </div>
+                        <div class="detail-section">
+                            <h4>🔍 Key Insights</h4>
+                            <ul>
+                                <li>Behavioral analytics and clustering</li>
+                                <li>Customer classification for targeted engagement</li>
+                                <li>Predictive modeling for service optimization</li>
+                                <li>Marketing strategy personalization</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag primary">Jupyter</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">Data Analytics</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/SaurabMishra12/Predictive-Customer-Segmentation-for-Telecom-Services" class="btn-primary">View details</a>
+                    </div>
+                </div>
+
+                <!-- Medical Drug Recommendation -->
+                <div class="project-card" data-category="applied">
+                    <div class="project-header">
+                        <div class="project-badge">Healthcare AI</div>
+                        <div class="project-type-icon">
+                            <i class="main-icon fas fa-pills"></i>
+                            <div class="tech-icons">
+                                <span class="tech-icon python"></span>
+                                <span class="tech-icon ml"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Medical Drug Recommendation</h2>
+                    <div class="project-summary">
+                        Built a robust ML-driven system for precision medicine, utilizing patient data and decision tree algorithms to recommend drugs tailored to individual needs.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-section">
+                            <h4>🏥 Healthcare Innovation</h4>
+                            <p>Built comprehensive decision support system for healthcare providers, enabling personalized treatment recommendations based on patient-specific factors.</p>
+                        </div>
+                        <div class="detail-section">
+                            <h4>🔬 Key Methodologies</h4>
+                            <ul>
+                                <li>Predictive analytics for healthcare</li>
+                                <li>Healthcare data modeling and preprocessing</li>
+                                <li>Decision tree classification algorithms</li>
+                                <li>Patient outcome optimization</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>📊 Research Outcome</h4>
+                            <p>Improved prescription accuracy and enhanced patient outcomes through intelligent recommendation systems.</p>
+                        </div>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag primary">ML</span>
+                        <span class="tech-tag">Data Science</span>
+                        <span class="tech-tag">Data Analysis</span>
+                        <span class="tech-tag">Healthcare</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/SaurabMishra12/Medical-Solutions-Comprehensive-Drug-Recommendation-for-Accurate-Prescriptions" class="btn-primary">View Project</a>
+                    </div>
+                </div>
+
+                <!-- RAG Research Framework -->
+                <div class="project-card featured" data-category="core">
+                    <div class="project-header">
+                        <div class="project-badge">Core Research</div>
+                        <div class="project-type-icon">
+                            <i class="main-icon fas fa-lightbulb"></i>
+                            <div class="tech-icons">
+                                <span class="tech-icon ai"></span>
+                                <span class="tech-icon python"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Retrieval-Augmented Generation Research Framework</h2>
+                    <div class="project-summary">
+                        Revolutionized generative AI by integrating real-time knowledge retrieval, enabling contextually rich and accurate query responses.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-section">
+                            <h4>🔬 Key Innovations</h4>
+                            <ul>
+                                <li>Knowledge graph integration and optimization</li>
+                                <li>Model retrieval optimization techniques</li>
+                                <li>Hybrid generative systems development</li>
+                                <li>Real-time knowledge retrieval systems</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>📊 Research Outcome</h4>
+                            <p>Enhanced AI systems' ability to handle complex queries across domains like scientific research and legal advisory with unprecedented accuracy.</p>
+                        </div>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag primary">RAG</span>
+                        <span class="tech-tag">Knowledge Graphs</span>
+                        <span class="tech-tag">Generative AI</span>
+                        <span class="tech-tag">NLP</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="#" class="btn-primary">View Research</a>
+                    </div>
+                </div>
+
+                <!-- RLHF -->
+                <div class="project-card featured" data-category="core">
+                    <div class="project-header">
+                        <div class="project-badge">Core Research</div>
+                        <div class="project-type-icon">
+                            <i class="main-icon fas fa-user-check"></i>
+                            <div class="tech-icons">
+                                <span class="tech-icon ai"></span>
+                                <span class="tech-icon python"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Reinforcement Learning from Human Feedback</h2>
+                    <div class="project-summary">
+                        Advanced AI training pipelines by incorporating human feedback to align systems with ethical standards and values.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-section">
+                            <h4>🔬 Key Innovations</h4>
+                            <ul>
+                                <li>Reinforcement learning algorithms for ethical AI</li>
+                                <li>Human-in-the-loop systems development</li>
+                                <li>Advanced reward modeling techniques</li>
+                                <li>Ethical AI alignment frameworks</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>📊 Research Outcome</h4>
+                            <p>Enabled the development of ethical AI systems that prioritize fairness, transparency, and inclusivity in AI decision-making processes.</p>
+                        </div>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag primary">RLHF</span>
+                        <span class="tech-tag">Ethical AI</span>
+                        <span class="tech-tag">Human-in-the-Loop</span>
+                        <span class="tech-tag">Reinforcement Learning</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://medium.com/@saurabmishra/rlhf-the-engine-tuning-human-values-into-large-language-models-9c4bfd75fc79" class="btn-primary">View Research</a>
+                    </div>
+                </div>
+
+                <!-- Multi-Agent Systems -->
+                <div class="project-card featured" data-category="core">
+                    <div class="project-header">
+                        <div class="project-badge">Core Research</div>
+                        <div class="project-type-icon">
+                            <i class="main-icon fas fa-network-wired"></i>
+                            <div class="tech-icons">
+                                <span class="tech-icon ai"></span>
+                                <span class="tech-icon python"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Multi-Agent Systems for Enhanced LLM Performance</h2>
+                    <div class="project-summary">
+                        Leveraged multi-agent frameworks to refine language model performance through collaboration and contextual optimization.
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-section">
+                            <h4>🔬 Key Innovations</h4>
+                            <ul>
+                                <li>Agent coordination and communication protocols</li>
+                                <li>Knowledge fusion across distributed systems</li>
+                                <li>Dynamic contextual systems optimization</li>
+                                <li>Collaborative AI framework development</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h4>📊 Research Outcome</h4>
+                            <p>Improved multi-faceted decision-making and conversational AI accuracy through collaborative agent systems.</p>
+                        </div>
+                    </div>
+                    <div class="project-technologies">
+                        <span class="tech-tag primary">MAS</span>
+                        <span class="tech-tag">Collaborative AI</span>
+                        <span class="tech-tag">Language Models</span>
+                        <span class="tech-tag">Distributed AI</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="MAS-Blog.html" class="btn-primary">View Research</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Research Publications & Media -->
+            <div class="publications-section">
+                <h3>Research Publications & Media</h3>
+                <div class="publication-grid">
+                    <div class="publication-item">
+                        <div class="pub-icon">📄</div>
+                        <div class="pub-content">
+                            <h4>Multi-Agent Systems: The Future of Collaborative AI</h4>
+                            <p>Comprehensive analysis of MAS frameworks and applications</p>
+                            <a href="MAS-Blog.html">Read Article</a>
+                        </div>
+                    </div>
+                    <div class="publication-item">
+                        <div class="pub-icon">📺</div>
+                        <div class="pub-content">
+                            <h4>Step Mentor: AI Educational Platform Demo</h4>
+                            <p>Live demonstration of LLM-powered learning system</p>
+                            <a href="https://www.youtube.com/watch?v=RVKZBXkMGrI">Watch Demo</a>
+                        </div>
+                    </div>
+                    <div class="publication-item">
+                        <div class="pub-icon">📖</div>
+                        <div class="pub-content">
+                            <h4>RLHF: Aligning LLMs with Human Values</h4>
+                            <p>In-depth exploration of reinforcement learning from human feedback</p>
+                            <a href="https://medium.com/@saurabmishra/rlhf-the-engine-tuning-human-values-into-large-language-models-9c4bfd75fc79">Read on Medium</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</body>
+</html>
         }
         .project-details {
             color: #86868b;
@@ -405,7 +1699,197 @@
 
         </div>
 
+        <script>
+            // Project category filtering functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                const categoryBtns = document.querySelectorAll('.category-btn');
+                const projectCards = document.querySelectorAll('.project-card');
+                const contentWindow = document.querySelector('.content-window');
+                const closeBtn = document.querySelector('.nav-button.close');
+                const minimizeBtn = document.querySelector('.nav-button.minimize');
+                const maximizeBtn = document.querySelector('.nav-button.maximize');
 
+                let isMaximized = false;
+                let isMinimized = false;
+
+                // Window Controls Functionality
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', function() {
+                        contentWindow.classList.add('closing');
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 400);
+                    });
+                }
+
+                if (minimizeBtn) {
+                    minimizeBtn.addEventListener('click', function() {
+                        if (!isMinimized) {
+                            contentWindow.classList.add('minimized');
+                            isMinimized = true;
+                            
+                            // Show in taskbar (simulate)
+                            setTimeout(() => {
+                                contentWindow.classList.remove('minimized');
+                                isMinimized = false;
+                            }, 2000);
+                        }
+                    });
+                }
+
+                if (maximizeBtn) {
+                    maximizeBtn.addEventListener('click', function() {
+                        if (!isMaximized) {
+                            contentWindow.classList.add('maximized');
+                            isMaximized = true;
+                        } else {
+                            contentWindow.classList.remove('maximized');
+                            isMaximized = false;
+                        }
+                    });
+                }
+
+                // Double-click to maximize/restore
+                contentWindow.addEventListener('dblclick', function(e) {
+                    if (e.target.closest('.top-nav')) {
+                        if (!isMaximized) {
+                            contentWindow.classList.add('maximized');
+                            isMaximized = true;
+                        } else {
+                            contentWindow.classList.remove('maximized');
+                            isMaximized = false;
+                        }
+                    }
+                });
+
+                // Category filtering
+                categoryBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        // Remove active class from all buttons
+                        categoryBtns.forEach(b => b.classList.remove('active'));
+                        // Add active class to clicked button
+                        this.classList.add('active');
+
+                        const category = this.getAttribute('data-category');
+
+                        projectCards.forEach(card => {
+                            if (category === 'all' || card.getAttribute('data-category') === category) {
+                                card.style.display = 'block';
+                                card.classList.add('visible');
+                                card.classList.remove('hidden');
+                            } else {
+                                card.style.display = 'none';
+                                card.classList.add('hidden');
+                                card.classList.remove('visible');
+                            }
+                        });
+                    });
+                });
+
+                // Initialize particles background
+                if (typeof particlesJS !== 'undefined') {
+                    particlesJS('particles-js', {
+                        particles: {
+                            number: { value: 80, density: { enable: true, value_area: 800 } },
+                            color: { value: '#667eea' },
+                            shape: {
+                                type: 'circle',
+                                stroke: { width: 0, color: '#000000' },
+                                polygon: { nb_sides: 5 }
+                            },
+                            opacity: {
+                                value: 0.5,
+                                random: false,
+                                anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false }
+                            },
+                            size: {
+                                value: 3,
+                                random: true,
+                                anim: { enable: false, speed: 40, size_min: 0.1, sync: false }
+                            },
+                            line_linked: {
+                                enable: true,
+                                distance: 150,
+                                color: '#667eea',
+                                opacity: 0.4,
+                                width: 1
+                            },
+                            move: {
+                                enable: true,
+                                speed: 6,
+                                direction: 'none',
+                                random: false,
+                                straight: false,
+                                out_mode: 'out',
+                                bounce: false,
+                                attract: { enable: false, rotateX: 600, rotateY: 1200 }
+                            }
+                        },
+                        interactivity: {
+                            detect_on: 'canvas',
+                            events: {
+                                onhover: { enable: true, mode: 'repulse' },
+                                onclick: { enable: true, mode: 'push' },
+                                resize: true
+                            },
+                            modes: {
+                                grab: { distance: 400, line_linked: { opacity: 1 } },
+                                bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                                repulse: { distance: 200, duration: 0.4 },
+                                push: { particles_nb: 4 },
+                                remove: { particles_nb: 2 }
+                            }
+                        },
+                        retina_detect: true
+                    });
+                }
+
+                // Add smooth scrolling for better UX
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+
+                // Add loading animation for project cards
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                });
+
+                projectCards.forEach(card => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    observer.observe(card);
+                });
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', function(e) {
+                    if (e.altKey && e.key === 'F4') {
+                        e.preventDefault();
+                        closeBtn.click();
+                    }
+                    if (e.key === 'F11') {
+                        e.preventDefault();
+                        maximizeBtn.click();
+                    }
+                    if (e.key === 'Escape' && isMaximized) {
+                        maximizeBtn.click();
+                    }
+                });
+            });
+        </script>
     </div>
 </body>
 </html>
