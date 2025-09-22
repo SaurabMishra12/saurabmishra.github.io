@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saurab Mishra | Modern Portfolio OS</title>
+    <title>Saurab Mishra</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -81,9 +81,7 @@
             left: 0;
             width: 100%;
             height: calc(100vh - var(--taskbar-height));
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            background: url('https://c4.wallpaperflare.com/wallpaper/586/603/742/minimalism-4k-for-mac-desktop-wallpaper-preview.jpg') center/cover no-repeat fixed, linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 50%, rgba(11,16,32,0.8) 100%);
             position: relative;
             transition: background 0.5s ease;
         }
@@ -112,16 +110,8 @@
             height: 100%;
             overflow: hidden;
             pointer-events: none;
-            opacity: 1;
+            opacity: 0.35;
             transition: opacity 0.5s ease;
-            background: linear-gradient(135deg, 
-                rgba(26, 115, 232, 0.08) 0%, 
-                rgba(52, 168, 83, 0.05) 25%, 
-                rgba(251, 188, 4, 0.03) 50%, 
-                rgba(234, 67, 53, 0.05) 75%, 
-                rgba(26, 115, 232, 0.08) 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 45s ease infinite;
         }
 
         @keyframes gradientShift {
@@ -422,9 +412,9 @@
         }
 
         .icon-wrapper {
-            width: 110px;
-            height: 110px;
-            border-radius: 28px;
+            width: 136px;
+            height: 136px;
+            border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -455,9 +445,9 @@
         }
 
         .icon-wrapper i {
-            font-size: 58px;
+            font-size: 64px;
             z-index: 2;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -522,20 +512,20 @@
         .desktop-icon[data-app="settings"] .icon-wrapper i { color: #ffffff; }
 
         .icon-label {
-            font-size: 14px;
+            font-size: 16px;
             text-align: center;
             color: #ffffff;
-            font-weight: 600;
+            font-weight: 700;
             text-shadow: 
-                0 1px 2px rgba(0, 0, 0, 0.8),
-                0 2px 4px rgba(0, 0, 0, 0.6),
-                1px 1px 1px rgba(0, 0, 0, 0.9);
+                0 2px 4px rgba(0, 0, 0, 0.9),
+                0 4px 8px rgba(0, 0, 0, 0.7),
+                1px 1px 2px rgba(0, 0, 0, 1);
             line-height: 1.2;
-            max-width: 100px;
+            max-width: 120px;
             word-wrap: break-word;
             transition: all 0.3s ease;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 3px 8px;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 4px 10px;
             border-radius: 8px;
             backdrop-filter: blur(5px);
         }
@@ -962,11 +952,11 @@
         }
 
         .start-button {
-            width: 48px;
-            height: 40px;
+            width: 52px;
+            height: 44px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             color: white;
             font-size: 20px;
             cursor: pointer;
@@ -974,7 +964,8 @@
             align-items: center;
             justify-content: center;
             margin-right: 12px;
-            transition: all 0.3s;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.25);
         }
 
         .start-button:hover {
@@ -995,22 +986,22 @@
         }
 
         .taskbar-app {
-            height: 40px;
-            min-width: 160px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            height: 44px;
+            min-width: 170px;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(12px) saturate(1.2);
+            -webkit-backdrop-filter: blur(12px) saturate(1.2);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 10px;
             color: var(--text-primary);
             font-size: 13px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            padding: 0 12px;
+            padding: 0 14px;
             gap: 8px;
-            transition: all 0.3s;
-            font-weight: 500;
+            transition: all 0.25s ease;
+            font-weight: 600;
             white-space: nowrap;
             flex-shrink: 0;
         }
@@ -1062,7 +1053,7 @@
 
         .tray-icon {
             color: var(--text-secondary);
-            font-size: 18px;
+            font-size: 20px;
             cursor: pointer;
             transition: color 0.3s;
         }
@@ -1076,10 +1067,10 @@
             background: var(--surface-light);
             border-radius: 8px;
             color: var(--text-primary);
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 14px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.25s ease;
         }
 
         .clock:hover {
@@ -1223,6 +1214,21 @@
             opacity: 0;
             transform: translateX(100%);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (max-width: 480px) {
+            .notification {
+                left: 16px;
+                right: 16px;
+                top: auto;
+                bottom: 80px;
+                min-width: auto;
+                max-width: none;
+                transform: translateY(20px);
+            }
+            .notification.show {
+                transform: translateY(0);
+            }
         }
 
         .notification.show {
@@ -2404,6 +2410,29 @@
                 padding: 8px 12px;
             }
         }
+
+        /* Tray Panels */
+        .tray-panel {
+            position: fixed;
+            bottom: calc(var(--taskbar-height) + 8px);
+            right: 12px;
+            width: 320px;
+            background: var(--glass);
+            backdrop-filter: blur(18px) saturate(1.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+            color: var(--text-primary);
+            z-index: 10002;
+            display: none;
+            overflow: hidden;
+        }
+        .tray-panel.show { display: block; animation: slideUp 0.25s ease; }
+        .tray-panel-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%); color: #fff; }
+        .tray-panel-body { padding: 14px; }
+        .tray-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+        .tray-item:last-child { border-bottom: none; }
+        .tray-item i { color: var(--primary); margin-right: 10px; }
     </style>
 </head>
 <body>
@@ -3335,16 +3364,16 @@
                 </div>
             </div>
             <div class="window-content">
-                <div class="window-body" style="background: #0a0a0a; font-family: 'Courier New', monospace; padding: 20px;">
-                    <div id="terminal-output" style="color: #0f0; font-size: 14px; line-height: 1.6;">
+                <div class="window-body" style="background: radial-gradient(1200px 500px at 20% 0%, rgba(0,255,128,0.05), transparent), #0a0a0a; font-family: 'Courier New', monospace; padding: 20px;">
+                    <div id="terminal-output" style="color: #e0ffe0; font-size: 14px; line-height: 1.6; height: 50vh; overflow-y: auto; border: 1px solid rgba(0,255,128,0.15); border-radius: 8px; padding: 12px; background: rgba(0,0,0,0.45);">
                         <div>$ Welcome to Saurab's Terminal v1.0.0</div>
                         <div>$ Type 'help' for available commands</div>
                         <br>
                     </div>
-                    <div style="display: flex; align-items: center;">
-                        <span style="color: #0f0;">$ </span>
-                        <input type="text" id="terminal-input" style="flex: 1; background: transparent; border: none; color: #0f0; font-family: inherit; font-size: 14px; outline: none; margin-left: 10px;" 
-                               onkeypress="handleTerminalInput(event)" placeholder="Enter command...">
+                    <div style="display: flex; align-items: center; margin-top: 10px; background: rgba(0,0,0,0.5); border: 1px solid rgba(0,255,128,0.12); border-radius: 8px; padding: 8px 10px;">
+                        <span style="color: #7CFC00;">$</span>
+                        <input type="text" id="terminal-input" style="flex: 1; background: transparent; border: none; color: #e0ffe0; font-family: inherit; font-size: 14px; outline: none; margin-left: 10px;" 
+                               onkeydown="handleTerminalInput(event)" placeholder="Enter command...">
                     </div>
                 </div>
             </div>
@@ -3453,10 +3482,45 @@
         </button>
         <div class="taskbar-apps" id="taskbar-apps"></div>
         <div class="system-tray">
-            <i class="fas fa-wifi tray-icon"></i>
-            <i class="fas fa-volume-up tray-icon"></i>
-            <i class="fas fa-battery-three-quarters tray-icon"></i>
+            <i class="fas fa-wifi tray-icon" id="tray-wifi"></i>
+            <i class="fas fa-volume-up tray-icon" id="tray-volume"></i>
+            <i class="fas fa-battery-three-quarters tray-icon" id="tray-battery"></i>
             <div class="clock" id="clock">12:00 PM</div>
+        </div>
+    </div>
+
+    <!-- Tray Panels -->
+    <div class="tray-panel" id="panel-wifi">
+        <div class="tray-panel-header">
+            <span>Wi‑Fi</span>
+            <button onclick="hideAllPanels()" style="background:transparent;border:none;color:#fff;font-size:16px;cursor:pointer;">✕</button>
+        </div>
+        <div class="tray-panel-body">
+            <div class="tray-item"><div><i class="fas fa-wifi"></i> Home Network</div><span>Connected</span></div>
+            <div class="tray-item"><div><i class="fas fa-wifi"></i> Office Wi‑Fi</div><button class="small-btn" onclick="connectNetwork('Office Wi‑Fi')">Connect</button></div>
+            <div class="tray-item"><div><i class="fas fa-wifi"></i> Mobile Hotspot</div><button class="small-btn" onclick="connectNetwork('Mobile Hotspot')">Connect</button></div>
+        </div>
+    </div>
+
+    <div class="tray-panel" id="panel-volume">
+        <div class="tray-panel-header">
+            <span>Sound</span>
+            <button onclick="hideAllPanels()" style="background:transparent;border:none;color:#fff;font-size:16px;cursor:pointer;">✕</button>
+        </div>
+        <div class="tray-panel-body">
+            <div class="tray-item"><div><i class="fas fa-volume-up"></i> System Volume</div><input type="range" min="0" max="100" value="70" oninput="setSystemVolume(this.value)"></div>
+            <div class="tray-item"><div><i class="fas fa-headphones"></i> Output</div><span>Speakers (Default)</span></div>
+        </div>
+    </div>
+
+    <div class="tray-panel" id="panel-battery">
+        <div class="tray-panel-header">
+            <span>Power</span>
+            <button onclick="hideAllPanels()" style="background:transparent;border:none;color:#fff;font-size:16px;cursor:pointer;">✕</button>
+        </div>
+        <div class="tray-panel-body">
+            <div class="tray-item"><div><i class="fas fa-battery-three-quarters"></i> Battery</div><span id="battery-percent">78%</span></div>
+            <div class="tray-item"><div><i class="fas fa-plug"></i> Power mode</div><span>Balanced</span></div>
         </div>
     </div>
 
@@ -3573,6 +3637,7 @@
         <div class="notification-header">
             <i class="fas fa-info-circle"></i>
             <span>Welcome!</span>
+            <button id="notification-close" aria-label="Close" style="margin-left:auto;background:transparent;border:none;color:white;font-size:16px;cursor:pointer;">✕</button>
         </div>
         <div class="notification-body">
             Welcome to Saurab's Portfolio OS! Click on desktop icons or use the start menu to explore.
@@ -3680,8 +3745,12 @@
         // --- Window Resizing Logic ---
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.window').forEach(win => {
-                const handle = win.querySelector('.resize-handle');
-                if (!handle) return;
+                let handle = win.querySelector('.resize-handle');
+                if (!handle) {
+                    handle = document.createElement('div');
+                    handle.className = 'resize-handle se';
+                    win.appendChild(handle);
+                }
                 let isResizing = false;
                 let startX, startY, startW, startH;
                 handle.addEventListener('mousedown', function(e) {
@@ -4053,51 +4122,38 @@
 
         function createParticles() {
             const container = document.getElementById('bg-animation');
-            container.innerHTML = ''; // Clear existing particles
-            
-            // Create regular particles
-            const particleCount = 25;
+            if (!container) return;
+            container.innerHTML = '';
+
+            const particleCount = 8; // very low for subtle motion
             for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 25 + 's';
-                particle.style.animationDuration = (Math.random() * 15 + 20) + 's';
-                container.appendChild(particle);
-            }
-
-            // Create floating shapes
-            const shapeCount = 8;
-            for (let i = 0; i < shapeCount; i++) {
-                const shape = document.createElement('div');
-                shape.className = 'particle floating-shape';
-                shape.style.left = Math.random() * 100 + '%';
-                shape.style.animationDelay = Math.random() * 35 + 's';
-                shape.style.animationDuration = (Math.random() * 20 + 30) + 's';
-                container.appendChild(shape);
-            }
-
-            // Create circles
-            const circleCount = 12;
-            for (let i = 0; i < circleCount; i++) {
-                const circle = document.createElement('div');
-                circle.className = 'particle circle';
-                circle.style.left = Math.random() * 100 + '%';
-                circle.style.animationDelay = Math.random() * 40 + 's';
-                circle.style.animationDuration = (Math.random() * 25 + 35) + 's';
-                container.appendChild(circle);
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDelay = Math.random() * 10 + 's';
+                p.style.animationDuration = (Math.random() * 20 + 30) + 's';
+                container.appendChild(p);
             }
         }
 
         function showWelcomeNotification() {
             setTimeout(() => {
                 const notification = document.getElementById('notification');
+                const closeBtn = document.getElementById('notification-close');
+                if (!notification) return;
                 notification.classList.add('show');
                 
-                setTimeout(() => {
+                const autoHide = setTimeout(() => {
                     notification.classList.remove('show');
-                }, 5000);
-            }, 1000);
+                }, 7000);
+
+                if (closeBtn) {
+                    closeBtn.onclick = () => {
+                        notification.classList.remove('show');
+                        clearTimeout(autoHide);
+                    };
+                }
+            }, 800);
         }
 
         function updateClock() {
@@ -4303,7 +4359,7 @@
                 
                 // Position and maximize window by default
                 if (!windowStates[windowId]) {
-                    positionWindow(window);
+                    positionAppWindow(window);
                     windowStates[windowId] = { minimized: false, maximized: true };
                     // Automatically maximize the window
                     window.classList.add('maximized');
@@ -4331,33 +4387,28 @@
             closeStartMenu();
         }
 
-        function positionWindow(window) {
-            const screenWidth = window.innerWidth;
-            const screenHeight = window.innerHeight - 56; // Account for taskbar
+        function positionAppWindow(winEl) {
+            const screenWidth = globalThis.innerWidth;
+            const screenHeight = globalThis.innerHeight - 56; // Account for taskbar
             const isMobile = screenWidth <= 768;
             
             if (isMobile) {
-                // Mobile: Full screen windows
-                window.style.left = '0px';
-                window.style.top = '0px';
-                window.style.width = '100%';
-                window.style.height = `calc(100% - var(--taskbar-height))`;
-                window.style.borderRadius = '0';
-                window.style.border = 'none';
+                winEl.style.left = '0px';
+                winEl.style.top = '0px';
+                winEl.style.width = '100%';
+                winEl.style.height = `calc(100% - var(--taskbar-height))`;
+                winEl.style.borderRadius = '0';
+                winEl.style.border = 'none';
             } else {
-                // Desktop: Responsive sizing
-                const windowWidth = Math.min(800, screenWidth * 0.8);
-                const windowHeight = Math.min(600, screenHeight * 0.8);
-                
-                // Random position with some offset for multiple windows
+                const windowWidth = Math.min(900, Math.floor(screenWidth * 0.85));
+                const windowHeight = Math.min(650, Math.floor(screenHeight * 0.85));
                 const offsetMultiplier = activeWindows.length;
                 const left = Math.max(50, Math.min(screenWidth - windowWidth - 50, 100 + (offsetMultiplier * 30)));
                 const top = Math.max(50, Math.min(screenHeight - windowHeight - 50, 100 + (offsetMultiplier * 30)));
-                
-                window.style.left = left + 'px';
-                window.style.top = top + 'px';
-                window.style.width = windowWidth + 'px';
-                window.style.height = windowHeight + 'px';
+                winEl.style.left = left + 'px';
+                winEl.style.top = top + 'px';
+                winEl.style.width = windowWidth + 'px';
+                winEl.style.height = windowHeight + 'px';
             }
         }
 
@@ -4598,8 +4649,8 @@
         }
 
         function makeWindowsDraggable() {
-            document.querySelectorAll('.window').forEach(window => {
-                const titlebar = window.querySelector('.window-titlebar');
+            document.querySelectorAll('.window').forEach(winEl => {
+                const titlebar = winEl.querySelector('.window-titlebar');
                 let isDragging = false;
                 let currentX;
                 let currentY;
@@ -4620,19 +4671,19 @@
                 function dragStart(e) {
                     if (e.target.closest('.window-controls')) return;
                     
-                    setActiveWindow(window.id);
-                    
-                    if (e.type === "touchstart") {
-                        initialX = e.touches[0].clientX - xOffset;
-                        initialY = e.touches[0].clientY - yOffset;
-                    } else {
-                        initialX = e.clientX - xOffset;
-                        initialY = e.clientY - yOffset;
-                    }
+                                            setActiveWindow(winEl.id);
+                        
+                        if (e.type === "touchstart") {
+                            initialX = e.touches[0].clientX - xOffset;
+                            initialY = e.touches[0].clientY - yOffset;
+                        } else {
+                            initialX = e.clientX - xOffset;
+                            initialY = e.clientY - yOffset;
+                        }
 
-                    if (e.target === titlebar || titlebar.contains(e.target)) {
-                        isDragging = true;
-                    }
+                        if (e.target === titlebar || titlebar.contains(e.target)) {
+                            isDragging = true;
+                        }
                 }
 
                 function dragMove(e) {
@@ -4651,14 +4702,14 @@
                         yOffset = currentY;
 
                         // Prevent dragging outside screen bounds
-                        const maxX = window.innerWidth - window.offsetWidth;
-                        const maxY = window.innerHeight - window.offsetHeight - 56; // Account for taskbar
+                        const maxX = globalThis.innerWidth - winEl.offsetWidth;
+                        const maxY = globalThis.innerHeight - winEl.offsetHeight - 56; // Account for taskbar
 
                         xOffset = Math.max(0, Math.min(maxX, xOffset));
                         yOffset = Math.max(0, Math.min(maxY, yOffset));
 
-                        window.style.left = xOffset + "px";
-                        window.style.top = yOffset + "px";
+                        winEl.style.left = xOffset + "px";
+                        winEl.style.top = yOffset + "px";
                     }
                 }
 
@@ -4669,23 +4720,37 @@
         }
 
         // Terminal functionality
+        let terminalHistory = [];
+        let historyIndex = -1;
         function handleTerminalInput(event) {
+            const input = event.target;
+            if (event.key === 'ArrowUp') {
+                if (terminalHistory.length > 0) {
+                    historyIndex = Math.max(0, historyIndex === -1 ? terminalHistory.length - 1 : historyIndex - 1);
+                    input.value = terminalHistory[historyIndex] || '';
+                    event.preventDefault();
+                }
+                return;
+            }
+            if (event.key === 'ArrowDown') {
+                if (terminalHistory.length > 0) {
+                    historyIndex = Math.min(terminalHistory.length, historyIndex + 1);
+                    input.value = historyIndex >= terminalHistory.length ? '' : (terminalHistory[historyIndex] || '');
+                    event.preventDefault();
+                }
+                return;
+            }
             if (event.key === 'Enter') {
-                const input = event.target;
-                const command = input.value.trim().toLowerCase();
+                const command = input.value.trim();
                 const output = document.getElementById('terminal-output');
+                if (!command) return;
+                terminalHistory.push(command);
+                historyIndex = -1;
+                output.innerHTML += `<div>$ ${command}</div>`;
                 
-                // Add command to output
-                output.innerHTML += `<div>$ ${input.value}</div>`;
-                
-                // Process command
-                const response = processTerminalCommand(command);
-                output.innerHTML += `<div>${response}</div><br>`;
-                
-                // Clear input
+                const response = processTerminalCommand(command.toLowerCase());
+                if (response) output.innerHTML += `<div>${response}</div><br>`;
                 input.value = '';
-                
-                // Scroll to bottom
                 output.scrollTop = output.scrollHeight;
             }
         }
@@ -4759,9 +4824,9 @@ Type 'help' for available commands.`;
 
         // Window click to focus
         document.addEventListener('click', function(e) {
-            const window = e.target.closest('.window');
-            if (window && window.style.display !== 'none') {
-                setActiveWindow(window.id);
+            const winEl = e.target.closest('.window');
+            if (winEl && winEl.style.display !== 'none') {
+                setActiveWindow(winEl.id);
             }
         });
 
@@ -4843,18 +4908,16 @@ Type 'help' for available commands.`;
             const bgAnimation = document.getElementById('bg-animation');
             const animationsToggle = document.getElementById('animations-toggle');
             
-            if (animationsEnabled) {
+            // Always keep animations disabled and hidden
+            if (bgAnimation) {
                 bgAnimation.classList.add('disabled');
-                animationsToggle.classList.remove('active');
-                animationsEnabled = false;
-            } else {
-                bgAnimation.classList.remove('disabled');
-                animationsToggle.classList.add('active');
-                animationsEnabled = true;
+                bgAnimation.style.display = 'none';
             }
-            
-            // Save animation preference
-            localStorage.setItem('animations', animationsEnabled);
+            if (animationsToggle) {
+                animationsToggle.classList.remove('active');
+            }
+            animationsEnabled = false;
+            localStorage.setItem('animations', 'false');
         }
 
         function setBackground(bgType) {
@@ -5305,6 +5368,34 @@ Type 'help' for available commands.`;
             showWelcomeNotification();
             loadPreferences(); // Load saved preferences
         });
+
+        // Tray panels logic
+        const panelIds = { wifi: 'panel-wifi', volume: 'panel-volume', battery: 'panel-battery' };
+        function hideAllPanels() {
+            Object.values(panelIds).forEach(id => document.getElementById(id)?.classList.remove('show'));
+        }
+        function togglePanel(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const isShown = el.classList.contains('show');
+            hideAllPanels();
+            if (!isShown) el.classList.add('show');
+        }
+        document.getElementById('tray-wifi')?.addEventListener('click', e => { e.stopPropagation(); togglePanel(panelIds.wifi); });
+        document.getElementById('tray-volume')?.addEventListener('click', e => { e.stopPropagation(); togglePanel(panelIds.volume); });
+        document.getElementById('tray-battery')?.addEventListener('click', e => { e.stopPropagation(); togglePanel(panelIds.battery); });
+        document.getElementById('clock')?.addEventListener('click', e => { e.stopPropagation(); togglePanel(panelIds.battery); });
+        document.addEventListener('click', () => hideAllPanels());
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideAllPanels(); });
+
+        function connectNetwork(name) { console.log('Connecting to', name); alert(`Attempting to connect to ${name}...`); }
+        function setSystemVolume(val) { console.log('Volume', val); }
+        if (navigator.getBattery) {
+            navigator.getBattery().then(b => {
+                function update() { document.getElementById('battery-percent').textContent = Math.round(b.level * 100) + '%'; }
+                update(); b.addEventListener('levelchange', update);
+            }).catch(()=>{});
+        }
     </script>
 </body>
 </html>
