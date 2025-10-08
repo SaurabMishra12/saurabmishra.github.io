@@ -82,7 +82,7 @@
             left: 0;
             width: 100%;
             height: calc(100vh - var(--taskbar-height));
-            background: url('https://raw.githubusercontent.com/SaurabMishra12/saurabmishra.github.io/refs/heads/main/5769416.jpg?token=GHSAT0AAAAAADIFSWEHI25YMCJHAXG3LXXI2GRGHRA') center/cover no-repeat fixed, linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 50%, rgba(11,16,32,0.8) 100%);
+            background: url('5769416.jpg') center/cover no-repeat fixed, linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 50%, rgba(11,16,32,0.8) 100%);
             position: relative;
             transition: background 0.5s ease;
         }
@@ -95,7 +95,7 @@
         }
 
         .desktop.light-theme {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f8fafc 100%);
+            background: url('_free__blue_mist_by_sqdpxl_dcvd7qh.png') center/cover no-repeat fixed, linear-gradient(135deg, rgba(248,250,252,0.8) 0%, rgba(226,232,240,0.8) 50%, rgba(248,250,252,0.8) 100%);
         }
 
         @keyframes gradientShift {
@@ -104,84 +104,20 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Animated Background Particles */
-        .bg-animation {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-            opacity: 0.35;
-            transition: opacity 0.5s ease;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            25% {
-                background-position: 100% 50%;
-            }
-            50% {
-                background-position: 50% 100%;
-            }
-            75% {
-                background-position: 50% 0%;
-            }
-        }
-
-        .bg-animation.disabled {
-            opacity: 0;
-        }
-
-        /* 3D Neural Network Background */
-        #neural-network-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -3;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-        }
-
-        .neural-network-canvas {
+        /* Wallpaper Styles */
+        .desktop-wallpaper {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.7;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
         }
 
-        .particle {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: float 25s infinite;
-            box-shadow: 0 0 15px rgba(26, 115, 232, 0.6);
-        }
 
-        .particle.floating-shape {
-            width: 24px;
-            height: 24px;
-            border: 3px solid var(--primary);
-            background: linear-gradient(45deg, rgba(26, 115, 232, 0.1), rgba(52, 168, 83, 0.1));
-            border-radius: 8px;
-            animation: floatShape 35s infinite;
-            box-shadow: 0 0 20px rgba(26, 115, 232, 0.4);
-        }
-
-        .particle.circle {
-            width: 12px;
-            height: 12px;
-            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
-            animation: floatCircle 40s infinite;
-            box-shadow: 0 0 18px rgba(52, 168, 83, 0.5);
-        }
 
         @keyframes float {
             0% {
@@ -511,6 +447,11 @@
             background: linear-gradient(135deg, #607d8b 0%, #546e7a 50%, #455a64 100%);
         }
         .desktop-icon[data-app="settings"] .icon-wrapper i { color: #ffffff; }
+        
+        .desktop-icon[data-app="control-panel"] .icon-wrapper { 
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%); 
+        }
+        .desktop-icon[data-app="control-panel"] .icon-wrapper i { color: #ffffff; }
 
         .icon-label {
             font-size: 16px;
@@ -1199,6 +1140,168 @@
             font-size: 12px;
         }
 
+        /* Power Options */
+        .start-menu-power {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .power-options {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        .power-option {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .power-option:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .power-option i {
+            font-size: 14px;
+        }
+
+        /* Control Panel Button */
+        .control-panel-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        .control-panel-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .control-panel-btn i {
+            font-size: 16px;
+        }
+
+        /* Control Panel Styles */
+        .theme-selector {
+            display: flex;
+            gap: 10px;
+        }
+
+        .theme-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--surface-light);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        .theme-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .theme-btn:hover:not(.active) {
+            background: var(--surface);
+            border-color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .system-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+            padding: 15px;
+            background: var(--surface-light);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-primary);
+            font-size: 13px;
+        }
+
+        .info-item i {
+            color: var(--primary);
+            width: 20px;
+            text-align: center;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .quick-action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 12px;
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 12px;
+            color: var(--text-primary);
+        }
+
+        .quick-action-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .quick-action-btn i {
+            font-size: 20px;
+        }
+
         /* Notifications */
         .notification {
             position: fixed;
@@ -1696,24 +1799,29 @@
             border-color: var(--primary);
         }
 
-        .background-option.gradient-1 {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .background-option.wallpaper-1,
+        .background-option.wallpaper-2,
+        .background-option.wallpaper-3,
+        .background-option.wallpaper-4,
+        .background-option.ai-theme {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
-        .background-option.gradient-2 {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        .background-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 100%);
+            transition: opacity 0.3s ease;
         }
 
-        .background-option.gradient-3 {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
-        .background-option.gradient-4 {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-        }
-
-        .background-option.gradient-5 {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        .background-option:hover::before {
+            opacity: 0.5;
         }
 
         .background-option.default {
@@ -2439,14 +2547,6 @@
 <body>
     <!-- Desktop -->
     <div class="desktop" id="desktop">
-        <!-- 3D Neural Network Background -->
-        <div id="neural-network-bg">
-            <canvas class="neural-network-canvas" id="neural-canvas"></canvas>
-        </div>
-
-        <!-- Animated Background -->
-        <div class="bg-animation" id="bg-animation"></div>
-
         <!-- Desktop Icons -->
         <div class="desktop-icons" id="desktop-icons">
             <div class="desktop-icon" data-app="about">
@@ -2514,6 +2614,12 @@
                     <i class="fas fa-cog"></i>
                 </div>
                 <span class="icon-label">Settings</span>
+            </div>
+            <div class="desktop-icon" data-app="control-panel">
+                <div class="icon-wrapper">
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+                <span class="icon-label">Control Panel</span>
             </div>
         </div>
 
@@ -3627,6 +3733,29 @@
                     <p>Command line interface</p>
                 </div>
             </div>
+            <div class="start-menu-app" onclick="openApp('control-panel')">
+                <div class="start-menu-app-icon">
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+                <div class="start-menu-app-info">
+                    <h4>Control Panel</h4>
+                    <p>System controls and settings</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Power Options -->
+        <div class="start-menu-power">
+            <div class="power-options">
+                <button class="power-option" onclick="signOff()" title="Sign Off">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sign Off</span>
+                </button>
+                <button class="power-option" onclick="restart()" title="Restart">
+                    <i class="fas fa-redo"></i>
+                    <span>Restart</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -3653,14 +3782,19 @@
             <i class="fas fa-cog"></i>
             <span>Personalization</span>
         </div>
-        <div class="context-menu-item" onclick="toggleTheme()">
-            <i class="fas fa-palette"></i>
-            <span>Switch Theme</span>
+        <div class="context-menu-separator"></div>
+        <div class="context-menu-item" onclick="setTheme('dark')">
+            <i class="fas fa-moon"></i>
+            <span>Dark Mode</span>
+        </div>
+        <div class="context-menu-item" onclick="setTheme('light')">
+            <i class="fas fa-sun"></i>
+            <span>Light Mode</span>
         </div>
         <div class="context-menu-separator"></div>
-        <div class="context-menu-item" onclick="toggleAnimations()">
-            <i class="fas fa-magic"></i>
-            <span>Toggle Animations</span>
+        <div class="context-menu-item" onclick="openApp('control-panel')">
+            <i class="fas fa-sliders-h"></i>
+            <span>Control Panel</span>
         </div>
     </div>
 
@@ -3692,11 +3826,13 @@
                     </div>
 
                     <div class="setting-item">
-                        <div>
-                            <div class="setting-label">Background Animations</div>
-                            <div class="setting-description">Enable floating particles and animations</div>
-                        </div>
-                        <div class="toggle-switch active" id="animations-toggle" onclick="toggleAnimations()">
+                        <div style="width: 100%;">
+                            <div class="setting-label">System Control</div>
+                            <div class="setting-description">Access advanced system controls and settings</div>
+                            <button class="control-panel-btn" onclick="openApp('control-panel')">
+                                <i class="fas fa-sliders-h"></i>
+                                <span>Open Control Panel</span>
+                            </button>
                         </div>
                     </div>
 
@@ -3705,12 +3841,11 @@
                             <div class="setting-label">Background</div>
                             <div class="setting-description">Choose your desktop background</div>
                             <div class="background-options">
-                                <div class="background-option default selected" onclick="setBackground('default')"></div>
-                                <div class="background-option gradient-1" onclick="setBackground('gradient-1')"></div>
-                                <div class="background-option gradient-2" onclick="setBackground('gradient-2')"></div>
-                                <div class="background-option gradient-3" onclick="setBackground('gradient-3')"></div>
-                                <div class="background-option gradient-4" onclick="setBackground('gradient-4')"></div>
-                                <div class="background-option gradient-5" onclick="setBackground('gradient-5')"></div>
+                                <div class="background-option wallpaper-1 selected" onclick="setBackground('wallpaper-1')" style="background-image: url('5769416.jpg')"></div>
+                                <div class="background-option wallpaper-2" onclick="setBackground('wallpaper-2')" style="background-image: url('3452442.jpg')"></div>
+                                <div class="background-option wallpaper-3" onclick="setBackground('wallpaper-3')" style="background-image: url('5803426.jpg')"></div>
+                                <div class="background-option wallpaper-4" onclick="setBackground('wallpaper-4')" style="background-image: url('6272798.jpg')"></div>
+                                <div class="background-option ai-theme" onclick="setBackground('ai-theme')" style="background-image: url('airesearch.jpeg')"></div>
                                 <div class="background-option upload" onclick="document.getElementById('bg-upload').click()">
                                     <i class="fas fa-upload"></i>
                                 </div>
@@ -3731,6 +3866,99 @@
                                 <div class="user-photo-preview" id="user-photo-preview">
                                     <img id="preview-img" src="saurabprofile.jpg" style="display: block;" />
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Control Panel Window -->
+    <div class="window" id="control-panel-window">
+        <div class="window-titlebar">
+            <div class="window-titlebar-content">
+                <i class="fas fa-sliders-h window-icon"></i>
+                <span class="window-title">Control Panel</span>
+            </div>
+            <div class="window-controls">
+                <button class="window-control minimize" onclick="minimizeWindow('control-panel-window')"></button>
+                <button class="window-control maximize" onclick="maximizeWindow('control-panel-window')"></button>
+                <button class="window-control close" onclick="closeWindow('control-panel-window')"></button>
+            </div>
+        </div>
+        <div class="window-content">
+            <div class="settings-content">
+                <div class="settings-section">
+                    <div class="settings-title">System Settings</div>
+                    
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Theme Mode</div>
+                            <div class="setting-description">Choose between dark and light themes</div>
+                        </div>
+                        <div class="theme-selector">
+                            <button class="theme-btn active" id="dark-theme-btn" onclick="setTheme('dark')">
+                                <i class="fas fa-moon"></i>
+                                <span>Dark</span>
+                            </button>
+                            <button class="theme-btn" id="light-theme-btn" onclick="setTheme('light')">
+                                <i class="fas fa-sun"></i>
+                                <span>Light</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div style="width: 100%;">
+                            <div class="setting-label">System Information</div>
+                            <div class="setting-description">View system details and performance</div>
+                            <div class="system-info">
+                                <div class="info-item">
+                                    <i class="fas fa-desktop"></i>
+                                    <span>OS: SaurabPortfolioOS v2.0</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-microchip"></i>
+                                    <span id="cpu-info">CPU: Portfolio Engine</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-memory"></i>
+                                    <span id="memory-info">Memory: Available</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-hdd"></i>
+                                    <span>Storage: Cloud-based</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <div class="settings-title">Quick Actions</div>
+                    
+                    <div class="setting-item">
+                        <div style="width: 100%;">
+                            <div class="setting-label">System Controls</div>
+                            <div class="setting-description">Quick access to system functions</div>
+                            <div class="quick-actions">
+                                <button class="quick-action-btn" onclick="refreshDesktop()">
+                                    <i class="fas fa-refresh"></i>
+                                    <span>Refresh Desktop</span>
+                                </button>
+                                <button class="quick-action-btn" onclick="openApp('settings')">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Settings</span>
+                                </button>
+                                <button class="quick-action-btn" onclick="signOff()">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Sign Off</span>
+                                </button>
+                                <button class="quick-action-btn" onclick="restart()">
+                                    <i class="fas fa-redo"></i>
+                                    <span>Restart</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -3978,8 +4206,6 @@
             initializeMobileFeatures();
             updateClock();
             setInterval(updateClock, 1000);
-            createParticles();
-            initNeuralNetwork();
             showWelcomeNotification();
         });
 
@@ -4617,7 +4843,8 @@
                 'blogs': { icon: 'fas fa-blog', title: 'Blog Posts' },
                 'skills': { icon: 'fas fa-code', title: 'Skills' },
                 'contact': { icon: 'fas fa-envelope', title: 'Contact' },
-                'terminal': { icon: 'fas fa-terminal', title: 'Terminal' }
+                'terminal': { icon: 'fas fa-terminal', title: 'Terminal' },
+                'control-panel': { icon: 'fas fa-sliders-h', title: 'Control Panel' }
             };
             return appIcons[appName] || { icon: 'fas fa-window-maximize', title: 'Application' };
         }
@@ -4879,44 +5106,43 @@ Type 'help' for available commands.`;
         // Theme and Personalization Functions
         let currentTheme = 'dark';
         let animationsEnabled = true;
-        let currentBackground = 'default';
+        let currentBackground = 'wallpaper-1';
 
-        function toggleTheme() {
+        function setTheme(theme) {
             const root = document.documentElement;
-            const themeToggle = document.getElementById('theme-toggle');
             const desktop = document.querySelector('.desktop');
+            const darkBtn = document.getElementById('dark-theme-btn');
+            const lightBtn = document.getElementById('light-theme-btn');
             
-            if (currentTheme === 'dark') {
+            if (theme === 'light') {
                 root.classList.add('light-theme');
                 desktop.classList.add('light-theme');
-                themeToggle.classList.add('active');
                 currentTheme = 'light';
+                if (lightBtn) lightBtn.classList.add('active');
+                if (darkBtn) darkBtn.classList.remove('active');
             } else {
                 root.classList.remove('light-theme');
                 desktop.classList.remove('light-theme');
-                themeToggle.classList.remove('active');
                 currentTheme = 'dark';
+                if (darkBtn) darkBtn.classList.add('active');
+                if (lightBtn) lightBtn.classList.remove('active');
             }
             
             // Save theme preference
             localStorage.setItem('theme', currentTheme);
+            hideContextMenu();
         }
 
-        function toggleAnimations() {
-            const bgAnimation = document.getElementById('bg-animation');
-            const animationsToggle = document.getElementById('animations-toggle');
-            
-            // Always keep animations disabled and hidden
-            if (bgAnimation) {
-                bgAnimation.classList.add('disabled');
-                bgAnimation.style.display = 'none';
+        function toggleTheme() {
+            // Legacy function for backward compatibility
+            if (currentTheme === 'dark') {
+                setTheme('light');
+            } else {
+                setTheme('dark');
             }
-            if (animationsToggle) {
-                animationsToggle.classList.remove('active');
-            }
-            animationsEnabled = false;
-            localStorage.setItem('animations', 'false');
         }
+
+
 
         function setBackground(bgType) {
             const desktop = document.querySelector('.desktop');
@@ -4936,27 +5162,24 @@ Type 'help' for available commands.`;
             
             // Apply background based on type
             switch(bgType) {
-                case 'gradient-1':
-                    desktop.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                case 'wallpaper-1':
+                    desktop.style.background = 'url("5769416.jpg") center/cover no-repeat fixed, linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 50%, rgba(11,16,32,0.8) 100%)';
                     break;
-                case 'gradient-2':
-                    desktop.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+                case 'wallpaper-2':
+                    desktop.style.background = 'url("3452442.jpg") center/cover no-repeat fixed, linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 50%, rgba(11,16,32,0.8) 100%)';
                     break;
-                case 'gradient-3':
-                    desktop.style.background = 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)';
+                case 'wallpaper-3':
+                    desktop.style.background = 'url("5803426.jpg") center/cover no-repeat fixed, linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 50%, rgba(11,16,32,0.8) 100%)';
                     break;
-                case 'gradient-4':
-                    desktop.style.background = 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)';
+                case 'wallpaper-4':
+                    desktop.style.background = 'url("6272798.jpg") center/cover no-repeat fixed, linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 50%, rgba(11,16,32,0.8) 100%)';
                     break;
-                case 'gradient-5':
-                    desktop.style.background = 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)';
+                case 'ai-theme':
+                    desktop.style.background = 'url("airesearch.jpeg") center/cover no-repeat fixed, linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 50%, rgba(11,16,32,0.8) 100%)';
                     break;
                 default:
-                    if (currentTheme === 'light') {
-                        desktop.style.background = 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f8fafc 100%)';
-                    } else {
-                        desktop.style.background = 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)';
-                    }
+                    // Default wallpaper
+                    desktop.style.background = 'url("5769416.jpg") center/cover no-repeat fixed, linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 50%, rgba(11,16,32,0.8) 100%)';
             }
             
             currentBackground = bgType;
@@ -5004,12 +5227,7 @@ Type 'help' for available commands.`;
         }
 
         function refreshDesktop() {
-            // Refresh particles
-            const container = document.getElementById('bg-animation');
-            container.innerHTML = '';
-            createParticles();
-            createFloatingShapes();
-            
+            // Refresh desktop
             hideContextMenu();
         }
 
@@ -5325,16 +5543,8 @@ Type 'help' for available commands.`;
         // Load saved preferences
         function loadPreferences() {
             // Load theme
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'light') {
-                toggleTheme();
-            }
-            
-            // Load animations setting
-            const savedAnimations = localStorage.getItem('animations');
-            if (savedAnimations === 'false') {
-                toggleAnimations();
-            }
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            setTheme(savedTheme);
             
             // Load background
             const savedBackground = localStorage.getItem('background');
@@ -5393,6 +5603,43 @@ Type 'help' for available commands.`;
                 function update() { document.getElementById('battery-percent').textContent = Math.round(b.level * 100) + '%'; }
                 update(); b.addEventListener('levelchange', update);
             }).catch(()=>{});
+        }
+
+        // Power Options Functions
+        function signOff() {
+            // Show confirmation dialog
+            if (confirm('Are you sure you want to sign off? This will close the webpage.')) {
+                // Create a fade-out effect
+                document.body.style.transition = 'opacity 0.5s ease-out';
+                document.body.style.opacity = '0';
+                
+                // Close the webpage after animation
+                setTimeout(() => {
+                    // Try different methods to close the window
+                    if (window.opener) {
+                        window.close();
+                    } else {
+                        // If window.close() doesn't work (usually in main tabs), show message
+                        alert('Please close this tab manually to complete sign off.');
+                        // Alternative: redirect to a blank page
+                        window.location.href = 'about:blank';
+                    }
+                }, 500);
+            }
+        }
+
+        function restart() {
+            // Show confirmation dialog
+            if (confirm('Are you sure you want to restart? This will refresh the webpage.')) {
+                // Create a fade-out effect
+                document.body.style.transition = 'opacity 0.3s ease-out';
+                document.body.style.opacity = '0';
+                
+                // Refresh the page after animation
+                setTimeout(() => {
+                    window.location.reload();
+                }, 300);
+            }
         }
     </script>
 </body>
