@@ -919,6 +919,173 @@
             transform: scale(0.95);
         }
 
+        .taskbar-search {
+            position: relative;
+            width: 280px;
+            margin: 0 12px;
+        }
+
+        .taskbar-search-input {
+            width: 100%;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0 40px 0 40px;
+            color: var(--text-primary);
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .taskbar-search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .taskbar-search-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
+        }
+
+        .taskbar-search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 16px;
+            pointer-events: none;
+        }
+
+        .taskbar-search-clear {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 14px;
+            cursor: pointer;
+            display: none;
+            background: transparent;
+            border: none;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .taskbar-search-clear:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .taskbar-search-clear.show {
+            display: block;
+        }
+
+        .search-results {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            max-height: 400px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+            display: none;
+            z-index: 10002;
+        }
+
+        .search-results.show {
+            display: block;
+            animation: slideUpSearch 0.2s ease;
+        }
+
+        @keyframes slideUpSearch {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .search-result-category {
+            padding: 12px 16px 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: var(--surface-light);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .search-result-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-item:hover {
+            background: var(--surface-light);
+        }
+
+        .search-result-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--surface-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .search-result-info {
+            flex: 1;
+        }
+
+        .search-result-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .search-result-description {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .search-no-results {
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .search-no-results i {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.3;
+        }
+
         .taskbar-apps {
             flex: 1;
             display: flex;
@@ -1168,6 +1335,9 @@
             font-size: 13px;
             font-weight: 500;
             color: var(--text-primary);
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            min-height: 44px;
         }
 
         .power-option:hover {
@@ -1176,6 +1346,11 @@
             border-color: var(--primary);
             transform: translateY(-1px);
             box-shadow: var(--shadow-hover);
+        }
+
+        .power-option:active {
+            transform: translateY(0);
+            background: var(--primary-dark);
         }
 
         .power-option i {
@@ -1288,6 +1463,9 @@
             transition: all 0.3s ease;
             font-size: 12px;
             color: var(--text-primary);
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            min-height: 44px;
         }
 
         .quick-action-btn:hover {
@@ -1296,6 +1474,11 @@
             border-color: var(--primary);
             transform: translateY(-2px);
             box-shadow: var(--shadow-hover);
+        }
+
+        .quick-action-btn:active {
+            transform: translateY(0);
+            background: var(--primary-dark);
         }
 
         .quick-action-btn i {
@@ -1574,6 +1757,31 @@
                 margin-right: 8px;
             }
 
+            .taskbar-search {
+                width: 160px;
+                margin: 0 8px;
+            }
+
+            .taskbar-search-input {
+                height: 36px;
+                font-size: 12px;
+                padding: 0 32px 0 32px;
+            }
+
+            .taskbar-search-icon {
+                font-size: 14px;
+                left: 10px;
+            }
+
+            .taskbar-search-clear {
+                font-size: 12px;
+                right: 10px;
+            }
+
+            .search-results {
+                max-height: 300px;
+            }
+
             .taskbar-app {
                 min-width: 120px;
                 height: 36px;
@@ -1605,7 +1813,37 @@
         }
 
         @media (max-width: 480px) {
-            /* This media query is handled by the newer Mobile Portrait section below */
+            .taskbar-search {
+                width: 120px;
+                margin: 0 4px;
+            }
+
+            .taskbar-search-input {
+                font-size: 11px;
+                height: 32px;
+                padding: 0 28px 0 28px;
+            }
+
+            .taskbar-search-icon {
+                font-size: 12px;
+                left: 8px;
+            }
+
+            .taskbar-search-clear {
+                font-size: 11px;
+                right: 8px;
+            }
+
+            .search-results {
+                max-height: 250px;
+                font-size: 12px;
+            }
+
+            .search-result-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
         }
 
         /* Landscape orientation adjustments */
@@ -2640,9 +2878,9 @@
                 <div class="window-body">
                     <div class="resize-handle resize-handle-se"></div>
                     <h2>About Saurab Mishra</h2>
-                    <p><strong>AI Researcher | Data Science Specialist | Technical Content Creator</strong></p>
+                    <p><strong>AI | NLP | Data Science | ML | Technical Content Creator</strong></p>
                     <p>📧 saurab23@iisertvm.ac.in | 📱 +916201365207</p>
-                    <p>🔗 <a href="#" style="color: var(--primary);">LinkedIn</a> | 🌐 <a href="#" style="color: var(--primary);">Portfolio</a> | 📺 <a href="#" style="color: var(--primary);">YouTube</a> | ✍️ <a href="#" style="color: var(--primary);">Medium</a></p>
+                    <p>🔗 <a href="#" style="color: var(--primary);">LinkedIn</a> | 🌐 <a href="#" style="color: var(--primary);">Portfolio</a> | 📺 <a href="#" style="color: var(--primary);">YouTube</a> | ✍️ <a href="https://www.youtube.com/@saurab_mishra" style="color: var(--primary);">Medium</a></p>
 
                     <h3>Professional Summary</h3>
                     <p>BS-MS student in Computational & Applied Mathematics at IISER TVM, working across AI research & engineering, spanning areas such as machine learning, large language models, knowledge-enhanced systems, agent-based architectures, and scalable model deployment. I’m contributing to research publications in NLP/IR and developing projects that bridge theory with practical impact. I share my learnings through technical writing and educational content, and I’m always open to collaborations.</p>
@@ -3391,7 +3629,7 @@
                             </div>
                         </a>
 
-                        <a href="https://www.linkedin.com/in/saurab-mishra" target="_blank" style="text-decoration: none;">
+                        <a href="https://www.linkedin.com/in/saurab-mishra-493a73178/" target="_blank" style="text-decoration: none;">
                             <div style="background: var(--surface); padding: 20px; border-radius: 12px; text-align: center; transition: all 0.3s; cursor: pointer; border: 1px solid var(--border);"
                                  onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#0077b5'"
                                  onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border)'">
@@ -3411,7 +3649,7 @@
                             </div>
                         </a>
 
-                        <a href="https://youtube.com/@saurabmishra" target="_blank" style="text-decoration: none;">
+                        <a href="https://www.youtube.com/@saurab_mishra" target="_blank" style="text-decoration: none;">
                             <div style="background: var(--surface); padding: 20px; border-radius: 12px; text-align: center; transition: all 0.3s; cursor: pointer; border: 1px solid var(--border);"
                                  onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#ff0000'"
                                  onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border)'">
@@ -3584,6 +3822,25 @@
         <button class="start-button" onclick="toggleStartMenu()">
             <i class="fab fa-windows"></i>
         </button>
+        
+        <!-- Search Bar -->
+        <div class="taskbar-search">
+            <i class="fas fa-search taskbar-search-icon"></i>
+            <input 
+                type="text" 
+                class="taskbar-search-input" 
+                id="taskbar-search-input"
+                placeholder="Search apps, files, settings..."
+                autocomplete="off"
+            />
+            <button class="taskbar-search-clear" id="taskbar-search-clear" onclick="clearSearch()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <!-- Search Results Dropdown -->
+            <div class="search-results" id="search-results"></div>
+        </div>
+        
         <div class="taskbar-apps" id="taskbar-apps"></div>
         <div class="system-tray">
             <i class="fas fa-wifi tray-icon" id="tray-wifi"></i>
@@ -3638,7 +3895,7 @@
                 </div>
                 <div>
                     <div style="font-weight: 600;">Saurab Mishra</div>
-                    <div style="font-size: 12px; opacity: 0.8;">AI Researcher & Data Science Specialist</div>
+                    <div style="font-size: 12px; opacity: 0.8;">Research Student</div>
                 </div>
             </div>
         </div>
@@ -4873,6 +5130,216 @@
             }
         }
 
+        // Search Functionality
+        const searchData = {
+            apps: [
+                { name: 'About Me', icon: 'fas fa-user', description: 'Learn about my background', app: 'about' },
+                { name: 'GitHub', icon: 'fab fa-github', description: 'View my repositories', app: 'github' },
+                { name: 'YouTube', icon: 'fab fa-youtube', description: 'Educational content', url: 'https://www.youtube.com/@saurab_mishra' },
+                { name: 'LinkedIn', icon: 'fab fa-linkedin', description: 'Professional network', url: 'https://www.linkedin.com/in/saurab-mishra-493a73178/' },
+                { name: 'Projects', icon: 'fas fa-folder-open', description: 'Explore my work', app: 'projects' },
+                { name: 'Resume', icon: 'fas fa-file-alt', description: 'Download my CV', app: 'resume' },
+                { name: 'Blog Posts', icon: 'fas fa-blog', description: 'Read my articles', app: 'blogs' },
+                { name: 'Skills', icon: 'fas fa-code', description: 'Technical expertise', app: 'skills' },
+                { name: 'Contact', icon: 'fas fa-envelope', description: 'Get in touch', app: 'contact' },
+                { name: 'Terminal', icon: 'fas fa-terminal', description: 'Command line interface', app: 'terminal' },
+                { name: 'Settings', icon: 'fas fa-cog', description: 'System settings', app: 'settings' },
+                { name: 'Control Panel', icon: 'fas fa-sliders-h', description: 'System controls', app: 'control-panel' }
+            ],
+            settings: [
+                { name: 'Dark Mode', icon: 'fas fa-moon', description: 'Switch to dark theme', action: () => setTheme('dark') },
+                { name: 'Light Mode', icon: 'fas fa-sun', description: 'Switch to light theme', action: () => setTheme('light') },
+                { name: 'Change Background', icon: 'fas fa-image', description: 'Customize desktop wallpaper', app: 'settings' },
+                { name: 'Personalization', icon: 'fas fa-palette', description: 'Customize appearance', app: 'settings' }
+            ],
+            contacts: [
+                { name: 'Email', icon: 'fas fa-envelope', description: 'saurab23@iisertvm.ac.in', url: 'mailto:saurab23@iisertvm.ac.in' },
+                { name: 'Phone', icon: 'fas fa-phone', description: '+91 6201365207', url: 'tel:+916201365207' },
+                { name: 'LinkedIn Profile', icon: 'fab fa-linkedin', description: 'Connect on LinkedIn', url: 'https://www.linkedin.com/in/saurab-mishra-493a73178/' },
+                { name: 'GitHub Profile', icon: 'fab fa-github', description: 'View my code', url: 'https://github.com/SaurabMishra12' },
+                { name: 'Medium Blog', icon: 'fab fa-medium', description: 'Read my articles', url: 'https://medium.com/@saurabmishra' }
+            ]
+        };
+
+        function initializeSearch() {
+            const searchInput = document.getElementById('taskbar-search-input');
+            const searchResults = document.getElementById('search-results');
+            const searchClear = document.getElementById('taskbar-search-clear');
+
+            if (!searchInput) return;
+
+            searchInput.addEventListener('input', function(e) {
+                const query = e.target.value.trim();
+                
+                if (query.length > 0) {
+                    searchClear.classList.add('show');
+                    performSearch(query);
+                } else {
+                    searchClear.classList.remove('show');
+                    hideSearchResults();
+                }
+            });
+
+            searchInput.addEventListener('focus', function(e) {
+                if (e.target.value.trim().length > 0) {
+                    performSearch(e.target.value.trim());
+                }
+            });
+
+            // Close search results when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.taskbar-search')) {
+                    hideSearchResults();
+                }
+            });
+
+            // Handle keyboard navigation
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    clearSearch();
+                }
+            });
+        }
+
+        function performSearch(query) {
+            const searchResults = document.getElementById('search-results');
+            const lowerQuery = query.toLowerCase();
+            let results = { apps: [], settings: [], contacts: [] };
+
+            // Search apps
+            results.apps = searchData.apps.filter(item => 
+                item.name.toLowerCase().includes(lowerQuery) || 
+                item.description.toLowerCase().includes(lowerQuery)
+            );
+
+            // Search settings
+            results.settings = searchData.settings.filter(item => 
+                item.name.toLowerCase().includes(lowerQuery) || 
+                item.description.toLowerCase().includes(lowerQuery)
+            );
+
+            // Search contacts
+            results.contacts = searchData.contacts.filter(item => 
+                item.name.toLowerCase().includes(lowerQuery) || 
+                item.description.toLowerCase().includes(lowerQuery)
+            );
+
+            displaySearchResults(results);
+        }
+
+        function displaySearchResults(results) {
+            const searchResults = document.getElementById('search-results');
+            let html = '';
+
+            const totalResults = results.apps.length + results.settings.length + results.contacts.length;
+
+            if (totalResults === 0) {
+                html = `
+                    <div class="search-no-results">
+                        <i class="fas fa-search"></i>
+                        <p>No results found</p>
+                    </div>
+                `;
+            } else {
+                // Apps
+                if (results.apps.length > 0) {
+                    html += '<div class="search-result-category">Apps</div>';
+                    results.apps.forEach(item => {
+                        html += `
+                            <div class="search-result-item" onclick="handleSearchResultClick('${item.app || ''}', '${item.url || ''}')">
+                                <div class="search-result-icon">
+                                    <i class="${item.icon}"></i>
+                                </div>
+                                <div class="search-result-info">
+                                    <div class="search-result-title">${item.name}</div>
+                                    <div class="search-result-description">${item.description}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+
+                // Settings
+                if (results.settings.length > 0) {
+                    html += '<div class="search-result-category">Settings</div>';
+                    results.settings.forEach((item, index) => {
+                        html += `
+                            <div class="search-result-item" onclick="handleSettingClick(${index})">
+                                <div class="search-result-icon">
+                                    <i class="${item.icon}"></i>
+                                </div>
+                                <div class="search-result-info">
+                                    <div class="search-result-title">${item.name}</div>
+                                    <div class="search-result-description">${item.description}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+
+                // Contacts
+                if (results.contacts.length > 0) {
+                    html += '<div class="search-result-category">Contacts & Links</div>';
+                    results.contacts.forEach(item => {
+                        html += `
+                            <div class="search-result-item" onclick="handleSearchResultClick('', '${item.url || ''}')">
+                                <div class="search-result-icon">
+                                    <i class="${item.icon}"></i>
+                                </div>
+                                <div class="search-result-info">
+                                    <div class="search-result-title">${item.name}</div>
+                                    <div class="search-result-description">${item.description}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+            }
+
+            searchResults.innerHTML = html;
+            searchResults.classList.add('show');
+        }
+
+        function handleSearchResultClick(app, url) {
+            if (app) {
+                openApp(app);
+            } else if (url) {
+                window.open(url, '_blank');
+            }
+            clearSearch();
+        }
+
+        function handleSettingClick(index) {
+            const setting = searchData.settings[index];
+            if (setting.action) {
+                setting.action();
+            } else if (setting.app) {
+                openApp(setting.app);
+            }
+            clearSearch();
+        }
+
+        function clearSearch() {
+            const searchInput = document.getElementById('taskbar-search-input');
+            const searchClear = document.getElementById('taskbar-search-clear');
+            
+            if (searchInput) {
+                searchInput.value = '';
+                searchInput.blur();
+            }
+            if (searchClear) {
+                searchClear.classList.remove('show');
+            }
+            hideSearchResults();
+        }
+
+        function hideSearchResults() {
+            const searchResults = document.getElementById('search-results');
+            if (searchResults) {
+                searchResults.classList.remove('show');
+            }
+        }
+
         function makeWindowsDraggable() {
             document.querySelectorAll('.window').forEach(winEl => {
                 const titlebar = winEl.querySelector('.window-titlebar');
@@ -5115,12 +5582,14 @@ Type 'help' for available commands.`;
             const lightBtn = document.getElementById('light-theme-btn');
             
             if (theme === 'light') {
+                root.setAttribute('data-theme', 'light');
                 root.classList.add('light-theme');
                 desktop.classList.add('light-theme');
                 currentTheme = 'light';
                 if (lightBtn) lightBtn.classList.add('active');
                 if (darkBtn) darkBtn.classList.remove('active');
             } else {
+                root.setAttribute('data-theme', 'dark');
                 root.classList.remove('light-theme');
                 desktop.classList.remove('light-theme');
                 currentTheme = 'dark';
@@ -5570,6 +6039,7 @@ Type 'help' for available commands.`;
         // Update initialization
         document.addEventListener('DOMContentLoaded', function() {
             initializeDesktop();
+            initializeSearch(); // Initialize search functionality
             updateClock();
             setInterval(updateClock, 1000);
             createParticles();
@@ -5607,39 +6077,53 @@ Type 'help' for available commands.`;
 
         // Power Options Functions
         function signOff() {
-            // Show confirmation dialog
-            if (confirm('Are you sure you want to sign off? This will close the webpage.')) {
-                // Create a fade-out effect
-                document.body.style.transition = 'opacity 0.5s ease-out';
-                document.body.style.opacity = '0';
+            // Close start menu first to avoid UI issues
+            closeStartMenu();
+            
+            // Small delay to ensure menu closes smoothly
+            setTimeout(() => {
+                // Show confirmation dialog
+                const confirmed = confirm('Are you sure you want to sign off? This will close the webpage.');
                 
-                // Close the webpage after animation
-                setTimeout(() => {
-                    // Try different methods to close the window
-                    if (window.opener) {
-                        window.close();
-                    } else {
-                        // If window.close() doesn't work (usually in main tabs), show message
-                        alert('Please close this tab manually to complete sign off.');
-                        // Alternative: redirect to a blank page
-                        window.location.href = 'about:blank';
-                    }
-                }, 500);
-            }
+                if (confirmed) {
+                    // Create a fade-out effect
+                    document.body.style.transition = 'opacity 0.5s ease-out';
+                    document.body.style.opacity = '0';
+                    
+                    // Close the webpage after animation
+                    setTimeout(() => {
+                        // Try different methods to close the window
+                        try {
+                            window.close();
+                        } catch(e) {
+                            // If window.close() doesn't work (usually in main tabs), redirect to blank
+                            window.location.href = 'about:blank';
+                        }
+                    }, 500);
+                }
+            }, 100);
         }
 
         function restart() {
-            // Show confirmation dialog
-            if (confirm('Are you sure you want to restart? This will refresh the webpage.')) {
-                // Create a fade-out effect
-                document.body.style.transition = 'opacity 0.3s ease-out';
-                document.body.style.opacity = '0';
+            // Close start menu first to avoid UI issues
+            closeStartMenu();
+            
+            // Small delay to ensure menu closes smoothly
+            setTimeout(() => {
+                // Show confirmation dialog
+                const confirmed = confirm('Are you sure you want to restart? This will refresh the webpage.');
                 
-                // Refresh the page after animation
-                setTimeout(() => {
-                    window.location.reload();
-                }, 300);
-            }
+                if (confirmed) {
+                    // Create a fade-out effect
+                    document.body.style.transition = 'opacity 0.3s ease-out';
+                    document.body.style.opacity = '0';
+                    
+                    // Refresh the page after animation
+                    setTimeout(() => {
+                        window.location.reload(true);
+                    }, 300);
+                }
+            }, 100);
         }
     </script>
 </body>
