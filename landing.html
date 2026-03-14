@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saurab Mishra</title>
+    <base target="_parent">
+    <meta name="description"
+        content="Saurab Mishra — AI research student exploring LLMs, multi-agent systems, NLP, and model interpretability at IISER Trivandrum.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #fafafa;
+            --bg-alt: #ffffff;
+            --bg-subtle: #f3f4f6;
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-muted: #aeaeb2;
+            --accent: #0071e3;
+            --accent-soft: #e8f4fd;
+            --violet: #7c3aed;
+            --violet-soft: #f0ebff;
+            --emerald: #059669;
+            --emerald-soft: #ecfdf5;
+            --rose: #e11d48;
+            --rose-soft: #fff1f2;
+            --amber: #d97706;
+            --amber-soft: #fffbeb;
+            --border: #e5e7eb;
+            --border-light: #f0f0f0;
+            --radius: 20px;
+            --radius-sm: 12px;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.08);
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+        }
+
+        /* ============ NAV ============ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 52px;
+            background: rgba(250, 250, 250, 0.85);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .nav-inner {
+            max-width: 980px;
+            width: 100%;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            font-size: 0.82rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* ============ HERO ============ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            position: relative;
+            background: var(--bg-alt);
+        }
+
+        .hero-overline {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: revealUp 0.8s ease 0.2s forwards;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 8vw, 5rem);
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: revealUp 0.8s ease 0.35s forwards;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            font-weight: 300;
+            color: var(--text-secondary);
+            max-width: 580px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: revealUp 0.8s ease 0.5s forwards;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: revealUp 0.8s ease 0.65s forwards;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 999px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #333;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-soft);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 36px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: revealUp 0.8s ease 1s forwards;
+        }
+
+        .scroll-hint span {
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--text-muted), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        /* ============ ARCHITECTURE FLOW ============ */
+        .architecture-intro {
+            padding: 100px 24px 40px;
+            text-align: center;
+            background: var(--bg);
+        }
+
+        .architecture-intro h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 14px;
+        }
+
+        .architecture-intro p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* Flow connector — vertical line with particles */
+        .flow-connector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 0;
+            background: var(--bg);
+            position: relative;
+        }
+
+        .flow-line {
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--border), var(--text-muted), var(--border));
+            border-radius: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flow-line::after {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(to bottom, transparent, var(--accent));
+            animation: flowParticle 2s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        .flow-connector.active .flow-line::after {
+            opacity: 1;
+        }
+
+        @keyframes flowParticle {
+            0% {
+                top: -20px;
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            80% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        .flow-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 2px solid var(--text-muted);
+            background: var(--bg);
+            margin: 8px 0;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .flow-dot.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 0 12px rgba(0, 113, 227, 0.4);
+            transform: scale(1.4);
+        }
+
+        /* Architecture block */
+        .arch-section {
+            padding: 60px 24px;
+            background: var(--bg);
+            display: flex;
+            justify-content: center;
+        }
+
+        .arch-section:nth-child(even) {
+            background: var(--bg-alt);
+        }
+
+        .arch-card {
+            max-width: 880px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 48px;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .arch-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .arch-card.reverse {
+            direction: rtl;
+        }
+
+        .arch-card.reverse>* {
+            direction: ltr;
+        }
+
+        .arch-text {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .arch-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 999px;
+            width: fit-content;
+        }
+
+        .arch-label.embed {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .arch-label.attn {
+            background: var(--violet-soft);
+            color: var(--violet);
+        }
+
+        .arch-label.ffn {
+            background: var(--rose-soft);
+            color: var(--rose);
+        }
+
+        .arch-label.norm {
+            background: var(--amber-soft);
+            color: var(--amber);
+        }
+
+        .arch-label.out {
+            background: var(--emerald-soft);
+            color: var(--emerald);
+        }
+
+        .arch-text h3 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .arch-text p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .arch-text .formula {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            padding: 14px 20px;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .arch-text .formula strong {
+            color: var(--text-primary);
+        }
+
+        /* Arch visual — diagram blocks */
+        .arch-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 32px;
+            border-radius: var(--radius);
+            background: var(--bg-alt);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .arch-section:nth-child(even) .arch-visual {
+            background: var(--bg);
+        }
+
+        /* ============ NODE ANIMATIONS ============ */
+        .arch-node {
+            padding: 14px 28px;
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+            font-weight: 500;
+            text-align: center;
+            width: 100%;
+            max-width: 240px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(16px) scale(0.95);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .arch-card.visible .arch-node {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .arch-card.visible .arch-node:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .arch-card.visible .arch-node:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .arch-card.visible .arch-node:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .arch-card.visible .arch-node:nth-child(4) {
+            transition-delay: 0.4s;
+        }
+
+        .arch-card.visible .arch-node:nth-child(5) {
+            transition-delay: 0.5s;
+        }
+
+        /* Stagger inside visual container */
+        .arch-visual>*:nth-child(1) {
+            transition-delay: 0.05s;
+        }
+
+        .arch-visual>*:nth-child(2) {
+            transition-delay: 0.15s;
+        }
+
+        .arch-visual>*:nth-child(3) {
+            transition-delay: 0.25s;
+        }
+
+        .arch-visual>*:nth-child(4) {
+            transition-delay: 0.35s;
+        }
+
+        .arch-visual>*:nth-child(5) {
+            transition-delay: 0.45s;
+        }
+
+        .arch-visual>*:nth-child(6) {
+            transition-delay: 0.55s;
+        }
+
+        .arch-visual>*:nth-child(7) {
+            transition-delay: 0.65s;
+        }
+
+        .arch-visual>*:nth-child(8) {
+            transition-delay: 0.75s;
+        }
+
+        .arch-visual>*:nth-child(9) {
+            transition-delay: 0.85s;
+        }
+
+        .arch-node:hover {
+            transform: scale(1.06) !important;
+        }
+
+        /* Node glow pulse on visible */
+        .arch-card.visible .arch-node.node-embed {
+            animation: pulseEmbed 2s ease 1s infinite;
+        }
+
+        .arch-card.visible .arch-node.node-attn {
+            animation: pulseAttn 2s ease 1s infinite;
+        }
+
+        .arch-card.visible .arch-node.node-ffn {
+            animation: pulseFfn 2s ease 1s infinite;
+        }
+
+        .arch-card.visible .arch-node.node-norm {
+            animation: pulseNorm 2s ease 1s infinite;
+        }
+
+        .arch-card.visible .arch-node.node-out {
+            animation: pulseOut 2s ease 1s infinite;
+        }
+
+        @keyframes pulseEmbed {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 113, 227, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 16px 2px rgba(0, 113, 227, 0.15);
+            }
+        }
+
+        @keyframes pulseAttn {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(124, 58, 237, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 16px 2px rgba(124, 58, 237, 0.15);
+            }
+        }
+
+        @keyframes pulseFfn {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(225, 29, 72, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 16px 2px rgba(225, 29, 72, 0.15);
+            }
+        }
+
+        @keyframes pulseNorm {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(217, 119, 6, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 16px 2px rgba(217, 119, 6, 0.15);
+            }
+        }
+
+        @keyframes pulseOut {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(5, 150, 105, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 16px 2px rgba(5, 150, 105, 0.15);
+            }
+        }
+
+        .node-embed {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border: 1px solid rgba(0, 113, 227, 0.15);
+        }
+
+        .node-attn {
+            background: var(--violet-soft);
+            color: var(--violet);
+            border: 1px solid rgba(124, 58, 237, 0.15);
+        }
+
+        .node-ffn {
+            background: var(--rose-soft);
+            color: var(--rose);
+            border: 1px solid rgba(225, 29, 72, 0.15);
+        }
+
+        .node-norm {
+            background: var(--amber-soft);
+            color: var(--amber);
+            border: 1px solid rgba(217, 119, 6, 0.15);
+        }
+
+        .node-out {
+            background: var(--emerald-soft);
+            color: var(--emerald);
+            border: 1px solid rgba(5, 150, 105, 0.15);
+        }
+
+        .node-neutral {
+            background: var(--bg-subtle);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .node-connector {
+            width: 2px;
+            height: 20px;
+            background: var(--border);
+            position: relative;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .arch-card.visible .node-connector {
+            opacity: 1;
+        }
+
+        .node-connector::after {
+            content: '▼';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 8px;
+            color: var(--text-muted);
+        }
+
+        /* Data flow animation on connectors inside diagrams */
+        .arch-card.visible .node-connector::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -2px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0;
+            animation: nodeDataFlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes nodeDataFlow {
+            0% {
+                top: -6px;
+                opacity: 0;
+            }
+
+            30% {
+                opacity: 1;
+            }
+
+            70% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 20px;
+                opacity: 0;
+            }
+        }
+
+        .node-split {
+            display: flex;
+            gap: 16px;
+            width: 100%;
+            max-width: 300px;
+            justify-content: center;
+        }
+
+        .node-split .arch-node {
+            max-width: 130px;
+            padding: 10px 14px;
+            font-size: 0.75rem;
+        }
+
+        /* ============ QKV ATTENTION SIMULATION ============ */
+        .attn-sim {
+            width: 100%;
+            margin-top: 24px;
+            padding: 20px;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .attn-sim-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .attn-sim-header .blink {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--emerald);
+            animation: blink 1.2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.2;
+            }
+        }
+
+        .attn-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.4s ease;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+        }
+
+        .attn-step.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .attn-step .step-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            font-size: 0.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            background: var(--bg);
+            border: 1.5px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        .attn-step.active .step-num {
+            background: var(--violet);
+            border-color: var(--violet);
+            color: white;
+        }
+
+        .attn-step.done .step-num {
+            background: var(--emerald);
+            border-color: var(--emerald);
+            color: white;
+        }
+
+        .attn-step.done {
+            opacity: 0.5;
+        }
+
+        .attn-step .step-text {
+            color: var(--text-secondary);
+        }
+
+        .attn-step.active .step-text {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .attn-step .step-val {
+            margin-left: auto;
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            background: var(--violet-soft);
+            color: var(--violet);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s ease 0.2s;
+        }
+
+        .attn-step.active .step-val,
+        .attn-step.done .step-val {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Attention weight heatmap */
+        .attn-heatmap {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
+            margin-top: 12px;
+            max-width: 200px;
+        }
+
+        .attn-cell {
+            aspect-ratio: 1;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: var(--bg);
+            border: 1px solid var(--border-light);
+        }
+
+        .attn-cell.hot {
+            background: var(--violet);
+            opacity: 0.2;
+        }
+
+        .attn-cell.warm {
+            background: var(--violet);
+            opacity: 0.5;
+        }
+
+        .attn-cell.fire {
+            background: var(--violet);
+            opacity: 0.85;
+        }
+
+        /* ============ PAPER DIAGRAM ============ */
+        .paper-diagram-section {
+            padding: 80px 24px;
+            background: var(--bg-alt);
+            display: flex;
+            justify-content: center;
+        }
+
+        .paper-diagram-wrap {
+            max-width: 880px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .paper-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            padding: 28px 20px;
+            position: relative;
+            background: var(--bg);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+        }
+
+        .paper-diagram .pd-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .pd-block {
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            width: 140px;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .paper-diagram.animated .pd-block {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .pd-block.embed {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border: 1px solid rgba(0, 113, 227, 0.15);
+        }
+
+        .pd-block.attn {
+            background: var(--violet-soft);
+            color: var(--violet);
+            border: 1px solid rgba(124, 58, 237, 0.15);
+        }
+
+        .pd-block.norm {
+            background: var(--amber-soft);
+            color: var(--amber);
+            border: 1px solid rgba(217, 119, 6, 0.15);
+        }
+
+        .pd-block.ffn {
+            background: var(--rose-soft);
+            color: var(--rose);
+            border: 1px solid rgba(225, 29, 72, 0.15);
+        }
+
+        .pd-block.out {
+            background: var(--emerald-soft);
+            color: var(--emerald);
+            border: 1px solid rgba(5, 150, 105, 0.15);
+        }
+
+        .pd-block.neutral {
+            background: var(--bg-subtle);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        /* Stagger diagram blocks */
+        .paper-diagram.animated .pd-block:nth-child(2) {
+            transition-delay: 0.05s;
+        }
+
+        .paper-diagram.animated .pd-block:nth-child(3) {
+            transition-delay: 0.15s;
+        }
+
+        .paper-diagram.animated .pd-block:nth-child(4) {
+            transition-delay: 0.25s;
+        }
+
+        .paper-diagram.animated .pd-block:nth-child(5) {
+            transition-delay: 0.35s;
+        }
+
+        .paper-diagram.animated .pd-block:nth-child(6) {
+            transition-delay: 0.45s;
+        }
+
+        .paper-diagram.animated .pd-block:nth-child(7) {
+            transition-delay: 0.55s;
+        }
+
+        .paper-diagram.animated .pd-block:nth-child(8) {
+            transition-delay: 0.65s;
+        }
+
+        .paper-diagram.animated .pd-block:nth-child(9) {
+            transition-delay: 0.75s;
+        }
+
+        .paper-diagram.animated .pd-block:nth-child(10) {
+            transition-delay: 0.85s;
+        }
+
+        .paper-diagram.animated .pd-block:nth-child(11) {
+            transition-delay: 0.95s;
+        }
+
+        .paper-diagram.animated .pd-block:nth-child(12) {
+            transition-delay: 1.05s;
+        }
+
+        .paper-diagram.animated .pd-block:nth-child(13) {
+            transition-delay: 1.15s;
+        }
+
+        .pd-arrow {
+            width: 2px;
+            height: 16px;
+            background: var(--border);
+            margin: 0 auto;
+            position: relative;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .paper-diagram.animated .pd-arrow {
+            opacity: 1;
+        }
+
+        .pd-arrow::after {
+            content: '▼';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 6px;
+            color: var(--text-muted);
+        }
+
+        /* Active block pulse in diagram */
+        .pd-block.pd-active {
+            box-shadow: 0 0 20px 4px rgba(124, 58, 237, 0.2);
+            transform: scale(1.08) !important;
+        }
+
+        /* Data flow particle on diagram arrows */
+        .paper-diagram.animated .pd-arrow::before {
+            content: '';
+            position: absolute;
+            left: -2px;
+            top: -4px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            animation: nodeDataFlow 2s ease-in-out infinite;
+        }
+
+        .pd-nx-label {
+            position: absolute;
+            left: -36px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        .pd-nx-bracket {
+            position: absolute;
+            left: -14px;
+            top: 20%;
+            height: 60%;
+            border-left: 2px solid var(--border);
+            border-top: 2px solid var(--border);
+            border-bottom: 2px solid var(--border);
+            width: 8px;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .paper-desc h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+        }
+
+        .paper-desc p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 12px;
+        }
+
+        .paper-desc .paper-cite {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-style: italic;
+            padding: 12px 16px;
+            background: var(--bg-subtle);
+            border-radius: var(--radius-sm);
+            border-left: 3px solid var(--violet);
+        }
+
+        /* ============ EXPLORE SECTION ============ */
+        .explore-section {
+            padding: 100px 24px;
+            text-align: center;
+            background: var(--bg-alt);
+        }
+
+        .explore-section h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .explore-section>p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+            font-weight: 300;
+        }
+
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 20px;
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .explore-card {
+            background: var(--bg);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 40px 32px;
+            text-align: left;
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .explore-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: 20px 20px 0 0;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .explore-card:hover::before {
+            opacity: 1;
+        }
+
+        .explore-card.work-card::before {
+            background: var(--accent);
+        }
+
+        .explore-card.about-card::before {
+            background: var(--violet);
+        }
+
+        .explore-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+
+        .card-icon-wrap {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .work-card .card-icon-wrap {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .about-card .card-icon-wrap {
+            background: var(--violet-soft);
+            color: var(--violet);
+        }
+
+        .explore-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .explore-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .card-link {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
+            transition: gap 0.3s ease;
+        }
+
+        .about-card .card-link {
+            color: var(--violet);
+        }
+
+        .explore-card:hover .card-link {
+            gap: 10px;
+        }
+
+        /* ============ FOOTER ============ */
+        .footer {
+            padding: 40px 24px;
+            text-align: center;
+            background: var(--bg);
+            border-top: 1px solid var(--border-light);
+        }
+
+        .footer p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* ============ ANIMATIONS ============ */
+        @keyframes revealUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            .arch-card {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .arch-card.reverse {
+                direction: ltr;
+            }
+
+            .explore-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .paper-diagram-wrap {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 16px;
+            }
+
+            .nav-links a {
+                font-size: 0.75rem;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAV -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="landing.html" class="nav-brand">Saurab Mishra</a>
+            <div class="nav-links">
+                <a href="index.html">Work</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <p class="hero-overline">AI Research Student · IISER Trivandrum</p>
+        <h1>Saurab Mishra</h1>
+        <p class="subtitle">One guy who thought "I'll just learn ML for fun" and accidentally trapped himself in an
+            endless gradient descent of research papers, GPU crashes, and existential dread.</p>
+        <div class="hero-cta">
+            <a href="index.html" class="btn btn-primary"><i class="fa-solid fa-terminal"></i> Explore my work</a>
+            <a href="about.html" class="btn btn-secondary"><i class="fa-solid fa-user"></i> About me</a>
+        </div>
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ARCHITECTURE INTRO -->
+    <section class="architecture-intro reveal">
+        <h2>The Forward Pass of Saurab Mishra</h2>
+        <p>Processing raw human input into something occasionally useful — a biography in 5 layers.</p>
+    </section>
+
+    <!-- FLOW: EMBEDDING -->
+    <div class="flow-connector">
+        <div class="flow-line"></div>
+        <div class="flow-dot"></div>
+        <div class="flow-line"></div>
+    </div>
+
+    <section class="arch-section">
+        <div class="arch-card reveal">
+            <div class="arch-text">
+                <span class="arch-label embed"><i class="fa-solid fa-layer-group"></i> Step 1</span>
+                <h3>Input Embedding</h3>
+                <p>Every great model starts with raw, unoptimized noise. In my case: an Indian kid who mistakenly
+                    thought 'playing video games' naturally translated to 'enjoying calculus.' I somehow ended up at
+                    IISER Trivandrum studying topics that work better as sedatives at parties. The tokenization phase
+                    was brutal — mostly breaking down my remaining innocence into highly dimensional academic trauma.
+                </p>
+                <div class="formula">
+                    <strong>Saurab</strong> = DropOut(social_skills) + PosEncode(IISER_TVM)<br>
+                    <strong>batch_size</strong> = 1 · <strong>caffeine_dim</strong> = overflow_error
+                </div>
+            </div>
+            <div class="arch-visual">
+                <div class="arch-node node-neutral">Raw Human Input</div>
+                <div class="node-connector"></div>
+                <div class="arch-node node-embed">IISER Trivandrum</div>
+                <div class="node-connector"></div>
+                <div class="node-split">
+                    <div class="arch-node node-embed">Curiosity</div>
+                    <div class="arch-node node-embed">Coffee</div>
+                </div>
+                <div class="node-connector"></div>
+                <div class="arch-node node-embed" style="font-weight:600;">Research Student</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOW: ATTENTION -->
+    <div class="flow-connector">
+        <div class="flow-line"></div>
+        <div class="flow-dot"></div>
+        <div class="flow-line"></div>
+    </div>
+
+    <section class="arch-section">
+        <div class="arch-card reverse reveal">
+            <div class="arch-text">
+                <span class="arch-label attn"><i class="fa-solid fa-arrows-split-up-and-left"></i> Step 2</span>
+                <h3>Multi-Head Obsession</h3>
+                <p>Like a proper attention mechanism, I try to attend to everything simultaneously: LLMs, multi-agent
+                    systems, XAI, and why my code worked yesterday but not today. I have multiple heads, but absolutely
+                    zero attention span for anything outside an IDE. My Query is "how do I force this model to stop
+                    lying?", my Key is chronic sleep deprivation, and my Value... well, my value is still converging.
+                </p>
+                <div class="formula">
+                    <strong>Obsession</strong>(Q, K, V) = softmax(Papers × ArXiv<sup>T</sup> / √sleep)<br>
+                    <strong>heads</strong> = [LLM, MAS, NLP, XAI] · <strong>social_life</strong> = nan
+                </div>
+                <!-- QKV Attention Simulation -->
+                <div class="attn-sim" id="attnSim">
+                    <div class="attn-sim-header"><span class="blink"></span> ATTENTION SIMULATION — LIVE</div>
+                    <div class="attn-step" data-step="0">
+                        <span class="step-num">1</span>
+                        <span class="step-text">Project input → Q, K, V</span>
+                        <span class="step-val">x·W<sub>q</sub></span>
+                    </div>
+                    <div class="attn-step" data-step="1">
+                        <span class="step-num">2</span>
+                        <span class="step-text">Compute Q·K<sup>T</sup> scores</span>
+                        <span class="step-val">[0.8, 0.2, 0.6, 0.9]</span>
+                    </div>
+                    <div class="attn-step" data-step="2">
+                        <span class="step-num">3</span>
+                        <span class="step-text">Scale by √d<sub>k</sub></span>
+                        <span class="step-val">÷ 8.0</span>
+                    </div>
+                    <div class="attn-step" data-step="3">
+                        <span class="step-num">4</span>
+                        <span class="step-text">Apply softmax</span>
+                        <span class="step-val">[0.31, 0.12, 0.22, 0.35]</span>
+                    </div>
+                    <div class="attn-step" data-step="4">
+                        <span class="step-num">5</span>
+                        <span class="step-text">Multiply attention × V</span>
+                        <span class="step-val">context ✓</span>
+                    </div>
+                </div>
+            </div>
+            <div class="arch-visual">
+                <div class="arch-node node-embed" style="opacity:0.6;">Research</div>
+                <div class="node-connector"></div>
+                <div class="node-split">
+                    <div class="arch-node node-attn">LLMs</div>
+                    <div class="arch-node node-attn">NLP</div>
+                    <div class="arch-node node-attn">XAI</div>
+                </div>
+                <div class="node-connector"></div>
+                <div class="arch-node node-attn">ArXiv at 3 AM</div>
+                <div class="node-connector"></div>
+                <div class="arch-node node-attn" style="font-weight:600;">"I Swear I'll Sleep"</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOW: LAYER NORM + RESIDUAL -->
+    <div class="flow-connector">
+        <div class="flow-line"></div>
+        <div class="flow-dot"></div>
+        <div class="flow-line"></div>
+    </div>
+
+    <section class="arch-section">
+        <div class="arch-card reveal">
+            <div class="arch-text">
+                <span class="arch-label norm"><i class="fa-solid fa-equals"></i> Step 3</span>
+                <h3>Reality Normalization</h3>
+                <p>Ah, Reality Normalization—that incredibly humbling layer where your 'groundbreaking' idea gets
+                    absolutely dismantled by Reviewer 2. Residual connections? That's just me falling back on the excuse
+                    "at least the Python script runs" when the mathematical proofs collapse. The skip connection to the
+                    campus coffee machine is literally the only thing preventing a vanishing gradient of my will to
+                    live.</p>
+                <div class="formula">
+                    <strong>sanity</strong> = LayerNorm(ego - Reviewer2(scathing_remarks))<br>
+                    <strong>ε</strong> = 1e-5 · skip_to(coffee) preserves gradient
+                </div>
+            </div>
+            <div class="arch-visual">
+                <div class="arch-node node-attn" style="opacity:0.6;">Sleep-Deprived</div>
+                <div class="node-connector"></div>
+                <div class="node-split">
+                    <div class="arch-node node-norm">Deadlines</div>
+                    <div class="arch-node node-neutral" style="font-size:0.7rem;">Caffeine ↩</div>
+                </div>
+                <div class="node-connector"></div>
+                <div class="arch-node node-norm" style="font-weight:600;">Somehow Functional</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOW: FFN -->
+    <div class="flow-connector">
+        <div class="flow-line"></div>
+        <div class="flow-dot"></div>
+        <div class="flow-line"></div>
+    </div>
+
+    <section class="arch-section">
+        <div class="arch-card reverse reveal">
+            <div class="arch-text">
+                <span class="arch-label ffn"><i class="fa-solid fa-network-wired"></i> Step 4</span>
+                <h3>The Build Phase</h3>
+                <p>This is where the alleged "thinking" takes place. While normal people expand their social circles, I
+                    exclusively expand my dimension of hidden vectors. I build multi-agent systems, dissect LLMs, and
+                    maintain a GitHub profile that clearly screams "I have no offline hobbies." PyTorch is my primary
+                    love language; TensorFlow is that toxic ex we agreed never to text again.</p>
+                <div class="formula">
+                    <strong>Projects</strong>(x) = GELU(ambition × PyTorch + bias)<br>
+                    <strong>hidden_talents</strong> = 3072 → completely unmarketable
+                </div>
+            </div>
+            <div class="arch-visual">
+                <div class="arch-node node-norm" style="opacity:0.6;">Motivated</div>
+                <div class="node-connector"></div>
+                <div class="arch-node node-ffn">CrewAI + LLaMA 3.3</div>
+                <div class="node-connector"></div>
+                <div class="arch-node node-ffn">RAG Pipelines</div>
+                <div class="node-connector"></div>
+                <div class="arch-node node-ffn" style="font-weight:600;">"It Works on My Machine"</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOW: OUTPUT -->
+    <div class="flow-connector">
+        <div class="flow-line"></div>
+        <div class="flow-dot"></div>
+        <div class="flow-line"></div>
+    </div>
+
+    <section class="arch-section">
+        <div class="arch-card reveal">
+            <div class="arch-text">
+                <span class="arch-label out"><i class="fa-solid fa-chart-bar"></i> Step 5</span>
+                <h3>Output Layer</h3>
+                <p>After all that expensive compute, what is the output? A research student clutching IBM
+                    certifications, a Credly profile with actual badges, and the concerning social habit of explaining
+                    neural architectures to captive audiences who definitely did not ask. I'm actively working on LLM
+                    interpretability—because apparently, accepting that AI works by magic isn't scientifically rigorous
+                    enough. The forward pass is incomplete. Loss is still nonzero. Send help.</p>
+                <div class="formula">
+                    <strong>status</strong> = still_training(actively, please_wait)<br>
+                    <strong>P</strong>(touching_grass) = 1e-9
+                </div>
+            </div>
+            <div class="arch-visual">
+                <div class="arch-node node-ffn" style="opacity:0.6;">All That Work</div>
+                <div class="node-connector"></div>
+                <div class="arch-node node-norm">IBM Certified</div>
+                <div class="node-connector"></div>
+                <div class="arch-node node-out">Research Student</div>
+                <div class="node-connector"></div>
+                <div class="arch-node node-out" style="font-weight:600;">Hire Me → Maybe</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEPARATOR -->
+    <div class="flow-connector">
+        <div class="flow-line"></div>
+        <div class="flow-dot"></div>
+        <div class="flow-line"></div>
+    </div>
+
+    <!-- PAPER DIAGRAM -->
+    <section class="paper-diagram-section">
+        <div class="paper-diagram-wrap reveal">
+            <div class="paper-diagram" id="paperDiagram">
+                <span class="pd-title">"Caffeine Is All You Need"</span>
+                <div class="pd-block neutral">Naïve Ambition</div>
+                <div class="pd-arrow"></div>
+                <div class="pd-block embed">IISER Trivandrum</div>
+                <div class="pd-arrow"></div>
+                <div class="pd-block embed">+ Caffeine Injection</div>
+                <div class="pd-arrow"></div>
+                <div class="pd-block attn">Multi-Agent Obsession</div>
+                <div class="pd-arrow"></div>
+                <div class="pd-block norm">Reality Check &amp; Norm</div>
+                <div class="pd-arrow"></div>
+                <div class="pd-block ffn">LLM / RAG Projects</div>
+                <div class="pd-arrow"></div>
+                <div class="pd-block norm">Burnout Prevention</div>
+                <div class="pd-arrow"></div>
+                <div class="pd-block out">Explainability Pipeline</div>
+                <div class="pd-arrow"></div>
+                <div class="pd-block out">Research Student Output</div>
+                <span class="pd-nx-label">∞×</span>
+                <span class="pd-nx-bracket"></span>
+            </div>
+            <div class="paper-desc">
+                <h3>The Architecture That Ruined My Sleep</h3>
+                <p>I subjected myself to this architecture in 2024, and here I am in 2026 still waiting for the code to
+                    compile.
+                    The diagram on the left illustrates the tragic pipeline that took a healthy, functioning human and
+                    trapped
+                    them in a latent space of multi-agent systems and Large Language Models. I study exactly what goes
+                    on inside
+                    these cursed blocks — specifically, why my scripts run flawlessly at 3 AM but spontaneously combust
+                    by sunrise.</p>
+                <p>Because if we're going to give neural networks the ability to confidently gaslight humanity, the
+                    least
+                    we can do is figure out <em>how</em> they're doing it. And that's my problem now.</p>
+                <div class="paper-cite">
+                    "Caffeine Is All You Need"<br>
+                    S. Mishra et al., IISER TVM 2026
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPLORE SECTION -->
+    <section class="explore-section">
+        <h2 class="reveal">Explore</h2>
+        <p class="reveal">Dive into my workspace or learn more about me.</p>
+
+        <div class="explore-grid">
+            <a href="index.html" class="explore-card work-card reveal">
+                <div class="card-icon-wrap"><i class="fa-solid fa-terminal"></i></div>
+                <h3>Work</h3>
+                <p>Projects, research papers, blogs, and developer tools — all inside an interactive OS-style workspace.
+                </p>
+                <span class="card-link">Open workspace <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+
+            <a href="about.html" class="explore-card about-card reveal">
+                <div class="card-icon-wrap"><i class="fa-solid fa-brain"></i></div>
+                <h3>About Me</h3>
+                <p>Research philosophy, skills, certifications, and the human behind the algorithms.</p>
+                <span class="card-link">Read more <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>Built with attention and feed-forward love by <a href="about.html">Saurab Mishra</a></p>
+    </footer>
+
+    <script>
+        // ==========================================
+        // SCROLL REVEAL — arch cards + generic reveals
+        // ==========================================
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    entry.target.style.opacity = '';
+                    entry.target.style.transform = '';
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            if (!el.classList.contains('arch-card')) {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
+            }
+            revealObserver.observe(el);
+        });
+
+        document.querySelectorAll('.arch-card:not(.reveal)').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // ==========================================
+        // FLOW DOTS — animate on scroll
+        // ==========================================
+        const dotObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const dot = entry.target.querySelector('.flow-dot');
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    if (dot) dot.classList.add('active');
+                }
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('.flow-connector').forEach(el => dotObserver.observe(el));
+
+        // ==========================================
+        // QKV ATTENTION SIMULATION
+        // ==========================================
+        let attnInterval = null;
+        const attnObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !attnInterval) {
+                    runAttnSimulation();
+                } else if (!entry.isIntersecting && attnInterval) {
+                    clearInterval(attnInterval);
+                    attnInterval = null;
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const attnSim = document.getElementById('attnSim');
+        if (attnSim) attnObserver.observe(attnSim);
+
+        function runAttnSimulation() {
+            const steps = attnSim.querySelectorAll('.attn-step');
+            let current = 0;
+
+            function tick() {
+                steps.forEach((s, i) => {
+                    s.classList.remove('active', 'done');
+                    if (i < current) s.classList.add('done', 'active');
+                    if (i === current) s.classList.add('active');
+                });
+                current++;
+                if (current > steps.length) {
+                    current = 0;
+                    // Brief pause before restarting
+                    clearInterval(attnInterval);
+                    setTimeout(() => {
+                        steps.forEach(s => s.classList.remove('active', 'done'));
+                        attnInterval = setInterval(tick, 800);
+                    }, 1500);
+                }
+            }
+            attnInterval = setInterval(tick, 800);
+            tick();
+        }
+
+        // ==========================================
+        // PAPER DIAGRAM — animate blocks on scroll
+        // ==========================================
+        const diagramObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    // Cycle through blocks highlighting them
+                    startDiagramHighlight(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const paperDiagram = document.getElementById('paperDiagram');
+        if (paperDiagram) diagramObserver.observe(paperDiagram);
+
+        function startDiagramHighlight(diagram) {
+            const blocks = diagram.querySelectorAll('.pd-block');
+            let idx = 0;
+            setInterval(() => {
+                blocks.forEach(b => b.classList.remove('pd-active'));
+                if (blocks[idx]) blocks[idx].classList.add('pd-active');
+                idx = (idx + 1) % blocks.length;
+            }, 1200);
+        }
+
+        // ==========================================
+        // NAV scroll effect
+        // ==========================================
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            nav.style.borderBottomColor = window.scrollY > 50 ? 'var(--border)' : 'var(--border-light)';
+        });
+    </script>
+</body>
+
+</html>
