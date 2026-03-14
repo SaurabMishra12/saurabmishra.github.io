@@ -1,21 +1,27 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saurab Mishra | Blogs</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>Blog | Saurab Mishra | AI/ML Engineer & Researcher</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --primary: #4285F4;
-            --secondary: #34A853;
-            --accent: #FBBC05;
-            --text-primary: #202124;
-            --text-secondary: #5F6368;
-            --background: #FFFFFF;
-            --light: #f5f5f5;
-            --dark: #1a1a1a;
-            --muted: #6b7280;
+            --primary-color: #ff6b35;
+            --secondary-color: #f7931e;
+            --accent-color: #00d4aa;
+            --text-primary: #2d3748;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --background: #ffffff;
+            --surface: #f7fafc;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -25,492 +31,545 @@
         }
 
         body {
-            font-family: 'Roboto', Arial, sans-serif;
-            background: var(--dark);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
             color: var(--text-primary);
-            overflow: hidden;
+            background: var(--background);
+            overflow-x: hidden;
         }
 
-        .desktop {
+        /* Navigation */
+        .nav {
             position: fixed;
-            inset: 0;
-            background: var(--dark);
-        }
-
-        .wallpaper-coding {
-            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-        }
-
-        .top-nav {
-            position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 48px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            z-index: 1000;
-        }
-
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .nav-right {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            opacity: 0.6;
-            transition: opacity 0.2s;
-        }
-
-        .nav-button:hover {
-            opacity: 1;
-        }
-
-        .nav-button.close { background: #ff5f57; }
-        .nav-button.minimize { background: #ffbd2e; }
-        .nav-button.maximize { background: #28ca42; }
-
-        .back-button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .back-button:hover {
-            background: var(--secondary);
-        }
-
-        .content-window {
-            position: absolute;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 1000px;
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            padding: 32px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            z-index: 100;
-            max-height: calc(100vh - 120px);
-            overflow-y: auto;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 0 2rem;
         }
 
-        .content-window h1 {
-            color: var(--primary);
-            font-size: 2.5rem;
-            margin-bottom: 24px;
-            text-align: center;
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
         }
 
-        .blogs-intro {
-            text-align: center;
+        .nav-logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
             color: var(--text-secondary);
-            margin-bottom: 32px;
-            font-size: 1.1rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
         }
 
-        .blogs-grid {
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-cta {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: #e55a2b;
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--surface);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        /* Blog Section */
+        .blog {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .blog-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
         }
 
         .blog-card {
-            background: var(--light);
-            border-radius: 12px;
+            background: white;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
         }
 
         .blog-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
         }
 
         .blog-image {
             width: 100%;
             height: 200px;
             object-fit: cover;
+            background: var(--surface);
         }
 
         .blog-content {
-            padding: 20px;
+            padding: 2rem;
         }
 
-        .blog-title {
-            color: var(--text-primary);
-            font-size: 1.3rem;
+        .blog-category {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
             font-weight: 600;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-
-        .blog-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 16px;
-        }
-
-        .blog-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-            color: var(--muted);
-        }
-
-        .read-more {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .read-more:hover {
-            color: var(--secondary);
-        }
-
-        .coming-soon {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-secondary);
-            font-style: italic;
-        }
-
-        @media (max-width: 768px) {
-            .content-window {
-                width: 95%;
-                padding: 24px;
-            }
-
-            .blogs-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .content-window h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="desktop wallpaper-coding">
-        <!-- Navigation -->
-        <div class="top-nav">
-            <div class="nav-left">
-                <div class="nav-button close"></div>
-                <div class="nav-button minimize"></div>
-                <div class="nav-button maximize"></div>
-            </div>
-            <div class="nav-right">
-                <a href="index.html" class="back-button">← Back to Desktop</a>
-            </div>
-        </div>
-
-        <!-- Content Window -->
-        <div class="content-window">
-            <h1>My Blog</h1>
-            <p class="blogs-intro">
-                Exploring the latest insights, innovations, and thoughts on artificial intelligence,
-                machine learning, and technological advancements.
-            </p>
-
-            <div class="blogs-grid">
-                <!-- Multi-Agent Systems Blog -->
-                <div class="blog-card" onclick="location.href='MAS-Blog.html'">
-                    <img src="masimg.webp" alt="Multi-Agent Systems" class="blog-image">
-                    <div class="blog-content">
-                        <h3 class="blog-title">Multi-Agent Systems: The Future of Collaborative AI</h3>
-                        <p class="blog-description">
-                            Exploring how Multi-Agent Systems enable coordinated decision-making and problem-solving in distributed AI environments. Learn about the architecture, challenges, and real-world applications.
-                        </p>
-                        <div class="blog-meta">
-                            <span>AI Research</span>
-                            <a href="MAS-Blog.html" class="read-more">Read more →</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Coming Soon Placeholder -->
-                <div class="blog-card">
-                    <div style="width: 100%; height: 200px; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
-                        🚀
-                    </div>
-                    <div class="blog-content">
-                        <h3 class="blog-title">Coming Soon</h3>
-                        <p class="blog-description">
-                            More articles on LLMs, RAG, RLHF, and cutting-edge AI research are in the works. Stay tuned for deep dives into the latest developments in artificial intelligence.
-                        </p>
-                        <div class="blog-meta">
-                            <span>Future Topics</span>
-                            <span>Coming Soon</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Another Coming Soon -->
-                <div class="blog-card">
-                    <div style="width: 100%; height: 200px; background: linear-gradient(135deg, var(--accent), var(--primary)); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
-                        🤖
-                    </div>
-                    <div class="blog-content">
-                        <h3 class="blog-title">Advanced AI Techniques</h3>
-                        <p class="blog-description">
-                            Detailed explorations of advanced AI methodologies, from transformer architectures to novel training techniques. Understanding the building blocks of modern AI systems.
-                        </p>
-                        <div class="blog-meta">
-                            <span>Technical Deep Dive</span>
-                            <span>In Progress</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 50%;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease, left 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-            left: 0;
-        }
-
-        .profile-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-left: 16px;
-            border: 2px solid var(--primary-color);
-        }
-
-        /* Blogs Header */
-        .blogs-header {
-            padding: 120px 24px 50px;
-            text-align: center;
-            background: linear-gradient(135deg, var(--background-color) 0%, #1A1A1C 100%);
-        }
-
-        .blogs-title {
-            font-size: 48px;
-            font-weight: 700;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 16px;
-        }
-
-        .blogs-subtitle {
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Blogs Grid */
-        .blogs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            padding: 50px 24px;
-        }
-
-        .blog-card {
-            background-color: var(--card-background);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .blog-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .blog-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            filter: grayscale(20%);
-            transition: filter 0.3s ease;
-        }
-
-        .blog-card:hover .blog-image {
-            filter: grayscale(0%);
-        }
-
-        .blog-content {
-            padding: 20px;
+            margin-bottom: 1rem;
         }
 
         .blog-title {
-            font-size: 20px;
-            font-weight: 500;
-            color: var(--primary-color);
-            margin-bottom: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            line-height: 1.3;
         }
 
-        .blog-description {
+        .blog-excerpt {
             color: var(--text-secondary);
-            margin-bottom: 16px;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
 
         .blog-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: var(--text-secondary);
-            font-size: 12px;
+            margin-bottom: 1rem;
         }
 
+        .blog-date {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .blog-read-time {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .blog-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .blog-link:hover {
+            text-decoration: underline;
+            transform: translateX(2px);
+        }
+
+        /* Coming Soon */
         .coming-soon {
+            background: var(--surface);
+            padding: 4rem 2rem;
             text-align: center;
-            padding: 50px;
-            background-color: var(--card-background);
-            border-radius: 12px;
-            max-width: 800px;
-            margin: 0 auto;
+            border-radius: 16px;
+            margin: 2rem 0;
         }
 
-        .coming-soon-title {
-            color: var(--accent-color);
-            font-size: 32px;
-            margin-bottom: 16px;
+        .coming-soon h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
         }
 
-        .coming-soon-description {
+        .coming-soon p {
             color: var(--text-secondary);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+
+        .newsletter-signup {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
             max-width: 500px;
             margin: 0 auto;
         }
 
+        .newsletter-signup h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .newsletter-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .newsletter-button:hover {
+            background: #e55a2b;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--surface);
+            padding: 3rem 2rem 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .blogs-title {
-                font-size: 36px;
+            .nav-links {
+                display: none;
             }
 
-            .blogs-grid {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .blog-grid {
                 grid-template-columns: 1fr;
             }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="google-nav">
-
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="projects.html">Projects</a>
-            <a href="contact.html">Contact</a>
-            <a href="chatbot.html">Chat</a>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Saurab Mishra</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="contact.html" class="nav-cta">Get in touch</a>
         </div>
-
     </nav>
 
-    <!-- Blogs Header -->
-    <header class="blogs-header">
-        <h1 class="blogs-title">Blogs</h1>
-        <p class="blogs-subtitle">
-            Exploring the latest insights, innovations, and thoughts on artificial intelligence,
-            machine learning, and technological advancements.
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge"> AI/ML Insights & Research</div>
+        <h1 class="hero-title">My Blog</h1>
+        <p class="hero-subtitle">
+            Thoughts on artificial intelligence, machine learning, and the future of technology. 
+            Sharing insights from my research and practical experience.
         </p>
-    </header>
+    </section>
 
-    <!-- Coming Soon Section -->
+    <!-- Blog Section -->
+    <section class="blog">
+        <div class="blog-grid">
+            <!-- Coming Soon Cards -->
+            <div class="blog-card fade-in-up">
+                <div class="blog-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;"></div>
+                <div class="blog-content">
+                    <div class="blog-category">Research</div>
+                    <h3 class="blog-title">Understanding Large Language Models: A Deep Dive</h3>
+                    <p class="blog-excerpt">
+                        Exploring the architecture, training processes, and capabilities of modern LLMs. 
+                        From transformer attention mechanisms to fine-tuning strategies.
+                    </p>
+                    <div class="blog-meta">
+                        <span class="blog-date">Coming Soon</span>
+                        <span class="blog-read-time">15 min read</span>
+                    </div>
+                    <a href="#" class="blog-link">Read More </a>
+                </div>
+            </div>
 
+            <div class="blog-card fade-in-up">
+                <div class="blog-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;"></div>
+                <div class="blog-content">
+                    <div class="blog-category">Multi-Agent Systems</div>
+                    <h3 class="blog-title">Building Collaborative AI Agents</h3>
+                    <p class="blog-excerpt">
+                        How to design and implement multi-agent systems that work together effectively. 
+                        Lessons learned from building distributed AI architectures.
+                    </p>
+                    <div class="blog-meta">
+                        <span class="blog-date">Coming Soon</span>
+                        <span class="blog-read-time">12 min read</span>
+                    </div>
+                    <a href="#" class="blog-link">Read More </a>
+                </div>
+            </div>
 
-    <!-- Blog Grid (Placeholder for Future Blogs) -->
-   <section class="blogs-grid">
-    <!-- Blog 1: Multi-Agent Systems -->
-<div class="blog-card" onclick="location.href='MAS-Blog.html'" style="cursor: pointer;">
-    <img src="masimg.webp" alt="Multi-Agent Systems" class="blog-image">
-    <div class="blog-content">
-        <h3 class="blog-title">Multi-Agent Systems: The Future of Collaborative AI</h3>
-        <p class="blog-description">
-            Exploring how Multi-Agent Systems enable coordinated decision-making and problem-solving in distributed AI environments.
-        </p>
-        <div class="blog-meta">
-            <span>6 min read</span>
-            <span>Available</span>
-        </div>
-    </div>
-</div>
+            <div class="blog-card fade-in-up">
+                <div class="blog-image" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;"></div>
+                <div class="blog-content">
+                    <div class="blog-category">RLHF</div>
+                    <h3 class="blog-title">Reinforcement Learning from Human Feedback: A Practical Guide</h3>
+                    <p class="blog-excerpt">
+                        Implementing RLHF in practice: from data collection to model training. 
+                        Real-world challenges and solutions for aligning AI with human values.
+                    </p>
+                    <div class="blog-meta">
+                        <span class="blog-date">Coming Soon</span>
+                        <span class="blog-read-time">18 min read</span>
+                    </div>
+                    <a href="#" class="blog-link">Read More </a>
+                </div>
+            </div>
 
-       
-    <!-- Blog 2: Advanced RAG -->
-    <div class="blog-card" onclick="location.href='https://medium.com/towards-artificial-intelligence/is-this-the-future-of-financial-analysis-rag-multi-agent-systems-explained-cc43c1a269f9'" style="cursor: pointer;">
-        <img src="ragimg.png" alt="Advanced RAG" class="blog-image">
-        <div class="blog-content">
-            <h3 class="blog-title">Is This the Future of Financial Analysis? RAG & Multi-Agent Systems Explained</h3>
-            <p class="blog-description">
-                Dive into how next-gen LLMs are reshaping decision-making with speed, accuracy, and context-awareness.
-            </p>
-            <div class="blog-meta">
-                <span>Available</span>
-                <span>21 min read</span>
+            <div class="blog-card fade-in-up">
+                <div class="blog-image" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;"></div>
+                <div class="blog-content">
+                    <div class="blog-category">RAG Systems</div>
+                    <h3 class="blog-title">Retrieval-Augmented Generation: Beyond Basic RAG</h3>
+                    <p class="blog-excerpt">
+                        Advanced techniques for building robust RAG systems. 
+                        Knowledge graph integration, hybrid retrieval, and evaluation strategies.
+                    </p>
+                    <div class="blog-meta">
+                        <span class="blog-date">Coming Soon</span>
+                        <span class="blog-read-time">20 min read</span>
+                    </div>
+                    <a href="#" class="blog-link">Read More </a>
+                </div>
+            </div>
+
+            <div class="blog-card fade-in-up">
+                <div class="blog-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;"></div>
+                <div class="blog-content">
+                    <div class="blog-category">Data Science</div>
+                    <h3 class="blog-title">From Data to Insights: A Data Scientist's Toolkit</h3>
+                    <p class="blog-excerpt">
+                        Essential tools and techniques for modern data science. 
+                        From exploratory data analysis to production deployment.
+                    </p>
+                    <div class="blog-meta">
+                        <span class="blog-date">Coming Soon</span>
+                        <span class="blog-read-time">14 min read</span>
+                    </div>
+                    <a href="#" class="blog-link">Read More </a>
+                </div>
+            </div>
+
+            <div class="blog-card fade-in-up">
+                <div class="blog-image" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;"></div>
+                <div class="blog-content">
+                    <div class="blog-category">Production AI</div>
+                    <h3 class="blog-title">Deploying AI Models at Scale</h3>
+                    <p class="blog-excerpt">
+                        Best practices for taking AI models from research to production. 
+                        Monitoring, testing, and maintaining ML systems in the real world.
+                    </p>
+                    <div class="blog-meta">
+                        <span class="blog-date">Coming Soon</span>
+                        <span class="blog-read-time">16 min read</span>
+                    </div>
+                    <a href="#" class="blog-link">Read More </a>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Blog 3: RLHF -->
-<div class="blog-card" onclick="location.href='https://medium.com/@saurabmishra/rlhf-the-engine-tuning-human-values-into-large-language-models-9c4bfd75fc79'" style="cursor: pointer;">
-        <img src="masrlhf.avif" alt="RLHF" class="blog-image">
-        <div class="blog-content">
-            <h3 class="blog-title">RLHF: Aligning LLMs with Human Values</h3>
-            <p class="blog-description">
-                Reinforcement Learning from Human Feedback for ethical AI design.
+
+        <!-- Coming Soon Section -->
+        <div class="coming-soon fade-in-up">
+            <h2>More Content Coming Soon</h2>
+            <p>
+                I'm working on creating detailed blog posts about my research and experiences in AI/ML. 
+                Subscribe to get notified when new content is published!
             </p>
-            <div class="blog-meta">
-                <span>Available</span>
-                <span>8 min read</span>
+            <div class="newsletter-signup">
+                <h3>Stay Updated</h3>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+                    <button type="submit" class="newsletter-button">Subscribe</button>
+                </form>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="projects.html">Projects</a>
+                <a href="contact.html">Contact</a>
+                <a href="chatbot.html">Chat</a>
+            </div>
+            <p class="footer-text">
+                 2024 Saurab Mishra. Building the future of AI, one algorithm at a time.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in-up elements
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Newsletter form handling
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thanks for subscribing! You\'ll be notified when new content is published.');
+        });
+    </script>
 </body>
 </html>

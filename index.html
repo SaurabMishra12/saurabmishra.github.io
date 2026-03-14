@@ -1,7 +1,6 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="google-site-verification" content="m3rZzspAe6prb72lUKeIaUpsHlu52HFwl1HkMLxD9Sw" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saurab Mishra</title>
@@ -16,13 +15,20 @@
             --secondary: #34a853;
             --accent: #fbbc04;
             --danger: #ea4335;
+            --tf-cyan: #00b7ff;
+            --tf-blue: #2563eb;
+            --tf-indigo: #5b6cff;
+            --tf-emerald: #14b8a6;
+            --tf-panel: rgba(10, 21, 40, 0.66);
+            --tf-line: rgba(0, 183, 255, 0.24);
+            --tf-glow: 0 0 24px rgba(0, 183, 255, 0.34);
             --text-primary: #202124;
             --text-secondary: #5f6368;
             --background: linear-gradient(135deg, #f8f9fa 0%, #e8f0fe 100%);
             --surface: rgba(255, 255, 255, 0.95);
             --surface-light: rgba(255, 255, 255, 0.85);
             --border: rgba(60, 64, 67, 0.12);
-            --taskbar-height: 64px;
+            --taskbar-height: 42px;
             --glass: rgba(255, 255, 255, 0.6);
             --glass-border: rgba(60, 64, 67, 0.2);
             --desktop-icon-size: 150px;
@@ -82,9 +88,22 @@
             left: 0;
             width: 100%;
             height: calc(100vh - var(--taskbar-height));
-            background: url('5769416.jpg') center/cover no-repeat fixed, linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 50%, rgba(11,16,32,0.8) 100%);
+            background: url('https://d7hftxdivxxvm.cloudfront.net/?quality=80&resize_to=width&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2F2RNK1P0BYVrSCZEy_Sd1Ew%252F3417757448_4a6bdf36ce_o.jpg&width=1820') center/cover no-repeat fixed;
             position: relative;
             transition: background 0.5s ease;
+        }
+
+        .desktop::before {
+            content: none;
+        }
+
+        .desktop::after {
+            content: none;
+        }
+
+        .desktop > * {
+            position: relative;
+            z-index: 2;
         }
 
         .desktop.custom-bg {
@@ -95,7 +114,7 @@
         }
 
         .desktop.light-theme {
-            background: url('_free__blue_mist_by_sqdpxl_dcvd7qh.png') center/cover no-repeat fixed, linear-gradient(135deg, rgba(248,250,252,0.8) 0%, rgba(226,232,240,0.8) 50%, rgba(248,250,252,0.8) 100%);
+            background: url('https://d7hftxdivxxvm.cloudfront.net/?quality=80&resize_to=width&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2F2RNK1P0BYVrSCZEy_Sd1Ew%252F3417757448_4a6bdf36ce_o.jpg&width=1820') center/cover no-repeat fixed;
         }
 
         @keyframes gradientShift {
@@ -104,20 +123,90 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Wallpaper Styles */
-        .desktop-wallpaper {
+        /* Animated Background Particles */
+        .bg-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            opacity: 0.35;
+            transition: opacity 0.5s ease;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 100% 50%;
+            }
+            50% {
+                background-position: 50% 100%;
+            }
+            75% {
+                background-position: 50% 0%;
+            }
+        }
+
+        @keyframes cloudDrift {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(14px); }
+            100% { transform: translateX(0); }
+        }
+
+        .bg-animation.disabled {
+            opacity: 0;
+        }
+
+        /* 3D Neural Network Background */
+        #neural-network-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+        }
+
+        .neural-network-canvas {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            z-index: -1;
+            opacity: 0.7;
         }
 
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: float 25s infinite;
+            box-shadow: 0 0 15px rgba(26, 115, 232, 0.6);
+        }
 
+        .particle.floating-shape {
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--primary);
+            background: linear-gradient(45deg, rgba(26, 115, 232, 0.1), rgba(52, 168, 83, 0.1));
+            border-radius: 8px;
+            animation: floatShape 35s infinite;
+            box-shadow: 0 0 20px rgba(26, 115, 232, 0.4);
+        }
+
+        .particle.circle {
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+            animation: floatCircle 40s infinite;
+            box-shadow: 0 0 18px rgba(52, 168, 83, 0.5);
+        }
 
         @keyframes float {
             0% {
@@ -349,19 +438,19 @@
         }
 
         .icon-wrapper {
-            width: 136px;
-            height: 136px;
-            border-radius: 30px;
+            width: 96px;
+            height: 96px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 12px;
             position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: var(--surface);
-            border: 1px solid var(--border);
+            background: linear-gradient(180deg, #f9fdff 0%, #dceeff 55%, #b8d7f4 100%);
+            border: 1px solid rgba(66, 114, 166, 0.85);
         }
 
         .icon-wrapper::before {
@@ -371,20 +460,34 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.1) 100%);
-            border-radius: 20px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.12) 46%, rgba(21, 101, 192, 0.1) 100%);
+            border-radius: 16px;
             z-index: 0;
         }
 
+        .icon-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, transparent 35%);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            z-index: 1;
+        }
+
         .desktop-icon:hover .icon-wrapper {
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: var(--shadow-hover);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(0, 0, 0, 0.24);
+        }
+
+        .desktop-icon:hover .icon-wrapper::after {
+            opacity: 1;
         }
 
         .icon-wrapper i {
-            font-size: 64px;
+            font-size: 40px;
             z-index: 2;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+            filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.7)) drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -392,66 +495,61 @@
             transform: scale(1.1);
         }
 
-        /* Google Material Design Icon Colors */
+        /* Windows XP-inspired icon palette */
         .desktop-icon[data-app="about"] .icon-wrapper { 
-            background: linear-gradient(135deg, #1a73e8 0%, #1557b0 50%, #1346a0 100%);
+            background: linear-gradient(180deg, #e8f5ff 0%, #9bd0ff 58%, #4f9ce8 100%);
         }
-        .desktop-icon[data-app="about"] .icon-wrapper i { color: #ffffff; }
+        .desktop-icon[data-app="about"] .icon-wrapper i { color: #0e4fae; }
         
         .desktop-icon[data-app="github"] .icon-wrapper { 
-            background: linear-gradient(135deg, #24292e 0%, #1b1f23 50%, #14171a 100%);
+            background: linear-gradient(180deg, #f2f4f8 0%, #c5ccd8 58%, #8f98aa 100%);
         }
-        .desktop-icon[data-app="github"] .icon-wrapper i { color: #ffffff; }
+        .desktop-icon[data-app="github"] .icon-wrapper i { color: #1f2633; }
         
         .desktop-icon[data-app="youtube"] .icon-wrapper { 
-            background: linear-gradient(135deg, #ff0000 0%, #cc0000 50%, #990000 100%);
+            background: linear-gradient(180deg, #ffe6e8 0%, #ff9fb0 58%, #ea5f78 100%);
         }
-        .desktop-icon[data-app="youtube"] .icon-wrapper i { color: #ffffff; }
+        .desktop-icon[data-app="youtube"] .icon-wrapper i { color: #b31236; }
         
         .desktop-icon[data-app="linkedin"] .icon-wrapper { 
-            background: linear-gradient(135deg, #0077b5 0%, #005885 50%, #004466 100%);
+            background: linear-gradient(180deg, #e6f7ff 0%, #97dfff 58%, #4aa7dd 100%);
         }
-        .desktop-icon[data-app="linkedin"] .icon-wrapper i { color: #ffffff; }
+        .desktop-icon[data-app="linkedin"] .icon-wrapper i { color: #065f93; }
         
         .desktop-icon[data-app="projects"] .icon-wrapper { 
-            background: linear-gradient(135deg, #fbbc04 0%, #f9ab00 50%, #f29900 100%);
+            background: linear-gradient(180deg, #ecfff9 0%, #99efd8 58%, #4abf95 100%);
         }
-        .desktop-icon[data-app="projects"] .icon-wrapper i { color: #ffffff; }
+        .desktop-icon[data-app="projects"] .icon-wrapper i { color: #0b6d5f; }
         
         .desktop-icon[data-app="resume"] .icon-wrapper { 
-            background: linear-gradient(135deg, #ea4335 0%, #d33b2c 50%, #bb2b20 100%);
+            background: linear-gradient(180deg, #eef0ff 0%, #b4c2ff 58%, #6c86dc 100%);
         }
-        .desktop-icon[data-app="resume"] .icon-wrapper i { color: #ffffff; }
+        .desktop-icon[data-app="resume"] .icon-wrapper i { color: #3f39bc; }
         
         .desktop-icon[data-app="blogs"] .icon-wrapper { 
-            background: linear-gradient(135deg, #ff6d00 0%, #ff5722 50%, #e64a19 100%);
+            background: linear-gradient(180deg, #fff9e5 0%, #ffd992 58%, #daaa4d 100%);
         }
-        .desktop-icon[data-app="blogs"] .icon-wrapper i { color: #ffffff; }
+        .desktop-icon[data-app="blogs"] .icon-wrapper i { color: #9f530f; }
         
         .desktop-icon[data-app="skills"] .icon-wrapper { 
-            background: linear-gradient(135deg, #34a853 0%, #2d8e47 50%, #246a37 100%);
+            background: linear-gradient(180deg, #ebffea 0%, #a9e89a 58%, #64b453 100%);
         }
-        .desktop-icon[data-app="skills"] .icon-wrapper i { color: #ffffff; }
+        .desktop-icon[data-app="skills"] .icon-wrapper i { color: #206e2f; }
         
         .desktop-icon[data-app="contact"] .icon-wrapper { 
-            background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 50%, #6a1b9a 100%);
+            background: linear-gradient(180deg, #ffeefe 0%, #f7b6ee 58%, #cd73ba 100%);
         }
-        .desktop-icon[data-app="contact"] .icon-wrapper i { color: #ffffff; }
+        .desktop-icon[data-app="contact"] .icon-wrapper i { color: #a91964; }
         
         .desktop-icon[data-app="terminal"] .icon-wrapper { 
-            background: linear-gradient(135deg, #424242 0%, #303030 50%, #212121 100%);
+            background: linear-gradient(180deg, #e6fbff 0%, #9fdff5 58%, #5ba8c2 100%);
         }
-        .desktop-icon[data-app="terminal"] .icon-wrapper i { color: #4caf50; }
+        .desktop-icon[data-app="terminal"] .icon-wrapper i { color: #126185; }
         
         .desktop-icon[data-app="settings"] .icon-wrapper { 
-            background: linear-gradient(135deg, #607d8b 0%, #546e7a 50%, #455a64 100%);
+            background: linear-gradient(180deg, #eff9ff 0%, #b6dcff 58%, #6ca9e0 100%);
         }
-        .desktop-icon[data-app="settings"] .icon-wrapper i { color: #ffffff; }
-        
-        .desktop-icon[data-app="control-panel"] .icon-wrapper { 
-            background: linear-gradient(135deg, #059669 0%, #10b981 100%); 
-        }
-        .desktop-icon[data-app="control-panel"] .icon-wrapper i { color: #ffffff; }
+        .desktop-icon[data-app="settings"] .icon-wrapper i { color: #2553b9; }
 
         .icon-label {
             font-size: 16px;
@@ -486,11 +584,11 @@
         /* Windows */
         .window {
             position: absolute;
-            background: var(--glass);
+            background: linear-gradient(160deg, rgba(8, 20, 39, 0.72) 0%, rgba(18, 38, 62, 0.68) 100%);
             backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(0, 183, 255, 0.22);
             border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(37, 99, 235, 0.18), 0 0 24px rgba(0, 183, 255, 0.16);
             min-width: 400px;
             min-height: 300px;
             max-width: calc(100vw - 40px);
@@ -538,7 +636,7 @@
 
         .window.active {
             z-index: 1000;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 183, 255, 0.28);
         }
 
         .window.maximized {
@@ -562,12 +660,13 @@
         /* Window Title Bar */
         .window-titlebar {
             height: 40px;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(90deg, #0f5de2 0%, #00b7ff 50%, #14b8a6 100%);
             display: flex;
             align-items: center;
             padding: 0 12px;
             cursor: move;
             user-select: none;
+            box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.2);
         }
 
         .window-titlebar-content {
@@ -675,11 +774,16 @@
         /* Window Content */
         .window-content {
             height: calc(100% - 40px);
-            background: var(--surface);
+            background: linear-gradient(160deg, rgba(250, 253, 255, 0.96) 0%, rgba(238, 247, 255, 0.92) 100%);
             backdrop-filter: blur(10px);
             overflow-y: auto;
             overflow-x: hidden;
-            border: 1px solid var(--border);
+            border: 1px solid rgba(148, 188, 230, 0.45);
+        }
+
+        [data-theme="dark"] .window-content {
+            background: linear-gradient(160deg, rgba(20, 24, 31, 0.96) 0%, rgba(14, 18, 24, 0.94) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
         /* Window Resize Handles */
@@ -882,245 +986,97 @@
             left: 0;
             width: 100%;
             height: var(--taskbar-height);
-            background: var(--glass);
-            backdrop-filter: blur(25px) saturate(1.5);
-            -webkit-backdrop-filter: blur(25px) saturate(1.5);
-            border-top: 1px solid var(--glass-border);
+            background: linear-gradient(180deg, #4aa5f8 0%, #2f87e9 46%, #1f6fcf 100%);
+            border-top: 1px solid #8fd0ff;
             display: flex;
             align-items: center;
-            padding: 0 12px;
+            padding: 0 6px;
             z-index: 10000;
-            box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), inset 0 -1px 0 rgba(8, 55, 121, 0.65);
         }
 
         .start-button {
-            width: 52px;
-            height: 44px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border: none;
-            border-radius: 10px;
+            height: calc(var(--taskbar-height) - 6px);
+            min-width: 102px;
+            background: linear-gradient(180deg, #5fd15f 0%, #39ad39 48%, #2b8f2b 100%);
+            border: 1px solid #2f7f2f;
+            border-radius: 0 16px 16px 0;
             color: white;
-            font-size: 20px;
+            font-size: 18px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin-right: 12px;
+            justify-content: flex-start;
+            gap: 8px;
+            padding: 0 14px 0 12px;
+            margin-right: 8px;
             transition: all 0.25s ease;
-            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.25);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 1px 1px 0 rgba(16, 79, 24, 0.85);
+            text-transform: lowercase;
+            font-style: italic;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
+            white-space: nowrap;
         }
 
         .start-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(14, 165, 233, 0.4);
+            background: linear-gradient(180deg, #6fda6f 0%, #42b742 48%, #319731 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 1px 1px 0 rgba(16, 79, 24, 0.9);
         }
 
         .start-button:active {
-            transform: scale(0.95);
+            background: linear-gradient(180deg, #2b8f2b 0%, #39ad39 55%, #5fd15f 100%);
+            transform: translateY(1px);
         }
 
-        .taskbar-search {
-            position: relative;
-            width: 280px;
-            margin: 0 12px;
-        }
-
-        .taskbar-search-input {
-            width: 100%;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 0 40px 0 40px;
-            color: var(--text-primary);
-            font-size: 14px;
-            transition: all 0.3s ease;
-            outline: none;
-        }
-
-        .taskbar-search-input::placeholder {
-            color: var(--text-secondary);
-        }
-
-        .taskbar-search-input:focus {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
-        }
-
-        .taskbar-search-icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
+        .start-button i {
             font-size: 16px;
-            pointer-events: none;
-        }
-
-        .taskbar-search-clear {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-            font-size: 14px;
-            cursor: pointer;
-            display: none;
-            background: transparent;
-            border: none;
-            padding: 4px;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-        }
-
-        .taskbar-search-clear:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-        }
-
-        .taskbar-search-clear.show {
-            display: block;
-        }
-
-        .search-results {
-            position: absolute;
-            bottom: calc(100% + 8px);
-            left: 0;
-            right: 0;
-            max-height: 400px;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            overflow-y: auto;
-            display: none;
-            z-index: 10002;
-        }
-
-        .search-results.show {
-            display: block;
-            animation: slideUpSearch 0.2s ease;
-        }
-
-        @keyframes slideUpSearch {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .search-result-category {
-            padding: 12px 16px 8px;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            background: var(--surface-light);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .search-result-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .search-result-item:last-child {
-            border-bottom: none;
-        }
-
-        .search-result-item:hover {
-            background: var(--surface-light);
-        }
-
-        .search-result-icon {
-            width: 32px;
-            height: 32px;
-            background: var(--surface-light);
-            border-radius: 8px;
-            display: flex;
+            width: 16px;
+            height: 16px;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
-            color: var(--primary);
             flex-shrink: 0;
         }
 
-        .search-result-info {
-            flex: 1;
-        }
-
-        .search-result-title {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-primary);
-            margin-bottom: 2px;
-        }
-
-        .search-result-description {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .search-no-results {
-            padding: 40px 20px;
-            text-align: center;
-            color: var(--text-secondary);
-        }
-
-        .search-no-results i {
-            font-size: 48px;
-            margin-bottom: 12px;
-            opacity: 0.3;
+        .start-button .start-label {
+            line-height: 1;
         }
 
         .taskbar-apps {
             flex: 1;
             display: flex;
-            gap: 8px;
-            margin: 0 12px;
+            gap: 4px;
+            margin: 0 8px 0 0;
             overflow-x: auto;
         }
 
         .taskbar-app {
-            height: 44px;
-            min-width: 170px;
-            background: rgba(255, 255, 255, 0.18);
-            backdrop-filter: blur(12px) saturate(1.2);
-            -webkit-backdrop-filter: blur(12px) saturate(1.2);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            color: var(--text-primary);
-            font-size: 13px;
+            height: calc(var(--taskbar-height) - 8px);
+            min-width: 180px;
+            background: linear-gradient(180deg, #6fb6ff 0%, #4f9df4 52%, #3e87db 100%);
+            border: 1px solid #2c6ec7;
+            border-radius: 4px;
+            color: #f8fbff;
+            font-size: 12px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            padding: 0 14px;
-            gap: 8px;
+            padding: 0 10px;
+            gap: 7px;
             transition: all 0.25s ease;
             font-weight: 600;
             white-space: nowrap;
             flex-shrink: 0;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+            text-shadow: 0 1px 1px rgba(12, 45, 90, 0.65);
         }
 
         .taskbar-app:hover {
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(180deg, #80c2ff 0%, #5ca8f8 52%, #478ee0 100%);
+            transform: none;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
         }
 
         .taskbar-app:active {
@@ -1128,11 +1084,10 @@
         }
 
         .taskbar-app.active {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border-color: var(--primary);
+            background: linear-gradient(180deg, #3c7fd5 0%, #2b66b6 55%, #22559d 100%);
+            border-color: #194c92;
             color: #ffffff;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            box-shadow: inset 0 1px 0 rgba(179, 217, 255, 0.45);
         }
 
         .taskbar-app.minimized {
@@ -1141,49 +1096,106 @@
 
         /* Dark theme taskbar app styles */
         [data-theme="dark"] .taskbar-app {
-            background: rgba(40, 40, 40, 0.3);
-            border-color: rgba(255, 255, 255, 0.1);
+            background: linear-gradient(180deg, #6fb6ff 0%, #4f9df4 52%, #3e87db 100%);
+            border-color: #2c6ec7;
+            color: #f8fbff;
         }
 
         [data-theme="dark"] .taskbar-app:hover {
-            background: rgba(60, 60, 60, 0.4);
-            border-color: rgba(255, 255, 255, 0.15);
+            background: linear-gradient(180deg, #80c2ff 0%, #5ca8f8 52%, #478ee0 100%);
+            border-color: #2c6ec7;
         }
 
         .taskbar-app-icon {
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .system-tray {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 10px;
+            height: calc(var(--taskbar-height) - 8px);
+            background: linear-gradient(180deg, #57b6ff 0%, #3e9bf1 52%, #2c84d8 100%);
+            border: 1px solid #2a6ec0;
+            border-radius: 4px;
+            padding: 0 10px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62);
         }
 
         .tray-icon {
-            color: var(--text-secondary);
-            font-size: 20px;
+            color: #eaf4ff;
+            font-size: 16px;
             cursor: pointer;
-            transition: color 0.3s;
+            transition: color 0.2s;
+            text-shadow: 0 1px 1px rgba(12, 45, 90, 0.6);
         }
 
         .tray-icon:hover {
-            color: var(--text-primary);
+            color: #ffffff;
+        }
+
+        .tray-battery {
+            position: relative;
+            width: 20px;
+            height: 10px;
+            border: 1px solid #eaf4ff;
+            border-radius: 2px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+            display: inline-flex;
+            align-items: center;
+            padding: 1px;
+            cursor: pointer;
+        }
+
+        .tray-battery-fill {
+            display: block;
+            height: 100%;
+            width: 70%;
+            background: linear-gradient(180deg, #b8ff7f 0%, #5ab62e 100%);
+            border-radius: 1px;
+            transition: width 0.25s ease, background 0.25s ease;
+        }
+
+        .tray-battery-cap {
+            position: absolute;
+            right: -3px;
+            top: 2px;
+            width: 2px;
+            height: 4px;
+            background: #eaf4ff;
+            border-radius: 0 1px 1px 0;
+        }
+
+        .tray-battery-bolt {
+            position: absolute;
+            top: -6px;
+            left: 4px;
+            font-size: 9px;
+            line-height: 1;
+            color: #ffe066;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
+            display: none;
+            pointer-events: none;
+        }
+
+        .tray-battery.charging .tray-battery-bolt {
+            display: block;
         }
 
         .clock {
-            padding: 8px 12px;
-            background: var(--surface-light);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-size: 14px;
+            padding: 0 4px;
+            background: transparent;
+            border-radius: 0;
+            color: #f8fbff;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.25s ease;
+            text-shadow: 0 1px 1px rgba(12, 45, 90, 0.6);
         }
 
         .clock:hover {
-            background: var(--surface);
+            color: #ffffff;
         }
 
         /* Start Menu */
@@ -1193,11 +1205,11 @@
             left: 12px;
             width: 380px;
             max-height: 600px;
-            background: var(--glass);
+            background: linear-gradient(165deg, rgba(8, 21, 38, 0.86) 0%, rgba(10, 26, 46, 0.84) 100%);
             backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(0, 183, 255, 0.24);
             border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 24px rgba(0, 183, 255, 0.18);
             z-index: 10001;
             display: none;
             overflow: hidden;
@@ -1236,8 +1248,19 @@
 
         .start-menu-header {
             padding: 20px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(130deg, #0f5de2 0%, #0ea5e9 42%, #14b8a6 100%);
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .start-menu-header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(100deg, transparent 35%, rgba(255, 255, 255, 0.18) 50%, transparent 65%);
+            opacity: 0.55;
+            pointer-events: none;
         }
 
         .start-menu-user {
@@ -1269,14 +1292,16 @@
             align-items: center;
             gap: 16px;
             padding: 12px;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s;
+            color: #e7f3ff;
         }
 
         .start-menu-app:hover {
-            background: var(--surface);
+            background: rgba(18, 54, 88, 0.7);
             transform: translateX(5px);
+            box-shadow: inset 0 0 0 1px rgba(0, 183, 255, 0.2);
         }
 
         .start-menu-app:active {
@@ -1287,202 +1312,38 @@
             width: 40px;
             height: 40px;
             border-radius: 8px;
-            background: var(--surface-light);
+            background: linear-gradient(180deg, #edf7ff 0%, #b7dcff 58%, #6ca8e0 100%);
+            border: 1px solid rgba(63, 105, 160, 0.85);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            color: var(--primary);
+            font-size: 18px;
+            color: #0d4aa7;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.25);
+        }
+
+        .start-menu-app:nth-child(2n) .start-menu-app-icon {
+            color: #24622d;
+            background: linear-gradient(180deg, #efffea 0%, #a8e694 58%, #63b14f 100%);
+            border-color: rgba(56, 120, 54, 0.85);
+        }
+
+        .start-menu-app:nth-child(3n) .start-menu-app-icon {
+            color: #8f3e14;
+            background: linear-gradient(180deg, #fff6e5 0%, #ffd794 58%, #d4a04c 100%);
+            border-color: rgba(147, 97, 26, 0.85);
         }
 
         .start-menu-app-info h4 {
-            color: var(--text-primary);
+            color: #f1f7ff;
             font-size: 14px;
             margin-bottom: 2px;
             font-weight: 500;
         }
 
         .start-menu-app-info p {
-            color: var(--text-secondary);
+            color: rgba(231, 243, 255, 0.74);
             font-size: 12px;
-        }
-
-        /* Power Options */
-        .start-menu-power {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid var(--border);
-        }
-
-        .power-options {
-            display: flex;
-            gap: 10px;
-            justify-content: space-between;
-        }
-
-        .power-option {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 16px;
-            background: var(--surface-light);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-primary);
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
-            min-height: 44px;
-        }
-
-        .power-option:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .power-option:active {
-            transform: translateY(0);
-            background: var(--primary-dark);
-        }
-
-        .power-option i {
-            font-size: 14px;
-        }
-
-        /* Control Panel Button */
-        .control-panel-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            padding: 12px 20px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 14px;
-            font-weight: 500;
-            margin-top: 10px;
-        }
-
-        .control-panel-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .control-panel-btn i {
-            font-size: 16px;
-        }
-
-        /* Control Panel Styles */
-        .theme-selector {
-            display: flex;
-            gap: 10px;
-        }
-
-        .theme-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            background: var(--surface-light);
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 13px;
-            color: var(--text-primary);
-        }
-
-        .theme-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .theme-btn:hover:not(.active) {
-            background: var(--surface);
-            border-color: var(--primary);
-            transform: translateY(-1px);
-        }
-
-        .system-info {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 15px;
-            padding: 15px;
-            background: var(--surface-light);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--text-primary);
-            font-size: 13px;
-        }
-
-        .info-item i {
-            color: var(--primary);
-            width: 20px;
-            text-align: center;
-        }
-
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-top: 15px;
-        }
-
-        .quick-action-btn {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            padding: 16px 12px;
-            background: var(--surface-light);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 12px;
-            color: var(--text-primary);
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
-            min-height: 44px;
-        }
-
-        .quick-action-btn:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .quick-action-btn:active {
-            transform: translateY(0);
-            background: var(--primary-dark);
-        }
-
-        .quick-action-btn i {
-            font-size: 20px;
         }
 
         /* Notifications */
@@ -1751,35 +1612,12 @@
             }
 
             .start-button {
-                width: 40px;
+                min-width: 88px;
+                width: auto;
                 height: 36px;
-                font-size: 18px;
-                margin-right: 8px;
-            }
-
-            .taskbar-search {
-                width: 160px;
-                margin: 0 8px;
-            }
-
-            .taskbar-search-input {
-                height: 36px;
-                font-size: 12px;
-                padding: 0 32px 0 32px;
-            }
-
-            .taskbar-search-icon {
                 font-size: 14px;
-                left: 10px;
-            }
-
-            .taskbar-search-clear {
-                font-size: 12px;
-                right: 10px;
-            }
-
-            .search-results {
-                max-height: 300px;
+                padding: 0 10px;
+                margin-right: 8px;
             }
 
             .taskbar-app {
@@ -1813,37 +1651,7 @@
         }
 
         @media (max-width: 480px) {
-            .taskbar-search {
-                width: 120px;
-                margin: 0 4px;
-            }
-
-            .taskbar-search-input {
-                font-size: 11px;
-                height: 32px;
-                padding: 0 28px 0 28px;
-            }
-
-            .taskbar-search-icon {
-                font-size: 12px;
-                left: 8px;
-            }
-
-            .taskbar-search-clear {
-                font-size: 11px;
-                right: 8px;
-            }
-
-            .search-results {
-                max-height: 250px;
-                font-size: 12px;
-            }
-
-            .search-result-icon {
-                width: 28px;
-                height: 28px;
-                font-size: 14px;
-            }
+            /* This media query is handled by the newer Mobile Portrait section below */
         }
 
         /* Landscape orientation adjustments */
@@ -1956,6 +1764,13 @@
             margin-bottom: 30px;
         }
 
+        [data-theme="dark"] .settings-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 14px;
+        }
+
         .settings-title {
             font-size: 18px;
             font-weight: 600;
@@ -1969,6 +1784,10 @@
             justify-content: space-between;
             padding: 15px 0;
             border-bottom: 1px solid var(--border);
+        }
+
+        [data-theme="dark"] .setting-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .setting-item:last-child {
@@ -1994,6 +1813,11 @@
             border-radius: 13px;
             cursor: pointer;
             transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] .toggle-switch {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
         }
 
         .toggle-switch.active {
@@ -2037,29 +1861,24 @@
             border-color: var(--primary);
         }
 
-        .background-option.wallpaper-1,
-        .background-option.wallpaper-2,
-        .background-option.wallpaper-3,
-        .background-option.wallpaper-4,
-        .background-option.ai-theme {
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+        .background-option.gradient-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
-        .background-option::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 100%);
-            transition: opacity 0.3s ease;
+        .background-option.gradient-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         }
 
-        .background-option:hover::before {
-            opacity: 0.5;
+        .background-option.gradient-3 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .background-option.gradient-4 {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .background-option.gradient-5 {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
         }
 
         .background-option.default {
@@ -2335,17 +2154,16 @@
                 width: 40px;
                 height: 40px;
                 margin-bottom: 4px;
-                background: var(--primary);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
+                box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2);
             }
 
             .icon-wrapper i {
                 font-size: 20px;
-                color: white;
+                color: #0f5ac2;
             }
 
             .icon-label {
@@ -2367,35 +2185,63 @@
 
             /* Mobile-specific icon colors */
             .desktop-icon[data-app="about"] .icon-wrapper { 
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                background: linear-gradient(145deg, #dceeff 0%, #b9dbff 100%);
             }
             
             .desktop-icon[data-app="github"] .icon-wrapper { 
-                background: linear-gradient(135deg, #24292e 0%, #586069 100%);
+                background: linear-gradient(145deg, #dbe3ee 0%, #c7d1df 100%);
+            }
+
+            .desktop-icon[data-app="github"] .icon-wrapper i { 
+                color: #1f2937;
             }
             
             .desktop-icon[data-app="youtube"] .icon-wrapper { 
-                background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+                background: linear-gradient(145deg, #ffd7db 0%, #ffb8c2 100%);
+            }
+
+            .desktop-icon[data-app="youtube"] .icon-wrapper i { 
+                color: #be123c;
             }
             
             .desktop-icon[data-app="linkedin"] .icon-wrapper { 
-                background: linear-gradient(135deg, #0077b5 0%, #005885 100%);
+                background: linear-gradient(145deg, #daf5ff 0%, #b6e8ff 100%);
+            }
+
+            .desktop-icon[data-app="linkedin"] .icon-wrapper i { 
+                color: #0369a1;
             }
             
             .desktop-icon[data-app="projects"] .icon-wrapper { 
-                background: linear-gradient(135deg, #34a853 0%, #2d8f3f 100%);
+                background: linear-gradient(145deg, #ddfbf7 0%, #b8f1e9 100%);
+            }
+
+            .desktop-icon[data-app="projects"] .icon-wrapper i { 
+                color: #0f766e;
             }
             
             .desktop-icon[data-app="blogs"] .icon-wrapper { 
-                background: linear-gradient(135deg, #fbbc04 0%, #f9ab00 100%);
+                background: linear-gradient(145deg, #fef3d6 0%, #fde6ba 100%);
+            }
+
+            .desktop-icon[data-app="blogs"] .icon-wrapper i { 
+                color: #b45309;
             }
             
             .desktop-icon[data-app="contact"] .icon-wrapper { 
-                background: linear-gradient(135deg, #ea4335 0%, #d93025 100%);
+                background: linear-gradient(145deg, #ffe4f5 0%, #ffcfee 100%);
+            }
+
+            .desktop-icon[data-app="contact"] .icon-wrapper i { 
+                color: #be185d;
             }
             
             .desktop-icon[data-app="resume"] .icon-wrapper { 
-                background: linear-gradient(135deg, #1a73e8 0%, #1557b0 100%);
+                background: linear-gradient(145deg, #e6e8ff 0%, #cdd4ff 100%);
+            }
+
+            .desktop-icon[data-app="resume"] .icon-wrapper i { 
+                color: #4338ca;
             }
 
             /* Ensure touch targets are adequate */
@@ -2435,7 +2281,7 @@
             .start-button {
                 padding: 8px 10px;
                 font-size: 13px;
-                min-width: auto;
+                min-width: 78px;
             }
 
             .taskbar-items {
@@ -2612,6 +2458,11 @@
             .start-button {
                 padding: 6px 8px;
                 font-size: 12px;
+                min-width: 64px;
+            }
+
+            .start-button .start-label {
+                display: none;
             }
 
             .taskbar-item {
@@ -2780,11 +2631,26 @@
         .tray-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
         .tray-item:last-child { border-bottom: none; }
         .tray-item i { color: var(--primary); margin-right: 10px; }
+        .tray-status {
+            font-size: 12px;
+            color: #f8fbff;
+            font-weight: 600;
+            text-shadow: 0 1px 1px rgba(12, 45, 90, 0.6);
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
     <!-- Desktop -->
     <div class="desktop" id="desktop">
+        <!-- 3D Neural Network Background -->
+        <div id="neural-network-bg">
+            <canvas class="neural-network-canvas" id="neural-canvas"></canvas>
+        </div>
+
+        <!-- Animated Background -->
+        <div class="bg-animation" id="bg-animation"></div>
+
         <!-- Desktop Icons -->
         <div class="desktop-icons" id="desktop-icons">
             <div class="desktop-icon" data-app="about">
@@ -2853,12 +2719,6 @@
                 </div>
                 <span class="icon-label">Settings</span>
             </div>
-            <div class="desktop-icon" data-app="control-panel">
-                <div class="icon-wrapper">
-                    <i class="fas fa-sliders-h"></i>
-                </div>
-                <span class="icon-label">Control Panel</span>
-            </div>
         </div>
 
         <!-- Windows -->
@@ -2878,12 +2738,12 @@
                 <div class="window-body">
                     <div class="resize-handle resize-handle-se"></div>
                     <h2>About Saurab Mishra</h2>
-                    <p><strong>AI | NLP | Data Science | ML | Technical Content Creator</strong></p>
+                    <p><strong>AI Researcher | Data Science Specialist | Technical Content Creator</strong></p>
                     <p>📧 saurab23@iisertvm.ac.in | 📱 +916201365207</p>
-                    <p>🔗 <a href="#" style="color: var(--primary);">LinkedIn</a> | 🌐 <a href="#" style="color: var(--primary);">Portfolio</a> | 📺 <a href="#" style="color: var(--primary);">YouTube</a> | ✍️ <a href="https://www.youtube.com/@saurab_mishra" style="color: var(--primary);">Medium</a></p>
+                    <p>🔗 <a href="#" style="color: var(--primary);">LinkedIn</a> | 🌐 <a href="#" style="color: var(--primary);">Portfolio</a> | 📺 <a href="#" style="color: var(--primary);">YouTube</a> | ✍️ <a href="#" style="color: var(--primary);">Medium</a></p>
 
                     <h3>Professional Summary</h3>
-                    <p>BS-MS student in Computational & Applied Mathematics at IISER TVM, working across AI research & engineering, spanning areas such as machine learning, large language models, knowledge-enhanced systems, agent-based architectures, and scalable model deployment. I’m contributing to research publications in NLP/IR and developing projects that bridge theory with practical impact. I share my learnings through technical writing and educational content, and I’m always open to collaborations.</p>
+                    <p>Innovative AI researcher and IBM-certified data science specialist with strong expertise in machine learning, NLP, Retrieval-Augmented Generation (RAG), reinforcement learning, and multi-agent systems. Experienced in technical content creation, advanced AI research, and real-world deployment. Research intern with publications under review at top-tier venues and a proven track record of delivering impactful, cutting-edge AI solutions.</p>
                     
                     <h3>Education</h3>
                     <div style="background: var(--surface); padding: 20px; border-radius: 8px; border-left: 4px solid var(--primary); margin: 15px 0;">
@@ -3084,7 +2944,10 @@
                         <div class="resume-section">
                             <h3>PROFESSIONAL SUMMARY</h3>
                             <p style="color: #333; line-height: 1.7; text-align: justify;">
-                          BS-MS student in Computational & Applied Mathematics at IISER TVM, working across AI research & engineering, spanning areas such as machine learning, large language models, knowledge-enhanced systems, agent-based architectures, and scalable model deployment. I’m contributing to research publications in NLP/IR and developing projects that bridge theory with practical impact. I share my learnings through technical writing and educational content, and I’m always open to collaborations.
+                                Innovative AI researcher and IBM-certified data science specialist with strong expertise in machine learning, NLP, 
+                                Retrieval-Augmented Generation (RAG), reinforcement learning, and multi-agent systems. Experienced in technical 
+                                content creation, advanced AI research, and real-world deployment. Research intern with publications under review 
+                                at top-tier venues and a proven track record of delivering impactful, cutting-edge AI solutions.
                             </p>
                         </div>
 
@@ -3629,7 +3492,7 @@
                             </div>
                         </a>
 
-                        <a href="https://www.linkedin.com/in/saurab-mishra-493a73178/" target="_blank" style="text-decoration: none;">
+                        <a href="https://www.linkedin.com/in/saurab-mishra" target="_blank" style="text-decoration: none;">
                             <div style="background: var(--surface); padding: 20px; border-radius: 12px; text-align: center; transition: all 0.3s; cursor: pointer; border: 1px solid var(--border);"
                                  onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#0077b5'"
                                  onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border)'">
@@ -3649,7 +3512,7 @@
                             </div>
                         </a>
 
-                        <a href="https://www.youtube.com/@saurab_mishra" target="_blank" style="text-decoration: none;">
+                        <a href="https://youtube.com/@saurabmishra" target="_blank" style="text-decoration: none;">
                             <div style="background: var(--surface); padding: 20px; border-radius: 12px; text-align: center; transition: all 0.3s; cursor: pointer; border: 1px solid var(--border);"
                                  onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#ff0000'"
                                  onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border)'">
@@ -3708,7 +3571,7 @@
             <div class="window-content">
                 <div class="window-body" style="background: radial-gradient(1200px 500px at 20% 0%, rgba(0,255,128,0.05), transparent), #0a0a0a; font-family: 'Courier New', monospace; padding: 20px;">
                     <div id="terminal-output" style="color: #e0ffe0; font-size: 14px; line-height: 1.6; height: 50vh; overflow-y: auto; border: 1px solid rgba(0,255,128,0.15); border-radius: 8px; padding: 12px; background: rgba(0,0,0,0.45);">
-                        <div>$ Welcome to Terminal v1.0.0</div>
+                        <div>$ Welcome to Saurab's Terminal v1.0.0</div>
                         <div>$ Type 'help' for available commands</div>
                         <br>
                     </div>
@@ -3821,31 +3684,19 @@
     <div class="taskbar">
         <button class="start-button" onclick="toggleStartMenu()">
             <i class="fab fa-windows"></i>
+            <span class="start-label">start</span>
         </button>
-        
-        <!-- Search Bar -->
-        <div class="taskbar-search">
-            <i class="fas fa-search taskbar-search-icon"></i>
-            <input 
-                type="text" 
-                class="taskbar-search-input" 
-                id="taskbar-search-input"
-                placeholder="Search apps, files, settings..."
-                autocomplete="off"
-            />
-            <button class="taskbar-search-clear" id="taskbar-search-clear" onclick="clearSearch()">
-                <i class="fas fa-times"></i>
-            </button>
-            
-            <!-- Search Results Dropdown -->
-            <div class="search-results" id="search-results"></div>
-        </div>
-        
         <div class="taskbar-apps" id="taskbar-apps"></div>
         <div class="system-tray">
-            <i class="fas fa-wifi tray-icon" id="tray-wifi"></i>
+            <span class="tray-status" id="tray-network-status">Network</span>
+            <i class="fas fa-bluetooth-b tray-icon" id="tray-bluetooth"></i>
             <i class="fas fa-volume-up tray-icon" id="tray-volume"></i>
-            <i class="fas fa-battery-three-quarters tray-icon" id="tray-battery"></i>
+            <div class="tray-battery tray-icon" id="tray-battery" role="button" aria-label="Battery status">
+                <span class="tray-battery-fill" id="tray-battery-fill"></span>
+                <span class="tray-battery-cap"></span>
+                <span class="tray-battery-bolt" id="tray-battery-bolt">&#9889;</span>
+            </div>
+            <span class="tray-status" id="tray-battery-inline">--%</span>
             <div class="clock" id="clock">12:00 PM</div>
         </div>
     </div>
@@ -3857,9 +3708,20 @@
             <button onclick="hideAllPanels()" style="background:transparent;border:none;color:#fff;font-size:16px;cursor:pointer;">✕</button>
         </div>
         <div class="tray-panel-body">
-            <div class="tray-item"><div><i class="fas fa-wifi"></i> Home Network</div><span>Connected</span></div>
-            <div class="tray-item"><div><i class="fas fa-wifi"></i> Office Wi‑Fi</div><button class="small-btn" onclick="connectNetwork('Office Wi‑Fi')">Connect</button></div>
-            <div class="tray-item"><div><i class="fas fa-wifi"></i> Mobile Hotspot</div><button class="small-btn" onclick="connectNetwork('Mobile Hotspot')">Connect</button></div>
+            <div class="tray-item"><div><i class="fas fa-network-wired"></i> Status</div><span id="wifi-status">Checking...</span></div>
+            <div class="tray-item"><div><i class="fas fa-signal"></i> Type</div><span id="wifi-type">Unknown</span></div>
+            <div class="tray-item"><div><i class="fas fa-tachometer-alt"></i> Downlink</div><span id="wifi-speed">Unknown</span></div>
+        </div>
+    </div>
+
+    <div class="tray-panel" id="panel-bluetooth">
+        <div class="tray-panel-header">
+            <span>Bluetooth</span>
+            <button onclick="hideAllPanels()" style="background:transparent;border:none;color:#fff;font-size:16px;cursor:pointer;">✕</button>
+        </div>
+        <div class="tray-panel-body">
+            <div class="tray-item"><div><i class="fas fa-bluetooth-b"></i> Adapter</div><span id="bluetooth-status">Checking...</span></div>
+            <div class="tray-item"><div><i class="fas fa-info-circle"></i> Browser API</div><span id="bluetooth-support">Checking...</span></div>
         </div>
     </div>
 
@@ -3881,7 +3743,7 @@
         </div>
         <div class="tray-panel-body">
             <div class="tray-item"><div><i class="fas fa-battery-three-quarters"></i> Battery</div><span id="battery-percent">78%</span></div>
-            <div class="tray-item"><div><i class="fas fa-plug"></i> Power mode</div><span>Balanced</span></div>
+            <div class="tray-item"><div><i class="fas fa-plug"></i> Charging</div><span id="battery-status">Checking...</span></div>
         </div>
     </div>
 
@@ -3895,7 +3757,7 @@
                 </div>
                 <div>
                     <div style="font-weight: 600;">Saurab Mishra</div>
-                    <div style="font-size: 12px; opacity: 0.8;">Research Student</div>
+                    <div style="font-size: 12px; opacity: 0.8;">Student</div>
                 </div>
             </div>
         </div>
@@ -3990,29 +3852,6 @@
                     <p>Command line interface</p>
                 </div>
             </div>
-            <div class="start-menu-app" onclick="openApp('control-panel')">
-                <div class="start-menu-app-icon">
-                    <i class="fas fa-sliders-h"></i>
-                </div>
-                <div class="start-menu-app-info">
-                    <h4>Control Panel</h4>
-                    <p>System controls and settings</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Power Options -->
-        <div class="start-menu-power">
-            <div class="power-options">
-                <button class="power-option" onclick="signOff()" title="Sign Off">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Sign Off</span>
-                </button>
-                <button class="power-option" onclick="restart()" title="Restart">
-                    <i class="fas fa-redo"></i>
-                    <span>Restart</span>
-                </button>
-            </div>
         </div>
     </div>
 
@@ -4024,7 +3863,7 @@
             <button id="notification-close" aria-label="Close" style="margin-left:auto;background:transparent;border:none;color:white;font-size:16px;cursor:pointer;">✕</button>
         </div>
         <div class="notification-body">
-            Booting into SaurabPortfolioOS: research, code, and conversations! Click on desktop icons or use the start menu to explore.
+            Welcome to Saurab's Portfolio OS! Click on desktop icons or use the start menu to explore.
         </div>
     </div>
 
@@ -4039,19 +3878,14 @@
             <i class="fas fa-cog"></i>
             <span>Personalization</span>
         </div>
-        <div class="context-menu-separator"></div>
-        <div class="context-menu-item" onclick="setTheme('dark')">
-            <i class="fas fa-moon"></i>
-            <span>Dark Mode</span>
-        </div>
-        <div class="context-menu-item" onclick="setTheme('light')">
-            <i class="fas fa-sun"></i>
-            <span>Light Mode</span>
+        <div class="context-menu-item" onclick="toggleTheme()">
+            <i class="fas fa-palette"></i>
+            <span>Switch Theme</span>
         </div>
         <div class="context-menu-separator"></div>
-        <div class="context-menu-item" onclick="openApp('control-panel')">
-            <i class="fas fa-sliders-h"></i>
-            <span>Control Panel</span>
+        <div class="context-menu-item" onclick="toggleAnimations()">
+            <i class="fas fa-magic"></i>
+            <span>Toggle Animations</span>
         </div>
     </div>
 
@@ -4083,13 +3917,11 @@
                     </div>
 
                     <div class="setting-item">
-                        <div style="width: 100%;">
-                            <div class="setting-label">System Control</div>
-                            <div class="setting-description">Access advanced system controls and settings</div>
-                            <button class="control-panel-btn" onclick="openApp('control-panel')">
-                                <i class="fas fa-sliders-h"></i>
-                                <span>Open Control Panel</span>
-                            </button>
+                        <div>
+                            <div class="setting-label">Background Animations</div>
+                            <div class="setting-description">Enable floating particles and animations</div>
+                        </div>
+                        <div class="toggle-switch active" id="animations-toggle" onclick="toggleAnimations()">
                         </div>
                     </div>
 
@@ -4098,11 +3930,12 @@
                             <div class="setting-label">Background</div>
                             <div class="setting-description">Choose your desktop background</div>
                             <div class="background-options">
-                                <div class="background-option wallpaper-1 selected" onclick="setBackground('wallpaper-1')" style="background-image: url('5769416.jpg')"></div>
-                                <div class="background-option wallpaper-2" onclick="setBackground('wallpaper-2')" style="background-image: url('3452442.jpg')"></div>
-                                <div class="background-option wallpaper-3" onclick="setBackground('wallpaper-3')" style="background-image: url('5803426.jpg')"></div>
-                                <div class="background-option wallpaper-4" onclick="setBackground('wallpaper-4')" style="background-image: url('6272798.jpg')"></div>
-                                <div class="background-option ai-theme" onclick="setBackground('ai-theme')" style="background-image: url('airesearch.jpeg')"></div>
+                                <div class="background-option default selected" onclick="setBackground('default')"></div>
+                                <div class="background-option gradient-1" onclick="setBackground('gradient-1')"></div>
+                                <div class="background-option gradient-2" onclick="setBackground('gradient-2')"></div>
+                                <div class="background-option gradient-3" onclick="setBackground('gradient-3')"></div>
+                                <div class="background-option gradient-4" onclick="setBackground('gradient-4')"></div>
+                                <div class="background-option gradient-5" onclick="setBackground('gradient-5')"></div>
                                 <div class="background-option upload" onclick="document.getElementById('bg-upload').click()">
                                     <i class="fas fa-upload"></i>
                                 </div>
@@ -4118,104 +3951,11 @@
                     <div class="setting-item">
                         <div style="width: 100%;">
                             <div class="setting-label">Profile Picture</div>
-                            <div class="setting-description">Saurab Mishra</div>
+                            <div class="setting-description">Saurab Mishra - AI Engineer</div>
                             <div class="user-photo-upload">
                                 <div class="user-photo-preview" id="user-photo-preview">
                                     <img id="preview-img" src="saurabprofile.jpg" style="display: block;" />
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Control Panel Window -->
-    <div class="window" id="control-panel-window">
-        <div class="window-titlebar">
-            <div class="window-titlebar-content">
-                <i class="fas fa-sliders-h window-icon"></i>
-                <span class="window-title">Control Panel</span>
-            </div>
-            <div class="window-controls">
-                <button class="window-control minimize" onclick="minimizeWindow('control-panel-window')"></button>
-                <button class="window-control maximize" onclick="maximizeWindow('control-panel-window')"></button>
-                <button class="window-control close" onclick="closeWindow('control-panel-window')"></button>
-            </div>
-        </div>
-        <div class="window-content">
-            <div class="settings-content">
-                <div class="settings-section">
-                    <div class="settings-title">System Settings</div>
-                    
-                    <div class="setting-item">
-                        <div>
-                            <div class="setting-label">Theme Mode</div>
-                            <div class="setting-description">Choose between dark and light themes</div>
-                        </div>
-                        <div class="theme-selector">
-                            <button class="theme-btn active" id="dark-theme-btn" onclick="setTheme('dark')">
-                                <i class="fas fa-moon"></i>
-                                <span>Dark</span>
-                            </button>
-                            <button class="theme-btn" id="light-theme-btn" onclick="setTheme('light')">
-                                <i class="fas fa-sun"></i>
-                                <span>Light</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="setting-item">
-                        <div style="width: 100%;">
-                            <div class="setting-label">System Information</div>
-                            <div class="setting-description">View system details and performance</div>
-                            <div class="system-info">
-                                <div class="info-item">
-                                    <i class="fas fa-desktop"></i>
-                                    <span>OS: SaurabPortfolioOS v2.0</span>
-                                </div>
-                                <div class="info-item">
-                                    <i class="fas fa-microchip"></i>
-                                    <span id="cpu-info">CPU: Portfolio Engine</span>
-                                </div>
-                                <div class="info-item">
-                                    <i class="fas fa-memory"></i>
-                                    <span id="memory-info">Memory: Available</span>
-                                </div>
-                                <div class="info-item">
-                                    <i class="fas fa-hdd"></i>
-                                    <span>Storage: Cloud-based</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="settings-section">
-                    <div class="settings-title">Quick Actions</div>
-                    
-                    <div class="setting-item">
-                        <div style="width: 100%;">
-                            <div class="setting-label">System Controls</div>
-                            <div class="setting-description">Quick access to system functions</div>
-                            <div class="quick-actions">
-                                <button class="quick-action-btn" onclick="refreshDesktop()">
-                                    <i class="fas fa-refresh"></i>
-                                    <span>Refresh Desktop</span>
-                                </button>
-                                <button class="quick-action-btn" onclick="openApp('settings')">
-                                    <i class="fas fa-cog"></i>
-                                    <span>Settings</span>
-                                </button>
-                                <button class="quick-action-btn" onclick="signOff()">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                    <span>Sign Off</span>
-                                </button>
-                                <button class="quick-action-btn" onclick="restart()">
-                                    <i class="fas fa-redo"></i>
-                                    <span>Restart</span>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -4265,6 +4005,7 @@
         let windowZIndex = 1000;
         let isStartMenuOpen = false;
         let windowStates = {};
+        let desktopInitialized = false;
 
         // 3D Neural Network Variables
         let scene, camera, renderer, neuralNetwork;
@@ -4463,6 +4204,8 @@
             initializeMobileFeatures();
             updateClock();
             setInterval(updateClock, 1000);
+            createParticles();
+            initNeuralNetwork();
             showWelcomeNotification();
         });
 
@@ -4562,6 +4305,9 @@
         }
 
         function initializeDesktop() {
+            if (desktopInitialized) return;
+            desktopInitialized = true;
+
             // Add event listeners for desktop icons
             const desktopIcons = document.querySelectorAll('.desktop-icon');
             desktopIcons.forEach(icon => {
@@ -4695,7 +4441,7 @@
                 
                 doc.setFontSize(10);
                 doc.setFont("helvetica", "normal");
-                const summary = "BS-MS student in Computational & Applied Mathematics at IISER TVM, working across AI research & engineering, spanning areas such as machine learning, large language models, knowledge-enhanced systems, agent-based architectures, and scalable model deployment. I’m contributing to research publications in NLP/IR and developing projects that bridge theory with practical impact. I share my learnings through technical writing and educational content, and I’m always open to collaborations.";
+                const summary = "Innovative AI researcher and IBM-certified data science specialist with strong expertise in machine learning, NLP, Retrieval-Augmented Generation (RAG), reinforcement learning, and multi-agent systems. Experienced in technical content creation, advanced AI research, and real-world deployment. Research intern with publications under review at top-tier venues and a proven track record of delivering impactful, cutting-edge AI solutions.";
                 const summaryLines = doc.splitTextToSize(summary, maxWidth);
                 doc.text(summaryLines, leftMargin, yPosition);
                 yPosition += summaryLines.length * 4 + 10;
@@ -4820,6 +4566,13 @@
         function openApp(appName) {
             console.log('Opening app:', appName); // Debug log
 
+            // Route About icon/menu clicks to the dedicated landing page.
+            if (appName === 'about') {
+                globalThis.location.href = 'landing.html';
+                closeStartMenu();
+                return;
+            }
+
             const windowId = appName + '-window';
             const window = document.getElementById(windowId);
             const icon = document.querySelector(`[data-app="${appName}"]`);
@@ -4841,9 +4594,8 @@
                 // Position and maximize window by default
                 if (!windowStates[windowId]) {
                     positionAppWindow(window);
-                    windowStates[windowId] = { minimized: false, maximized: true };
-                    // Automatically maximize the window
-                    window.classList.add('maximized');
+                    // Keep new windows in normal mode so they can be dragged immediately.
+                    windowStates[windowId] = { minimized: false, maximized: false };
                 } else if (windowStates[windowId].minimized) {
                     windowStates[windowId].minimized = false;
                 }
@@ -4868,9 +4620,15 @@
             closeStartMenu();
         }
 
+        function getTaskbarHeightPx() {
+            const rootStyles = getComputedStyle(document.documentElement);
+            const value = parseInt(rootStyles.getPropertyValue('--taskbar-height').trim(), 10);
+            return Number.isFinite(value) ? value : 56;
+        }
+
         function positionAppWindow(winEl) {
             const screenWidth = globalThis.innerWidth;
-            const screenHeight = globalThis.innerHeight - 56; // Account for taskbar
+            const screenHeight = globalThis.innerHeight - getTaskbarHeightPx();
             const isMobile = screenWidth <= 768;
             
             if (isMobile) {
@@ -5001,7 +4759,7 @@
                     window.style.left = '0';
                 } else {
                     window.style.width = '100vw';
-                    window.style.height = 'calc(100vh - 60px)';
+                    window.style.height = 'calc(100vh - var(--taskbar-height))';
                     window.style.top = '0';
                     window.style.left = '0';
                 }
@@ -5100,8 +4858,7 @@
                 'blogs': { icon: 'fas fa-blog', title: 'Blog Posts' },
                 'skills': { icon: 'fas fa-code', title: 'Skills' },
                 'contact': { icon: 'fas fa-envelope', title: 'Contact' },
-                'terminal': { icon: 'fas fa-terminal', title: 'Terminal' },
-                'control-panel': { icon: 'fas fa-sliders-h', title: 'Control Panel' }
+                'terminal': { icon: 'fas fa-terminal', title: 'Terminal' }
             };
             return appIcons[appName] || { icon: 'fas fa-window-maximize', title: 'Application' };
         }
@@ -5130,218 +4887,13 @@
             }
         }
 
-        // Search Functionality
-        const searchData = {
-            apps: [
-                { name: 'About Me', icon: 'fas fa-user', description: 'Learn about my background', app: 'about' },
-                { name: 'GitHub', icon: 'fab fa-github', description: 'View my repositories', app: 'github' },
-                { name: 'YouTube', icon: 'fab fa-youtube', description: 'Educational content', url: 'https://www.youtube.com/@saurab_mishra' },
-                { name: 'LinkedIn', icon: 'fab fa-linkedin', description: 'Professional network', url: 'https://www.linkedin.com/in/saurab-mishra-493a73178/' },
-                { name: 'Projects', icon: 'fas fa-folder-open', description: 'Explore my work', app: 'projects' },
-                { name: 'Resume', icon: 'fas fa-file-alt', description: 'Download my CV', app: 'resume' },
-                { name: 'Blog Posts', icon: 'fas fa-blog', description: 'Read my articles', app: 'blogs' },
-                { name: 'Skills', icon: 'fas fa-code', description: 'Technical expertise', app: 'skills' },
-                { name: 'Contact', icon: 'fas fa-envelope', description: 'Get in touch', app: 'contact' },
-                { name: 'Terminal', icon: 'fas fa-terminal', description: 'Command line interface', app: 'terminal' },
-                { name: 'Settings', icon: 'fas fa-cog', description: 'System settings', app: 'settings' },
-                { name: 'Control Panel', icon: 'fas fa-sliders-h', description: 'System controls', app: 'control-panel' }
-            ],
-            settings: [
-                { name: 'Dark Mode', icon: 'fas fa-moon', description: 'Switch to dark theme', action: () => setTheme('dark') },
-                { name: 'Light Mode', icon: 'fas fa-sun', description: 'Switch to light theme', action: () => setTheme('light') },
-                { name: 'Change Background', icon: 'fas fa-image', description: 'Customize desktop wallpaper', app: 'settings' },
-                { name: 'Personalization', icon: 'fas fa-palette', description: 'Customize appearance', app: 'settings' }
-            ],
-            contacts: [
-                { name: 'Email', icon: 'fas fa-envelope', description: 'saurab23@iisertvm.ac.in', url: 'mailto:saurab23@iisertvm.ac.in' },
-                { name: 'Phone', icon: 'fas fa-phone', description: '+91 6201365207', url: 'tel:+916201365207' },
-                { name: 'LinkedIn Profile', icon: 'fab fa-linkedin', description: 'Connect on LinkedIn', url: 'https://www.linkedin.com/in/saurab-mishra-493a73178/' },
-                { name: 'GitHub Profile', icon: 'fab fa-github', description: 'View my code', url: 'https://github.com/SaurabMishra12' },
-                { name: 'Medium Blog', icon: 'fab fa-medium', description: 'Read my articles', url: 'https://medium.com/@saurabmishra' }
-            ]
-        };
-
-        function initializeSearch() {
-            const searchInput = document.getElementById('taskbar-search-input');
-            const searchResults = document.getElementById('search-results');
-            const searchClear = document.getElementById('taskbar-search-clear');
-
-            if (!searchInput) return;
-
-            searchInput.addEventListener('input', function(e) {
-                const query = e.target.value.trim();
-                
-                if (query.length > 0) {
-                    searchClear.classList.add('show');
-                    performSearch(query);
-                } else {
-                    searchClear.classList.remove('show');
-                    hideSearchResults();
-                }
-            });
-
-            searchInput.addEventListener('focus', function(e) {
-                if (e.target.value.trim().length > 0) {
-                    performSearch(e.target.value.trim());
-                }
-            });
-
-            // Close search results when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.taskbar-search')) {
-                    hideSearchResults();
-                }
-            });
-
-            // Handle keyboard navigation
-            searchInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    clearSearch();
-                }
-            });
-        }
-
-        function performSearch(query) {
-            const searchResults = document.getElementById('search-results');
-            const lowerQuery = query.toLowerCase();
-            let results = { apps: [], settings: [], contacts: [] };
-
-            // Search apps
-            results.apps = searchData.apps.filter(item => 
-                item.name.toLowerCase().includes(lowerQuery) || 
-                item.description.toLowerCase().includes(lowerQuery)
-            );
-
-            // Search settings
-            results.settings = searchData.settings.filter(item => 
-                item.name.toLowerCase().includes(lowerQuery) || 
-                item.description.toLowerCase().includes(lowerQuery)
-            );
-
-            // Search contacts
-            results.contacts = searchData.contacts.filter(item => 
-                item.name.toLowerCase().includes(lowerQuery) || 
-                item.description.toLowerCase().includes(lowerQuery)
-            );
-
-            displaySearchResults(results);
-        }
-
-        function displaySearchResults(results) {
-            const searchResults = document.getElementById('search-results');
-            let html = '';
-
-            const totalResults = results.apps.length + results.settings.length + results.contacts.length;
-
-            if (totalResults === 0) {
-                html = `
-                    <div class="search-no-results">
-                        <i class="fas fa-search"></i>
-                        <p>No results found</p>
-                    </div>
-                `;
-            } else {
-                // Apps
-                if (results.apps.length > 0) {
-                    html += '<div class="search-result-category">Apps</div>';
-                    results.apps.forEach(item => {
-                        html += `
-                            <div class="search-result-item" onclick="handleSearchResultClick('${item.app || ''}', '${item.url || ''}')">
-                                <div class="search-result-icon">
-                                    <i class="${item.icon}"></i>
-                                </div>
-                                <div class="search-result-info">
-                                    <div class="search-result-title">${item.name}</div>
-                                    <div class="search-result-description">${item.description}</div>
-                                </div>
-                            </div>
-                        `;
-                    });
-                }
-
-                // Settings
-                if (results.settings.length > 0) {
-                    html += '<div class="search-result-category">Settings</div>';
-                    results.settings.forEach((item, index) => {
-                        html += `
-                            <div class="search-result-item" onclick="handleSettingClick(${index})">
-                                <div class="search-result-icon">
-                                    <i class="${item.icon}"></i>
-                                </div>
-                                <div class="search-result-info">
-                                    <div class="search-result-title">${item.name}</div>
-                                    <div class="search-result-description">${item.description}</div>
-                                </div>
-                            </div>
-                        `;
-                    });
-                }
-
-                // Contacts
-                if (results.contacts.length > 0) {
-                    html += '<div class="search-result-category">Contacts & Links</div>';
-                    results.contacts.forEach(item => {
-                        html += `
-                            <div class="search-result-item" onclick="handleSearchResultClick('', '${item.url || ''}')">
-                                <div class="search-result-icon">
-                                    <i class="${item.icon}"></i>
-                                </div>
-                                <div class="search-result-info">
-                                    <div class="search-result-title">${item.name}</div>
-                                    <div class="search-result-description">${item.description}</div>
-                                </div>
-                            </div>
-                        `;
-                    });
-                }
-            }
-
-            searchResults.innerHTML = html;
-            searchResults.classList.add('show');
-        }
-
-        function handleSearchResultClick(app, url) {
-            if (app) {
-                openApp(app);
-            } else if (url) {
-                window.open(url, '_blank');
-            }
-            clearSearch();
-        }
-
-        function handleSettingClick(index) {
-            const setting = searchData.settings[index];
-            if (setting.action) {
-                setting.action();
-            } else if (setting.app) {
-                openApp(setting.app);
-            }
-            clearSearch();
-        }
-
-        function clearSearch() {
-            const searchInput = document.getElementById('taskbar-search-input');
-            const searchClear = document.getElementById('taskbar-search-clear');
-            
-            if (searchInput) {
-                searchInput.value = '';
-                searchInput.blur();
-            }
-            if (searchClear) {
-                searchClear.classList.remove('show');
-            }
-            hideSearchResults();
-        }
-
-        function hideSearchResults() {
-            const searchResults = document.getElementById('search-results');
-            if (searchResults) {
-                searchResults.classList.remove('show');
-            }
-        }
-
         function makeWindowsDraggable() {
             document.querySelectorAll('.window').forEach(winEl => {
+                if (winEl.dataset.dragBound === '1') {
+                    return;
+                }
+                winEl.dataset.dragBound = '1';
+
                 const titlebar = winEl.querySelector('.window-titlebar');
                 let isDragging = false;
                 let currentX;
@@ -5362,20 +4914,37 @@
 
                 function dragStart(e) {
                     if (e.target.closest('.window-controls')) return;
-                    
-                                            setActiveWindow(winEl.id);
-                        
-                        if (e.type === "touchstart") {
-                            initialX = e.touches[0].clientX - xOffset;
-                            initialY = e.touches[0].clientY - yOffset;
-                        } else {
-                            initialX = e.clientX - xOffset;
-                            initialY = e.clientY - yOffset;
-                        }
 
-                        if (e.target === titlebar || titlebar.contains(e.target)) {
-                            isDragging = true;
-                        }
+                    setActiveWindow(winEl.id);
+
+                    // If the window is maximized, restore it before starting drag.
+                    if (windowStates[winEl.id]?.maximized || winEl.classList.contains('maximized')) {
+                        maximizeWindow(winEl.id);
+                    }
+
+                    // Sync offsets with the current rendered position to prevent jumpy drag.
+                    xOffset = winEl.offsetLeft;
+                    yOffset = winEl.offsetTop;
+
+                    const currentWidth = winEl.offsetWidth;
+                    const maxUsableWidth = Math.max(320, globalThis.innerWidth - 56);
+
+                    // On narrow viewports, shrink oversized non-maximized windows so they can move.
+                    if (!windowStates[winEl.id]?.maximized && currentWidth > maxUsableWidth) {
+                        winEl.style.width = maxUsableWidth + 'px';
+                    }
+
+                    if (e.type === "touchstart") {
+                        initialX = e.touches[0].clientX - xOffset;
+                        initialY = e.touches[0].clientY - yOffset;
+                    } else {
+                        initialX = e.clientX - xOffset;
+                        initialY = e.clientY - yOffset;
+                    }
+
+                    if (e.target === titlebar || titlebar.contains(e.target)) {
+                        isDragging = true;
+                    }
                 }
 
                 function dragMove(e) {
@@ -5395,7 +4964,7 @@
 
                         // Prevent dragging outside screen bounds
                         const maxX = globalThis.innerWidth - winEl.offsetWidth;
-                        const maxY = globalThis.innerHeight - winEl.offsetHeight - 56; // Account for taskbar
+                        const maxY = globalThis.innerHeight - winEl.offsetHeight - getTaskbarHeightPx();
 
                         xOffset = Math.max(0, Math.min(maxX, xOffset));
                         yOffset = Math.max(0, Math.min(maxY, yOffset));
@@ -5558,7 +5127,7 @@ Type 'help' for available commands.`;
                 if (window && window.style.display !== 'none' && !windowStates[windowId]?.maximized) {
                     const rect = window.getBoundingClientRect();
                     const maxX = window.innerWidth - rect.width;
-                    const maxY = window.innerHeight - rect.height - 56;
+                    const maxY = window.innerHeight - rect.height - getTaskbarHeightPx();
                     
                     if (rect.left > maxX) {
                         window.style.left = Math.max(0, maxX) + 'px';
@@ -5573,45 +5142,51 @@ Type 'help' for available commands.`;
         // Theme and Personalization Functions
         let currentTheme = 'dark';
         let animationsEnabled = true;
-        let currentBackground = 'wallpaper-1';
+        let currentBackground = 'default';
 
-        function setTheme(theme) {
+        function applyTheme(theme) {
             const root = document.documentElement;
+            const themeToggle = document.getElementById('theme-toggle');
             const desktop = document.querySelector('.desktop');
-            const darkBtn = document.getElementById('dark-theme-btn');
-            const lightBtn = document.getElementById('light-theme-btn');
-            
-            if (theme === 'light') {
-                root.setAttribute('data-theme', 'light');
+            const nextTheme = theme === 'light' ? 'light' : 'dark';
+
+            currentTheme = nextTheme;
+
+            if (nextTheme === 'light') {
                 root.classList.add('light-theme');
-                desktop.classList.add('light-theme');
-                currentTheme = 'light';
-                if (lightBtn) lightBtn.classList.add('active');
-                if (darkBtn) darkBtn.classList.remove('active');
+                root.removeAttribute('data-theme');
+                if (desktop) desktop.classList.add('light-theme');
+                if (themeToggle) themeToggle.classList.remove('active');
             } else {
-                root.setAttribute('data-theme', 'dark');
                 root.classList.remove('light-theme');
-                desktop.classList.remove('light-theme');
-                currentTheme = 'dark';
-                if (darkBtn) darkBtn.classList.add('active');
-                if (lightBtn) lightBtn.classList.remove('active');
+                root.setAttribute('data-theme', 'dark');
+                if (desktop) desktop.classList.remove('light-theme');
+                if (themeToggle) themeToggle.classList.add('active');
             }
-            
-            // Save theme preference
+
             localStorage.setItem('theme', currentTheme);
-            hideContextMenu();
         }
 
         function toggleTheme() {
-            // Legacy function for backward compatibility
-            if (currentTheme === 'dark') {
-                setTheme('light');
-            } else {
-                setTheme('dark');
-            }
+            const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(nextTheme);
         }
 
-
+        function toggleAnimations() {
+            const bgAnimation = document.getElementById('bg-animation');
+            const animationsToggle = document.getElementById('animations-toggle');
+            
+            // Always keep animations disabled and hidden
+            if (bgAnimation) {
+                bgAnimation.classList.add('disabled');
+                bgAnimation.style.display = 'none';
+            }
+            if (animationsToggle) {
+                animationsToggle.classList.remove('active');
+            }
+            animationsEnabled = false;
+            localStorage.setItem('animations', 'false');
+        }
 
         function setBackground(bgType) {
             const desktop = document.querySelector('.desktop');
@@ -5631,24 +5206,23 @@ Type 'help' for available commands.`;
             
             // Apply background based on type
             switch(bgType) {
-                case 'wallpaper-1':
-                    desktop.style.background = 'url("5769416.jpg") center/cover no-repeat fixed, linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 50%, rgba(11,16,32,0.8) 100%)';
+                case 'gradient-1':
+                    desktop.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
                     break;
-                case 'wallpaper-2':
-                    desktop.style.background = 'url("3452442.jpg") center/cover no-repeat fixed, linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 50%, rgba(11,16,32,0.8) 100%)';
+                case 'gradient-2':
+                    desktop.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
                     break;
-                case 'wallpaper-3':
-                    desktop.style.background = 'url("5803426.jpg") center/cover no-repeat fixed, linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 50%, rgba(11,16,32,0.8) 100%)';
+                case 'gradient-3':
+                    desktop.style.background = 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)';
                     break;
-                case 'wallpaper-4':
-                    desktop.style.background = 'url("6272798.jpg") center/cover no-repeat fixed, linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 50%, rgba(11,16,32,0.8) 100%)';
+                case 'gradient-4':
+                    desktop.style.background = 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)';
                     break;
-                case 'ai-theme':
-                    desktop.style.background = 'url("airesearch.jpeg") center/cover no-repeat fixed, linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 50%, rgba(11,16,32,0.8) 100%)';
+                case 'gradient-5':
+                    desktop.style.background = 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)';
                     break;
                 default:
-                    // Default wallpaper
-                    desktop.style.background = 'url("5769416.jpg") center/cover no-repeat fixed, linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 50%, rgba(11,16,32,0.8) 100%)';
+                    desktop.style.background = "url('https://d7hftxdivxxvm.cloudfront.net/?quality=80&resize_to=width&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2F2RNK1P0BYVrSCZEy_Sd1Ew%252F3417757448_4a6bdf36ce_o.jpg&width=1820') center/cover no-repeat fixed";
             }
             
             currentBackground = bgType;
@@ -5696,7 +5270,12 @@ Type 'help' for available commands.`;
         }
 
         function refreshDesktop() {
-            // Refresh desktop
+            // Refresh particles
+            const container = document.getElementById('bg-animation');
+            container.innerHTML = '';
+            createParticles();
+            createFloatingShapes();
+            
             hideContextMenu();
         }
 
@@ -6012,8 +5591,14 @@ Type 'help' for available commands.`;
         // Load saved preferences
         function loadPreferences() {
             // Load theme
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            setTheme(savedTheme);
+            const savedTheme = localStorage.getItem('theme');
+            applyTheme(savedTheme || 'dark');
+            
+            // Load animations setting
+            const savedAnimations = localStorage.getItem('animations');
+            if (savedAnimations === 'false') {
+                toggleAnimations();
+            }
             
             // Load background
             const savedBackground = localStorage.getItem('background');
@@ -6038,17 +5623,12 @@ Type 'help' for available commands.`;
 
         // Update initialization
         document.addEventListener('DOMContentLoaded', function() {
-            initializeDesktop();
-            initializeSearch(); // Initialize search functionality
-            updateClock();
-            setInterval(updateClock, 1000);
-            createParticles();
-            showWelcomeNotification();
-            loadPreferences(); // Load saved preferences
+            // Keep this block only for saved preferences to avoid rebinding handlers.
+            loadPreferences();
         });
 
         // Tray panels logic
-        const panelIds = { wifi: 'panel-wifi', volume: 'panel-volume', battery: 'panel-battery' };
+        const panelIds = { wifi: 'panel-wifi', bluetooth: 'panel-bluetooth', volume: 'panel-volume', battery: 'panel-battery' };
         function hideAllPanels() {
             Object.values(panelIds).forEach(id => document.getElementById(id)?.classList.remove('show'));
         }
@@ -6059,75 +5639,129 @@ Type 'help' for available commands.`;
             hideAllPanels();
             if (!isShown) el.classList.add('show');
         }
-        document.getElementById('tray-wifi')?.addEventListener('click', e => { e.stopPropagation(); togglePanel(panelIds.wifi); });
+        document.getElementById('tray-network-status')?.addEventListener('click', e => { e.stopPropagation(); togglePanel(panelIds.wifi); });
+        document.getElementById('tray-bluetooth')?.addEventListener('click', e => { e.stopPropagation(); togglePanel(panelIds.bluetooth); });
         document.getElementById('tray-volume')?.addEventListener('click', e => { e.stopPropagation(); togglePanel(panelIds.volume); });
         document.getElementById('tray-battery')?.addEventListener('click', e => { e.stopPropagation(); togglePanel(panelIds.battery); });
+        document.getElementById('tray-battery-inline')?.addEventListener('click', e => { e.stopPropagation(); togglePanel(panelIds.battery); });
         document.getElementById('clock')?.addEventListener('click', e => { e.stopPropagation(); togglePanel(panelIds.battery); });
         document.addEventListener('click', () => hideAllPanels());
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideAllPanels(); });
 
-        function connectNetwork(name) { console.log('Connecting to', name); alert(`Attempting to connect to ${name}...`); }
         function setSystemVolume(val) { console.log('Volume', val); }
-        if (navigator.getBattery) {
-            navigator.getBattery().then(b => {
-                function update() { document.getElementById('battery-percent').textContent = Math.round(b.level * 100) + '%'; }
-                update(); b.addEventListener('levelchange', update);
-            }).catch(()=>{});
+
+        function updateNetworkStatus() {
+            const online = navigator.onLine;
+            const tray = document.getElementById('tray-network-status');
+            const wifiStatus = document.getElementById('wifi-status');
+            const wifiType = document.getElementById('wifi-type');
+            const wifiSpeed = document.getElementById('wifi-speed');
+
+            const netInfo = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+            const effectiveType = netInfo?.effectiveType ? String(netInfo.effectiveType).toUpperCase() : 'Unknown';
+            const downlink = typeof netInfo?.downlink === 'number' ? `${netInfo.downlink.toFixed(1)} Mbps` : 'Unknown';
+
+            if (tray) {
+                tray.textContent = online ? `Online ${effectiveType !== 'UNKNOWN' ? `(${effectiveType})` : ''}`.trim() : 'Offline';
+            }
+            if (wifiStatus) wifiStatus.textContent = online ? 'Connected' : 'Disconnected';
+            if (wifiType) wifiType.textContent = effectiveType;
+            if (wifiSpeed) wifiSpeed.textContent = downlink;
         }
 
-        // Power Options Functions
-        function signOff() {
-            // Close start menu first to avoid UI issues
-            closeStartMenu();
-            
-            // Small delay to ensure menu closes smoothly
-            setTimeout(() => {
-                // Show confirmation dialog
-                const confirmed = confirm('Are you sure you want to sign off? This will close the webpage.');
-                
-                if (confirmed) {
-                    // Create a fade-out effect
-                    document.body.style.transition = 'opacity 0.5s ease-out';
-                    document.body.style.opacity = '0';
-                    
-                    // Close the webpage after animation
-                    setTimeout(() => {
-                        // Try different methods to close the window
-                        try {
-                            window.close();
-                        } catch(e) {
-                            // If window.close() doesn't work (usually in main tabs), redirect to blank
-                            window.location.href = 'about:blank';
-                        }
-                    }, 500);
-                }
-            }, 100);
+        function setBatteryIcon(level, charging) {
+            const icon = document.getElementById('tray-battery');
+            const fill = document.getElementById('tray-battery-fill');
+            if (!icon) return;
+            if (!fill) return;
+
+            const clamped = Math.max(0, Math.min(1, level));
+            const percent = Math.round(clamped * 100);
+            fill.style.width = `${Math.max(6, Math.round(clamped * 16))}px`;
+
+            if (percent >= 60) {
+                fill.style.background = 'linear-gradient(180deg, #b8ff7f 0%, #5ab62e 100%)';
+            } else if (percent >= 25) {
+                fill.style.background = 'linear-gradient(180deg, #ffe68a 0%, #d8a934 100%)';
+            } else {
+                fill.style.background = 'linear-gradient(180deg, #ff9a9a 0%, #d44545 100%)';
+            }
+
+            icon.classList.toggle('charging', !!charging);
         }
 
-        function restart() {
-            // Close start menu first to avoid UI issues
-            closeStartMenu();
-            
-            // Small delay to ensure menu closes smoothly
-            setTimeout(() => {
-                // Show confirmation dialog
-                const confirmed = confirm('Are you sure you want to restart? This will refresh the webpage.');
-                
-                if (confirmed) {
-                    // Create a fade-out effect
-                    document.body.style.transition = 'opacity 0.3s ease-out';
-                    document.body.style.opacity = '0';
-                    
-                    // Refresh the page after animation
-                    setTimeout(() => {
-                        window.location.reload(true);
-                    }, 300);
+        function updateBatteryStatus() {
+            const batteryPercent = document.getElementById('battery-percent');
+            const batteryInline = document.getElementById('tray-battery-inline');
+            const batteryState = document.getElementById('battery-status');
+
+            if (!navigator.getBattery) {
+                if (batteryPercent) batteryPercent.textContent = 'Unavailable';
+                if (batteryInline) batteryInline.textContent = '--%';
+                if (batteryState) batteryState.textContent = 'Unsupported';
+                return;
+            }
+
+            navigator.getBattery().then((battery) => {
+                const render = () => {
+                    const level = Math.round(battery.level * 100);
+                    if (batteryPercent) batteryPercent.textContent = `${level}%`;
+                    if (batteryInline) batteryInline.textContent = `${level}%`;
+                    if (batteryState) batteryState.textContent = battery.charging ? 'Charging' : 'Not charging';
+                    setBatteryIcon(battery.level, battery.charging);
+                };
+
+                render();
+                battery.addEventListener('levelchange', render);
+                battery.addEventListener('chargingchange', render);
+            }).catch(() => {
+                if (batteryPercent) batteryPercent.textContent = 'Unavailable';
+                if (batteryInline) batteryInline.textContent = '--%';
+                if (batteryState) batteryState.textContent = 'Unavailable';
+            });
+        }
+
+        async function updateBluetoothStatus() {
+            const status = document.getElementById('bluetooth-status');
+            const support = document.getElementById('bluetooth-support');
+            const trayBt = document.getElementById('tray-bluetooth');
+
+            if (!('bluetooth' in navigator)) {
+                if (status) status.textContent = 'Unavailable';
+                if (support) support.textContent = 'Not supported';
+                if (trayBt) trayBt.style.opacity = '0.6';
+                return;
+            }
+
+            if (support) support.textContent = 'Supported';
+
+            try {
+                if (navigator.bluetooth.getAvailability) {
+                    const available = await navigator.bluetooth.getAvailability();
+                    if (status) status.textContent = available ? 'Available' : 'Unavailable';
+                    if (trayBt) trayBt.style.opacity = available ? '1' : '0.6';
+                    navigator.bluetooth.addEventListener('availabilitychanged', (event) => {
+                        const isAvailable = !!event.value;
+                        if (status) status.textContent = isAvailable ? 'Available' : 'Unavailable';
+                        if (trayBt) trayBt.style.opacity = isAvailable ? '1' : '0.6';
+                    });
+                } else {
+                    if (status) status.textContent = 'Permission required';
                 }
-            }, 100);
+            } catch {
+                if (status) status.textContent = 'Unknown';
+            }
+        }
+
+        updateNetworkStatus();
+        updateBatteryStatus();
+        updateBluetoothStatus();
+        window.addEventListener('online', updateNetworkStatus);
+        window.addEventListener('offline', updateNetworkStatus);
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        if (connection && typeof connection.addEventListener === 'function') {
+            connection.addEventListener('change', updateNetworkStatus);
         }
     </script>
 </body>
 </html>
-
-
-

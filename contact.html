@@ -1,22 +1,27 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Me</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Contact | Saurab Mishra | AI/ML Engineer & Researcher</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --primary: #4285F4;
-            --secondary: #34A853;
-            --accent: #FBBC05;
-            --text-primary: #202124;
-            --text-secondary: #5F6368;
-            --background: #FFFFFF;
-            --light: #f5f5f5;
-            --dark: #1a1a1a;
-            --muted: #6b7280;
+            --primary-color: #ff6b35;
+            --secondary-color: #f7931e;
+            --accent-color: #00d4aa;
+            --text-primary: #2d3748;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --background: #ffffff;
+            --surface: #f7fafc;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -26,587 +31,631 @@
         }
 
         body {
-            font-family: 'Roboto', Arial, sans-serif;
-            background: var(--dark);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
             color: var(--text-primary);
-            overflow: hidden;
+            background: var(--background);
+            overflow-x: hidden;
         }
 
-        .desktop {
+        /* Navigation */
+        .nav {
             position: fixed;
-            inset: 0;
-            background: var(--dark);
-        }
-
-        .wallpaper-coding {
-            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-        }
-
-        .top-nav {
-            position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 48px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            z-index: 1000;
-        }
-
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .nav-right {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            opacity: 0.6;
-            transition: opacity 0.2s;
-        }
-
-        .nav-button:hover {
-            opacity: 1;
-        }
-
-        .nav-button.close { background: #ff5f57; }
-        .nav-button.minimize { background: #ffbd2e; }
-        .nav-button.maximize { background: #28ca42; }
-
-        .back-button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .back-button:hover {
-            background: var(--secondary);
-        }
-
-        .content-window {
-            position: absolute;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 800px;
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            padding: 32px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 0 2rem;
         }
 
-        .content-window h1 {
-            color: var(--primary);
-            font-size: 2.5rem;
-            margin-bottom: 24px;
-            text-align: center;
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
         }
 
-        .contact-intro {
-            text-align: center;
+        .nav-logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
             color: var(--text-secondary);
-            margin-bottom: 32px;
-            font-size: 1.1rem;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-
-        .contact-card {
-            background: var(--light);
-            border-radius: 12px;
-            padding: 24px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .contact-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .contact-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 16px;
-        }
-
-        .contact-card h3 {
-            color: var(--text-primary);
-            font-size: 1.3rem;
-            margin-bottom: 12px;
-        }
-
-        .contact-card p {
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-        }
-
-        .contact-link {
-            color: var(--primary);
             text-decoration: none;
             font-weight: 500;
             transition: color 0.2s;
         }
 
-        .contact-link:hover {
-            color: var(--secondary);
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-cta {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: #e55a2b;
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--surface);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .contact-info h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .contact-item:hover {
+            background: var(--surface);
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .contact-details h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-details p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .contact-details a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-details a:hover {
+            text-decoration: underline;
         }
 
         .social-links {
             display: flex;
-            justify-content: center;
-            gap: 24px;
-            margin-top: 32px;
+            gap: 1rem;
+            margin-top: 2rem;
         }
 
         .social-link {
+            width: 48px;
+            height: 48px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--primary);
-            color: white;
+            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+            font-size: 1.25rem;
+            transition: all 0.2s;
         }
 
         .social-link:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(66, 133, 244, 0.4);
-            background: var(--secondary);
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
         }
 
+        /* Contact Form */
         .contact-form {
-            background: var(--light);
-            border-radius: 12px;
-            padding: 24px;
-            margin-top: 32px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: white;
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .contact-form h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
         }
 
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 1.5rem;
         }
 
         .form-group label {
             display: block;
+            font-weight: 600;
             color: var(--text-primary);
-            font-weight: 500;
-            margin-bottom: 8px;
+            margin-bottom: 0.5rem;
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s;
             font-family: inherit;
-            font-size: 14px;
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
         }
 
-        .submit-btn {
-            background: var(--primary);
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            background: var(--primary-color);
             color: white;
+            padding: 1rem 2rem;
             border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 16px;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .form-submit:hover {
+            background: #e55a2b;
+            transform: translateY(-1px);
+        }
+
+        /* Code Example */
+        .code-example {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 4rem auto;
+            max-width: 800px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .code-comment {
+            color: #68d391;
+        }
+
+        .code-keyword {
+            color: #f687b3;
+        }
+
+        .code-string {
+            color: #fbd38d;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: var(--surface);
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stats-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-item {
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--surface);
+            padding: 3rem 2rem 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
             font-weight: 500;
-            transition: background 0.2s;
         }
 
-        .submit-btn:hover {
-            background: var(--secondary);
+        .footer-links a:hover {
+            color: var(--primary-color);
         }
 
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .content-window {
-                width: 95%;
-                padding: 24px;
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
             }
 
             .contact-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
-            .social-links {
-                gap: 16px;
+            .contact-info,
+            .contact-form {
+                padding: 2rem;
             }
 
-            .content-window h1 {
-                font-size: 2rem;
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
         }
     </style>
 </head>
 <body>
-    <div class="desktop wallpaper-coding">
-        <!-- Navigation -->
-        <div class="top-nav">
-            <div class="nav-left">
-                <div class="nav-button close"></div>
-                <div class="nav-button minimize"></div>
-                <div class="nav-button maximize"></div>
-            </div>
-            <div class="nav-right">
-                <a href="index.html" class="back-button">← Back to Desktop</a>
-            </div>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Saurab Mishra</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="blogs.html">Blog</a></li>
+            </ul>
+            <a href="#contact" class="nav-cta">Get in touch</a>
         </div>
+    </nav>
 
-        <!-- Content Window -->
-        <div class="content-window">
-            <h1>Get In Touch</h1>
-            <p class="contact-intro">
-                I'd love to hear from you! Whether you have questions about my work,
-                collaboration opportunities, or just want to connect, feel free to reach out.
-            </p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge"> Let's Connect</div>
+        <h1 class="hero-title">Get In Touch</h1>
+        <p class="hero-subtitle">
+            Have a project in mind? Want to collaborate on AI research? 
+            Or just want to chat about the future of technology? I'd love to hear from you.
+        </p>
+    </section>
 
-            <div class="contact-grid">
-                <div class="contact-card">
-                    <i class="fas fa-envelope contact-icon"></i>
-                    <h3>Email</h3>
-                    <p>Drop me a message anytime</p>
-                    <a href="mailto:saurab23@iisertvm.ac.in" class="contact-link">saurab23@iisertvm.ac.in</a>
+    <!-- Code Example -->
+    <div class="code-example">
+        <div class="code-comment"># How to reach me</div>
+        <div><span class="code-keyword">def</span> <span class="code-string">contact_saurab</span>():</div>
+        <div>    <span class="code-keyword">return</span> {</div>
+        <div>        <span class="code-string">"email"</span>: <span class="code-string">"saurab23@iisertvm.ac.in"</span>,</div>
+        <div>        <span class="code-string">"linkedin"</span>: <span class="code-string">"linkedin.com/in/saurab-mishra-493a73178"</span>,</div>
+        <div>        <span class="code-string">"instagram"</span>: <span class="code-string">"@saurabm12"</span>,</div>
+        <div>        <span class="code-string">"response_time"</span>: <span class="code-string">"< 24 hours"</span></div>
+        <div>    }</div>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-grid">
+            <!-- Contact Info -->
+            <div class="contact-info fade-in-up">
+                <h2>Let's Talk</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                    I'm always interested in discussing new opportunities, collaborations, 
+                    and innovative AI projects. Feel free to reach out!
+                </p>
+                
+                <div class="contact-item">
+                    <div class="contact-icon"></div>
+                    <div class="contact-details">
+                        <h3>Email</h3>
+                        <p><a href="mailto:saurab23@iisertvm.ac.in">saurab23@iisertvm.ac.in</a></p>
+                    </div>
                 </div>
 
-                <div class="contact-card">
-                    <i class="fas fa-map-marker-alt contact-icon"></i>
-                    <h3>Location</h3>
-                    <p>Based in India</p>
-                    <span style="color: var(--text-secondary);">Available for remote work</span>
+                <div class="contact-item">
+                    <div class="contact-icon"></div>
+                    <div class="contact-details">
+                        <h3>LinkedIn</h3>
+                        <p><a href="https://www.linkedin.com/in/saurab-mishra-493a73178/" target="_blank">Connect with me</a></p>
+                    </div>
                 </div>
 
-                <div class="contact-card">
-                    <i class="fas fa-clock contact-icon"></i>
-                    <h3>Response Time</h3>
-                    <p>Usually within 24 hours</p>
-                    <span style="color: var(--text-secondary);">Mon-Fri</span>
+                <div class="contact-item">
+                    <div class="contact-icon"></div>
+                    <div class="contact-details">
+                        <h3>Instagram</h3>
+                        <p><a href="https://www.instagram.com/saurabm12/" target="_blank">@saurabm12</a></p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon"></div>
+                    <div class="contact-details">
+                        <h3>Response Time</h3>
+                        <p>Usually within 24 hours</p>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/saurab-mishra-493a73178/" target="_blank" class="social-link"></a>
+                    <a href="https://www.instagram.com/saurabm12/" target="_blank" class="social-link"></a>
+                    <a href="mailto:saurab23@iisertvm.ac.in" class="social-link"></a>
                 </div>
             </div>
 
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/saurab-mishra-493a73178/" class="social-link" title="LinkedIn">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://github.com/SaurabMishra12" class="social-link" title="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.instagram.com/saurabm12/" class="social-link" title="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="mailto:saurab23@iisertvm.ac.in" class="social-link" title="Email">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div>
-
-            <div class="contact-form">
-                <h3 style="text-align: center; margin-bottom: 24px; color: var(--text-primary);">Send a Message</h3>
-                <form action="#" method="post">
+            <!-- Contact Form -->
+            <div class="contact-form fade-in-up">
+                <h2>Send a Message</h2>
+                <form action="mailto:saurab23@iisertvm.ac.in" method="post" enctype="text/plain">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required>
                     </div>
+                    
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" required>
                     </div>
+                    
                     <div class="form-group">
                         <label for="subject">Subject</label>
                         <input type="text" id="subject" name="subject" required>
                     </div>
+                    
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <textarea id="message" name="message" required></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
+                    
+                    <button type="submit" class="form-submit">Send Message</button>
                 </form>
             </div>
         </div>
-    </div>
-</body>
-</html>
-            align-items: center;
-            height: 60px;
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-        .logo {
-            color: #121212;
-            font-weight: 600;
-            font-size: 22px;
-            display: flex;
-            align-items: center;
-        }
-        .logo i {
-            margin-right: 10px;
-            font-size: 24px;
-        }
-        nav {
-            display: flex;
-            align-items: center;
-            margin-left: -40px;
-        }
-        nav a {
-            color: #121212;
-            text-decoration: none;
-            margin-left: 30px;
-            font-size: 16px;
-            opacity: 0.7;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        nav a:hover {
-            opacity: 1;
-        }
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #2997ff;
-            transition: width 0.3s ease;
-        }
-        nav a:hover::after {
-            width: 100%;
-        }
-        .contact-hero {
-            display: flex;
-            flex-direction: column;
+    </section>
 
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-            padding-top: 60px;
-        }
-        .contact-hero h1 {
-            font-size: 64px;
-            font-weight: 700;
-            background: linear-gradient(90deg, #121212, #121212);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 30px;
-        }
-        .contact-details {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 50px;
-            max-width: 700px;
-            width: 100%;
-            backdrop-filter: blur(10px);
-            text-align: center;
-            transition: all 0.4s ease;
-        }
-        .contact-details:hover {
-            transform: scale(1.02);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-        }
-        .contact-details h2 {
-            font-size: 32px;
-            margin-bottom: 30px;
-            background: linear-gradient(90deg, #121212, #0c0c0e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .contact-item {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-        }
-        .contact-item i {
-            font-size: 24px;
-            color: #2997ff;
-        }
-        .contact-item a {
-            color: #050505;
-            text-decoration: none;
-            font-size: 18px;
-            transition: color 0.3s ease;
-        }
-        .contact-item a:hover {
-            color: #2997ff;
-        }
-        .social-links {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        .social-links a {
-            color: rgba(18, 18, 18, 0.85);
-            font-size: 24px;
-            transition: color 0.3s ease;
-        }
-        .social-links a:hover {
-            color: #4062da;
-        }
-    </style>
-</head>
-<body>
-    <!-- Canvas for the animated background -->
-    <canvas id="neural-network-canvas"></canvas>
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <h2 class="stats-title">Why Work With Me?</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">20+</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Client Satisfaction</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24h</div>
+                    <div class="stat-label">Response Time</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <header>
-        <div class="nav-wrapper">
-            <nav>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
                 <a href="index.html">Home</a>
                 <a href="about.html">About</a>
                 <a href="projects.html">Projects</a>
-                <a href="blogs.html">Blogs</a>
+                <a href="blogs.html">Blog</a>
                 <a href="chatbot.html">Chat</a>
-            </nav>
-        </div>
-    </header>
-
-    <div class="container">
-        <section class="contact-hero">
-            <div class="contact-details">
-                <h2>Get In Touch</h2>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <a href="mailto:saurab23@iisertvm.ac.in">saurab23@iisertvm.ac.in</a>
-                    </div>
-                </div>
-                <div class="social-links">
-                    <a href="https://www.linkedin.com/in/saurab-mishra-493a73178/" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.instagram.com/saurabm12/" title="Instagram"><i class="fab fa-instagram"></i></a>
-                </div>
             </div>
-        </section>
-    </div>
+            <p class="footer-text">
+                 2024 Saurab Mishra. Building the future of AI, one algorithm at a time.
+            </p>
+        </div>
+    </footer>
 
     <script>
-        const canvas = document.getElementById('neural-network-canvas');
-        const ctx = canvas.getContext('2d');
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
 
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        // Observe all fade-in-up elements
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
         });
 
-        const nodes = [];
-        const numNodes = 40;
-        const nodeRadius = 3;
-        const nodeColor = '#020f45';
-        const connectionColor = 'rgb(3,4,9)'; // Semi-transparent blue
-
-        class Node {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.5; // Reduced speed
-                this.vy = (Math.random() - 0.5) * 0.5; // Reduced speed
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, nodeRadius, 0, Math.PI * 2);
-                ctx.fillStyle = nodeColor;
-                ctx.fill();
-            }
-        }
-
-        for (let i = 0; i < numNodes; i++) {
-            nodes.push(new Node());
-        }
-
-        function drawConnections() {
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i + 1; j < nodes.length; j++) {
-                    const dx = nodes[i].x - nodes[j].x;
-                    const dy = nodes[i].y - nodes[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 150) { // Reduced connection distance
-                        ctx.beginPath();
-                        ctx.moveTo(nodes[i].x, nodes[i].y);
-                        ctx.lineTo(nodes[j].x, nodes[j].y);
-                        ctx.strokeStyle = connectionColor;
-                        ctx.lineWidth = 0.5; // Reduced line width
-                        ctx.stroke();
-                    }
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            nodes.forEach(node => {
-                node.update();
-                node.draw();
             });
-
-            drawConnections();
-
-            requestAnimationFrame(animate);
-        }
-
-        animate();
+        });
     </script>
 </body>
 </html>

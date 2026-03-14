@@ -1,23 +1,27 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Projects & AI Innovation - Saurab Mishra</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <title>Projects | Saurab Mishra | AI/ML Engineer & Researcher</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --primary: #4285F4;
-            --secondary: #34A853;
-            --accent: #FBBC05;
-            --text-primary: #202124;
-            --text-secondary: #5F6368;
-            --background: #FFFFFF;
-            --light: #f5f5f5;
-            --dark: #1a1a1a;
-            --muted: #6b7280;
+            --primary-color: #ff6b35;
+            --secondary-color: #f7931e;
+            --accent-color: #00d4aa;
+            --text-primary: #2d3748;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --background: #ffffff;
+            --surface: #f7fafc;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -27,345 +31,398 @@
         }
 
         body {
-            font-family: 'Roboto', Arial, sans-serif;
-            background: var(--dark);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
             color: var(--text-primary);
-            overflow: hidden;
+            background: var(--background);
+            overflow-x: hidden;
         }
 
-        .desktop {
+        /* Navigation */
+        .nav {
             position: fixed;
-            inset: 0;
-            background: var(--dark);
-        }
-
-        .wallpaper-coding {
-            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-        }
-
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-        }
-
-        .top-nav {
-            position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 48px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
+            border-bottom: 1px solid var(--border);
             z-index: 1000;
+            padding: 0 2rem;
         }
 
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .nav-right {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            opacity: 0.6;
-            transition: opacity 0.2s;
-        }
-
-        .nav-button:hover {
-            opacity: 1;
-        }
-
-        .nav-button.close { background: #ff5f57; }
-        .nav-button.minimize { background: #ffbd2e; }
-        .nav-button.maximize { background: #28ca42; }
-
-        .back-button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .back-button:hover {
-            background: var(--secondary);
-        }
-
-        .content-window {
-            position: absolute;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
+        .nav-container {
             max-width: 1200px;
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-            z-index: 100;
-            max-height: calc(100vh - 120px);
-            overflow-y: auto;
-            position: relative;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
         }
 
-        .content-window::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
-            border-radius: 20px 20px 0 0;
+        .nav-logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-cta {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: #e55a2b;
+            transform: translateY(-1px);
         }
 
         /* Hero Section */
-        .hero-section {
+        .hero {
+            padding: 8rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
             text-align: center;
-            margin-bottom: 60px;
-            padding: 40px 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--surface);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
             border-radius: 20px;
-            position: relative;
-            overflow: hidden;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
         }
 
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
-            animation: float 20s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
-        .hero-section h1 {
-            font-size: 3.5rem;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            font-weight: 700;
-            position: relative;
-            z-index: 2;
+            background-clip: text;
         }
 
         .hero-subtitle {
-            font-size: 1.3rem;
-            color: #666;
-            margin-bottom: 40px;
-            max-width: 800px;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .projects-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .projects-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .projects-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background: var(--surface);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-category {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: var(--surface);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid var(--border);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .project-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+            transform: translateX(2px);
+        }
+
+        /* Featured Project */
+        .featured-project {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .featured-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .featured-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .featured-description {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-            line-height: 1.6;
-            position: relative;
-            z-index: 2;
+        }
+
+        .featured-cta {
+            background: white;
+            color: var(--primary-color);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+
+        .featured-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Stats Section */
+        .stats {
+            background: var(--surface);
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stats-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
+            gap: 2rem;
         }
 
         .stat-item {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 30px 20px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(102, 126, 234, 0.2);
-        }
-
-        .stat-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            padding: 1rem;
         }
 
         .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
         }
 
         .stat-label {
-            color: #666;
-            font-weight: 500;
             font-size: 1rem;
+            color: var(--text-secondary);
         }
 
-        /* Project Categories */
-        .project-categories {
+        /* Footer */
+        .footer {
+            background: var(--surface);
+            padding: 3rem 2rem 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-links {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 40px;
-            padding: 20px;
-            background: rgba(102, 126, 234, 0.05);
-            border-radius: 15px;
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
-        .category-btn {
-            padding: 12px 25px;
-            background: white;
-            border: 2px solid rgba(102, 126, 234, 0.2);
-            border-radius: 25px;
-            color: #666;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
-        }
-
-        .category-btn:hover {
-            background: rgba(102, 126, 234, 0.1);
-            border-color: rgba(102, 126, 234, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .category-btn.active {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        /* Projects Grid */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .project-card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
-            border: 1px solid rgba(102, 126, 234, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-        }
-
-        .project-card.featured {
-            border: 2px solid rgba(102, 126, 234, 0.3);
-            background: linear-gradient(145deg, #ffffff, #f8f9ff);
-        }
-
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .project-badge {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
             font-weight: 500;
         }
 
-        .project-icon {
-            font-size: 2rem;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .footer-links a:hover {
+            color: var(--primary-color);
         }
 
-        .project-card h2 {
-            font-size: 1.5rem;
-            color: #333;
-            margin-bottom: 15px;
-            font-weight: 600;
-            line-height: 1.3;
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.875rem;
         }
 
-        .project-summary {
-            color: #666;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            font-weight: 400;
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-title {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
         }
 
-        .project-details {
-            margin-bottom: 25px;
-            display: none;
-        }
-
-        .project-card:hover .project-details {
-            display: block;
-            animation: fadeInUp 0.5s ease;
-        }
-
+        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -373,1021 +430,251 @@
             }
         }
 
-        .detail-section {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: rgba(102, 126, 234, 0.03);
-            border-radius: 10px;
-            border-left: 3px solid #667eea;
-        }
-
-        .detail-section h4 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-        }
-
-        .detail-section p {
-            color: #666;
-            line-height: 1.6;
-            margin: 0;
-            font-size: 0.95rem;
-        }
-
-        .detail-section ul {
-            margin: 10px 0;
-            padding-left: 20px;
-            color: #666;
-        }
-
-        .detail-section li {
-            margin-bottom: 5px;
-            font-size: 0.95rem;
-        }
-
-        .project-technologies {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 25px;
-        }
-
-        .tech-tag {
-            background: rgba(102, 126, 234, 0.1);
-            color: #667eea;
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            border: 1px solid rgba(102, 126, 234, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .tech-tag:hover {
-            background: rgba(102, 126, 234, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .tech-tag.primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-color: transparent;
-            font-weight: 600;
-        }
-
-        .project-actions {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary, .btn-secondary {
-            padding: 12px 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
-        }
-
-        .btn-secondary:hover {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* Publications Section */
-        .publications-section {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
-            padding: 40px;
-            border-radius: 20px;
-            margin-top: 40px;
-        }
-
-        .publications-section h3 {
-            text-align: center;
-            font-size: 2.2rem;
-            color: #333;
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-
-        .publication-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-        }
-
-        .publication-item {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(102, 126, 234, 0.1);
-        }
-
-        .publication-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-        }
-
-        .pub-icon {
-            font-size: 2rem;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            flex-shrink: 0;
-        }
-
-        .pub-content h4 {
-            color: #333;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .pub-content p {
-            color: #666;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .pub-content a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .pub-content a:hover {
-            color: #764ba2;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .content-window {
-                width: 95%;
-                padding: 20px;
-                top: 60px;
-            }
-
-            .hero-section h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .project-categories {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .publication-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .project-actions {
-                flex-direction: column;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-section h1 {
-                font-size: 2rem;
-            }
-
-            .stat-number {
-                font-size: 2rem;
-            }
-
-            .project-card {
-                padding: 20px;
-            }
-
-            .publication-item {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-
-        /* Animation for category filtering */
-        .project-card.hidden {
-            display: none;
-        }
-
-        .project-card.visible {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
         }
     </style>
 </head>
 <body>
-    <div class="desktop wallpaper-coding">
-        <!-- Particles Background -->
-        <div id="particles-js"></div>
-        
-        <!-- Navigation -->
-        <div class="top-nav">
-            <div class="nav-left">
-                <div class="nav-button close"></div>
-                <div class="nav-button minimize"></div>
-                <div class="nav-button maximize"></div>
-            </div>
-            <div class="nav-right">
-                <a href="index.html" class="back-button">← Back to Desktop</a>
-            </div>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Saurab Mishra</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="blogs.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="contact.html" class="nav-cta">Get in touch</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge"> AI/ML Projects & Research</div>
+        <h1 class="hero-title">My Work</h1>
+        <p class="hero-subtitle">
+            Real projects solving real problems with AI and machine learning. 
+            From research to production, here's what I've been building.
+        </p>
+    </section>
+
+    <!-- Featured Project -->
+    <section class="projects">
+        <div class="featured-project fade-in-up">
+            <div class="featured-badge"> Featured Project</div>
+            <h2 class="featured-title">Step Mentor</h2>
+            <p class="featured-description">
+                An innovative learning solution leveraging Large Language Models (LLMs) to personalize learning pathways for competitive exam preparation. 
+                Integrated advanced natural language understanding, adaptive learning models, and intelligent scheduling systems.
+            </p>
+            <a href="https://www.youtube.com/watch?v=RVKZBXkMGrI" target="_blank" class="featured-cta">
+                Watch Demo 
+            </a>
         </div>
 
-        <!-- Content Window -->
-        <div class="content-window">
-            <div class="hero-section">
-                <h1>Research Projects & AI Innovation</h1>
-                <p class="hero-subtitle">Pioneering advanced AI systems through cutting-edge research in Machine Learning, NLP, and Distributed Intelligence</p>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-number">4</div>
-                        <div class="stat-label">Core Research Areas</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">15+</div>
-                        <div class="stat-label">Published Projects</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">70B+</div>
-                        <div class="stat-label">Parameter Models</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project Categories -->
-            <div class="project-categories">
-                <button class="category-btn active" data-category="all">All Projects</button>
-                <button class="category-btn" data-category="core">Core Research</button>
-                <button class="category-btn" data-category="applied">Applied AI</button>
-                <button class="category-btn" data-category="systems">Systems</button>
-            </div>
-
-            <div class="projects-grid">
-                <!-- RLHF Project -->
-                <div class="project-card featured" data-category="core">
-                    <div class="project-header">
-                        <div class="project-badge">Core Research</div>
-                        <i class="project-icon fas fa-user-check"></i>
-                    </div>
-                    <h2>Reinforcement Learning from Human Feedback (RLHF)</h2>
-                    <div class="project-summary">
-                        Advanced AI training pipelines incorporating human feedback to align systems with ethical standards and human values.
-                    </div>
-                    <div class="project-details">
-                        <div class="detail-section">
-                            <h4>🎯 Research Focus</h4>
-                            <p>Developing sophisticated reward modeling systems that enable AI systems to learn from human preferences and feedback, creating more aligned and ethical AI behavior.</p>
-                        </div>
-                        <div class="detail-section">
-                            <h4>🔬 Key Innovations</h4>
-                            <ul>
-                                <li>Human-in-the-loop reinforcement learning algorithms</li>
-                                <li>Advanced reward modeling techniques</li>
-                                <li>Preference learning from human demonstrations</li>
-                                <li>Ethical AI alignment frameworks</li>
-                            </ul>
-                        </div>
-                        <div class="detail-section">
-                            <h4>📊 Research Impact</h4>
-                            <p>Enabled development of ethical AI systems prioritizing fairness, transparency, and inclusivity. Contributing to safer AI deployment in critical applications.</p>
-                        </div>
-                    </div>
-                    <div class="project-technologies">
-                        <span class="tech-tag primary">RLHF</span>
-                        <span class="tech-tag">Ethical AI</span>
-                        <span class="tech-tag">Human-in-the-Loop</span>
-                        <span class="tech-tag">Reinforcement Learning</span>
-                        <span class="tech-tag">Reward Modeling</span>
-                    </div>
-                    <div class="project-actions">
-                        <a href="https://medium.com/@saurabmishra/rlhf-the-engine-tuning-human-values-into-large-language-models-9c4bfd75fc79" class="btn-primary">Read Research</a>
-                        <a href="#" class="btn-secondary">View Code</a>
-                    </div>
-                </div>
-
-                <!-- Multi-Agent Systems Project -->
-                <div class="project-card featured" data-category="core">
-                    <div class="project-header">
-                        <div class="project-badge">Core Research</div>
-                        <i class="project-icon fas fa-network-wired"></i>
-                    </div>
-                    <h2>Multi-Agent Systems (MAS) for Collaborative AI</h2>
-                    <div class="project-summary">
-                        Revolutionary multi-agent frameworks for enhanced LLM performance through intelligent collaboration and contextual optimization.
-                    </div>
-                    <div class="project-details">
-                        <div class="detail-section">
-                            <h4>🎯 Research Focus</h4>
-                            <p>Developing collaborative AI systems where specialized agents work together to solve complex problems, leveraging CrewAI framework with LLaMA 3.3 (70B parameters).</p>
-                        </div>
-                        <div class="detail-section">
-                            <h4>🔬 Key Innovations</h4>
-                            <ul>
-                                <li>Agent coordination and communication protocols</li>
-                                <li>Knowledge fusion across distributed systems</li>
-                                <li>Dynamic contextual optimization</li>
-                                <li>Modular LLM integration with NVIDIA NeMo</li>
-                            </ul>
-                        </div>
-                        <div class="detail-section">
-                            <h4>🤖 Agent Architecture</h4>
-                            <p><strong>SearchAgent:</strong> Literature retrieval from PubMed, arXiv, Google Scholar<br>
-                               <strong>SummarizationAgent:</strong> Extracts methodologies and findings<br>
-                               <strong>TrendAgent:</strong> Identifies patterns and knowledge gaps<br>
-                               <strong>ManagerAgent:</strong> Coordinates workflow and task delegation</p>
-                        </div>
-                        <div class="detail-section">
-                            <h4>📊 Research Impact</h4>
-                            <p>Improved multi-faceted decision-making and conversational AI accuracy. Accelerated scientific discovery through automated research workflows.</p>
-                        </div>
-                    </div>
-                    <div class="project-technologies">
-                        <span class="tech-tag primary">MAS</span>
-                        <span class="tech-tag">CrewAI</span>
-                        <span class="tech-tag">LLaMA 3.3</span>
-                        <span class="tech-tag">NVIDIA NeMo</span>
-                        <span class="tech-tag">Collaborative AI</span>
-                    </div>
-                    <div class="project-actions">
-                        <a href="MAS-Blog.html" class="btn-primary">Read Research</a>
-                        <a href="#" class="btn-secondary">View Implementation</a>
-                    </div>
-                </div>
-
-                <!-- Retrieval-Augmented Generation Project -->
-                <div class="project-card featured" data-category="core">
-                    <div class="project-header">
-                        <div class="project-badge">Core Research</div>
-                        <i class="project-icon fas fa-lightbulb"></i>
-                    </div>
-                    <h2>Retrieval-Augmented Generation (RAG) Framework</h2>
-                    <div class="project-summary">
-                        Revolutionary generative AI system integrating real-time knowledge retrieval for contextually rich and accurate responses.
-                    </div>
-                    <div class="project-details">
-                        <div class="detail-section">
-                            <h4>🎯 Research Focus</h4>
-                            <p>Advancing generative AI capabilities by seamlessly integrating external knowledge sources, reducing hallucinations, and enhancing factual accuracy in AI responses.</p>
-                        </div>
-                        <div class="detail-section">
-                            <h4>🔬 Key Innovations</h4>
-                            <ul>
-                                <li>Knowledge graph integration and optimization</li>
-                                <li>Advanced retrieval mechanisms with vector databases</li>
-                                <li>Hybrid generative-retrieval architectures</li>
-                                <li>Real-time knowledge updates and validation</li>
-                            </ul>
-                        </div>
-                        <div class="detail-section">
-                            <h4>🏗️ System Architecture</h4>
-                            <p>Multi-layered RAG system with dense retrieval, re-ranking mechanisms, and adaptive generation strategies for domain-specific applications.</p>
-                        </div>
-                        <div class="detail-section">
-                            <h4>📊 Research Impact</h4>
-                            <p>Enhanced AI systems' ability to handle complex queries across domains like scientific research, legal advisory, and financial analysis with unprecedented accuracy.</p>
-                        </div>
-                    </div>
-                    <div class="project-technologies">
-                        <span class="tech-tag primary">RAG</span>
-                        <span class="tech-tag">Knowledge Graphs</span>
-                        <span class="tech-tag">Vector Databases</span>
-                        <span class="tech-tag">Generative AI</span>
-                        <span class="tech-tag">Information Retrieval</span>
-                    </div>
-                    <div class="project-actions">
-                        <a href="#" class="btn-primary">Research Paper</a>
-                        <a href="#" class="btn-secondary">Demo</a>
-                    </div>
-                </div>
-
-                <!-- Large Language Models Project -->
-                <div class="project-card featured" data-category="core">
-                    <div class="project-header">
-                        <div class="project-badge">Core Research</div>
-                        <i class="project-icon fas fa-brain"></i>
-                    </div>
-                    <h2>Large Language Models (LLMs) & Advanced Applications</h2>
-                    <div class="project-summary">
-                        Comprehensive research and development of next-generation LLMs for diverse applications spanning education, research, and industry.
-                    </div>
-                    <div class="project-details">
-                        <div class="detail-section">
-                            <h4>🎯 Research Focus</h4>
-                            <p>Developing state-of-the-art language models with enhanced reasoning capabilities, domain adaptation, and efficient deployment strategies.</p>
-                        </div>
-                        <div class="detail-section">
-                            <h4>🔬 Key Innovations</h4>
-                            <ul>
-                                <li>Advanced prompt engineering techniques</li>
-                                <li>Domain-specific fine-tuning methodologies</li>
-                                <li>Scalable deployment architectures</li>
-                                <li>Multi-modal integration capabilities</li>
-                            </ul>
-                        </div>
-                        <div class="detail-section">
-                            <h4>🚀 Applications</h4>
-                            <p><strong>Step Mentor:</strong> AI-powered educational platform with personalized learning<br>
-                               <strong>Noteworthy:</strong> YouTube video summarization with NLP<br>
-                               <strong>Research Assistant:</strong> Scientific literature analysis and synthesis</p>
-                        </div>
-                        <div class="detail-section">
-                            <h4>📊 Research Impact</h4>
-                            <p>Built robust LLM-powered solutions serving education, research, and industry with enhanced user engagement and learning efficiency.</p>
-                        </div>
-                    </div>
-                    <div class="project-technologies">
-                        <span class="tech-tag primary">LLMs</span>
-                        <span class="tech-tag">Transformers</span>
-                        <span class="tech-tag">Fine-tuning</span>
-                        <span class="tech-tag">NLP</span>
-                        <span class="tech-tag">Deep Learning</span>
-                    </div>
-                    <div class="project-actions">
-                        <a href="https://www.youtube.com/watch?v=RVKZBXkMGrI" class="btn-primary">View Demo</a>
-                        <a href="#" class="btn-secondary">Documentation</a>
-                    </div>
-                </div>
-
-                <!-- Applied AI Projects -->
-                <div class="project-card" data-category="applied">
-                    <div class="project-header">
-                        <div class="project-badge">Applied AI</div>
-                        <i class="project-icon fas fa-rocket"></i>
-                    </div>
-                    <h2>Falcon 9 Landing Success Prediction</h2>
-                    <div class="project-summary">
-                        Machine learning model analyzing SpaceX Falcon 9 rocket landing success using comprehensive historical data.
-                    </div>
-                    <div class="project-details">
-                        <div class="detail-section">
-                            <h4>🎯 Objective</h4>
-                            <p>Develop predictive models to optimize launch costs and enhance space exploration efficiency through advanced feature engineering and ensemble modeling.</p>
-                        </div>
-                        <div class="detail-section">
-                            <h4>⚙️ Technical Implementation</h4>
-                            <ul>
-                                <li>Novel feature engineering pipelines</li>
-                                <li>Ensemble model architectures</li>
-                                <li>Historical data analysis and preprocessing</li>
-                                <li>Performance optimization techniques</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="project-technologies">
-                        <span class="tech-tag">Machine Learning</span>
-                        <span class="tech-tag">TensorFlow</span>
-                        <span class="tech-tag">Scikit-learn</span>
-                        <span class="tech-tag">Data Analysis</span>
-                    </div>
-                    <div class="project-actions">
-                        <a href="https://github.com/SaurabMishra12/Predicting-the-Landing-Success-of-Falcon-9-First-Stages" class="btn-primary">View Project</a>
-                    </div>
-                </div>
-
-                <!-- Medical AI Project -->
-                <div class="project-card" data-category="applied">
-                    <div class="project-header">
-                        <div class="project-badge">Applied AI</div>
-                        <i class="project-icon fas fa-capsules"></i>
-                    </div>
-                    <h2>Medical Drug Recommendation System</h2>
-                    <div class="project-summary">
-                        ML-driven precision medicine system utilizing patient data and decision tree algorithms for personalized drug recommendations.
-                    </div>
-                    <div class="project-details">
-                        <div class="detail-section">
-                            <h4>🎯 Healthcare Innovation</h4>
-                            <p>Built robust decision support system for healthcare providers, enabling personalized treatment recommendations based on patient-specific factors.</p>
-                        </div>
-                        <div class="detail-section">
-                            <h4>🔬 Methodology</h4>
-                            <ul>
-                                <li>Predictive analytics for healthcare</li>
-                                <li>Healthcare data modeling and preprocessing</li>
-                                <li>Decision tree classification algorithms</li>
-                                <li>Patient outcome optimization</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="project-technologies">
-                        <span class="tech-tag">Healthcare AI</span>
-                        <span class="tech-tag">Decision Trees</span>
-                        <span class="tech-tag">Medical Data</span>
-                        <span class="tech-tag">Precision Medicine</span>
-                    </div>
-                    <div class="project-actions">
-                        <a href="https://github.com/SaurabMishra12/Medical-Solutions-Comprehensive-Drug-Recommendation-for-Accurate-Prescriptions" class="btn-primary">View Project</a>
-                    </div>
-                </div>
-
-                <!-- Customer Analytics Project -->
-                <div class="project-card" data-category="systems">
-                    <div class="project-header">
-                        <div class="project-badge">Data Systems</div>
-                        <i class="project-icon fas fa-chart-line"></i>
-                    </div>
-                    <h2>Customer Segmentation & Analytics</h2>
-                    <div class="project-summary">
-                        Advanced machine learning system for telecommunications customer behavior analysis and predictive segmentation.
-                    </div>
-                    <div class="project-details">
-                        <div class="detail-section">
-                            <h4>📊 Business Intelligence</h4>
-                            <p>Comprehensive customer analytics platform enabling personalized service recommendations and targeted marketing strategies through behavioral analysis.</p>
-                        </div>
-                        <div class="detail-section">
-                            <h4>🔍 Key Methodologies</h4>
-                            <ul>
-                                <li>Behavioral analytics and clustering</li>
-                                <li>Customer lifetime value prediction</li>
-                                <li>Churn prediction and prevention</li>
-                                <li>Personalization algorithms</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="project-technologies">
-                        <span class="tech-tag">Customer Analytics</span>
-                        <span class="tech-tag">Clustering</span>
-                        <span class="tech-tag">Predictive Modeling</span>
-                        <span class="tech-tag">Business Intelligence</span>
-                    </div>
-                    <div class="project-actions">
-                        <a href="https://github.com/SaurabMishra12/Predictive-Customer-Segmentation-for-Telecom-Services" class="btn-primary">View Project</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Research Publications & Media -->
-            <div class="publications-section">
-                <h3>Research Publications & Media</h3>
-                <div class="publication-grid">
-                    <div class="publication-item">
-                        <div class="pub-icon">📄</div>
-                        <div class="pub-content">
-                            <h4>Multi-Agent Systems: The Future of Collaborative AI</h4>
-                            <p>Comprehensive analysis of MAS frameworks and applications</p>
-                            <a href="MAS-Blog.html">Read Article</a>
-                        </div>
-                    </div>
-                    <div class="publication-item">
-                        <div class="pub-icon">📺</div>
-                        <div class="pub-content">
-                            <h4>Step Mentor: AI Educational Platform Demo</h4>
-                            <p>Live demonstration of LLM-powered learning system</p>
-                            <a href="https://www.youtube.com/watch?v=RVKZBXkMGrI">Watch Demo</a>
-                        </div>
-                    </div>
-                    <div class="publication-item">
-                        <div class="pub-icon">📖</div>
-                        <div class="pub-content">
-                            <h4>RLHF: Aligning LLMs with Human Values</h4>
-                            <p>In-depth exploration of reinforcement learning from human feedback</p>
-                            <a href="https://medium.com/@saurabmishra/rlhf-the-engine-tuning-human-values-into-large-language-models-9c4bfd75fc79">Read on Medium</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Projects Grid -->
+        <div class="projects-header">
+            <h2 class="projects-title">All Projects</h2>
+            <p class="projects-subtitle">
+                A collection of AI/ML projects spanning multiple domains and technologies.
+            </p>
         </div>
-        </div>
-    </div>
-</body>
-</html>
-        }
-        .project-details {
-            color: #86868b;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-        .project-technologies {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .tech-tag {
-            background: rgba(255,255,255,0.1);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            color: #2997ff;
-        }
-        .project-card a {
-            display: inline-block;
-            color: #2997ff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: transform 0.3s ease;
-        }
-        .project-card a:hover {
-            transform: translateX(5px);
-        }
-        .project-icon {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            font-size: 50px;
-            color: rgba(255,255,255,0.1);
-            z-index: 1;
-        }
-        @media (max-width: 1024px) {
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-            .projects-hero h1 {
-                font-size: 48px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="nav-wrapper">
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="blogs.html">Blogs</a>
-                <a href="contact.html">Contact</a>
-                <a href="chatbot.html">Chat</a>
-            </nav>
-        </div>
-    </header>
-
-    <div class="container">
-        <section class="projects-hero">
-            <h1>My Project</h1>
-        </section>
 
         <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-card-content">
-                    <i class="project-icon fas fa-brain"></i>
-                    <h2>Step Mentor</h2>
-                    <div class="project-details">
-                        An innovative learning solution leveraging Large Language Models (LLMs) to personalize learning pathways for competitive exam preparation. Integrated advanced natural language understanding, adaptive learning models, and intelligent scheduling systems to optimize learning outcomes.
-
-                     <p> Key Innovations: LLM integration, adaptive algorithms, personalized curriculum design.</p>
-                     <p> Research Impact: Demonstrated enhanced user engagement and improved study efficiency.</p>
-                    </div>
-                    <div class="project-technologies">
-                        <span class="tech-tag">LLMs</span>
-                        <span class="tech-tag">Machine Learning</span>
-                        <span class="tech-tag">Data Science</span>
-                        <span class="tech-tag">UI/UX Design</span>
+            <!-- RLHF Project -->
+            <div class="project-card fade-in-up">
+                <img src="rlhfimg.jpeg" alt="RLHF Project" class="project-image">
+                <div class="project-content">
+                    <div class="project-category">Research</div>
+                    <h3 class="project-title">Reinforcement Learning from Human Feedback</h3>
+                    <p class="project-description">
+                        Advanced AI training pipelines incorporating human feedback to align systems with ethical standards and values.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">RLHF</span>
+                        <span class="tech-tag">Ethical AI</span>
+                        <span class="tech-tag">Human-in-the-Loop</span>
                         <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Flask</span>
                     </div>
-                    <a href="https://www.youtube.com/watch?v=RVKZBXkMGrI">Learn more ></a>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Details </a>
+                    </div>
                 </div>
             </div>
 
-            <div class="project-card">
-                <div class="project-card-content">
-                    <i class="project-icon fas fa-rocket"></i>
-                    <h2>Predicting Falcon 9 Landing Success</h2>
-                    <div class="project-details">
-                        Developed a predictive model to analyze the success of SpaceX Falcon 9 rocket landings using historical data. Implemented machine learning techniques to improve prediction accuracy, optimizing launch costs and enhancing space exploration efficiency.
-                    <p>Key Contributions: Developed novel feature engineering pipelines and applied ensemble models for improved prediction accuracy.</p>
-                        <p>Research Significance: Boosted reliability and cost-effectiveness in aerospace systems.</p>
+            <!-- Multi-Agent Systems -->
+            <div class="project-card fade-in-up">
+                <img src="masimg.webp" alt="Multi-Agent Systems" class="project-image">
+                <div class="project-content">
+                    <div class="project-category">Research</div>
+                    <h3 class="project-title">Multi-Agent Systems for LLM Performance</h3>
+                    <p class="project-description">
+                        Leveraging multi-agent frameworks to refine language model performance through collaboration and contextual optimization.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">MAS</span>
+                        <span class="tech-tag">Collaborative AI</span>
+                        <span class="tech-tag">Language Models</span>
+                        <span class="tech-tag">Python</span>
                     </div>
-                    <div class="project-technologies">
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Details </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RAG System -->
+            <div class="project-card fade-in-up">
+                <img src="ragimg.png" alt="RAG System" class="project-image">
+                <div class="project-content">
+                    <div class="project-category">Research</div>
+                    <h3 class="project-title">Retrieval-Augmented Generation Framework</h3>
+                    <p class="project-description">
+                        Revolutionized generative AI by integrating real-time knowledge retrieval for contextually rich and accurate responses.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">RAG</span>
+                        <span class="tech-tag">Knowledge Graphs</span>
+                        <span class="tech-tag">Generative AI</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Details </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Falcon 9 Landing Prediction -->
+            <div class="project-card fade-in-up">
+                <div class="project-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;"></div>
+                <div class="project-content">
+                    <div class="project-category">Data Science</div>
+                    <h3 class="project-title">Predicting Falcon 9 Landing Success</h3>
+                    <p class="project-description">
+                        Developed a predictive model to analyze the success of SpaceX Falcon 9 rocket landings using historical data and machine learning techniques.
+                    </p>
+                    <div class="project-tech">
                         <span class="tech-tag">TensorFlow</span>
                         <span class="tech-tag">Scikit-learn</span>
                         <span class="tech-tag">Python</span>
-                    </div>
-                    <a href="#">Explore project ></a>
-                </div>
-            </div>
-
-
-
- <div class="project-card">
-                <div class="project-card-content">
-                    <i class="project-icon fas fa-rocket"></i>
-                    <h2>Estimating Carbon Footprints in Automobiles</h2>
-                    <div class="project-details">
-                        Developed an ML-based solution to analyze car attributes and predict CO2 emissions, fostering sustainable transportation strategies.
-
-                        <p>Research Applications: Environmental impact assessment, sustainable design innovation.</p>
-                    </div>
-                    <div class="project-technologies">
-                        <span class="tech-tag">Data Science</span>
-                        <span class="tech-tag">Cloud</span>
-                        <span class="tech-tag">Python</span>
-                    </div>
-                    <a href="#">Explore project ></a>
-                </div>
-            </div>
-
-         <div class="project-card">
-                <div class="project-card-content">
-                    <i class="project-icon fas fa-brain"></i>
-                    <h2>Predictive Modeling for Market and Vehicle Insights</h2>
-                    <div class="project-details">
-
-                     <p><h3>Tech Market Predictive Modeller:</h3> Designed a regression-based pipeline for laptop price prediction, incorporating advanced feature engineering and model tuning.
-</p>
-                     <p><h3> Vehicular Valuation Predictor:</h3> Created a comprehensive car valuation system using machine learning models for precise price estimation and market insights.</p>
-                    </div>
-                    <div class="project-technologies">
-                        <span class="tech-tag">Data Science</span>
-                        <span class="tech-tag">Machine Learning</span>
                         <span class="tech-tag">Data Analysis</span>
-                        <span class="tech-tag">Python</span>
-
                     </div>
-                    <a href="#">view</a>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Details </a>
+                    </div>
                 </div>
             </div>
 
-
-
-
-             <div class="project-card">
-                <div class="project-card-content">
-                    <i class="project-icon fas fa-brain"></i>
-                    <h2>Noteworthy</h2>
-                    <div class="project-details">
-                        Designed an intelligent interface combining automatic natural language processing to generate precise, context-aware notes from YouTube videos. Advanced AI solutions were deployed to create concise summaries while enabling user customization.
-                     <p> Key Innovations: LLM integration, ML algorithms, Text Summarization.</p>
-                     <p> Applications: Educational content curation, knowledge distillation, and e-learning.</p>
+            <!-- Carbon Footprint Analysis -->
+            <div class="project-card fade-in-up">
+                <div class="project-image" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;"></div>
+                <div class="project-content">
+                    <div class="project-category">Environmental AI</div>
+                    <h3 class="project-title">Estimating Carbon Footprints in Automobiles</h3>
+                    <p class="project-description">
+                        Developed an ML-based solution to analyze car attributes and predict CO2 emissions, fostering sustainable transportation strategies.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Data Science</span>
+                        <span class="tech-tag">Cloud Computing</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">ML</span>
                     </div>
-                    <div class="project-technologies">
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Details </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Noteworthy -->
+            <div class="project-card fade-in-up">
+                <div class="project-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;"></div>
+                <div class="project-content">
+                    <div class="project-category">NLP Application</div>
+                    <h3 class="project-title">Noteworthy</h3>
+                    <p class="project-description">
+                        Designed an intelligent interface combining automatic natural language processing to generate precise, context-aware notes from YouTube videos.
+                    </p>
+                    <div class="project-tech">
                         <span class="tech-tag">LLMs</span>
                         <span class="tech-tag">Machine Learning</span>
                         <span class="tech-tag">API</span>
-                        <span class="tech-tag">Python</span>
                         <span class="tech-tag">Flask</span>
                     </div>
-                    <a href="#">view</a>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Details </a>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-
-
-
-
-
-
-
-            <div class="project-card">
-                <div class="project-card-content">
-                    <i class="project-icon fas fa-chart-line"></i>
-                    <h2>Customer Segmentation</h2>
-                    <div class="project-details">
-                       Built a machine learning model to analyze and predict customer behavior in the telecommunications sector, enabling personalized service recommendations and marketing strategies.
-                    <p>Key Insights: Behavioral analytics, clustering, and classification for targeted engagement.
-</p>
-                    </div>
-                    <div class="project-technologies">
-                        <span class="tech-tag">Jupyter</span>
-                        <span class="tech-tag">Machine Learning</span>
-                        <span class="tech-tag">SQL</span>
-                    </div>
-                    <a href="#">View details ></a>
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <h2 class="stats-title">Project Impact</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">20+</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Research Domains</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Open Source</div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="project-card">
-                <div class="project-card-content">
-                    <i class="project-icon fas fa-capsules"></i>
-                    <h2>Medical Drug Recommendation</h2>
-                    <div class="project-details">
-                       Built a robust ML-driven system for precision medicine, utilizing patient data and decision tree algorithms to recommend drugs tailored to individual needs.
-                    <p>Key Methodologies: Predictive analytics, healthcare data modeling, and classification algorithms.
-   </p><p>Research Outcome: Improved prescription accuracy and enhanced patient outcomes.</p>
-                    </div>
-                    <div class="project-technologies">
-                        <span class="tech-tag">ML</span>
-                        <span class="tech-tag">Data Science</span>
-                        <span class="tech-tag"> Data Analysis</span>
-                    </div>
-                    <a href="#">View  ></a>
-                </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="blogs.html">Blog</a>
+                <a href="contact.html">Contact</a>
+                <a href="chatbot.html">Chat</a>
             </div>
-
-
-              <div class="project-card">
-    <div class="project-card-content">
-        <i class="project-icon fas fa-lightbulb"></i>
-        <h2>Retrieval-Augmented Generation Research Framework</h2>
-        <div class="project-details">
-            Revolutionized generative AI by integrating real-time knowledge retrieval, enabling contextually rich and accurate query responses.
-            <p>Key Innovations: Knowledge graph integration, model retrieval optimization, and hybrid generative systems.</p>
-            <p>Research Outcome: Enhanced AI systems' ability to handle complex queries across domains like scientific research and legal advisory.</p>
+            <p class="footer-text">
+                 2024 Saurab Mishra. Building the future of AI, one algorithm at a time.
+            </p>
         </div>
-        <div class="project-technologies">
-            <span class="tech-tag">RAG</span>
-            <span class="tech-tag">Knowledge Graphs</span>
-            <span class="tech-tag">Generative AI</span>
-        </div>
-        <a href="#">View ></a>
-    </div>
-</div>
+    </footer>
 
-<div class="project-card">
-    <div class="project-card-content">
-        <i class="project-icon fas fa-user-check"></i>
-        <h2>Reinforcement Learning from Human Feedback</h2>
-        <div class="project-details">
-            Advanced AI training pipelines by incorporating human feedback to align systems with ethical standards and values.
-            <p>Key Innovations: Reinforcement learning algorithms and human-in-the-loop systems.</p>
-            <p>Research Outcome: Enabled the development of ethical AI systems that prioritize fairness, transparency, and inclusivity.</p>
-        </div>
-        <div class="project-technologies">
-            <span class="tech-tag">RLHF</span>
-            <span class="tech-tag">Ethical AI</span>
-            <span class="tech-tag">Human-in-the-Loop</span>
-        </div>
-        <a href="#">View ></a>
-    </div>
-</div>
+    <script>
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-<div class="project-card">
-    <div class="project-card-content">
-        <i class="project-icon fas fa-network-wired"></i>
-        <h2>Multi-Agent Systems for Enhanced LLM Performance</h2>
-        <div class="project-details">
-            Leveraged multi-agent frameworks to refine language model performance through collaboration and contextual optimization.
-            <p>Key Innovations: Agent coordination, knowledge fusion, and dynamic contextual systems.</p>
-            <p>Research Outcome: Improved multi-faceted decision-making and conversational AI accuracy.</p>
-        </div>
-        <div class="project-technologies">
-            <span class="tech-tag">MAS</span>
-            <span class="tech-tag">Collaborative AI</span>
-            <span class="tech-tag">Language Models</span>
-        </div>
-        <a href="#">View ></a>
-    </div>
-</div>
-
-
-
-
-        </div>
-
-        <script>
-            // Project category filtering functionality
-            document.addEventListener('DOMContentLoaded', function() {
-                const categoryBtns = document.querySelectorAll('.category-btn');
-                const projectCards = document.querySelectorAll('.project-card');
-
-                categoryBtns.forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        // Remove active class from all buttons
-                        categoryBtns.forEach(b => b.classList.remove('active'));
-                        // Add active class to clicked button
-                        this.classList.add('active');
-
-                        const category = this.getAttribute('data-category');
-
-                        projectCards.forEach(card => {
-                            if (category === 'all' || card.getAttribute('data-category') === category) {
-                                card.style.display = 'block';
-                                card.classList.add('visible');
-                                card.classList.remove('hidden');
-                            } else {
-                                card.style.display = 'none';
-                                card.classList.add('hidden');
-                                card.classList.remove('visible');
-                            }
-                        });
-                    });
-                });
-
-                // Initialize particles background
-                if (typeof particlesJS !== 'undefined') {
-                    particlesJS('particles-js', {
-                        particles: {
-                            number: { value: 80, density: { enable: true, value_area: 800 } },
-                            color: { value: '#667eea' },
-                            shape: {
-                                type: 'circle',
-                                stroke: { width: 0, color: '#000000' },
-                                polygon: { nb_sides: 5 }
-                            },
-                            opacity: {
-                                value: 0.5,
-                                random: false,
-                                anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false }
-                            },
-                            size: {
-                                value: 3,
-                                random: true,
-                                anim: { enable: false, speed: 40, size_min: 0.1, sync: false }
-                            },
-                            line_linked: {
-                                enable: true,
-                                distance: 150,
-                                color: '#667eea',
-                                opacity: 0.4,
-                                width: 1
-                            },
-                            move: {
-                                enable: true,
-                                speed: 6,
-                                direction: 'none',
-                                random: false,
-                                straight: false,
-                                out_mode: 'out',
-                                bounce: false,
-                                attract: { enable: false, rotateX: 600, rotateY: 1200 }
-                            }
-                        },
-                        interactivity: {
-                            detect_on: 'canvas',
-                            events: {
-                                onhover: { enable: true, mode: 'repulse' },
-                                onclick: { enable: true, mode: 'push' },
-                                resize: true
-                            },
-                            modes: {
-                                grab: { distance: 400, line_linked: { opacity: 1 } },
-                                bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-                                repulse: { distance: 200, duration: 0.4 },
-                                push: { particles_nb: 4 },
-                                remove: { particles_nb: 2 }
-                            }
-                        },
-                        retina_detect: true
-                    });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
-
-                // Add smooth scrolling for better UX
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        document.querySelector(this.getAttribute('href')).scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    });
-                });
-
-                // Add loading animation for project cards
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translateY(0)';
-                        }
-                    });
-                });
-
-                projectCards.forEach(card => {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
-                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                    observer.observe(card);
-                });
             });
-        </script>
-    </div>
+        }, observerOptions);
+
+        // Observe all fade-in-up elements
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>

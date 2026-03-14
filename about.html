@@ -1,21 +1,27 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Saurab Mishra</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>About Saurab Mishra | AI/ML Engineer & Researcher</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --primary: #4285F4;
-            --secondary: #34A853;
-            --accent: #FBBC05;
-            --text-primary: #202124;
-            --text-secondary: #5F6368;
-            --background: #FFFFFF;
-            --light: #f5f5f5;
-            --dark: #1a1a1a;
-            --muted: #6b7280;
+            --primary-color: #ff6b35;
+            --secondary-color: #f7931e;
+            --accent-color: #00d4aa;
+            --text-primary: #2d3748;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --background: #ffffff;
+            --surface: #f7fafc;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -25,492 +31,512 @@
         }
 
         body {
-            font-family: 'Roboto', Arial, sans-serif;
-            background: var(--dark);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
             color: var(--text-primary);
-            overflow: hidden;
+            background: var(--background);
+            overflow-x: hidden;
         }
 
-        .desktop {
+        /* Navigation */
+        .nav {
             position: fixed;
-            inset: 0;
-            background: var(--dark);
-        }
-
-        .wallpaper-coding {
-            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-        }
-
-        .top-nav {
-            position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 48px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            z-index: 1000;
-        }
-
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .nav-right {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            opacity: 0.6;
-            transition: opacity 0.2s;
-        }
-
-        .nav-button:hover {
-            opacity: 1;
-        }
-
-        .nav-button.close { background: #ff5f57; }
-        .nav-button.minimize { background: #ffbd2e; }
-        .nav-button.maximize { background: #28ca42; }
-
-        .back-button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .back-button:hover {
-            background: var(--secondary);
-        }
-
-        .content-window {
-            position: absolute;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 800px;
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            padding: 32px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 0 2rem;
         }
 
-        .content-window h1 {
-            color: var(--primary);
-            font-size: 2.5rem;
-            margin-bottom: 24px;
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .nav-logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-cta {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: #e55a2b;
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
             text-align: center;
         }
 
-        .profile-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 32px;
-        }
-
-        .profile-image {
-            width: 150px;
-            height: 150px;
+        .hero-avatar {
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid var(--primary);
-            margin-bottom: 16px;
+            margin: 0 auto 2rem;
+            display: block;
+            border: 4px solid var(--primary-color);
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.3s ease;
         }
 
-        .profile-section h2 {
-            font-size: 1.8rem;
-            color: var(--text-primary);
-            margin-bottom: 8px;
+        .hero-avatar:hover {
+            transform: scale(1.05);
         }
 
-        .profile-section p {
+        .hero-badge {
+            display: inline-block;
+            background: var(--surface);
             color: var(--text-secondary);
-            text-align: center;
-            max-width: 600px;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
         }
 
-        .about-content {
-            line-height: 1.7;
-            color: var(--text-primary);
-        }
-
-        .about-content h3 {
-            color: var(--primary);
-            margin: 24px 0 16px 0;
-            font-size: 1.3rem;
-        }
-
-        .about-content p {
-            margin-bottom: 16px;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-top: 24px;
-        }
-
-        .skill-item {
-            background: var(--light);
-            padding: 16px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .skill-item h4 {
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-
-        @media (max-width: 768px) {
-            .content-window {
-                width: 95%;
-                padding: 24px;
-            }
-
-            .content-window h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="desktop wallpaper-coding">
-        <!-- Navigation -->
-        <div class="top-nav">
-            <div class="nav-left">
-                <div class="nav-button close"></div>
-                <div class="nav-button minimize"></div>
-                <div class="nav-button maximize"></div>
-            </div>
-            <div class="nav-right">
-                <a href="index.html" class="back-button">← Back to Desktop</a>
-            </div>
-        </div>
-
-        <!-- Content Window -->
-        <div class="content-window">
-            <h1>About Me</h1>
-
-            <div class="profile-section">
-                <img src="saurabprofile.jpg" alt="Saurab Mishra" class="profile-image">
-                <h2>Saurab Mishra</h2>
-                <p>Data Science & AI Enthusiast | Machine Learning Engineer | Multi-Agent Systems Developer</p>
-            </div>
-
-            <div class="about-content">
-                <h3>👋 Hello World!</h3>
-                <p>
-                    I'm Saurab Mishra, a passionate Data Science and AI enthusiast with a keen interest in
-                    machine learning, large language models, and distributed systems. My journey in tech
-                    has been driven by curiosity and the desire to solve real-world problems through
-                    innovative AI solutions.
-                </p>
-
-                <h3>🚀 What I Do</h3>
-                <p>
-                    I specialize in developing intelligent systems that can learn, adapt, and make decisions.
-                    My expertise spans across:
-                </p>
-                <ul>
-                    <li>• Machine Learning & Deep Learning</li>
-                    <li>• Large Language Models (LLMs)</li>
-                    <li>• Multi-Agent Systems (MAS)</li>
-                    <li>• Retrieval-Augmented Generation (RAG)</li>
-                    <li>• Reinforcement Learning from Human Feedback (RLHF)</li>
-                    <li>• Distributed AI Systems</li>
-                </ul>
-
-                <h3>💡 My Philosophy</h3>
-                <p>
-                    I believe in the power of AI to transform industries and improve lives. My approach
-                    combines technical expertise with ethical considerations, ensuring that AI systems
-                    are not only powerful but also responsible and aligned with human values.
-                </p>
-
-                <h3>🎯 Current Focus</h3>
-                <p>
-                    Currently, I'm exploring the frontiers of multi-agent systems and their applications
-                    in collaborative problem-solving. I'm also working on improving the alignment of AI
-                    systems through advanced RLHF techniques.
-                </p>
-
-                <div class="skills-grid">
-                    <div class="skill-item">
-                        <h4>Programming</h4>
-                        <p>Python, JavaScript, SQL, R</p>
-                    </div>
-                    <div class="skill-item">
-                        <h4>AI/ML Frameworks</h4>
-                        <p>TensorFlow, PyTorch, Scikit-learn, Hugging Face</p>
-                    </div>
-                    <div class="skill-item">
-                        <h4>Cloud & Tools</h4>
-                        <p>AWS, Docker, Git, Linux</p>
-                    </div>
-                    <div class="skill-item">
-                        <h4>Specializations</h4>
-                        <p>LLMs, RAG, MAS, RLHF</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
-            transition: transform 0.4s ease;
-        }
-
-        .about-avatar:hover {
-            transform: scale(1.05) rotate(3deg);
-        }
-
-        .about-title {
-            font-size: 48px;
-            font-weight: 700;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 16px;
+            background-clip: text;
         }
 
-        .about-description {
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
             max-width: 800px;
-            color: #e0e0e0;
-            margin-bottom: 32px;
-            line-height: 1.8;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
         }
 
-        /* Skill Sections */
-        .skills-section {
-            display: flex;
-            justify-content: center;
-            padding: 50px 24px;
-            background-color: var(--dark-surface);
+        /* About Content */
+        .about-content {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .about-text {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
         .skill-card {
-            background-color: #2a2a2a;
+            background: white;
+            padding: 2rem;
             border-radius: 12px;
-            padding: 24px;
-            margin: 0 12px;
-            width: 300px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            box-shadow: var(--shadow);
         }
 
         .skill-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 20px rgba(255, 255, 255, 0.1);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .skill-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: white;
         }
 
         .skill-title {
-            font-size: 22px;
-            color: var(--primary-color);
-            margin-bottom: 16px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
         }
 
         .skill-list {
-            list-style-type: none;
+            list-style: none;
+            padding: 0;
         }
 
         .skill-list li {
-            color: #e0e0e0;
-            margin-bottom: 10px;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
             position: relative;
-            padding-left: 20px;
+            padding-left: 1.5rem;
         }
 
         .skill-list li::before {
-            content: '•';
-            color: var(--secondary-color);
+            content: '';
+            color: var(--primary-color);
             position: absolute;
             left: 0;
+            font-weight: bold;
         }
 
-         /* Certification Section */
-        .certification-section {
-            padding: 80px 32px;
-            background-color: var(--background-color);
+        /* Certifications */
+        .certifications {
+            background: var(--surface);
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+        }
+
+        .certifications-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .cert-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            box-shadow: var(--shadow);
             text-align: center;
         }
 
-        .certification-title {
-            color: var(--primary-color);
-            margin-bottom: 32px;
-            font-size: 32px;
+        .cert-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
         }
 
-        .certification-grid {
+        .cert-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-issuer {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .cert-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .cert-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+
+        .cert-button:hover {
+            background: #e55a2b;
+            transform: translateY(-1px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--surface);
+            padding: 3rem 2rem 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-links {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 24px;
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
-        .certification-card {
-            background-color: #2a2a2a;
-            border-radius: 12px;
-            padding: 24px;
-            width: 320px;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-            text-align: left;
-        }
-
-        .certification-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 12px 24px rgba(255, 255, 255, 0.1);
-        }
-
-        .certification-name {
-            color: var(--secondary-color);
-            margin-bottom: 12px;
-            font-size: 20px;
-        }
-
-        .certification-card p {
+        .footer-links a {
             color: var(--text-secondary);
-            font-size: 16px;
-            margin-bottom: 16px;
+            text-decoration: none;
+            font-weight: 500;
         }
 
-        .certification-button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 15px;
+        .footer-links a:hover {
+            color: var(--primary-color);
         }
 
-        .certification-button:hover {
-            background-color: var(--secondary-color);
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.875rem;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .skills-section {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .skills-grid,
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
                 flex-direction: column;
+                gap: 1rem;
             }
+        }
 
-            .skill-card {
-                width: 100%;
-                margin: 12px 0;
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
             }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-            .about-title {
-                font-size: 36px;
-            }
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
         }
     </style>
 </head>
 <body>
-    <!-- Google-style Navigation -->
-    <nav class="google-nav">
-
-        <div class="nav-menu">
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="projects.html">Projects</a>
-                <a href="blogs.html">Blogs</a>
-                <a href="contact.html">Contact</a>
-                <a href="chatbot.html">Chat</a>
-            </div>
-
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Saurab Mishra</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="blogs.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="contact.html" class="nav-cta">Get in touch</a>
         </div>
     </nav>
 
-    <!-- About Section -->
-    <section class="about-section">
-        <img src="saurabprofile.jpg" alt="Saurab Mishra" class="about-avatar">
-        <h1 class="about-title">About Me</h1>
-        <p class="about-description">
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="saurabprofile.jpg" alt="Saurab Mishra" class="hero-avatar">
+        <div class="hero-badge"> AI/ML Engineer & Researcher</div>
+        <h1 class="hero-title">About Me</h1>
+        <p class="hero-subtitle">
             Passionate research student with expertise in machine learning, Data Science, artificial intelligence, and predictive modeling.
             Dedicated to pushing the boundaries of technological innovation through cutting-edge research and practical applications.
-            Committed to solving complex challenges by leveraging advanced analytical techniques and deep domain knowledge.
         </p>
     </section>
 
-    <!-- Skills Section -->
-    <section class="skills-section">
-        <div class="skill-card">
-            <h3 class="skill-title">Technical Skills</h3>
-            <ul class="skill-list">
-                <li>Machine Learning</li>
-                <li>Deep Learning, LLMs</li>
-                <li>Natural Language Processing</li>
-                <li>Python, R, JavaScript, C, C+ </li>
-                <li>TensorFlow, PyTorch</li>
-            </ul>
+    <!-- About Content -->
+    <div class="about-content">
+        <div class="about-section">
+            <h2 class="section-title">My Story</h2>
+            <p class="about-text">
+                I'm a dedicated AI/ML researcher and engineer with a passion for building intelligent systems that solve real-world problems. 
+                My journey in artificial intelligence began with a curiosity about how machines can learn and make decisions, 
+                and has evolved into a deep expertise in Large Language Models, Multi-Agent Systems, and Reinforcement Learning from Human Feedback.
+            </p>
+            <p class="about-text">
+                Currently, I'm focused on advancing the field of AI through innovative research and practical applications. 
+                I believe in the power of AI to democratize access to intelligent systems and create positive impact across industries.
+            </p>
         </div>
-        <div class="skill-card">
-            <h3 class="skill-title">Research Domains</h3>
-            <ul class="skill-list">
-                <li>Artificial Intelligence</li>
-                <li>Data Science</li>
-                <li>Predictive Analytics</li>
-                <li>Computer Vision</li>
-                <li>Distributed Computing</li>
-            </ul>
+
+        <!-- Skills Section -->
+        <div class="about-section">
+            <h2 class="section-title">What I Do</h2>
+            <div class="skills-grid">
+                <div class="skill-card fade-in-up">
+                    <div class="skill-icon"></div>
+                    <h3 class="skill-title">Technical Skills</h3>
+                    <ul class="skill-list">
+                        <li>Machine Learning & Deep Learning</li>
+                        <li>Large Language Models (LLMs)</li>
+                        <li>Natural Language Processing</li>
+                        <li>Python, R, JavaScript, C, C++</li>
+                        <li>TensorFlow, PyTorch</li>
+                        <li>Data Analysis & Visualization</li>
+                    </ul>
+                </div>
+                <div class="skill-card fade-in-up">
+                    <div class="skill-icon"></div>
+                    <h3 class="skill-title">Research Domains</h3>
+                    <ul class="skill-list">
+                        <li>Artificial Intelligence</li>
+                        <li>Data Science & Analytics</li>
+                        <li>Predictive Modeling</li>
+                        <li>Computer Vision</li>
+                        <li>Distributed Computing</li>
+                        <li>Multi-Agent Systems</li>
+                    </ul>
+                </div>
+                <div class="skill-card fade-in-up">
+                    <div class="skill-icon"></div>
+                    <h3 class="skill-title">Soft Skills</h3>
+                    <ul class="skill-list">
+                        <li>Problem Solving</li>
+                        <li>Critical Thinking</li>
+                        <li>Technical Communication</li>
+                        <li>Team Collaboration</li>
+                        <li>Project Management</li>
+                        <li>Research & Innovation</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="skill-card">
-            <h3 class="skill-title">Soft Skills</h3>
-            <ul class="skill-list">
-                <li>Problem Solving</li>
-                <li>Critical Thinking</li>
-                <li>Technical Communication</li>
-                <li>Team Collaboration</li>
-                <li>Project Management</li>
-            </ul>
+    </div>
+
+    <!-- Certifications -->
+    <section class="certifications">
+        <div class="certifications-container">
+            <h2 class="section-title">Certifications & Achievements</h2>
+            <div class="cert-grid">
+                <div class="cert-card fade-in-up">
+                    <h3 class="cert-title">IBM Certified Professional</h3>
+                    <div class="cert-issuer">Data Science Professional</div>
+                    <p class="cert-description">
+                        Comprehensive certification in data science methodologies, tools, and best practices.
+                    </p>
+                </div>
+                <div class="cert-card fade-in-up">
+                    <h3 class="cert-title">Credly Badges</h3>
+                    <div class="cert-issuer">Data Science Professional</div>
+                    <p class="cert-description">
+                        Verified credentials in data science and machine learning through industry-recognized platforms.
+                    </p>
+                    <a href="https://www.credly.com/users/saurab-mishra" target="_blank" class="cert-button">
+                        View Certifications
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
- <!-- Certification Section -->
-    <section class="certification-section">
-         <h2 class="certification-title">Certifications and Badges</h2>
-        <div class="certification-grid">
-            <div class="certification-card">
-                <h3 class="certification-name">IBM Certified Professional</h3>
-                <p>Data Science Professional</p>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="blogs.html">Blog</a>
+                <a href="contact.html">Contact</a>
+                <a href="chatbot.html">Chat</a>
             </div>
-            <div class="certification-card">
-            <h3 class="certification-name">Credly</h3>
-            <p>Data Science Professional</p>
-            <button
-                onclick="window.open('https://www.credly.com/users/saurab-mishra', '_blank')"
-                class="certification-button">
-                View Certification
-            </button>
+            <p class="footer-text">
+                 2024 Saurab Mishra. Building the future of AI, one algorithm at a time.
+            </p>
         </div>
-    </div>
-</section>
+    </footer>
 
+    <script>
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in-up elements
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
