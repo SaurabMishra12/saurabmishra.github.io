@@ -1,1656 +1,1676 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#05070f">
-<title>Saurab Mishra — The Forward Pass</title>
-<meta name="description" content="A biography shaped like a transformer forward pass. Saurab Mishra — multi-agent LLM systems and mathematical interpretability at IISER Thiruvananthapuram.">
+<meta name="theme-color" content="#f6efe0">
+<title>Saurab Mishra — Build a Transformer</title>
+<meta name="description" content="A six-level playable guide to how a transformer actually works, with correct maths and no metaphors. By Saurab Mishra, IISER Thiruvananthapuram.">
 <meta name="author" content="Saurab Mishra">
 <link rel="canonical" href="https://saurabmishra.tech/landing.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Saurab Mishra — The Forward Pass">
-<meta property="og:description" content="A biography shaped like a transformer forward pass. Tokenise, attend, normalise, build, decode.">
+<meta property="og:title" content="Saurab Mishra — Build a Transformer">
+<meta property="og:description" content="Six levels. Real maths, no hand-waving. Tokenise, embed, attend, normalise, think, decode.">
+<meta property="og:url" content="https://saurabmishra.tech/landing.html">
 <meta property="og:image" content="https://saurabmishra.tech/saurabprofile.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%236b57d2'/%3E%3Ctext x='16' y='23' font-family='Inter,sans-serif' font-size='19' font-weight='700' fill='white' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400..700&family=VT323&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Cpath fill='%23f5c518' d='M0 0h16v16H0z'/%3E%3Cpath fill='%23141018' d='M2 0h2v1h-2zM12 0h2v1h-2zM1 1h1v1h-1zM4 1h1v1h-1zM11 1h1v1h-1zM14 1h1v1h-1zM1 2h1v1h-1zM4 2h1v1h-1zM11 2h1v1h-1zM14 2h1v1h-1zM1 3h1v1h-1zM4 3h8v1h-8zM14 3h1v1h-1zM2 4h1v1h-1zM4 4h1v1h-1zM7 4h2v1h-2zM11 4h1v1h-1zM13 4h1v1h-1zM2 5h1v1h-1zM4 5h1v1h-1zM7 5h2v1h-2zM11 5h1v1h-1zM13 5h1v1h-1zM2 6h1v1h-1zM4 6h1v1h-1zM7 6h2v1h-2zM11 6h1v1h-1zM13 6h1v1h-1zM2 7h1v1h-1zM4 7h1v1h-1zM7 7h2v1h-2zM11 7h1v1h-1zM13 7h1v1h-1zM2 8h1v1h-1zM13 8h1v1h-1zM2 9h1v1h-1zM4 9h2v1h-2zM10 9h2v1h-2zM13 9h1v1h-1zM2 10h1v1h-1zM13 10h1v1h-1zM3 11h1v1h-1zM12 11h1v1h-1zM4 12h1v1h-1zM11 12h1v1h-1zM4 13h8v1h-8zM4 14h1v1h-1zM6 14h4v1h-4zM11 14h1v1h-1z'/%3E%3Cpath fill='%23fbf7ee' d='M2 1h2v1h-2zM12 1h2v1h-2zM2 2h2v1h-2zM12 2h2v1h-2zM2 3h2v1h-2zM12 3h2v1h-2zM3 4h1v1h-1zM5 4h2v1h-2zM9 4h2v1h-2zM12 4h1v1h-1zM3 5h1v1h-1zM5 5h2v1h-2zM9 5h2v1h-2zM12 5h1v1h-1zM3 6h1v1h-1zM5 6h2v1h-2zM9 6h2v1h-2zM12 6h1v1h-1zM3 7h1v1h-1zM5 7h2v1h-2zM9 7h2v1h-2zM12 7h1v1h-1zM3 8h10v1h-10zM3 9h1v1h-1zM6 9h4v1h-4zM12 9h1v1h-1zM3 10h10v1h-10zM4 11h8v1h-8zM5 12h6v1h-6zM5 14h1v1h-1zM10 14h1v1h-1z'/%3E%3C/svg%3E">
 <style>
 /* ============================================================
-   THE FORWARD PASS — landing page
-   A single dark, cinematic surface. Every visual here is drawn
-   from real arithmetic: softmax, layer norm, GELU, sampling.
+   BUILD A TRANSFORMER — design tokens
+   Light paper, hard edges, a limited retro palette. Nothing is
+   absolutely positioned over content, so nothing can collide.
    ============================================================ */
 :root{
-  --bg:        #05070f;
-  --bg-2:      #080c19;
-  --ink:       #e8ecf6;
-  --ink-2:     rgba(232,236,246,.72);
-  --ink-3:     rgba(232,236,246,.46);
-  --line:      rgba(255,255,255,.09);
-  --line-2:    rgba(255,255,255,.16);
-  --panel:     rgba(255,255,255,.035);
-  --panel-2:   rgba(255,255,255,.06);
+  /* --- paper & ink --- */
+  --paper:    #f6efe0;
+  --paper-2:  #fffcf4;
+  --paper-3:  #ebe1cc;
+  --ink:      #1d1a2b;
+  --ink-2:    #494360;
+  --ink-3:    #7d7793;
 
-  --embed:  #38bdf8;   /* layer 0 — tokenise & embed */
-  --attn:   #a78bfa;   /* layer 1 — attention        */
-  --norm:   #2dd4bf;   /* layer 2 — add & norm       */
-  --ffn:    #fbbf24;   /* layer 3 — feed-forward     */
-  --out:    #fb7185;   /* layer 4 — output           */
-  --hot:    var(--attn);
+  /* --- retro ramp --- */
+  --red:    #e5484d;
+  --orange: #ee7b45;
+  --gold:   #f0b90b;
+  --green:  #3d9f68;
+  --teal:   #22a89b;
+  --blue:   #3b6fd4;
+  --purple: #7c5cd6;
+  --pink:   #e8699b;
 
-  --mono: "JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
-  --sans: Inter,"Segoe UI Variable Display","Segoe UI",-apple-system,BlinkMacSystemFont,sans-serif;
-  --ease: cubic-bezier(.16,1,.3,1);
-  --maxw: 1180px;
+  /* --- per-level accent, set on each panel --- */
+  --c: var(--purple);
+  --on-c: #fffcf4;
+
+  /* --- geometry: hard pixel edges, no radii --- */
+  --bd: 3px;
+  --sh: 5px;
+  --shadow: var(--sh) var(--sh) 0 var(--ink);
+  --shadow-sm: 3px 3px 0 var(--ink);
+  --shadow-c: var(--sh) var(--sh) 0 var(--c);
+
+  /* --- type --- */
+  --f-pixel: "Press Start 2P", ui-monospace, monospace;
+  --f-disp:  "Pixelify Sans", "Press Start 2P", system-ui, sans-serif;
+  --f-mono:  "VT323", ui-monospace, SFMono-Regular, Consolas, monospace;
+  --f-body:  system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* --- fluid rhythm: everything scales with the viewport --- */
+  --gutter: clamp(14px, 3.5vw, 52px);
+  --stack:  clamp(30px, 5vw, 72px);
+  --pad:    clamp(16px, 2.2vw, 28px);
+
+  --ease: cubic-bezier(.2,.9,.3,1);
 }
 
 *,*::before,*::after{ box-sizing:border-box; }
-html{ scroll-behavior:smooth; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
 body{
-  margin:0; background:var(--bg); color:var(--ink);
-  font-family:var(--sans); font-size:16px; line-height:1.65;
-  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--f-body);
+  font-size:clamp(15px,.55vw + 13.4px,17px);
+  line-height:1.62;
   overflow-x:hidden;
+  /* Paper grain: a fixed, cheap pixel grid. */
+  background-image:
+    linear-gradient(rgba(29,26,43,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(29,26,43,.045) 1px, transparent 1px);
+  background-size:32px 32px, 32px 32px;
 }
-img{ max-width:100%; display:block; }
-a{ color:inherit; text-decoration:none; }
-canvas{ display:block; }
-::selection{ background:var(--attn); color:#0b0620; }
-:focus-visible{ outline:2px solid var(--embed); outline-offset:3px; border-radius:6px; }
+img,svg,canvas{ display:block; max-width:100%; }
+canvas{ image-rendering:pixelated; }
+a{ color:inherit; }
+button,input,select,textarea{ font:inherit; color:inherit; }
+::selection{ background:var(--gold); color:var(--ink); }
+:focus-visible{ outline:3px solid var(--ink); outline-offset:3px; }
 
-/* Ambient field behind everything */
-#field{ position:fixed; inset:0; z-index:0; pointer-events:none; }
-#field canvas{ width:100%; height:100%; opacity:.5; }
-#field::after{
-  content:""; position:absolute; inset:0;
-  background:radial-gradient(120% 80% at 50% 0%, transparent 30%, var(--bg) 92%);
-}
+/* Every grid/flex child opts out of min-content blowout. This single
+   rule is what stops long tokens and canvases pushing siblings out. */
+.wrap > *, .grid > *, .panel > *, .row > *{ min-width:0; }
 
-.wrap{ position:relative; z-index:1; }
-.container{ width:min(var(--maxw), calc(100% - 48px)); margin-inline:auto; }
+h1,h2,h3,h4{ font-family:var(--f-disp); font-weight:700; line-height:1.06; margin:0; letter-spacing:-.01em; }
+p{ margin:0 0 .85em; }
+p:last-child{ margin-bottom:0; }
 
-/* ============================================================
-   NAV
-   ============================================================ */
-.nav{
-  position:fixed; inset:0 0 auto 0; z-index:50; height:64px;
-  display:flex; align-items:center;
-  background:rgba(5,7,15,0); border-bottom:1px solid transparent;
-  transition:background .3s var(--ease), border-color .3s var(--ease), backdrop-filter .3s;
-}
-.nav.stuck{
-  background:rgba(5,7,15,.72); border-bottom-color:var(--line);
-  backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
-}
-.nav .container{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
-.brand{ display:flex; align-items:center; gap:11px; font-weight:600; letter-spacing:-.2px; }
-.brand .m{
-  width:30px; height:30px; border-radius:8px; display:grid; place-items:center;
-  background:linear-gradient(135deg,var(--attn),var(--embed)); color:#0b0620;
-  font-weight:800; font-size:15px; flex:none;
-}
-.nav-actions{ display:flex; align-items:center; gap:10px; }
+.wrap{ width:min(1480px, 100% - var(--gutter) * 2); margin-inline:auto; }
 
+/* ---- pixel surfaces ---- */
+.px{
+  background:var(--paper-2);
+  border:var(--bd) solid var(--ink);
+  box-shadow:var(--shadow);
+}
+.px-sunk{ background:var(--paper-3); border:var(--bd) solid var(--ink); box-shadow:inset 3px 3px 0 rgba(29,26,43,.10); }
+
+/* ---- pixel button ---- */
 .btn{
-  display:inline-flex; align-items:center; gap:9px;
-  height:40px; padding:0 18px; border-radius:20px;
-  font-size:14px; font-weight:500; cursor:pointer; white-space:nowrap;
-  border:1px solid var(--line-2); background:var(--panel); color:var(--ink);
-  transition:background .2s, border-color .2s, transform .2s var(--ease);
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  font-family:var(--f-pixel); font-size:clamp(9px,.35vw + 7.6px,11px); line-height:1;
+  padding:14px 18px; cursor:pointer; text-decoration:none; text-align:center;
+  background:var(--paper-2); color:var(--ink);
+  border:var(--bd) solid var(--ink); box-shadow:var(--shadow-sm);
+  transition:transform .08s var(--ease), box-shadow .08s var(--ease), background .15s;
 }
-.btn:hover{ background:var(--panel-2); border-color:rgba(255,255,255,.3); }
-.btn:active{ transform:scale(.97); }
-.btn svg{ width:16px; height:16px; }
-.btn.primary{
-  background:linear-gradient(135deg,var(--attn),var(--embed)); color:#080418;
-  border-color:transparent; font-weight:600;
-  box-shadow:0 8px 28px -10px var(--attn);
-}
-.btn.primary:hover{ box-shadow:0 14px 40px -12px var(--attn); transform:translateY(-1px); }
+.btn:hover{ background:var(--gold); }
+.btn:active{ transform:translate(3px,3px); box-shadow:0 0 0 var(--ink); }
+.btn[disabled]{ opacity:.42; cursor:not-allowed; transform:none; box-shadow:var(--shadow-sm); }
+.btn.on-c{ background:var(--c); color:var(--on-c); }
+.btn.on-c:hover{ background:var(--ink); color:var(--paper-2); }
+.btn.ghost{ background:transparent; box-shadow:none; border-width:3px; }
+.btn.ghost:hover{ background:var(--ink); color:var(--paper-2); }
+.btn.sm{ padding:10px 13px; }
+.btn svg{ width:1.1em; height:1.1em; flex:none; }
 
-/* ============================================================
-   PROGRESS RAIL — the activation travelling down the stack
-   ============================================================ */
-/* Labels stay folded away so the rail never sits on top of the prose;
-   hovering it opens a small panel with the layer names. */
-#rail{
-  position:fixed; left:14px; top:50%; transform:translateY(-50%); z-index:40;
-  display:flex; flex-direction:column; gap:2px; padding:10px 12px;
-  border-radius:14px; border:1px solid transparent;
-  opacity:0; transition:opacity .45s var(--ease), background .3s, border-color .3s, backdrop-filter .3s;
-  pointer-events:none;
+/* ---- labels & chips ---- */
+.tag{
+  display:inline-flex; align-items:center; gap:7px;
+  font-family:var(--f-pixel); font-size:9px; line-height:1; letter-spacing:.02em;
+  padding:8px 10px; border:2px solid var(--ink); background:var(--paper-2);
 }
-#rail.on{ opacity:1; pointer-events:auto; }
-#rail:hover{
-  background:rgba(8,12,25,.82); border-color:var(--line);
-  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-}
-.rail-i{
-  display:flex; align-items:center; gap:12px; padding:5px 0;
-  color:var(--ink-3); font-size:11.5px; font-family:var(--mono);
-  letter-spacing:.02em; cursor:pointer;
-  transition:color .3s var(--ease);
-}
-.rail-i .lbl{ max-width:0; overflow:hidden; }
-#rail:hover .rail-i .lbl{ max-width:130px; }
-.rail-i .dot{
-  width:9px; height:9px; border-radius:50%; flex:none;
-  border:1.5px solid currentColor; background:transparent;
-  transition:all .35s var(--ease);
-}
-.rail-i .lbl{
-  opacity:0; transform:translateX(-6px);
-  transition:opacity .3s var(--ease), transform .3s var(--ease);
+.tag.fill{ background:var(--c); color:var(--on-c); }
+.tag.gold{ background:var(--gold); }
+.chipset{ display:flex; flex-wrap:wrap; gap:7px; }
+.chip{
+  font-family:var(--f-mono); font-size:17px; line-height:1.1;
+  padding:3px 9px; border:2px solid var(--ink); background:var(--paper-2);
   white-space:nowrap;
 }
-#rail:hover .rail-i .lbl{ opacity:1; transform:none; }
-.rail-i.on{ color:var(--c); }
-.rail-i.on .dot{ background:var(--c); box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 22%,transparent); transform:scale(1.15); }
-.rail-i.done .dot{ background:color-mix(in srgb,var(--c) 45%,transparent); }
+
+/* ---- mono readouts ---- */
+.mono{ font-family:var(--f-mono); font-size:1.25em; line-height:1.35; }
+.num{ font-family:var(--f-mono); font-size:1.4em; font-variant-numeric:tabular-nums; }
+
+/* ============================================================
+   TOP BAR
+   ============================================================ */
+.topbar{
+  position:sticky; top:0; z-index:60;
+  background:var(--paper-2);
+  border-bottom:var(--bd) solid var(--ink);
+}
+.topbar .wrap{
+  display:flex; align-items:center; gap:clamp(10px,2vw,22px);
+  min-height:60px; padding-block:9px; flex-wrap:wrap;
+}
+.brand{ display:flex; align-items:center; gap:11px; text-decoration:none; flex:none; }
+.brand .mark{
+  width:38px; height:38px; flex:none;
+  border:2px solid var(--ink); background:var(--gold);
+  image-rendering:pixelated;
+}
+.brand b{ font-family:var(--f-disp); font-size:20px; font-weight:700; letter-spacing:-.01em; }
+.brand span{
+  display:block; font-family:var(--f-pixel); font-size:7px;
+  color:var(--ink-3); margin-top:3px; letter-spacing:.04em;
+}
+.topbar .spacer{ flex:1 1 auto; min-width:0; }
+
+/* Level pips — the game's progress, always visible, never overlapping */
+.pips{ display:flex; gap:5px; flex-wrap:wrap; }
+.pip{
+  width:26px; height:26px; padding:0; cursor:pointer;
+  border:2px solid var(--ink); background:var(--paper-3);
+  font-family:var(--f-pixel); font-size:8px; line-height:1; color:var(--ink-3);
+  display:grid; place-items:center;
+  transition:background .16s, color .16s, transform .12s var(--ease);
+}
+.pip:hover{ transform:translateY(-2px); }
+.pip.on{ background:var(--pc); color:#fffcf4; }
+.pip.done{ background:var(--green); color:#fffcf4; }
+.pip.done::after{ content:"✓"; font-size:10px; }
+.pip.done span{ display:none; }
 
 /* ============================================================
    HERO
    ============================================================ */
-.hero{ padding:140px 0 90px; position:relative; }
-.hero-grid{ display:grid; grid-template-columns:1.15fr .85fr; gap:56px; align-items:center; }
-
-.eyebrow{
-  display:inline-flex; align-items:center; gap:9px; margin-bottom:22px;
-  padding:6px 14px 6px 10px; border-radius:20px;
-  border:1px solid var(--line-2); background:var(--panel);
-  font-family:var(--mono); font-size:11.5px; color:var(--ink-2); letter-spacing:.03em;
+.hero{ padding-block:clamp(34px,6vw,84px) clamp(26px,4vw,54px); position:relative; }
+.hero-grid{
+  display:grid; gap:clamp(22px,3.4vw,52px);
+  grid-template-columns:1fr;
+  align-items:center;
 }
-.eyebrow .pulse{
-  width:7px; height:7px; border-radius:50%; background:var(--norm);
-  box-shadow:0 0 0 0 color-mix(in srgb,var(--norm) 70%,transparent);
-  animation:pulse 2.4s infinite;
+@media (min-width:900px){
+  .hero-grid{ grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr); }
 }
-@keyframes pulse{
-  0%{ box-shadow:0 0 0 0 color-mix(in srgb,var(--norm) 60%,transparent); }
-  70%{ box-shadow:0 0 0 9px transparent; }
-  100%{ box-shadow:0 0 0 0 transparent; }
-}
-
 .hero h1{
-  font-size:clamp(44px,6.4vw,80px); line-height:1.02; margin:0 0 20px;
-  font-weight:700; letter-spacing:-.035em;
+  font-size:clamp(32px,5.3vw,62px);
+  line-height:.98; margin:16px 0 20px; letter-spacing:-.02em;
 }
-.hero h1 .grad{
-  background:linear-gradient(105deg,var(--embed),var(--attn) 45%,var(--norm));
-  -webkit-background-clip:text; background-clip:text; color:transparent;
+.hero h1 em{
+  font-style:normal; position:relative; white-space:nowrap;
+  background:linear-gradient(var(--gold),var(--gold)) bottom/100% .28em no-repeat;
 }
-.hero .sub{ font-size:clamp(16px,1.9vw,19px); color:var(--ink-2); max-width:52ch; margin:0 0 18px; }
-.hero .quip{
-  font-family:var(--mono); font-size:13px; color:var(--ink-3);
-  border-left:2px solid var(--attn); padding-left:14px; margin:0 0 30px; max-width:50ch;
-}
-.hero-cta{ display:flex; flex-wrap:wrap; gap:12px; }
+.hero .lede{ font-size:clamp(16px,.7vw + 14px,20px); color:var(--ink-2); max-width:60ch; }
+.hero-cta{ display:flex; flex-wrap:wrap; gap:12px; margin-top:26px; }
 
-/* Live tokeniser strip */
-.tok-panel{
-  margin-top:38px; padding:18px; border-radius:14px;
-  background:var(--panel); border:1px solid var(--line);
-}
-.tok-head{
-  display:flex; align-items:center; justify-content:space-between; gap:12px;
-  font-family:var(--mono); font-size:11px; color:var(--ink-3);
-  text-transform:uppercase; letter-spacing:.09em; margin-bottom:13px;
-}
-.tok-strip{ display:flex; flex-wrap:wrap; gap:5px; min-height:60px; align-content:flex-start; }
-.tok{
-  font-family:var(--mono); font-size:12.5px; padding:4px 8px; border-radius:5px;
-  background:color-mix(in srgb,var(--embed) 13%,transparent);
-  border:1px solid color-mix(in srgb,var(--embed) 30%,transparent);
-  color:#bfe6ff; white-space:pre; opacity:0; transform:translateY(6px) scale(.94);
-  animation:tokIn .34s var(--ease) forwards;
-}
-.tok.sp{ background:rgba(255,255,255,.05); border-color:var(--line); color:var(--ink-3); }
-.tok .id{ opacity:.45; font-size:10px; margin-left:5px; }
-@keyframes tokIn{ to{ opacity:1; transform:none; } }
-.caret{
-  display:inline-block; width:8px; height:16px; background:var(--embed);
-  vertical-align:-3px; animation:blink 1.05s steps(2) infinite;
-}
-@keyframes blink{ 50%{ opacity:0 } }
+.hero-card{ padding:var(--pad); }
+.hero-card .mono{ color:var(--ink-2); }
+.stat-row{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:16px; }
+.stat{ border:2px solid var(--ink); background:var(--paper-3); padding:11px 12px; }
+.stat b{ display:block; font-family:var(--f-disp); font-size:clamp(22px,2.4vw,30px); line-height:1; }
+.stat span{ display:block; font-family:var(--f-pixel); font-size:7px; line-height:1.5; color:var(--ink-2); margin-top:7px; }
 
-/* Hero portrait */
-.portrait{ position:relative; }
-.portrait-frame{
-  position:relative; border-radius:20px; overflow:hidden;
-  border:1px solid var(--line-2);
-  box-shadow:0 40px 90px -40px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.03) inset;
-}
-/* The photo is a tall 9:16 with the subject small at the base of the tree,
-   so it is framed 3:4 low enough to keep both him and the trunk. */
-.portrait-frame > img:first-child{
-  width:100%; aspect-ratio:3/4; object-fit:cover; object-position:50% 58%;
-  filter:saturate(.94) contrast(1.04);
-}
-.portrait-frame::after{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(180deg,transparent 40%,rgba(5,7,15,.86));
-}
-.portrait-badge{
-  position:absolute; left:14px; bottom:44px; z-index:2;
-  width:58px; height:58px; border-radius:50%; object-fit:cover;
-  border:2px solid rgba(255,255,255,.55);
-  box-shadow:0 8px 24px rgba(0,0,0,.6);
-}
-.portrait-cap{
-  position:absolute; left:82px; right:14px; bottom:14px; z-index:2;
-  font-family:var(--mono); font-size:11.5px; color:var(--ink-2);
-  display:flex; align-items:center; gap:8px;
-}
-.portrait-cap .pulse{ width:6px; height:6px; border-radius:50%; background:var(--out); flex:none; }
-.stickers{ display:grid; gap:10px; margin-top:14px; }
-.sticker{
-  padding:12px 14px; border-radius:12px; font-size:13px; line-height:1.5;
-  background:var(--panel); border:1px solid var(--line); color:var(--ink-2);
-}
-.sticker b{ color:var(--ink); font-weight:600; }
-
+/* Decorative sprites — clipped to the hero, never over text */
+.sprites{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+.sprite{ position:absolute; opacity:.34; animation:bob 7s var(--ease) infinite alternate; }
+@keyframes bob{ from{ transform:translateY(0) } to{ transform:translateY(-14px) } }
+.hero > .wrap{ position:relative; z-index:1; }
 /* ============================================================
-   SECTION FURNITURE
+   THE GAME
+   One level is mounted at a time, so two levels can never
+   share space. Inside a level, a plain two-track grid.
    ============================================================ */
-.section{ padding:88px 0; position:relative; }
-.sec-head{ max-width:640px; margin-bottom:44px; }
-.layer-tag{
-  display:inline-flex; align-items:center; gap:9px; margin-bottom:16px;
-  padding:5px 13px; border-radius:16px; font-family:var(--mono); font-size:11.5px;
-  letter-spacing:.05em; text-transform:uppercase;
-  background:color-mix(in srgb,var(--c) 14%,transparent);
-  border:1px solid color-mix(in srgb,var(--c) 34%,transparent);
-  color:var(--c);
-}
-.layer-tag .n{
-  width:18px; height:18px; border-radius:5px; display:grid; place-items:center;
-  background:var(--c); color:#05070f; font-weight:700; font-size:10px;
-}
-h2.sec-t{ font-size:clamp(28px,3.6vw,42px); line-height:1.12; margin:0 0 14px; font-weight:700; letter-spacing:-.028em; }
-p.sec-p{ font-size:16px; color:var(--ink-2); margin:0 0 14px; }
-p.sec-p:last-child{ margin-bottom:0; }
-.split{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
-.split.wide-r{ grid-template-columns:.9fr 1.1fr; }
-.split.wide-l{ grid-template-columns:1.1fr .9fr; }
+.game{ padding-block:clamp(24px,3.4vw,48px) var(--stack); }
 
+.game-head{
+  display:flex; flex-wrap:wrap; align-items:center; gap:12px 18px;
+  margin-bottom:18px;
+}
+.game-head h2{ font-size:clamp(24px,3vw,38px); }
+.game-head .spacer{ flex:1 1 auto; min-width:0; }
+
+.board{
+  scroll-margin-top:78px;
+  border:var(--bd) solid var(--ink);
+  box-shadow:var(--shadow);
+  background:var(--paper-2);
+  overflow:hidden;                 /* keeps the colour bar's corners crisp */
+}
+
+/* Level colour bar + title strip */
+.lv-bar{ height:10px; background:var(--c); border-bottom:var(--bd) solid var(--ink); }
+.lv-top{
+  display:flex; flex-wrap:wrap; align-items:center; gap:12px 16px;
+  padding:var(--pad); border-bottom:var(--bd) solid var(--ink);
+  background:var(--paper-3);
+}
+.lv-no{
+  font-family:var(--f-pixel); font-size:clamp(13px,1.5vw,18px); line-height:1;
+  background:var(--c); color:var(--on-c);
+  border:2px solid var(--ink); padding:11px 12px; flex:none;
+}
+.lv-name{ font-size:clamp(20px,2.4vw,30px); }
+.lv-sub{ font-family:var(--f-pixel); font-size:8px; color:var(--ink-2); margin-top:6px; letter-spacing:.03em; }
+.lv-top .spacer{ flex:1 1 auto; min-width:0; }
+
+/* The two tracks */
+.lv-body{ display:grid; grid-template-columns:1fr; }
+/* Grid items default to min-width:auto, which lets a nowrap formula stretch the
+   track past the viewport and get clipped by the board. Opt out explicitly. */
+.lv-body > *, .lv-theory > *, .lv-play > *{ min-width:0; max-width:100%; }
+@media (min-width:1040px){
+  .lv-body{ grid-template-columns:minmax(300px,.82fr) minmax(0,1.18fr); }
+  .lv-theory{ border-right:var(--bd) solid var(--ink); border-bottom:0 !important; }
+}
+.lv-theory{ padding:var(--pad); border-bottom:var(--bd) solid var(--ink); }
+.lv-play{ padding:var(--pad); background:var(--paper); }
+
+.lv-theory h4{
+  font-family:var(--f-pixel); font-size:9px; letter-spacing:.05em;
+  color:var(--ink-3); margin:22px 0 10px;
+}
+.lv-theory h4:first-child{ margin-top:0; }
+.lv-theory p{ color:var(--ink-2); }
+.lv-theory strong{ color:var(--ink); }
 .formula{
-  font-family:var(--mono); font-size:12.5px; line-height:2; margin-top:22px;
-  padding:14px 16px; border-radius:10px; color:var(--ink-2);
-  background:rgba(0,0,0,.35); border:1px solid var(--line);
-  border-left:2px solid var(--c);
-  overflow-x:auto;
+  font-family:var(--f-mono); font-size:clamp(16px,1.15vw + 12px,20px); line-height:1.55;
+  background:var(--paper-3); border:2px solid var(--ink);
+  border-left:8px solid var(--c);
+  padding:11px 13px; margin:14px 0;
+  white-space:normal; overflow-wrap:anywhere;   /* wrap, never clip */
 }
-.formula b{ color:var(--c); font-weight:600; }
-.formula .dim{ color:var(--ink-3); }
+.aside{
+  border:2px dashed var(--ink-3); padding:12px 14px; margin-top:18px;
+  font-size:.94em; color:var(--ink-2); background:rgba(240,185,11,.10);
+}
+.aside b{ font-family:var(--f-pixel); font-size:8px; display:block; margin-bottom:8px; color:var(--ink); }
 
-.stage{
-  position:relative; border-radius:16px; padding:20px;
-  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
-  border:1px solid var(--line);
-  box-shadow:0 30px 70px -50px #000;
+/* Playground shell */
+.pg{ display:grid; gap:14px; }
+.pg-title{
+  font-family:var(--f-pixel); font-size:9px; color:var(--ink-3);
+  letter-spacing:.05em; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
 }
-.stage-head{
-  display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:16px;
-  font-family:var(--mono); font-size:11px; color:var(--ink-3);
-  text-transform:uppercase; letter-spacing:.09em;
-}
-.stage-head .live{ display:inline-flex; align-items:center; gap:7px; color:var(--c); }
-.stage-head .live i{
-  width:6px; height:6px; border-radius:50%; background:var(--c); display:block;
-  animation:pulse 2s infinite;
-}
-.seg{
-  display:flex; gap:3px; padding:3px; border-radius:9px;
-  background:rgba(0,0,0,.35); border:1px solid var(--line);
-}
-.seg button{
-  border:0; background:transparent; color:var(--ink-3); cursor:pointer;
-  font-family:var(--mono); font-size:11px; padding:4px 10px; border-radius:6px;
-  transition:background .2s, color .2s;
-}
-.seg button:hover{ color:var(--ink); }
-.seg button.on{ background:color-mix(in srgb,var(--c) 24%,transparent); color:var(--c); }
 
-/* Reveal on scroll */
-.rv{ opacity:0; transform:translateY(26px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
-.rv.in{ opacity:1; transform:none; }
-.rv.d1{ transition-delay:.08s } .rv.d2{ transition-delay:.16s } .rv.d3{ transition-delay:.24s }
-/* ============================================================
-   L0 · TOKENISE & EMBED
-   ============================================================ */
-.embed-grid{ display:grid; grid-template-columns:1fr; gap:14px; }
-.vec-row{ display:flex; align-items:center; gap:12px; }
-.vec-row .name{
-  font-family:var(--mono); font-size:12px; color:var(--ink-2);
-  width:96px; flex:none; text-align:right; white-space:nowrap;
-  overflow:hidden; text-overflow:ellipsis;
+/* Objective bar */
+.obj{
+  display:flex; flex-wrap:wrap; align-items:center; gap:12px 16px;
+  padding:var(--pad); border-top:var(--bd) solid var(--ink);
+  background:var(--paper-3);
 }
-.vec{ display:flex; gap:2px; flex:1; min-width:0; height:26px; }
-.vec i{
-  flex:1; border-radius:2px; align-self:stretch;
-  background:var(--embed); opacity:.15;
-  transform:scaleY(.12); transform-origin:center;
-  transition:transform .5s var(--ease), opacity .5s var(--ease);
+.obj .icon{
+  width:34px; height:34px; flex:none; display:grid; place-items:center;
+  border:2px solid var(--ink); background:var(--paper-2);
+  font-family:var(--f-pixel); font-size:12px;
 }
-.pe-canvas{ width:100%; height:150px; border-radius:10px; background:rgba(0,0,0,.3); border:1px solid var(--line); }
-.pe-note{ font-family:var(--mono); font-size:11px; color:var(--ink-3); margin-top:10px; text-align:center; }
+.obj.done .icon{ background:var(--green); color:#fffcf4; }
+.obj .txt{ flex:1 1 260px; min-width:0; }
+.obj .txt b{ font-family:var(--f-pixel); font-size:8px; display:block; color:var(--ink-3); letter-spacing:.05em; margin-bottom:6px; }
+.obj .txt span{ font-size:.96em; }
+.obj.done .txt span{ color:var(--green); font-weight:600; }
+.obj .acts{ display:flex; gap:9px; flex-wrap:wrap; }
+
+/* Level nav */
+.lv-nav{
+  display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+  margin-top:16px;
+}
+.lv-nav .spacer{ flex:1 1 auto; min-width:0; }
+.lv-count{ font-family:var(--f-pixel); font-size:9px; color:var(--ink-3); }
 
 /* ============================================================
-   L1 · ATTENTION
+   L1 · TOKENISER
    ============================================================ */
-.attn-wrap{ display:grid; grid-template-columns:auto 1fr; gap:10px; }
-.attn-ylab{
-  display:grid; align-content:stretch; gap:2px; padding-top:22px;
-  font-family:var(--mono); font-size:10.5px; color:var(--ink-3);
+.tok-input{
+  width:100%; padding:12px 13px; background:var(--paper-2);
+  border:var(--bd) solid var(--ink); box-shadow:inset 3px 3px 0 rgba(29,26,43,.08);
+  font-family:var(--f-mono); font-size:22px; line-height:1.3; resize:vertical; min-height:84px;
 }
-.attn-ylab span{
-  display:flex; align-items:center; justify-content:flex-end; white-space:nowrap;
-  padding-right:6px; border-radius:3px; transition:color .2s, background .2s;
+.tok-input:focus{ outline:none; border-color:var(--c); }
+.toks{ display:flex; flex-wrap:wrap; gap:5px; align-content:flex-start; min-height:64px; }
+.tk{
+  font-family:var(--f-mono); font-size:19px; line-height:1.15;
+  padding:3px 8px; border:2px solid var(--ink); background:var(--paper-2);
+  white-space:pre; position:relative;
+  animation:pop .18s var(--ease);
 }
-.attn-ylab span.hot{ color:var(--attn); background:color-mix(in srgb,var(--attn) 14%,transparent); }
-.attn-main{ min-width:0; }
-.attn-xlab{
-  display:grid; gap:2px; height:22px;
-  font-family:var(--mono); font-size:10.5px; color:var(--ink-3);
+.tk.sp{ background:var(--paper-3); color:var(--ink-3); }
+.tk i{ font-style:normal; font-size:13px; opacity:.55; margin-left:5px; }
+@keyframes pop{ from{ transform:scale(.7); opacity:0 } to{ transform:none; opacity:1 } }
+.counter{
+  font-family:var(--f-pixel); font-size:11px; padding:10px 12px;
+  border:2px solid var(--ink); background:var(--paper-2); display:inline-block;
 }
-.attn-xlab span{
-  display:flex; align-items:flex-end; justify-content:center; overflow:hidden;
-  white-space:nowrap; transition:color .2s;
-}
-.attn-xlab span.hot{ color:var(--attn); }
-#attn-canvas{ width:100%; aspect-ratio:1; border-radius:8px; cursor:crosshair; }
-
-.attn-read{
-  margin-top:16px; padding:14px; border-radius:10px;
-  background:rgba(0,0,0,.32); border:1px solid var(--line);
-  font-family:var(--mono); font-size:12px; min-height:104px;
-}
-.attn-read .q{ color:var(--ink-3); margin-bottom:9px; }
-.attn-read .q b{ color:var(--attn); }
-.attn-bar{ display:flex; align-items:center; gap:9px; margin-bottom:5px; }
-.attn-bar .k{ width:98px; flex:none; text-align:right; color:var(--ink-2); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.attn-bar .t{ flex:1; height:8px; border-radius:4px; background:rgba(255,255,255,.06); overflow:hidden; }
-.attn-bar .t i{
-  display:block; height:100%; border-radius:4px;
-  background:linear-gradient(90deg,color-mix(in srgb,var(--attn) 55%,transparent),var(--attn));
-  width:0; transition:width .4s var(--ease);
-}
-.attn-bar .v{ width:46px; flex:none; text-align:right; color:var(--ink-3); font-size:11px; }
-
-.qkv{ display:grid; grid-template-columns:repeat(3,1fr); gap:9px; margin-top:16px; }
-.qkv-card{
-  padding:11px 12px; border-radius:9px; text-align:center;
-  background:rgba(255,255,255,.03); border:1px solid var(--line);
-  font-family:var(--mono); font-size:11px; color:var(--ink-3);
-  transition:border-color .3s, background .3s, transform .3s var(--ease);
-}
-.qkv-card.on{
-  border-color:color-mix(in srgb,var(--attn) 46%,transparent);
-  background:color-mix(in srgb,var(--attn) 11%,transparent);
-  color:var(--attn); transform:translateY(-2px);
-}
-.qkv-card b{ display:block; font-size:16px; color:var(--ink); margin-bottom:3px; font-weight:600; }
-.qkv-card.on b{ color:var(--attn); }
-
-.pipeline{ display:grid; gap:6px; margin-top:16px; }
-.pipe-step{
-  display:grid; grid-template-columns:22px 1fr auto; align-items:center; gap:11px;
-  padding:9px 12px; border-radius:8px;
-  background:rgba(255,255,255,.025); border:1px solid transparent;
-  font-family:var(--mono); font-size:12px; color:var(--ink-3);
-  transition:all .35s var(--ease);
-}
-.pipe-step .n{
-  width:22px; height:22px; border-radius:6px; display:grid; place-items:center;
-  background:rgba(255,255,255,.06); font-size:10.5px; color:var(--ink-3);
-  transition:all .35s var(--ease);
-}
-.pipe-step .out{ color:var(--ink-3); font-size:11px; }
-.pipe-step.on{
-  background:color-mix(in srgb,var(--c) 11%,transparent);
-  border-color:color-mix(in srgb,var(--c) 34%,transparent); color:var(--ink);
-}
-.pipe-step.on .n{ background:var(--c); color:#05070f; font-weight:700; }
-.pipe-step.on .out{ color:var(--c); }
-.pipe-step.done .n{ background:color-mix(in srgb,var(--c) 30%,transparent); color:var(--c); }
+.counter.hit{ background:var(--green); color:#fffcf4; }
 
 /* ============================================================
-   L2 · ADD & NORM
+   L2 · EMBEDDING SPACE
    ============================================================ */
-.norm-viz{ display:grid; gap:20px; }
-.norm-panel{ }
-.norm-lab{
-  display:flex; align-items:baseline; justify-content:space-between;
-  font-family:var(--mono); font-size:11px; color:var(--ink-3); margin-bottom:8px;
+.embed-stage{ position:relative; border:var(--bd) solid var(--ink); background:var(--paper-2); }
+#embed-canvas{ width:100%; aspect-ratio:1.45; touch-action:none; cursor:crosshair; }
+.near{ display:grid; gap:5px; }
+.near-row{
+  display:grid; grid-template-columns:minmax(64px,90px) minmax(0,1fr) 52px;
+  gap:9px; align-items:center; font-family:var(--f-mono); font-size:18px;
 }
-.norm-lab b{ color:var(--ink-2); font-weight:500; }
-.bars{ display:flex; align-items:center; gap:3px; height:92px; }
+.near-row .bar{ height:14px; border:2px solid var(--ink); background:var(--paper-3); overflow:hidden; }
+.near-row .bar i{ display:block; height:100%; background:var(--c); width:0; transition:width .3s var(--ease); }
+.near-row .v{ text-align:right; color:var(--ink-2); }
+
+/* ============================================================
+   L3 · ATTENTION
+   ============================================================ */
+.sent{ display:flex; flex-wrap:wrap; gap:6px; }
+.sent button{
+  font-family:var(--f-mono); font-size:20px; line-height:1.1;
+  padding:5px 10px; cursor:pointer;
+  border:2px solid var(--ink); background:var(--paper-2);
+  transition:background .14s, transform .1s var(--ease);
+}
+.sent button:hover{ transform:translateY(-2px); }
+.sent button.q{ background:var(--c); color:var(--on-c); }
+.sent button.masked{ opacity:.34; cursor:not-allowed; }
+.sent button.masked:hover{ transform:none; }
+
+.scores{ display:grid; gap:8px; }
+.score-row{
+  display:grid; grid-template-columns:minmax(58px,84px) minmax(90px,1fr) minmax(0,1.35fr) 54px;
+  gap:10px; align-items:center;
+}
+.score-row .k{ font-family:var(--f-mono); font-size:19px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.score-row .w{ height:16px; border:2px solid var(--ink); background:var(--paper-3); overflow:hidden; }
+.score-row .w i{ display:block; height:100%; background:var(--c); width:0; transition:width .25s var(--ease); }
+.score-row .p{ font-family:var(--f-mono); font-size:18px; text-align:right; color:var(--ink-2); }
+.score-row.top .p{ color:var(--c); font-weight:700; }
+@media (max-width:560px){
+  .score-row{ grid-template-columns:minmax(48px,64px) minmax(0,1fr) 46px; }
+  .score-row .w{ grid-column:1 / -1; }
+}
+
+/* Range inputs, pixel-styled */
+input[type=range]{
+  -webkit-appearance:none; appearance:none; width:100%; height:22px;
+  background:transparent; cursor:pointer; margin:0;
+}
+input[type=range]::-webkit-slider-runnable-track{
+  height:10px; background:var(--paper-3); border:2px solid var(--ink);
+}
+input[type=range]::-moz-range-track{ height:10px; background:var(--paper-3); border:2px solid var(--ink); }
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none; width:18px; height:22px; margin-top:-8px;
+  background:var(--c); border:2px solid var(--ink); border-radius:0;
+}
+input[type=range]::-moz-range-thumb{
+  width:16px; height:20px; background:var(--c); border:2px solid var(--ink); border-radius:0;
+}
+
+.heads{ display:flex; flex-wrap:wrap; gap:6px; }
+.heads button{
+  font-family:var(--f-pixel); font-size:8px; padding:9px 10px; cursor:pointer;
+  border:2px solid var(--ink); background:var(--paper-2); line-height:1.4;
+}
+.heads button.on{ background:var(--c); color:var(--on-c); }
+#attn-canvas{ width:100%; aspect-ratio:1; border:var(--bd) solid var(--ink); background:var(--paper-2); }
+
+/* ============================================================
+   L4 · LAYER NORM
+   ============================================================ */
+.bars{
+  display:flex; align-items:center; gap:3px; height:132px;
+  border:var(--bd) solid var(--ink); background:var(--paper-2);
+  padding:8px; position:relative;
+}
+.bars::before{
+  content:""; position:absolute; left:8px; right:8px; top:50%;
+  height:2px; background:var(--ink-3); opacity:.5;
+}
 .bars i{
-  flex:1; border-radius:2px; align-self:center;
-  background:var(--norm); transition:height .6s var(--ease), background .6s;
-  min-height:2px;
+  position:relative; flex:1; min-width:2px; background:var(--c);
+  border:1px solid var(--ink);
+  transition:height .45s var(--ease), transform .45s var(--ease);
+  align-self:center;
 }
-.bars.pre i{ background:var(--out); }
-.axis{ height:1px; background:var(--line-2); margin-top:-46px; margin-bottom:46px; position:relative; }
+.readout{ display:grid; grid-template-columns:repeat(auto-fit,minmax(112px,1fr)); gap:9px; }
+.readout div{
+  border:2px solid var(--ink); background:var(--paper-2); padding:9px 11px;
+}
+.readout b{ display:block; font-family:var(--f-pixel); font-size:7px; color:var(--ink-3); margin-bottom:5px; }
+.readout span{ font-family:var(--f-mono); font-size:24px; line-height:1; }
+.readout div.ok span{ color:var(--green); }
+.readout div.bad span{ color:var(--red); }
 
+/* Residual stream diagram */
 .resid{
-  position:relative; margin-top:8px; padding:16px; border-radius:12px;
-  background:rgba(0,0,0,.3); border:1px solid var(--line);
+  border:var(--bd) solid var(--ink); background:var(--paper-2);
+  padding:16px 14px; position:relative; overflow:hidden;
 }
-.resid-track{ position:relative; height:78px; }
-.resid-line{
-  position:absolute; left:0; right:0; top:38px; height:3px; border-radius:2px;
-  background:linear-gradient(90deg,color-mix(in srgb,var(--norm) 20%,transparent),var(--norm),color-mix(in srgb,var(--norm) 20%,transparent));
+.resid-track{ position:relative; height:76px; }
+.resid-line{ position:absolute; left:0; right:0; top:52px; height:5px; background:var(--ink); }
+.resid-arc{
+  position:absolute; left:10%; right:10%; top:8px; height:46px;
+  border:4px solid var(--c); border-bottom:0;
 }
-.resid-skip{
-  position:absolute; left:8%; right:8%; top:6px; height:34px;
-  border:2px solid color-mix(in srgb,var(--attn) 55%,transparent);
-  border-bottom:0; border-radius:16px 16px 0 0;
-}
-.resid-skip::after{
-  content:"skip connection"; position:absolute; top:-9px; left:50%; transform:translateX(-50%);
-  background:var(--bg-2); padding:0 8px; font-family:var(--mono); font-size:10px; color:var(--attn);
-}
-.resid-block{
-  position:absolute; left:50%; transform:translateX(-50%); top:24px;
-  padding:6px 14px; border-radius:8px; font-family:var(--mono); font-size:11px;
-  background:var(--bg-2); border:1px solid var(--line-2); color:var(--ink-2);
+.resid-blk{
+  position:absolute; left:50%; transform:translateX(-50%); top:38px;
+  font-family:var(--f-pixel); font-size:8px; padding:7px 9px;
+  border:2px solid var(--ink); background:var(--paper-3);
 }
 .resid-pkt{
-  position:absolute; top:33px; width:13px; height:13px; border-radius:50%;
-  background:var(--norm); box-shadow:0 0 14px var(--norm); left:0;
+  position:absolute; top:46px; left:0; width:14px; height:14px;
+  background:var(--gold); border:2px solid var(--ink);
 }
-.resid-note{ font-family:var(--mono); font-size:11px; color:var(--ink-3); text-align:center; margin-top:4px; }
+.resid cap{ display:block; font-family:var(--f-mono); font-size:17px; color:var(--ink-2); text-align:center; margin-top:6px; }
 
 /* ============================================================
-   L3 · FEED-FORWARD
+   L5 · FEED-FORWARD
    ============================================================ */
-#ffn-canvas{ width:100%; height:270px; }
-.gelu{ display:grid; grid-template-columns:1fr auto; gap:18px; align-items:center; margin-top:14px; }
-#gelu-canvas{ width:100%; height:110px; border-radius:8px; background:rgba(0,0,0,.3); border:1px solid var(--line); }
-.gelu-num{ font-family:var(--mono); font-size:11.5px; color:var(--ink-3); text-align:right; white-space:nowrap; }
-.gelu-num b{ display:block; font-size:17px; color:var(--ffn); font-weight:600; }
+#gelu-canvas{ width:100%; aspect-ratio:2.1; border:var(--bd) solid var(--ink); background:var(--paper-2); }
+.neurons{ display:flex; gap:4px; flex-wrap:wrap; }
+.neurons i{
+  width:20px; height:20px; border:2px solid var(--ink); background:var(--paper-3);
+  transition:background .2s, transform .2s var(--ease);
+}
+.neurons i.fire{ background:var(--c); transform:scale(1.14); }
+.neurons i.neg{ background:var(--red); }
 
 /* ============================================================
-   L4 · OUTPUT
+   L6 · OUTPUT
    ============================================================ */
 .logits{ display:grid; gap:7px; }
 .logit{
-  display:grid; grid-template-columns:150px 1fr 58px; align-items:center; gap:11px;
-  font-family:var(--mono); font-size:12px;
+  display:grid; grid-template-columns:minmax(84px,148px) minmax(0,1fr) 56px;
+  gap:10px; align-items:center; font-family:var(--f-mono); font-size:19px;
 }
-.logit .tk{ color:var(--ink-2); text-align:right; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.logit .t{ height:20px; border-radius:5px; background:rgba(255,255,255,.05); overflow:hidden; position:relative; }
-.logit .t i{
-  position:absolute; inset:0 auto 0 0; border-radius:5px; width:0;
-  background:linear-gradient(90deg,color-mix(in srgb,var(--out) 45%,transparent),var(--out));
-  transition:width .65s var(--ease);
+.logit .t{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.logit .b{ height:20px; border:2px solid var(--ink); background:var(--paper-3); overflow:hidden; }
+.logit .b i{ display:block; height:100%; width:0; background:var(--c); transition:width .4s var(--ease); }
+.logit .p{ text-align:right; color:var(--ink-2); }
+.logit.win .t{ font-weight:700; color:var(--c); }
+.tape{
+  border:var(--bd) solid var(--ink); background:var(--paper-2); padding:13px 14px;
+  font-family:var(--f-mono); font-size:21px; line-height:1.5; min-height:86px;
 }
-.logit .p{ color:var(--ink-3); text-align:right; font-size:11px; }
-.logit.win .tk{ color:var(--out); font-weight:600; }
-.logit.win .p{ color:var(--out); }
-
-.sample-out{
-  margin-top:20px; padding:16px 18px; border-radius:12px;
-  background:rgba(0,0,0,.35); border:1px solid var(--line);
-  font-family:var(--mono); font-size:13.5px; line-height:1.9; min-height:78px;
-}
-.sample-out .lbl{ font-size:10.5px; color:var(--ink-3); text-transform:uppercase; letter-spacing:.09em; display:block; margin-bottom:7px; }
-.sample-out .txt{ color:var(--ink); }
-.sample-out .new{ color:var(--out); background:color-mix(in srgb,var(--out) 16%,transparent); border-radius:3px; padding:0 3px; }
-.temp-row{ display:flex; align-items:center; gap:12px; margin-top:16px; font-family:var(--mono); font-size:11.5px; color:var(--ink-3); }
-.temp-row input[type=range]{ flex:1; accent-color:var(--out); }
+.tape b{ display:block; font-family:var(--f-pixel); font-size:8px; color:var(--ink-3); margin-bottom:9px; }
+.tape .new{ background:var(--gold); padding:0 4px; }
 
 /* ============================================================
-   ARCHITECTURE DIAGRAM  ("Curiosity Is All You Need")
+   COMPLETE SCREEN
    ============================================================ */
-.paper{
-  display:grid; grid-template-columns:minmax(0,420px) 1fr; gap:52px; align-items:center;
-}
-.paper-fig{
-  padding:26px 22px; border-radius:14px; position:relative;
-  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
-  border:1px solid var(--line);
-}
-.paper-fig .cap{
-  font-family:var(--mono); font-size:11px; color:var(--ink-3);
-  text-align:center; margin-top:16px;
-}
-.paper-fig .cap b{ color:var(--ink-2); }
-#arch-svg{ width:100%; height:auto; overflow:visible; }
-#arch-svg .blk{ transition:opacity .4s var(--ease); }
-#arch-svg .blk rect{ transition:fill .45s var(--ease), stroke .45s var(--ease); }
-#arch-svg text{ font-family:var(--mono); font-size:9.4px; fill:var(--ink-2); }
-#arch-svg .ttl{ font-size:10.4px; fill:var(--ink); font-weight:600; }
-#arch-svg .edge{ stroke:var(--line-2); stroke-width:1.4; fill:none; }
-#arch-svg .flow{ stroke:var(--attn); stroke-width:2; fill:none; stroke-linecap:round; }
-#arch-svg .nx{ font-size:9px; fill:var(--ink-3); }
-
-.cite{
-  margin-top:22px; padding:14px 16px; border-radius:10px;
-  background:rgba(0,0,0,.3); border:1px solid var(--line); border-left:2px solid var(--attn);
-  font-family:var(--mono); font-size:11.5px; color:var(--ink-3); line-height:1.8;
-}
-.cite b{ color:var(--ink-2); }
+.finale{ padding:clamp(26px,4vw,54px) var(--pad); text-align:center; }
+.finale h3{ font-size:clamp(26px,3.6vw,44px); margin-bottom:14px; }
+.finale p{ max-width:60ch; margin-inline:auto; color:var(--ink-2); }
+.finale .zeb{ width:96px; height:96px; margin:0 auto 20px; border:3px solid var(--ink); background:var(--gold); }
+.finale .btns{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:26px; }
 
 /* ============================================================
-   EXPLORE + FOOTER
+   BIO
    ============================================================ */
-.cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px; }
-.card{
-  display:block; padding:26px 24px; border-radius:16px; position:relative; overflow:hidden;
-  background:var(--panel); border:1px solid var(--line);
-  transition:transform .35s var(--ease), border-color .3s, background .3s;
+.bio{ padding-block:var(--stack); border-top:var(--bd) solid var(--ink); }
+.bio-grid{ display:grid; gap:clamp(20px,3vw,44px); grid-template-columns:1fr; align-items:start; }
+@media (min-width:900px){ .bio-grid{ grid-template-columns:minmax(260px,.72fr) minmax(0,1.28fr); } }
+.bio-photo{ border:var(--bd) solid var(--ink); box-shadow:var(--shadow); background:var(--paper-2); }
+.bio-photo img{ width:100%; aspect-ratio:1; object-fit:cover; filter:saturate(.9) contrast(1.05); }
+.bio-photo cap{
+  display:block; font-family:var(--f-pixel); font-size:8px; line-height:1.7;
+  padding:11px 12px; border-top:var(--bd) solid var(--ink); color:var(--ink-2);
 }
-.card::before{
-  content:""; position:absolute; inset:0 0 auto 0; height:2px;
-  background:linear-gradient(90deg,transparent,var(--c),transparent);
-  opacity:0; transition:opacity .35s;
+.bio h2{ font-size:clamp(26px,3.4vw,42px); margin-bottom:16px; }
+.bio p{ color:var(--ink-2); }
+.cards{ display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr)); margin-top:22px; }
+.card{ border:var(--bd) solid var(--ink); background:var(--paper-2); padding:15px 16px; box-shadow:var(--shadow-sm); }
+.card h5{ font-family:var(--f-pixel); font-size:9px; margin:0 0 9px; letter-spacing:.03em; }
+.card p{ margin:0; font-size:.93em; }
+.paper-list{ display:grid; gap:9px; margin-top:14px; }
+.paper-row{
+  display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; align-items:center;
+  border:2px solid var(--ink); background:var(--paper-2); padding:11px 13px;
 }
-.card:hover{ transform:translateY(-4px); background:var(--panel-2); border-color:color-mix(in srgb,var(--c) 38%,transparent); }
-.card:hover::before{ opacity:1; }
-.card .ic{
-  width:44px; height:44px; border-radius:12px; display:grid; place-items:center; margin-bottom:16px;
-  background:color-mix(in srgb,var(--c) 15%,transparent);
-  border:1px solid color-mix(in srgb,var(--c) 30%,transparent); color:var(--c);
-}
-.card .ic svg{ width:21px; height:21px; }
-.card h3{ margin:0 0 8px; font-size:17px; font-weight:600; letter-spacing:-.01em; }
-.card p{ margin:0 0 16px; font-size:13.5px; color:var(--ink-3); line-height:1.6; }
-.card .go{ font-family:var(--mono); font-size:12px; color:var(--c); display:inline-flex; align-items:center; gap:7px; }
-.card:hover .go svg{ transform:translateX(3px); }
-.card .go svg{ width:13px; height:13px; transition:transform .25s var(--ease); }
-
-.footer{
-  padding:56px 0 44px; border-top:1px solid var(--line); margin-top:40px;
-  color:var(--ink-3); font-size:13.5px;
-}
-.footer .container{ display:flex; flex-wrap:wrap; gap:18px; justify-content:space-between; align-items:center; }
-.footer a{ color:var(--ink-2); border-bottom:1px solid var(--line-2); }
-.footer a:hover{ color:var(--embed); border-color:var(--embed); }
-.f-links{ display:flex; gap:18px; flex-wrap:wrap; font-family:var(--mono); font-size:12.5px; }
+.paper-row b{ font-weight:600; font-size:.95em; }
+.paper-row .st{ font-family:var(--f-pixel); font-size:7px; padding:6px 8px; border:2px solid var(--ink); white-space:nowrap; }
+.paper-row .st.rev{ background:var(--gold); }
+.paper-row .st.prep{ background:var(--paper-3); }
 
 /* ============================================================
-   RESPONSIVE
+   FOOTER
    ============================================================ */
-@media (max-width:980px){
-  #rail{ display:none; }
-  .hero-grid, .split, .split.wide-r, .split.wide-l, .paper{ grid-template-columns:1fr; gap:34px; }
-  .hero{ padding:112px 0 64px; }
-  .section{ padding:64px 0; }
-  .paper-fig{ order:-1; }
-  .container{ width:calc(100% - 36px); }
+.foot{ border-top:var(--bd) solid var(--ink); background:var(--paper-2); padding-block:clamp(24px,3vw,40px); }
+.foot .wrap{ display:flex; flex-wrap:wrap; gap:16px 26px; align-items:center; justify-content:space-between; }
+.foot-links{ display:flex; flex-wrap:wrap; gap:8px; }
+.foot-links a{
+  font-family:var(--f-pixel); font-size:8px; padding:9px 10px;
+  border:2px solid var(--ink); background:var(--paper-2); text-decoration:none;
+  transition:background .15s;
 }
+.foot-links a:hover{ background:var(--gold); }
+.foot small{ font-family:var(--f-mono); font-size:17px; color:var(--ink-2); }
+
+/* ---- level entrance + solve feedback ---- */
+@keyframes lvIn{ from{ opacity:0; transform:translateY(10px) } to{ opacity:1; transform:none } }
+.lv-top,.lv-body,.obj{ animation:lvIn .28s var(--ease) backwards; }
+.lv-body{ animation-delay:.05s }
+.obj{ animation-delay:.1s }
+@keyframes solved{
+  0%{ transform:none } 30%{ transform:translateY(-4px) scale(1.02) } 100%{ transform:none }
+}
+.obj.done{ animation:solved .4s var(--ease); background:rgba(61,159,104,.14); }
+.obj.done .icon{ animation:solved .4s var(--ease) .04s; }
+.pip.done{ animation:solved .35s var(--ease); }
+
+/* ============================================================
+   MOTION
+   ============================================================ */
 @media (max-width:640px){
-  .container{ width:calc(100% - 32px); }
-  .hero h1{ font-size:clamp(36px,10vw,52px); }
-  .nav{ height:56px; }
-  .brand{ font-size:14.5px; gap:8px; }
-  .brand .m{ width:26px; height:26px; font-size:13px; border-radius:7px; }
-  .btn{ height:36px; padding:0 14px; font-size:13px; }
-  .nav-long{ display:none; }
-  .attn-wrap{ grid-template-columns:1fr; }
-  .attn-ylab{ display:none; }
-  .logit{ grid-template-columns:104px 1fr 48px; font-size:11px; }
-  .attn-bar .k{ width:74px; }
-  .vec-row .name{ width:72px; font-size:11px; }
-  .qkv{ grid-template-columns:1fr; }
-  .nav-actions .btn.ghost{ display:none; }
-  .footer .container{ flex-direction:column; align-items:flex-start; }
+  .topbar .wrap{ min-height:0; gap:8px 12px; padding-block:8px; }
+  .brand .mark{ width:30px; height:30px; }
+  .brand b{ font-size:17px; }
+  .brand span{ display:none; }
+  .pip{ width:23px; height:23px; font-size:7px; }
+  .board{ scroll-margin-top:64px; }
+  .lv-top{ gap:10px 12px; }
+  .lv-no{ padding:9px 10px; }
 }
+
 @media (prefers-reduced-motion:reduce){
   html{ scroll-behavior:auto; }
   *,*::before,*::after{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
-  .rv{ opacity:1; transform:none; }
 }
+.rv{ opacity:0; transform:translateY(16px); transition:opacity .5s var(--ease), transform .5s var(--ease); }
+.rv.in{ opacity:1; transform:none; }
+@media (prefers-reduced-motion:reduce){ .rv{ opacity:1; transform:none; } }
 </style>
 </head>
 <body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <symbol id="g-arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="g-monitor" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="13" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 20.5h7M12 17v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
-  <symbol id="g-flask" viewBox="0 0 24 24"><path d="M9.5 3v6.5L4.4 18a2 2 0 0 0 1.7 3h11.8a2 2 0 0 0 1.7-3l-5.1-8.5V3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 3h8M7.4 14h9.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
-  <symbol id="g-mail" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 6.5l9 6.5 9-6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
-  <symbol id="g-term" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="16" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M7 10l3 2.5L7 15M12.5 15.5h5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="zebra" viewBox="0 0 16 16"><path fill="#141018" d="M2 0h2v1h-2zM12 0h2v1h-2zM1 1h1v1h-1zM4 1h1v1h-1zM11 1h1v1h-1zM14 1h1v1h-1zM1 2h1v1h-1zM4 2h1v1h-1zM11 2h1v1h-1zM14 2h1v1h-1zM1 3h1v1h-1zM4 3h8v1h-8zM14 3h1v1h-1zM2 4h1v1h-1zM4 4h1v1h-1zM7 4h2v1h-2zM11 4h1v1h-1zM13 4h1v1h-1zM2 5h1v1h-1zM4 5h1v1h-1zM7 5h2v1h-2zM11 5h1v1h-1zM13 5h1v1h-1zM2 6h1v1h-1zM4 6h1v1h-1zM7 6h2v1h-2zM11 6h1v1h-1zM13 6h1v1h-1zM2 7h1v1h-1zM4 7h1v1h-1zM7 7h2v1h-2zM11 7h1v1h-1zM13 7h1v1h-1zM2 8h1v1h-1zM13 8h1v1h-1zM2 9h1v1h-1zM4 9h2v1h-2zM10 9h2v1h-2zM13 9h1v1h-1zM2 10h1v1h-1zM13 10h1v1h-1zM3 11h1v1h-1zM12 11h1v1h-1zM4 12h1v1h-1zM11 12h1v1h-1zM4 13h8v1h-8zM4 14h1v1h-1zM6 14h4v1h-4zM11 14h1v1h-1z"/><path fill="#fbf7ee" d="M2 1h2v1h-2zM12 1h2v1h-2zM2 2h2v1h-2zM12 2h2v1h-2zM2 3h2v1h-2zM12 3h2v1h-2zM3 4h1v1h-1zM5 4h2v1h-2zM9 4h2v1h-2zM12 4h1v1h-1zM3 5h1v1h-1zM5 5h2v1h-2zM9 5h2v1h-2zM12 5h1v1h-1zM3 6h1v1h-1zM5 6h2v1h-2zM9 6h2v1h-2zM12 6h1v1h-1zM3 7h1v1h-1zM5 7h2v1h-2zM9 7h2v1h-2zM12 7h1v1h-1zM3 8h10v1h-10zM3 9h1v1h-1zM6 9h4v1h-4zM12 9h1v1h-1zM3 10h10v1h-10zM4 11h8v1h-8zM5 12h6v1h-6zM5 14h1v1h-1zM10 14h1v1h-1z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 16 16"><path fill="currentColor" d="M2 7h8V5l4 3-4 3V9H2z"/></symbol>
+  <symbol id="i-back" viewBox="0 0 16 16"><path fill="currentColor" d="M14 7H6V5L2 8l4 3V9h8z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 16 16"><path fill="currentColor" d="M4 2l10 6-10 6z"/></symbol>
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M2 8h2v2h2v2h2v-2h2V8h2V6h2V4h-2v2h-2v2h-2v2H8V8H6V6H4v2H2z"/></symbol>
+  <symbol id="i-die" viewBox="0 0 16 16"><path fill="currentColor" d="M2 2h12v12H2z M0 0"/><path fill="var(--paper-2)" d="M4 4h2v2H4zM10 4h2v2h-2zM7 7h2v2H7zM4 10h2v2H4zM10 10h2v2h-2z"/></symbol>
 </defs></svg>
 
-<div id="field"><canvas id="field-canvas"></canvas></div>
-
-<!-- ============ NAV ============ -->
-<nav class="nav" id="nav">
-  <div class="container">
-    <a class="brand" href="landing.html"><span class="m">S</span> Saurab Mishra</a>
-    <div class="nav-actions">
-      <a class="btn ghost" href="#architecture">The architecture</a>
-      <a class="btn primary" href="index.html">
-        <svg viewBox="0 0 24 24"><use href="#g-monitor"/></svg> Open<span class="nav-long">&nbsp;the desktop</span>
-      </a>
-    </div>
-  </div>
-</nav>
-
-<!-- ============ PROGRESS RAIL ============ -->
-<aside id="rail" aria-label="Forward pass progress"></aside>
-
-<div class="wrap">
-
-<!-- ============ HERO ============ -->
-<header class="hero">
-  <div class="container hero-grid">
-    <div>
-      <div class="eyebrow"><span class="pulse"></span> forward pass · in progress · loss still nonzero</div>
-      <h1>A biography that runs like a <span class="grad">transformer</span>.</h1>
-      <p class="sub">I am a BS-MS student in Computational and Applied Mathematics at IISER Thiruvananthapuram,
-        working on multi-agent language models and the mathematics hiding inside their representations.</p>
-      <p class="quip">Student by enrolment, researcher by curiosity, occasional casualty of exam season.
-        Every visualisation on this page runs real arithmetic — no fake bars.</p>
-      <div class="hero-cta">
-        <a class="btn primary" href="index.html"><svg viewBox="0 0 24 24"><use href="#g-monitor"/></svg> Explore my work</a>
-        <a class="btn" href="#layer-0"><svg viewBox="0 0 24 24"><use href="#g-arrow"/></svg> Run the forward pass</a>
-      </div>
-
-      <div class="tok-panel">
-        <div class="tok-head">
-          <span>Layer 0 · tokeniser</span>
-          <span id="tok-count">0 tokens</span>
-        </div>
-        <div class="tok-strip" id="tok-strip"></div>
-      </div>
-    </div>
-
-    <div class="portrait">
-      <div class="portrait-frame">
-        <img src="saurabtree.jpeg" alt="Saurab Mishra standing at the base of a very large tree" loading="eager" decoding="async"
-             onerror="this.src='saurabprofile.jpg'">
-        <img class="portrait-badge" src="saurabprofile.jpg" alt="" loading="lazy" decoding="async"
-             onerror="this.remove()">
-        <div class="portrait-cap"><span class="pulse"></span> research mode: confidently confused</div>
-      </div>
-      <div class="stickers">
-        <div class="sticker"><b>Professional posture, unprofessional internal monologue.</b>
-          My interests want language models and systems. My course list wants abstract proofs and surprise exams.
-          Two operating systems fighting over the same RAM, and I am the process manager.</div>
-        <div class="sticker">“Yes, this experiment was definitely planned, and not discovered at 2:13 AM.”</div>
-      </div>
-    </div>
+<!-- ============ TOP BAR ============ -->
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="landing.html">
+      <svg class="mark" viewBox="0 0 16 16"><use href="#zebra"/></svg>
+      <span style="display:block">
+        <b>Saurab Mishra</b>
+        <span>IISER THIRUVANANTHAPURAM</span>
+      </span>
+    </a>
+    <div class="spacer"></div>
+    <nav class="pips" id="pips" aria-label="Level progress"></nav>
+    <a class="btn sm" href="index.html">
+      <svg viewBox="0 0 16 16"><use href="#i-arrow"/></svg> DESKTOP
+    </a>
   </div>
 </header>
 
-<!-- ============ LAYER 0 · EMBED ============ -->
-<section class="section" id="layer-0" data-layer="0" style="--c:var(--embed)">
-  <div class="container">
-    <div class="sec-head rv">
-      <span class="layer-tag"><span class="n">0</span> Input embedding</span>
-      <h2 class="sec-t">Turning a person into a vector</h2>
-      <p class="sec-p">Every model starts with raw, unoptimised noise. In my case: a kid who assumed that
-        enjoying video games would translate cleanly into enjoying calculus, and who ended up at IISER
-        Thiruvananthapuram studying subjects that double as sedatives at parties.</p>
-      <p class="sec-p">Tokenisation was brutal. Positional encoding was worse — it turns out the order you learn
-        things in matters as much as what you learn.</p>
-      <div class="formula">
-        <b>saurab</b> = Embed(curiosity) + PosEncode(IISER_TVM)<br>
-        <span class="dim">d_model</span> = 64 · <span class="dim">batch_size</span> = 1 · <span class="dim">focus</span> = overflow
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="sprites" id="sprites" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="tag gold">SIX MANUSCRIPTS · ZERO PUBLISHED · WORKING AS INTENDED</span>
+      <h1>Everyone has an opinion about transformers. Almost <em>nobody</em> has touched one.</h1>
+      <p class="lede">So here is one you can touch. Six levels: you do the tokenising, you fight the
+        softmax for attention weight, you break layer norm and put it back together. The maths under
+        every control is the real maths. No magical boxes, no “it just learns”. By the end you will
+        know exactly how simple this thing is — which is the part nobody sells you.</p>
+      <div class="hero-cta">
+        <button class="btn on-c" id="start-btn" style="--c:var(--purple)">
+          <svg viewBox="0 0 16 16"><use href="#i-play"/></svg> START LEVEL 1
+        </button>
+        <a class="btn ghost" href="#who">WHO WROTE THIS</a>
       </div>
     </div>
 
-    <div class="split">
-      <div class="stage rv d1">
-        <div class="stage-head"><span>Token → vector</span><span class="live"><i></i>live</span></div>
-        <div class="embed-grid" id="embed-grid"></div>
+    <aside class="hero-card px">
+      <span class="tag fill" style="--c:var(--ink);--on-c:var(--paper-2)">MODEL CARD</span>
+      <div class="stat-row">
+        <div class="stat"><b>6</b><span>LEVELS</span></div>
+        <div class="stat"><b>0</b><span>METAPHORS</span></div>
+        <div class="stat"><b>9</b><span>TOKENS</span></div>
+        <div class="stat"><b>4</b><span>ATTENTION HEADS</span></div>
       </div>
-      <div class="stage rv d2">
-        <div class="stage-head"><span>Positional encoding</span><span>sin / cos · 64 dims</span></div>
-        <canvas class="pe-canvas" id="pe-canvas" aria-label="Sinusoidal positional encoding heatmap"></canvas>
-        <div class="pe-note">PE(pos, 2i) = sin(pos / 10000<sup>2i/d</sup>) &nbsp;·&nbsp; each row is one position</div>
-      </div>
-    </div>
+      <p class="mono" style="margin-top:16px">
+        params: small enough to read<br>
+        compute: two free T4s<br>
+        status: still training
+      </p>
+    </aside>
   </div>
 </section>
 
-<!-- ============ LAYER 1 · ATTENTION ============ -->
-<section class="section" id="layer-1" data-layer="1" style="--c:var(--attn)">
-  <div class="container">
-    <div class="split wide-r">
-      <div class="sec-head rv" style="margin-bottom:0">
-        <span class="layer-tag"><span class="n">1</span> Multi-head attention</span>
-        <h2 class="sec-t">Multi-head obsession</h2>
-        <p class="sec-p">Like a well-behaved attention mechanism, I try to attend to everything at once:
-          multi-agent systems, interpretability, retrieval, and the question of why the code worked yesterday.
-          Several heads. No attention span outside an editor.</p>
-        <p class="sec-p">My Query is <em>how do I get this model to stop confidently making things up</em>.
-          My Key is chronic sleep deprivation. My Value is still converging.</p>
-        <div class="formula">
-          <b>Attention</b>(Q, K, V) = softmax(QKᵀ / √d<sub>k</sub>) V<br>
-          <span class="dim">heads</span> = [multi-agent, interpretability, retrieval, RL] · <span class="dim">d_k</span> = 16
-        </div>
-        <div class="qkv" id="qkv">
-          <div class="qkv-card" data-qkv="q"><b>Q</b>query · what am I looking for</div>
-          <div class="qkv-card" data-qkv="k"><b>K</b>key · what is on offer</div>
-          <div class="qkv-card" data-qkv="v"><b>V</b>value · what gets carried forward</div>
-        </div>
-      </div>
+<!-- ============ THE GAME ============ -->
+<main class="game" id="game">
+  <div class="wrap">
+    <div class="game-head">
+      <h2>The machine, one piece at a time</h2>
+      <div class="spacer"></div>
+      <span class="lv-count" id="progress-text">LEVEL 1 OF 6</span>
+    </div>
 
-      <div class="stage rv d1">
-        <div class="stage-head">
-          <span>Attention weights</span>
-          <div class="seg" id="head-seg" role="tablist" aria-label="Attention head"></div>
-        </div>
-        <div class="attn-wrap">
-          <div class="attn-ylab" id="attn-y"></div>
-          <div class="attn-main">
-            <div class="attn-xlab" id="attn-x"></div>
-            <canvas id="attn-canvas" aria-label="Attention weight matrix. Hover a row to read its distribution."></canvas>
-          </div>
-        </div>
-        <div class="attn-read" id="attn-read"></div>
-        <div class="pipeline" id="attn-pipe" style="--c:var(--attn)"></div>
-      </div>
+    <div class="board" id="board" aria-live="polite"></div>
+
+    <div class="lv-nav">
+      <button class="btn" id="prev-btn"><svg viewBox="0 0 16 16"><use href="#i-back"/></svg> BACK</button>
+      <button class="btn" id="skip-btn">SKIP</button>
+      <div class="spacer"></div>
+      <button class="btn on-c" id="next-btn">NEXT <svg viewBox="0 0 16 16"><use href="#i-arrow"/></svg></button>
     </div>
   </div>
-</section>
+</main>
 
-<!-- ============ LAYER 2 · ADD & NORM ============ -->
-<section class="section" id="layer-2" data-layer="2" style="--c:var(--norm)">
-  <div class="container">
-    <div class="split wide-l">
-      <div class="stage rv d1">
-        <div class="stage-head"><span>Add &amp; LayerNorm</span><span class="live"><i></i>μ → 0 · σ → 1</span></div>
-        <div class="norm-viz">
-          <div class="norm-panel">
-            <div class="norm-lab"><b>before</b><span id="pre-stats">μ = — · σ = —</span></div>
-            <div class="bars pre" id="bars-pre"></div>
-          </div>
-          <div class="norm-panel">
-            <div class="norm-lab"><b>after</b><span id="post-stats">μ = — · σ = —</span></div>
-            <div class="bars post" id="bars-post"></div>
-          </div>
-        </div>
-        <div class="resid">
-          <div class="resid-track">
-            <div class="resid-skip"></div>
-            <div class="resid-line"></div>
-            <div class="resid-block">sublayer</div>
-            <div class="resid-pkt" id="resid-pkt"></div>
-          </div>
-          <div class="resid-note">x + Sublayer(x) — the residual stream is the only reason the gradient survives</div>
-        </div>
-      </div>
-
-      <div class="sec-head rv" style="margin-bottom:0">
-        <span class="layer-tag"><span class="n">2</span> Add &amp; norm</span>
-        <h2 class="sec-t">Reality normalisation</h2>
-        <p class="sec-p">The humbling layer, where a groundbreaking idea meets Reviewer 2 and comes out
-          re-scaled. One of my papers exists entirely because a mechanism I believed in turned out to be
-          decorative — and that null result became the finding rather than a footnote.</p>
-        <p class="sec-p">Residual connections are just the habit of falling back on “at least the script runs”
-          when the proof collapses. The skip connection to the coffee machine is load-bearing.</p>
-        <div class="formula">
-          <b>sanity</b> = LayerNorm(x + Sublayer(x))<br>
-          <span class="dim">ε</span> = 1e-5 · <span class="dim">skip_to</span>(coffee) preserves the gradient
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ LAYER 3 · FEED-FORWARD ============ -->
-<section class="section" id="layer-3" data-layer="3" style="--c:var(--ffn)">
-  <div class="container">
-    <div class="split wide-r">
-      <div class="sec-head rv" style="margin-bottom:0">
-        <span class="layer-tag"><span class="n">3</span> Feed-forward</span>
-        <h2 class="sec-t">The build phase</h2>
-        <p class="sec-p">Where the alleged thinking happens. Normal people expand their social circle;
-          I expand a hidden dimension by a factor of four, apply a nonlinearity, and project it back down.</p>
-        <p class="sec-p">In practice this is PPO-trained communication controllers, retrieval pipelines with
-          honest evaluation, and a GitHub profile that makes my offline hobbies look theoretical.
-          All of it scoped to two free T4s and a twelve-hour session limit.</p>
-        <div class="formula">
-          <b>FFN</b>(x) = W₂ · GELU(W₁x + b₁) + b₂<br>
-          <span class="dim">d_ff</span> = 4 × d_model · <span class="dim">compute_budget</span> = whatever Kaggle allows today
-        </div>
-        <div class="gelu">
-          <canvas id="gelu-canvas" aria-label="GELU activation curve"></canvas>
-          <div class="gelu-num"><b id="gelu-val">0.00</b>GELU(x)<br><span id="gelu-x">x = 0.00</span></div>
-        </div>
-      </div>
-
-      <div class="stage rv d1">
-        <div class="stage-head"><span>Expand → activate → project</span><span class="live"><i></i>64 → 256 → 64</span></div>
-        <canvas id="ffn-canvas" aria-label="Feed-forward network expanding and projecting activations"></canvas>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ LAYER 4 · OUTPUT ============ -->
-<section class="section" id="layer-4" data-layer="4" style="--c:var(--out)">
-  <div class="container">
-    <div class="split wide-l">
-      <div class="stage rv d1">
-        <div class="stage-head"><span>Output distribution</span><span class="live"><i></i>softmax over vocabulary</span></div>
-        <div class="logits" id="logits"></div>
-        <div class="temp-row">
-          <span>temperature</span>
-          <input type="range" id="temp" min="20" max="180" value="80" aria-label="Sampling temperature">
-          <span id="temp-val">0.80</span>
-        </div>
-        <div class="sample-out">
-          <span class="lbl">sampled continuation</span>
-          <span class="txt" id="sample-txt"></span>
-        </div>
-      </div>
-
-      <div class="sec-head rv" style="margin-bottom:0">
-        <span class="layer-tag"><span class="n">4</span> Output layer</span>
-        <h2 class="sec-t">Still training</h2>
-        <p class="sec-p">After all that compute, what comes out? Six manuscripts under review or in preparation,
-          a club of two hundred people I started and then handed on, a hackathon for a thousand, and the
-          social habit of explaining architectures to audiences who did not ask.</p>
-        <p class="sec-p">I work on interpretability because accepting that these systems work by magic is not a
-          scientific position. If we are going to let neural networks confidently mislead people, the least we can
-          do is work out how. That is my problem now.</p>
-        <div class="formula">
-          <b>status</b> = still_training(actively, please_wait)<br>
-          <span class="dim">P</span>(touching_grass) = 1e-9 · <span class="dim">loss</span> = nonzero
-        </div>
-        <div class="hero-cta" style="margin-top:24px">
-          <a class="btn primary" href="index.html"><svg viewBox="0 0 24 24"><use href="#g-monitor"/></svg> See the actual work</a>
-          <a class="btn" href="mailto:saurab23@iisertvm.ac.in"><svg viewBox="0 0 24 24"><use href="#g-mail"/></svg> Email me</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ ARCHITECTURE ============ -->
-<section class="section" id="architecture" style="--c:var(--attn)">
-  <div class="container">
-    <div class="sec-head rv" style="max-width:720px;margin-inline:auto;text-align:center">
-      <h2 class="sec-t">Curiosity Is All You Need</h2>
-      <p class="sec-p">The full architecture, drawn the way papers draw them. I submitted myself to this pipeline in
-        2024 and it has not converged yet.</p>
-    </div>
-    <div class="paper">
-      <figure class="paper-fig rv" style="margin:0">
-        <svg id="arch-svg" viewBox="0 0 320 520" role="img" aria-label="Transformer block diagram of the sections on this page"></svg>
-        <figcaption class="cap"><b>Figure 1.</b> The architecture that ruined my sleep.<br>Hover a block to jump to it.</figcaption>
+<!-- ============ BIO ============ -->
+<section class="bio" id="who">
+  <div class="wrap bio-grid">
+    <div class="rv">
+      <figure class="bio-photo" style="margin:0">
+        <img src="saurabprofile.jpg" alt="Saurab Mishra" loading="lazy" decoding="async"
+             onerror="this.src='saurabtree.jpeg'">
+        <cap>SAURAB MISHRA<br>BS-MS · COMPUTATIONAL &amp; APPLIED MATHEMATICS</cap>
       </figure>
-      <div class="rv d1">
-        <p class="sec-p">The diagram is the page. Each block is one of the five layers above, in the order you just
-          read them, wrapped in the residual stream that carries everything forward.</p>
-        <p class="sec-p">What I actually study is what happens inside these blocks — whether the representations
-          they build have geometric structure you can describe rather than just visualise, whether sudden jumps in
-          capability behave like phase transitions, and whether any of it can be derived rather than ablated.</p>
-        <p class="sec-p">Concretely, that means small open models, pretrained checkpoints and activation analysis,
-          because that is what fits on the hardware I have. The constraint turns out to pick better questions than
-          I would have picked without it.</p>
-        <div class="cite">
-          <b>S. Mishra.</b> “Curiosity Is All You Need.” <em>IISER Thiruvananthapuram</em>, 2026.<br>
-          <span style="color:var(--ink-3)">Under review. Perpetually.</span>
+      <div class="cards" style="grid-template-columns:1fr">
+        <div class="card">
+          <h5>THE CONSTRAINT</h5>
+          <p>No GPU cluster. Two free T4s and a twelve-hour session limit. It turns out that picks
+            better research questions than ambition does.</p>
         </div>
+      </div>
+    </div>
+
+    <div class="rv d1">
+      <h2>Who put you through that</h2>
+      <p>I work on multi-agent language models and the mathematical structure inside their
+        representations, under Prof. Kripabandhu Ghosh. The short version: I want to know whether
+        interpretability can be a mathematics problem instead of a visualisation problem — whether
+        representation space has geometry you can describe, and whether sudden jumps in capability
+        are phase transitions rather than surprises.</p>
+      <p>The longer version is six manuscripts, none of them published. That is not modesty. That is
+        a timeline.</p>
+
+      <div class="cards">
+        <div class="card">
+          <h5>THE NULL RESULT</h5>
+          <p>One paper exists because I spent 7,752 API calls proving my own idea was decorative.
+            Every ablation came back insignificant. I could have buried it in an appendix and nobody
+            would have checked. It is the finding instead.</p>
+        </div>
+        <div class="card">
+          <h5>THE CLUB</h5>
+          <p>Founded the Coding Club at IISER TVM in 2024, grew it to 200 members, ran an all-India
+            hackathon for about a thousand people, then handed it over. Still on the advisory
+            committee, which is a polite word for “occasionally consulted”.</p>
+        </div>
+      </div>
+
+      <h4 style="font-family:var(--f-pixel);font-size:9px;color:var(--ink-3);margin:26px 0 10px;letter-spacing:.05em">
+        THE SIX, WITH THEIR ACTUAL STATUS
+      </h4>
+      <div class="paper-list" id="papers"></div>
+
+      <div class="hero-cta" style="margin-top:24px">
+        <a class="btn on-c" style="--c:var(--blue)" href="index.html">
+          <svg viewBox="0 0 16 16"><use href="#i-arrow"/></svg> OPEN THE DESKTOP
+        </a>
+        <a class="btn ghost" href="mailto:saurab23@iisertvm.ac.in">EMAIL ME</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ EXPLORE ============ -->
-<section class="section">
-  <div class="container">
-    <div class="sec-head rv" style="max-width:640px">
-      <h2 class="sec-t">Where to go next</h2>
-      <p class="sec-p">The real work lives one click away, in a desktop that behaves like a desktop.</p>
-    </div>
-    <div class="cards">
-      <a class="card rv" href="index.html" style="--c:var(--embed)">
-        <div class="ic"><svg viewBox="0 0 24 24"><use href="#g-monitor"/></svg></div>
-        <h3>The desktop</h3>
-        <p>Projects, papers, writing and a working terminal, inside a window manager with snap layouts and a start menu.</p>
-        <span class="go">Open the workspace <svg viewBox="0 0 24 24"><use href="#g-arrow"/></svg></span>
-      </a>
-      <a class="card rv d1" href="index.html#research" style="--c:var(--attn)">
-        <div class="ic"><svg viewBox="0 0 24 24"><use href="#g-flask"/></svg></div>
-        <h3>Research</h3>
-        <p>Six manuscripts across ACL, TMLR, COLING and legal NLP. Each one says exactly where it stands, including the null result.</p>
-        <span class="go">Read the work <svg viewBox="0 0 24 24"><use href="#g-arrow"/></svg></span>
-      </a>
-      <a class="card rv d2" href="index.html" style="--c:var(--ffn)">
-        <div class="ic"><svg viewBox="0 0 24 24"><use href="#g-term"/></svg></div>
-        <h3>The terminal</h3>
-        <p>Type <code style="font-family:var(--mono);color:var(--ffn)">papers</code>, <code style="font-family:var(--mono);color:var(--ffn)">neofetch</code> or <code style="font-family:var(--mono);color:var(--ffn)">help</code>. It is a real shell over a fake filesystem.</p>
-        <span class="go">Open a shell <svg viewBox="0 0 24 24"><use href="#g-arrow"/></svg></span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="container">
-    <div>© <span id="yr"></span> Saurab Mishra · IISER Thiruvananthapuram · <a href="index.html">the desktop</a></div>
-    <div class="f-links">
-      <a href="https://github.com/SaurabMishra12" target="_blank" rel="noopener">github</a>
-      <a href="https://www.linkedin.com/in/saurab-mishra-493a73178/" target="_blank" rel="noopener">linkedin</a>
-      <a href="https://medium.com/@saurabmishra" target="_blank" rel="noopener">medium</a>
-      <a href="https://www.youtube.com/@saurab_mishra" target="_blank" rel="noopener">youtube</a>
-      <a href="mailto:saurab23@iisertvm.ac.in">email</a>
+<footer class="foot">
+  <div class="wrap">
+    <small>© <span id="yr"></span> Saurab Mishra · every pixel drawn on purpose</small>
+    <div class="foot-links">
+      <a href="https://github.com/SaurabMishra12" target="_blank" rel="noopener">GITHUB</a>
+      <a href="https://www.linkedin.com/in/saurab-mishra-493a73178/" target="_blank" rel="noopener">LINKEDIN</a>
+      <a href="https://medium.com/@saurabmishra" target="_blank" rel="noopener">MEDIUM</a>
+      <a href="https://www.youtube.com/@saurab_mishra" target="_blank" rel="noopener">YOUTUBE</a>
+      <a href="index.html">DESKTOP</a>
     </div>
   </div>
 </footer>
-
-</div>
 <script>
 "use strict";
 /* ============================================================
-   THE FORWARD PASS — behaviour
-   Every visualisation below computes the thing it depicts:
-   real dot products, real softmax, real layer norm, real GELU.
-   One rAF loop drives only the canvases currently on screen.
+   BUILD A TRANSFORMER
+   Six levels. Every control is wired to the real operation it
+   depicts: a tokeniser, cosine similarity, softmax, layer norm,
+   GELU, and temperature sampling. Nothing here is faked.
    ============================================================ */
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c =>
+  ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
 
-/* Seeded PRNG so the "learned" weights are the same on every visit. */
-function rng(seed) {
-  let s = seed >>> 0;
-  return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
+function h(tag, attrs, ...kids) {
+  const [name, ...cls] = tag.split('.');
+  const n = document.createElement(name || 'div');
+  if (cls.length) n.className = cls.join(' ');
+  // Anything that is not a plain attribute bag is a child: strings, numbers,
+  // nodes and arrays all shift across rather than being read as attributes.
+  const isAttrs = attrs != null && typeof attrs === 'object' && !attrs.nodeType && !Array.isArray(attrs);
+  if (!isAttrs) { if (attrs != null) kids.unshift(attrs); attrs = null; }
+  if (attrs) for (const [k, v] of Object.entries(attrs)) {
+    if (v == null || v === false) continue;
+    if (k === 'html') n.innerHTML = v;
+    else if (k === 'text') n.textContent = v;
+    else if (k === 'style' && typeof v === 'object') Object.assign(n.style, v);
+    else if (k.startsWith('on') && typeof v === 'function') n.addEventListener(k.slice(2), v);
+    else n.setAttribute(k, v === true ? '' : v);
+  }
+  for (const k of kids.flat()) {
+    if (k == null || k === false) continue;
+    n.appendChild(k.nodeType ? k : document.createTextNode(String(k)));
+  }
+  return n;
 }
-const gauss = r => { const u = Math.max(1e-9, r()), v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
 
-/* Real softmax, with temperature. */
+/* Real softmax with temperature — used by three different levels. */
 function softmax(xs, T = 1) {
   const m = Math.max(...xs);
   const e = xs.map(x => Math.exp((x - m) / T));
   const s = e.reduce((a, b) => a + b, 0) || 1;
   return e.map(x => x / s);
 }
+function rng(seed) { let s = seed >>> 0; return () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296; }
+const gauss = r => Math.sqrt(-2 * Math.log(Math.max(1e-9, r()))) * Math.cos(6.28318 * r());
 
-/* ---------- render loop: only visible canvases tick ---------- */
-const painters = new Set();
-let looping = false;
-function loop(t) {
-  looping = painters.size > 0;
-  for (const p of painters) p(t);
-  if (looping) requestAnimationFrame(loop);
-}
-function addPainter(p) { painters.add(p); if (!looping) { looping = true; requestAnimationFrame(loop); } }
-function whenVisible(el, on, off) {
-  new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? on() : off?.()),
-    { rootMargin: '120px' }).observe(el);
-}
-/** Size a canvas to its CSS box at device pixel ratio. Returns {w,h} in CSS px. */
+/** Fit a canvas to its CSS box at device pixel ratio; returns CSS-px size. */
 function fit(cv) {
   const r = cv.getBoundingClientRect();
   const dpr = Math.min(devicePixelRatio || 1, 2);
-  const w = Math.max(1, Math.round(r.width)), h = Math.max(1, Math.round(r.height));
-  if (cv.width !== w * dpr || cv.height !== h * dpr) {
-    cv.width = w * dpr; cv.height = h * dpr;
+  const w = Math.max(1, Math.round(r.width)), ht = Math.max(1, Math.round(r.height));
+  if (cv.width !== w * dpr || cv.height !== ht * dpr) {
+    cv.width = w * dpr; cv.height = ht * dpr;
     cv.getContext('2d').setTransform(dpr, 0, 0, dpr, 0, 0);
   }
-  return { w, h };
+  return { w, h: ht };
 }
-const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 
 /* ============================================================
-   AMBIENT FIELD — drifting tokens in latent space
+   TOKENISER  (used by level 1, and honest about how BPE feels)
    ============================================================ */
-(function field() {
-  const cv = $('#field-canvas'), ctx = cv.getContext('2d');
-  let pts = [], w = 0, h = 0, alive = false;
+const VOCAB = new Set(('the a an of to and is it in on at that this these those was were be been ' +
+  'cat dog sat mat run ran sit sleep eat tired happy sad big small red blue how why what when who ' +
+  'model models token tokens word words language talk talks each other you they them their with ' +
+  'for from not are but so if then than very more most some any all one two three no yes because').split(' '));
 
-  function seed() {
-    ({ w, h } = fit(cv));
-    const n = clamp(Math.round(w * h / 26000), 26, 78);
-    const r = rng(20260910);
-    pts = Array.from({ length: n }, () => ({
-      x: r() * w, y: r() * h,
-      vx: (r() - .5) * .13, vy: (r() - .5) * .13,
-      s: .8 + r() * 1.9, h: r()
-    }));
-  }
-  seed();
-  addEventListener('resize', seed, { passive: true });
-
-  const draw = () => {
-    ctx.clearRect(0, 0, w, h);
-    // Edges first, so the nodes sit on top.
-    for (let i = 0; i < pts.length; i++) {
-      const a = pts[i];
-      for (let j = i + 1; j < pts.length; j++) {
-        const b = pts[j], dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy;
-        if (d2 > 21000) continue;
-        const o = (1 - d2 / 21000) * .17;
-        ctx.strokeStyle = `rgba(120,160,255,${o.toFixed(3)})`;
-        ctx.lineWidth = .7;
-        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-      }
+function tokenise(text) {
+  const pieces = text.match(/\s*[A-Za-z']+|\s*\d+|\s*[^\sA-Za-z\d']/g) || [];
+  const out = [];
+  for (const piece of pieces) {
+    const lead = piece.match(/^\s*/)[0];
+    const body = piece.slice(lead.length);
+    if (!body) continue;
+    const low = body.toLowerCase();
+    // Frequent whole words earn their own id; everything else is chopped.
+    if (VOCAB.has(low) || body.length <= 3) { out.push(lead + body); continue; }
+    let rest = body, first = true;
+    while (rest.length) {
+      const take = Math.min(rest.length, first ? (body.length > 7 ? 4 : 3) : 4);
+      out.push((first ? lead : '') + rest.slice(0, take));
+      rest = rest.slice(take);
+      first = false;
     }
-    for (const p of pts) {
-      p.x += p.vx; p.y += p.vy;
-      if (p.x < -20) p.x = w + 20; if (p.x > w + 20) p.x = -20;
-      if (p.y < -20) p.y = h + 20; if (p.y > h + 20) p.y = -20;
-      ctx.fillStyle = p.h > .62 ? 'rgba(167,139,250,.55)' : p.h > .3 ? 'rgba(56,189,248,.5)' : 'rgba(45,212,191,.42)';
-      ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, 7); ctx.fill();
+  }
+  return out;
+}
+const tokenId = t => {
+  let n = 0;
+  for (const ch of t.trim().toLowerCase()) n = (n * 31 + ch.charCodeAt(0)) >>> 0;
+  return 1000 + (n % 48000);
+};
+
+/* ============================================================
+   THE SENTENCE the attention level works on
+   ============================================================ */
+const SENT = ['the', 'cat', 'sat', 'on', 'the', 'mat', 'because', 'it', 'purred'];
+
+/* Four heads with the biases attention heads really do develop.
+   The scores are genuine dot products of projected embeddings;
+   the bias only tilts them the way training would. */
+const D = 16;
+const EMB = SENT.map((t, i) => {
+  const r = rng(700 + t.length * 131 + t.charCodeAt(0) * 37);
+  return Array.from({ length: D }, () => gauss(r) * .9);
+});
+const HEADS = [
+  { key: 'prev',    name: 'PREVIOUS', bias: (i, j) => (j === i - 1 ? 3.4 : 0) },
+  { key: 'content', name: 'CONTENT',  bias: () => 0 },
+  { key: 'sink',    name: 'SINK',     bias: (i, j) => (j === 0 ? 2.8 : 0) },
+  { key: 'self',    name: 'SELF',     bias: (i, j) => (j === i ? 3.0 : 0) }
+];
+function rawScores(headIdx, qi) {
+  const r = rng(5150 + headIdx * 811);
+  const W = k => Array.from({ length: D }, () => Array.from({ length: D }, () => gauss(r) * .34));
+  const Wq = W(), Wk = W();
+  const proj = (v, M) => M[0].map((_, c) => v.reduce((s, x, k) => s + x * M[k][c], 0));
+  const q = proj(EMB[qi], Wq);
+  return SENT.map((_, j) => {
+    if (j > qi) return null;                        // causal mask
+    const k = proj(EMB[j], Wk);
+    let d = 0; for (let n = 0; n < D; n++) d += q[n] * k[n];
+    return d / Math.sqrt(D) + HEADS[headIdx].bias(qi, j);
+  });
+}
+
+/* ============================================================
+   PAPERS (bio section)
+   ============================================================ */
+const PAPERS = [
+  ['Routing or Rationing? Decomposing Communication Control in Multi-Agent Language Models', 'ACL', 'rev'],
+  ['What Survives, What Matters: Matched Evaluation of Retrieval, Filtering and Downstream Behaviour', 'TMLR', 'rev'],
+  ['Symbolic Prompt Schemas Change What Models Emit More Than How They Solve Tasks', 'TMLR', 'rev'],
+  ['ArguGenCourt: Courtroom Argument Generation via Judicial Multi-Agent LLMs', 'LEGAL NLP', 'rev'],
+  ['Multi-Agent LLM Collaboration Topologies for Annotation', 'COLING 27', 'prep'],
+  ['Ghost Swarm: Parallel Logit Fusion with Latent Disagreement States', 'ACL', 'prep']
+];
+/* ============================================================
+   THE SIX LEVELS
+   Each declares its theory, its objective, and a build() that
+   returns the playground. build() may return a cleanup function.
+   ============================================================ */
+const LEVELS = [
+
+/* ---------------------------------------------------------- 1 */
+{
+  name: 'Tokenise', sub: 'TEXT → INTEGERS', color: '--red',
+  theory: `
+    <h4>WHAT ACTUALLY HAPPENS</h4>
+    <p>A model cannot read. It looks up integers in a table. The tokeniser chops your
+      sentence into <strong>subwords</strong> — pieces that appeared often enough in the training
+      corpus to earn their own ID — and hands over the numbers.</p>
+    <div class="formula">"purred" → ["pur", "red"] → [8241, 2907]</div>
+    <p>Common words survive whole. Rare or long ones get shredded. Nothing about this is
+      linguistic; it is a compression scheme that was fitted once and then frozen.</p>
+    <div class="aside"><b>WHY IT MATTERS</b>
+      This is the entire reason models are bad at spelling. They never saw the letters —
+      they saw <em>chunks</em>. Every viral thread about a model failing to count letters is
+      really a thread about tokenisation, written by someone who did not check.</div>`,
+  objective: 'Land on exactly 12 tokens.',
+  hint: 'You start at 10. One five-or-six letter word costs two tokens; a short common word costs one.',
+  done: 'Twelve tokens, nine words. That gap is the entire point.',
+  build(play, ctx) {
+    const ta = h('textarea.tok-input', {
+      spellcheck: 'false', 'aria-label': 'Text to tokenise',
+      text: 'the cat sat on the mat because it purred'
+    });
+    const strip = h('div.toks');
+    const count = h('div.counter');
+    const hint = h('p.mono', { style: 'color:var(--ink-2);margin:0' });
+
+    const run = () => {
+      const toks = tokenise(ta.value);
+      strip.innerHTML = '';
+      for (const t of toks) {
+        const el = h('span.tk' + (t.startsWith(' ') ? '.sp' : ''));
+        el.innerHTML = esc(t.replace(/ /g, '␣')) + `<i>${tokenId(t)}</i>`;
+        strip.appendChild(el);
+      }
+      const n = toks.length;
+      count.textContent = `${n} TOKEN${n === 1 ? '' : 'S'}`;
+      count.classList.toggle('hit', n === 12);
+      hint.textContent = n === 12 ? 'Twelve. Notice it is not twelve words.'
+        : n < 12 ? `Add ${12 - n} more. Long or rare words cost more than one.`
+                 : `Drop ${n - 12}. Common words are cheaper.`;
+      n === 12 ? ctx.solve() : ctx.unsolve();
+    };
+    ta.addEventListener('input', run);
+
+    play.append(
+      h('div.pg-title', h('span', 'YOUR TEXT'), h('span', 'EDIT IT')),
+      ta,
+      h('div.pg-title', { style: 'margin-top:4px' }, h('span', 'TOKENS'), count),
+      strip, hint
+    );
+    run();
+  }
+},
+
+/* ---------------------------------------------------------- 2 */
+{
+  name: 'Embed', sub: 'INTEGERS → VECTORS', color: '--orange',
+  theory: `
+    <h4>WHAT ACTUALLY HAPPENS</h4>
+    <p>Each ID indexes a row of a big matrix. That row is the token's <strong>embedding</strong>:
+      a few thousand numbers. Nobody wrote down what "cat" means. The vectors arranged themselves
+      during training so that words appearing in similar contexts ended up pointing in similar
+      directions.</p>
+    <div class="formula">sim(a, b) = (a · b) / (‖a‖ ‖b‖)</div>
+    <p>Similarity is the <strong>cosine of the angle</strong> between two vectors — direction only,
+      length ignored. Drag the probe below and watch which words it points at.</p>
+    <div class="aside"><b>THE HONEST VERSION</b>
+      Meaning here is co-occurrence statistics with extra steps. That is not a criticism —
+      it is remarkable how far co-occurrence gets you. It is only a problem when someone
+      insists the model "understands" the word, using a definition of understanding they
+      decline to write down.</div>`,
+  objective: 'Park the probe so all three nearest words are animals.',
+  hint: 'The animals sit up and to the left. Cosine measures direction from the centre, not distance — aim the dashed ray at them.',
+  done: 'That is the animal cluster. Nobody labelled it; the vectors arranged themselves.',
+  build(play, ctx) {
+    /* Words placed as 2D vectors from the centre; cosine is a real angle. */
+    const WORDS = [
+      ['cat', -.62, -.55, 'animal'], ['dog', -.78, -.34, 'animal'], ['horse', -.46, -.74, 'animal'],
+      ['zebra', -.86, -.60, 'animal'], ['mouse', -.55, -.30, 'animal'],
+      ['tensor', .74, -.52, 'tech'], ['gradient', .55, -.76, 'tech'], ['matrix', .86, -.33, 'tech'],
+      ['model', .43, -.44, 'tech'], ['token', .66, -.20, 'tech'],
+      ['run', .58, .62, 'verb'], ['sleep', .78, .40, 'verb'], ['eat', .40, .78, 'verb'],
+      ['think', .70, .74, 'verb'],
+      ['the', -.55, .68, 'stop'], ['of', -.76, .45, 'stop'], ['and', -.40, .80, 'stop'],
+      ['to', -.82, .66, 'stop']
+    ];
+    const CAT_COL = { animal: '--orange', tech: '--blue', verb: '--green', stop: '--ink-3' };
+
+    const stage = h('div.embed-stage');
+    const cv = h('canvas', { id: 'embed-canvas' });
+    stage.appendChild(cv);
+    const near = h('div.near');
+    const legend = h('div.chipset');
+    legend.innerHTML = Object.entries(CAT_COL).map(([k, c]) =>
+      `<span class="chip" style="border-color:var(${c})">${k}</span>`).join('');
+
+    let probe = { x: .30, y: .62 };   // starts in the "verb" quadrant
+
+    const cos = (ax, ay, bx, by) => {
+      const na = Math.hypot(ax, ay), nb = Math.hypot(bx, by);
+      return na && nb ? (ax * bx + ay * by) / (na * nb) : 0;
+    };
+
+    function ranked() {
+      const px = probe.x * 2 - 1, py = 1 - probe.y * 2;
+      return WORDS.map(w => ({ w, s: cos(px, py, w[1], w[2]) })).sort((a, b) => b.s - a.s);
+    }
+
+    function draw() {
+      const { w, h: ht } = fit(cv);
+      const ctx2 = cv.getContext('2d');
+      const X = v => (v + 1) / 2 * w, Y = v => (1 - v) / 2 * ht;
+      ctx2.clearRect(0, 0, w, ht);
+
+      // grid
+      ctx2.strokeStyle = 'rgba(29,26,43,.12)'; ctx2.lineWidth = 1;
+      for (let i = 1; i < 8; i++) {
+        ctx2.beginPath(); ctx2.moveTo(w * i / 8, 0); ctx2.lineTo(w * i / 8, ht); ctx2.stroke();
+        ctx2.beginPath(); ctx2.moveTo(0, ht * i / 8); ctx2.lineTo(w, ht * i / 8); ctx2.stroke();
+      }
+      const top3 = ranked().slice(0, 3).map(r => r.w[0]);
+
+      // ray from origin to probe, because cosine is about direction
+      const px = probe.x * 2 - 1, py = 1 - probe.y * 2;
+      ctx2.strokeStyle = cssv('--ink'); ctx2.lineWidth = 2; ctx2.setLineDash([5, 4]);
+      ctx2.beginPath(); ctx2.moveTo(X(0), Y(0)); ctx2.lineTo(X(px), Y(py)); ctx2.stroke();
+      ctx2.setLineDash([]);
+
+      for (const [word, wx, wy, cat] of WORDS) {
+        const hot = top3.includes(word);
+        ctx2.fillStyle = cssv(CAT_COL[cat]);
+        const r = hot ? 7 : 4.5;
+        ctx2.fillRect(X(wx) - r, Y(wy) - r, r * 2, r * 2);
+        ctx2.strokeStyle = cssv('--ink'); ctx2.lineWidth = 2;
+        ctx2.strokeRect(X(wx) - r, Y(wy) - r, r * 2, r * 2);
+        ctx2.fillStyle = cssv('--ink');
+        ctx2.font = `${hot ? 700 : 400} ${hot ? 15 : 13}px "VT323", monospace`;
+        ctx2.textAlign = 'center';
+        ctx2.fillText(word, X(wx), Y(wy) - r - 5);
+      }
+      // probe
+      ctx2.fillStyle = cssv('--gold');
+      ctx2.fillRect(X(px) - 8, Y(py) - 8, 16, 16);
+      ctx2.strokeStyle = cssv('--ink'); ctx2.lineWidth = 3;
+      ctx2.strokeRect(X(px) - 8, Y(py) - 8, 16, 16);
+    }
+
+    function paintNear() {
+      const list = ranked().slice(0, 5);
+      near.innerHTML = list.map(({ w, s }) =>
+        `<div class="near-row"><span>${w[0]}</span>
+           <span class="bar"><i style="width:${(clamp(s, 0, 1) * 100).toFixed(1)}%;background:var(${CAT_COL[w[3]]})"></i></span>
+           <span class="v">${s.toFixed(2)}</span></div>`).join('');
+      const top3 = list.slice(0, 3);
+      (top3.length === 3 && top3.every(t => t.w[3] === 'animal')) ? ctx.solve() : ctx.unsolve();
+    }
+
+    const move = e => {
+      const r = cv.getBoundingClientRect();
+      probe.x = clamp((e.clientX - r.left) / r.width, .02, .98);
+      probe.y = clamp((e.clientY - r.top) / r.height, .02, .98);
+      draw(); paintNear();
+    };
+    let dragging = false;
+    cv.addEventListener('pointerdown', e => { dragging = true; cv.setPointerCapture(e.pointerId); move(e); });
+    cv.addEventListener('pointermove', e => { if (dragging) move(e); });
+    cv.addEventListener('pointerup', () => dragging = false);
+    cv.addEventListener('pointercancel', () => dragging = false);
+
+    play.append(
+      h('div.pg-title', h('span', 'EMBEDDING SPACE (2D PROJECTION)'), h('span', 'DRAG THE GOLD PROBE')),
+      stage, legend,
+      h('div.pg-title', { style: 'margin-top:4px' }, h('span', 'NEAREST BY COSINE'), h('span', 'TOP 5')),
+      near
+    );
+    const onResize = () => { draw(); };
+    addEventListener('resize', onResize, { passive: true });
+    requestAnimationFrame(() => { draw(); paintNear(); });
+    return () => removeEventListener('resize', onResize);
+  }
+},
+
+/* ---------------------------------------------------------- 3 */
+{
+  name: 'Attend', sub: 'TOKENS → CONTEXT', color: '--purple',
+  theory: `
+    <h4>WHAT ACTUALLY HAPPENS</h4>
+    <p>Every token asks a question (<strong>Q</strong>), every token advertises what it holds
+      (<strong>K</strong>), and the dot product scores the match. Softmax turns those raw scores
+      into a <strong>budget that must add up to 1</strong>, and the answer is that budget spent on
+      the values (<strong>V</strong>).</p>
+    <div class="formula">Attention(Q,K,V) = softmax(QKᵀ / √d<sub>k</sub>) V</div>
+    <p>Drag the raw scores below. Watch what happens to the others.</p>
+    <div class="aside"><b>THE THING NOBODY TELLS YOU</b>
+      You cannot raise one weight without robbing the rest. Attention is zero-sum by
+      construction. Every explainer that says a model "focuses on several things at once"
+      is describing a budget and calling it a spotlight.</div>
+    <h4>THE CAUSAL MASK</h4>
+    <p>A token may only look backwards. Future positions are set to −∞ before the softmax, so
+      they get exactly zero budget. That is the whole trick behind next-token prediction.</p>`,
+  objective: 'With "it" as the query, give "cat" more than 60% of the budget.',
+  hint: 'Raising "cat" alone will not get there. Softmax normalises, so you have to push the competitors down as well.',
+  done: 'You had to rob the others to pay "cat". That is softmax, and that is why attention is a budget.',
+  build(play, ctx) {
+    let qi = 7;                       // "it"
+    let scores = rawScores(1, qi).map(v => v == null ? null : v);
+
+    const sentEl = h('div.sent');
+    const headsEl = h('div.heads');
+    const rowsEl = h('div.scores');
+    const note = h('p.mono', { style: 'color:var(--ink-2);margin:0' });
+
+    HEADS.forEach((hd, i) => {
+      headsEl.appendChild(h('button', {
+        type: 'button', text: hd.name,
+        onclick: () => {
+          $$('button', headsEl).forEach(b => b.classList.remove('on'));
+          headsEl.children[i].classList.add('on');
+          scores = rawScores(i, qi);
+          paint();
+        }
+      }));
+    });
+    headsEl.children[1].classList.add('on');
+
+    function paintSentence() {
+      sentEl.innerHTML = '';
+      SENT.forEach((t, i) => {
+        const b = h('button', { type: 'button', text: t });
+        if (i === qi) b.classList.add('q');
+        b.addEventListener('click', () => { qi = i; scores = rawScores(1, qi); paint(); });
+        sentEl.appendChild(b);
+      });
+    }
+
+    function paint() {
+      paintSentence();
+      const live = scores.map((v, j) => (j <= qi ? v : null));
+      const idx = live.map((v, j) => v == null ? -1 : j).filter(j => j >= 0);
+      const probs = softmax(idx.map(j => live[j]));
+      const byIdx = {}; idx.forEach((j, k) => byIdx[j] = probs[k]);
+      const best = idx.reduce((a, b) => (byIdx[a] > byIdx[b] ? a : b), idx[0]);
+
+      rowsEl.innerHTML = '';
+      idx.forEach(j => {
+        const p = byIdx[j];
+        const row = h('div.score-row' + (j === best ? '.top' : ''));
+        row.innerHTML =
+          `<span class="k">${esc(SENT[j])}</span>
+           <input type="range" min="-40" max="90" value="${Math.round(live[j] * 10)}" aria-label="Raw score for ${esc(SENT[j])}">
+           <span class="w"><i style="width:${(p * 100).toFixed(1)}%"></i></span>
+           <span class="p">${(p * 100).toFixed(1)}%</span>`;
+        $('input', row).addEventListener('input', e => {
+          scores[j] = (+e.target.value) / 10;
+          paint();
+        });
+        rowsEl.appendChild(row);
+      });
+
+      const catP = byIdx[1] ?? 0;
+      const solved = qi === 7 && catP > .60;
+      note.textContent = qi !== 7
+        ? `Query is "${SENT[qi]}". Switch back to "it" to work the objective.`
+        : `"it" spends ${(catP * 100).toFixed(1)}% on "cat". Raising one score pushes every other one down.`;
+      solved ? ctx.solve() : ctx.unsolve();
+    }
+
+    play.append(
+      h('div.pg-title', h('span', 'PICK THE QUERY TOKEN'), h('span', 'CAUSAL: LOOKS BACKWARD ONLY')),
+      sentEl,
+      h('div.pg-title', { style: 'margin-top:4px' }, h('span', 'LOAD A REAL HEAD'), h('span', '4 PATTERNS')),
+      headsEl,
+      h('div.pg-title', { style: 'margin-top:4px' }, h('span', 'RAW SCORE → SOFTMAX BUDGET'), h('span', 'SUMS TO 100%')),
+      rowsEl, note
+    );
+    paint();
+  }
+},
+
+/* ---------------------------------------------------------- 4 */
+{
+  name: 'Normalise', sub: 'KEEP THE NUMBERS SANE', color: '--teal',
+  theory: `
+    <h4>WHAT ACTUALLY HAPPENS</h4>
+    <p>Stack enough layers and the activations drift — the scale creeps up, the mean wanders off,
+      and gradients stop being useful. <strong>LayerNorm</strong> re-centres every vector to mean 0
+      and variance 1, at every layer, forever.</p>
+    <div class="formula">y = (x − μ) / √(σ² + ε)</div>
+    <p>Break the activations with the slider, then put them back.</p>
+    <h4>THE RESIDUAL STREAM</h4>
+    <p>The other half of the trick: every block adds its output to its input rather than replacing
+      it. The original signal has an unobstructed path from the first layer to the last.</p>
+    <div class="aside"><b>THE FOOTNOTE THAT ATE THE FIELD</b>
+      Residual connections were introduced to fix a training problem in image networks. They
+      turned out to be the reason depth works at all. The most consequential idea in the
+      architecture arrived looking like an engineering patch.</div>`,
+  objective: 'Push σ above 5, then normalise it back.',
+  hint: 'Drag CHAOS · SCALE hard to the right until σ passes 5, then press NORMALISE.',
+  done: 'Mean zero, variance one. Every layer, every forward pass, forever.',
+  build(play, ctx) {
+    const N = 26;
+    const r = rng(31337);
+    const base = Array.from({ length: N }, () => gauss(r));
+    let scale = 1, shift = 0, normalised = false, broke = false;
+
+    const barsEl = h('div.bars');
+    barsEl.innerHTML = Array.from({ length: N }, () => '<i></i>').join('');
+    const readEl = h('div.readout');
+    const resid = h('div.resid', {
+      html: `<div class="resid-track">
+               <div class="resid-arc"></div><div class="resid-line"></div>
+               <div class="resid-blk">SUBLAYER</div><div class="resid-pkt" id="pkt"></div>
+             </div><cap>x + Sublayer(x) — the bypass that makes depth survivable</cap>`
+    });
+
+    const vals = () => normalised ? norm(raw()) : raw();
+    const raw = () => base.map(v => v * scale + shift);
+    function stats(a) {
+      const mu = a.reduce((x, y) => x + y, 0) / a.length;
+      const va = a.reduce((x, y) => x + (y - mu) ** 2, 0) / a.length;
+      return { mu, sd: Math.sqrt(va) };
+    }
+    function norm(a) { const { mu, sd } = stats(a); return a.map(v => (v - mu) / Math.sqrt(sd * sd + 1e-5)); }
+
+    function paint() {
+      const a = vals(), { mu, sd } = stats(a);
+      const max = Math.max(1e-6, ...a.map(Math.abs));
+      $$('i', barsEl).forEach((b, i) => {
+        const frac = Math.abs(a[i]) / max;
+        b.style.height = (6 + frac * 108) + 'px';
+        b.style.background = a[i] >= 0 ? `var(--c)` : `var(--red)`;
+      });
+      if (sd > 5) broke = true;
+      const okMu = Math.abs(mu) < .01, okSd = Math.abs(sd - 1) < .02;
+      readEl.innerHTML =
+        `<div class="${okMu ? 'ok' : 'bad'}"><b>MEAN μ</b><span>${mu.toFixed(2)}</span></div>
+         <div class="${okSd ? 'ok' : 'bad'}"><b>STD σ</b><span>${sd.toFixed(2)}</span></div>
+         <div><b>SCALE</b><span>${scale.toFixed(1)}×</span></div>
+         <div><b>SHIFT</b><span>${shift >= 0 ? '+' : ''}${shift.toFixed(1)}</span></div>`;
+      (broke && normalised && okMu && okSd) ? ctx.solve() : ctx.unsolve();
+    }
+
+    const mk = (label, min, max, val, step, on) => {
+      const row = h('div', { style: 'display:grid;gap:6px' });
+      const lab = h('div.pg-title', h('span', label), h('span', { text: val.toFixed(1) }));
+      const inp = h('input', { type: 'range', min, max, value: Math.round(val * 10), step, 'aria-label': label });
+      inp.addEventListener('input', e => {
+        const v = (+e.target.value) / 10;
+        lab.lastChild.textContent = v.toFixed(1);
+        normalised = false; on(v); paint();
+      });
+      row.append(lab, inp);
+      return row;
+    };
+
+    const btn = h('button.btn.on-c', { html: 'NORMALISE' });
+    btn.addEventListener('click', () => { normalised = true; paint(); });
+    const reset = h('button.btn', { text: 'RESET' });
+    reset.addEventListener('click', () => { scale = 1; shift = 0; normalised = false; rebuild(); });
+
+    const controls = h('div', { style: 'display:grid;gap:12px' });
+    function rebuild() {
+      controls.innerHTML = '';
+      controls.append(
+        mk('CHAOS · SCALE', 2, 90, scale, 1, v => scale = v),
+        mk('CHAOS · SHIFT', -60, 60, shift, 1, v => shift = v),
+        h('div', { style: 'display:flex;gap:9px;flex-wrap:wrap' }, btn, reset)
+      );
+      paint();
+    }
+
+    play.append(
+      h('div.pg-title', h('span', 'ACTIVATIONS'), h('span', '26 DIMENSIONS')),
+      barsEl, readEl, controls, resid
+    );
+    rebuild();
+
+    /* packet running the residual stream */
+    let raf = 0, t0 = 0;
+    const pkt = $('#pkt', resid), track = pkt.parentElement;
+    const tick = ts => {
+      if (!t0) t0 = ts;
+      const p = ((ts - t0) / 3400) % 1;
+      const w = Math.max(0, track.clientWidth - 14);
+      pkt.style.left = (p * w) + 'px';
+      const arc = p > .12 && p < .88 ? Math.sin((p - .12) / .76 * Math.PI) : 0;
+      pkt.style.transform = `translateY(${(-arc * 34).toFixed(1)}px)`;
+      raf = requestAnimationFrame(tick);
+    };
+    if (!REDUCED) raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }
+},
+
+/* ---------------------------------------------------------- 5 */
+{
+  name: 'Think', sub: 'THE FEED-FORWARD BLOCK', color: '--gold',
+  theory: `
+    <h4>WHAT ACTUALLY HAPPENS</h4>
+    <p>Attention moves information <em>between</em> tokens. The feed-forward block is where each
+      token thinks on its own: project up to four times the width, apply a nonlinearity, project
+      back down.</p>
+    <div class="formula">FFN(x) = W₂ · GELU(W₁x + b₁) + b₂</div>
+    <p>About two-thirds of a transformer's parameters live here. It gets a fraction of the
+      attention, so to speak.</p>
+    <h4>GELU, NOT RELU</h4>
+    <p>ReLU clamps everything below zero to nothing. GELU lets a little through — it dips to about
+      <strong>−0.17 near x = −0.75</strong> before flattening out.</p>
+    <div class="aside"><b>WORTH 0.17</b>
+      That small negative lobe is most of why GELU beats ReLU in practice. An entire
+      architectural improvement, and it is a dent in a curve you could cover with a thumbnail.</div>`,
+  objective: 'Find the dip: push GELU(x) below −0.16.',
+  hint: 'The dip is on the negative side, around x = −0.75. Not at zero, not at −4.',
+  done: '−0.170 at x ≈ −0.75. That dent is most of the advantage over ReLU.',
+  build(play, ctx) {
+    const G = v => .5 * v * (1 + Math.tanh(Math.sqrt(2 / Math.PI) * (v + .044715 * v ** 3)));
+    let x = 1.8;
+    const cv = h('canvas', { id: 'gelu-canvas', 'aria-label': 'GELU activation curve' });
+    const read = h('div.readout');
+    const neurons = h('div.neurons');
+    const r = rng(9090);
+    const wts = Array.from({ length: 24 }, () => gauss(r) * 1.1);
+    neurons.innerHTML = wts.map(() => '<i></i>').join('');
+
+    function draw() {
+      const { w, h: ht } = fit(cv);
+      const c = cv.getContext('2d');
+      const X0 = -4, X1 = 4, Y0 = -1, Y1 = 4;
+      const px = v => (v - X0) / (X1 - X0) * w, py = v => ht - (v - Y0) / (Y1 - Y0) * ht;
+      c.clearRect(0, 0, w, ht);
+
+      c.strokeStyle = 'rgba(29,26,43,.10)'; c.lineWidth = 1;
+      for (let v = X0; v <= X1; v++) { c.beginPath(); c.moveTo(px(v), 0); c.lineTo(px(v), ht); c.stroke(); }
+      for (let v = Y0; v <= Y1; v++) { c.beginPath(); c.moveTo(0, py(v)); c.lineTo(w, py(v)); c.stroke(); }
+      c.strokeStyle = cssv('--ink-3'); c.lineWidth = 2;
+      c.beginPath(); c.moveTo(0, py(0)); c.lineTo(w, py(0)); c.stroke();
+      c.beginPath(); c.moveTo(px(0), 0); c.lineTo(px(0), ht); c.stroke();
+
+      // the target band, so the dip is findable rather than guessable
+      c.fillStyle = 'rgba(229,72,77,.14)';
+      c.fillRect(px(-1.35), py(-0.16), px(-0.2) - px(-1.35), py(-0.35) - py(-0.16));
+
+      c.strokeStyle = cssv('--gold'); c.lineWidth = 4; c.beginPath();
+      for (let i = 0; i <= 160; i++) {
+        const v = X0 + (X1 - X0) * i / 160;
+        i ? c.lineTo(px(v), py(G(v))) : c.moveTo(px(v), py(G(v)));
+      }
+      c.stroke();
+
+      const gy = G(x);
+      c.strokeStyle = cssv('--ink'); c.lineWidth = 2; c.setLineDash([4, 4]);
+      c.beginPath(); c.moveTo(px(x), py(0)); c.lineTo(px(x), py(gy)); c.stroke();
+      c.setLineDash([]);
+      c.fillStyle = gy < -0.16 ? cssv('--green') : cssv('--red');
+      c.fillRect(px(x) - 8, py(gy) - 8, 16, 16);
+      c.strokeStyle = cssv('--ink'); c.lineWidth = 3;
+      c.strokeRect(px(x) - 8, py(gy) - 8, 16, 16);
+    }
+
+    function paint() {
+      const gy = G(x);
+      read.innerHTML =
+        `<div><b>INPUT x</b><span>${x.toFixed(2)}</span></div>
+         <div class="${gy < -0.16 ? 'ok' : ''}"><b>GELU(x)</b><span>${gy.toFixed(3)}</span></div>
+         <div><b>RELU(x)</b><span>${Math.max(0, x).toFixed(2)}</span></div>`;
+      $$('i', neurons).forEach((el, i) => {
+        const a = G(wts[i] * x);
+        el.classList.toggle('fire', a > .25);
+        el.classList.toggle('neg', a < -.05);
+      });
+      draw();
+      gy < -0.16 ? ctx.solve() : ctx.unsolve();
+    }
+
+    const lab = h('div.pg-title', h('span', 'INPUT x'), h('span', 'DRAG INTO THE RED BAND'));
+    const slider = h('input', { type: 'range', min: -400, max: 400, value: x * 100, 'aria-label': 'Input x' });
+    slider.addEventListener('input', e => { x = (+e.target.value) / 100; paint(); });
+
+    play.append(
+      h('div.pg-title', h('span', 'GELU'), h('span', 'x · Φ(x)')),
+      cv, lab, slider, read,
+      h('div.pg-title', { style: 'margin-top:4px' }, h('span', 'HIDDEN UNITS'), h('span', '24 OF 3072')),
+      neurons
+    );
+    const onResize = () => draw();
+    addEventListener('resize', onResize, { passive: true });
+    requestAnimationFrame(paint);
+    return () => removeEventListener('resize', onResize);
+  }
+},
+
+/* ---------------------------------------------------------- 6 */
+{
+  name: 'Decode', sub: 'VECTORS → A WORD', color: '--blue',
+  theory: `
+    <h4>WHAT ACTUALLY HAPPENS</h4>
+    <p>The final layer scores every token in the vocabulary. Softmax turns those scores into
+      probabilities. Then the model <strong>rolls a die</strong>.</p>
+    <div class="formula">P(token) = softmax(logits / T)</div>
+    <p>Temperature decides how loaded the die is. Low temperature sharpens the favourite; high
+      temperature flattens everything toward a coin-flip.</p>
+    <div class="aside"><b>ON "CREATIVITY"</b>
+      At T = 0 the model is not generating, it is reciting — the same input gives the same
+      output every time. Everything people call creativity in these systems is the width of
+      this distribution and the number the sampler drew. That is the whole mechanism.</div>`,
+  objective: 'Flatten it: keep the favourite under 40%.',
+  hint: 'Turn the temperature up. Somewhere past 1.05 the favourite drops under 40%.',
+  done: 'Flat distribution, unpredictable output. That is all the word creativity means here.',
+  build(play, ctx) {
+    const VOCAB2 = [
+      ['another paper', 4.1], ['a null result', 3.6], ['sleep', 3.2],
+      ['more experiments', 2.9], ['a PhD', 2.4], ['touching grass', -1.8]
+    ];
+    let T = .8;
+    const logitsEl = h('div.logits');
+    const tape = h('div.tape', { html: '<b>SAMPLED OUTPUT</b><span id="tape-txt">press ROLL</span>' });
+    const lab = h('div.pg-title', h('span', 'TEMPERATURE'), h('span', { id: 'tval', text: T.toFixed(2) }));
+    const slider = h('input', { type: 'range', min: 10, max: 200, value: T * 100, 'aria-label': 'Temperature' });
+
+    function paint() {
+      const p = softmax(VOCAB2.map(v => v[1]), T);
+      const best = p.indexOf(Math.max(...p));
+      logitsEl.innerHTML = VOCAB2.map((v, i) =>
+        `<div class="logit${i === best ? ' win' : ''}"><span class="t">${esc(v[0])}</span>
+          <span class="b"><i style="width:${(p[i] * 100).toFixed(1)}%"></i></span>
+          <span class="p">${(p[i] * 100).toFixed(1)}%</span></div>`).join('');
+      $('#tval', lab).textContent = T.toFixed(2);
+      (p[best] < .40) ? ctx.solve() : ctx.unsolve();
+      return p;
+    }
+    slider.addEventListener('input', e => { T = (+e.target.value) / 100; paint(); });
+
+    const roll = h('button.btn.on-c', { html: 'ROLL THE DIE' });
+    roll.addEventListener('click', () => {
+      const p = paint();
+      let n = 0;
+      const spin = setInterval(() => {
+        const j = Math.floor(Math.random() * VOCAB2.length);
+        $('#tape-txt', tape).innerHTML = `still training, next: <span class="new">${esc(VOCAB2[j][0])}</span>`;
+        if (++n > 7) {
+          clearInterval(spin);
+          let acc = 0, r = Math.random(), pick = VOCAB2.length - 1;
+          for (let i = 0; i < p.length; i++) { acc += p[i]; if (r <= acc) { pick = i; break; } }
+          $('#tape-txt', tape).innerHTML = `still training, next: <span class="new">${esc(VOCAB2[pick][0])}</span>`;
+        }
+      }, REDUCED ? 1 : 70);
+    });
+
+    play.append(
+      h('div.pg-title', h('span', 'VOCABULARY LOGITS'), h('span', 'SOFTMAX OVER 6')),
+      logitsEl, lab, slider,
+      h('div', { style: 'display:flex;gap:9px;flex-wrap:wrap' }, roll),
+      tape
+    );
+    paint();
+  }
+}
+];
+/* ============================================================
+   GAME MANAGER
+   Exactly one level is in the DOM at a time, which is why no two
+   panels can ever fight for the same space.
+   ============================================================ */
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('tf.' + k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem('tf.' + k, JSON.stringify(v)); } catch {} }
+};
+
+const G = {
+  i: 0,
+  solved: new Set(store.get('solved', [])),
+  cleanup: null,
+  finished: false
+};
+
+const board = $('#board'), pipsEl = $('#pips');
+
+function renderPips() {
+  pipsEl.innerHTML = '';
+  LEVELS.forEach((lv, i) => {
+    const b = h('button.pip', {
+      type: 'button', title: `Level ${i + 1} — ${lv.name}`,
+      'aria-label': `Level ${i + 1}, ${lv.name}`,
+      style: { '--pc': `var(${lv.color})` },
+      onclick: () => mount(i, true)
+    });
+    b.appendChild(h('span', String(i + 1)));
+    if (G.solved.has(i)) b.classList.add('done');
+    if (i === G.i && !G.finished) b.classList.add('on');
+    pipsEl.appendChild(b);
+  });
+}
+
+function markSolved(i) {
+  if (G.solved.has(i)) return;
+  G.solved.add(i);
+  store.set('solved', [...G.solved]);
+  renderPips();
+}
+
+/** A short pixel burst from an element — the reward for solving something. */
+function burst(anchor) {
+  if (REDUCED) return;
+  const r0 = anchor.getBoundingClientRect();
+  const COLS = ['--gold', '--green', '--teal', '--red', '--blue'];
+  for (let i = 0; i < 14; i++) {
+    const a = (Math.PI * 2 * i) / 14 + Math.random() * .4;
+    const d = 46 + Math.random() * 52;
+    const px = h('div', {
+      style: {
+        position: 'fixed', zIndex: 200, pointerEvents: 'none',
+        left: (r0.left + r0.width / 2 - 4) + 'px',
+        top: (r0.top + r0.height / 2 - 4) + 'px',
+        width: '8px', height: '8px',
+        background: `var(${COLS[i % COLS.length]})`,
+        border: '2px solid var(--ink)',
+        transition: 'transform .62s cubic-bezier(.15,.85,.3,1), opacity .62s linear'
+      }
+    });
+    document.body.appendChild(px);
+    requestAnimationFrame(() => {
+      px.style.transform = `translate(${Math.cos(a) * d}px, ${Math.sin(a) * d - 14}px) scale(.4)`;
+      px.style.opacity = '0';
+    });
+    setTimeout(() => px.remove(), 700);
+  }
+}
+
+function mount(i, scroll) {
+  if (G.cleanup) { try { G.cleanup(); } catch {} G.cleanup = null; }
+  G.finished = false;
+  G.i = clamp(i, 0, LEVELS.length - 1);
+  const lv = LEVELS[G.i];
+
+  board.style.setProperty('--c', `var(${lv.color})`);
+  board.style.setProperty('--on-c', lv.color === '--gold' ? 'var(--ink)' : 'var(--paper-2)');
+  board.innerHTML = '';
+
+  const theory = h('div.lv-theory', { html: lv.theory });
+  const play = h('div.lv-play.pg');
+  const objIcon = h('div.icon', { text: '!' });
+  const objText = h('span', { text: lv.objective });
+  const objBar = h('div.obj',
+    objIcon,
+    h('div.txt', h('b', 'OBJECTIVE'), objText),
+    h('div.acts',
+      h('button.btn.sm', { text: 'HINT', onclick: () => { objText.textContent = lv.hint || lv.objective; } })
+    )
+  );
+
+  const ctx = {
+    solve() {
+      if (objBar.classList.contains('done')) return;
+      objBar.classList.add('done');
+      objIcon.textContent = '✓';
+      objText.textContent = 'Solved. ' + (lv.done || 'Move on when you are ready.');
+      burst(objIcon);
+      markSolved(G.i);
+    },
+    unsolve() {
+      if (!objBar.classList.contains('done')) return;
+      objBar.classList.remove('done');
+      objIcon.textContent = '!';
+      objText.textContent = lv.objective;
     }
   };
 
-  if (REDUCED) { draw(); return; }
-  const tick = () => { if (alive) draw(); };
-  whenVisible(cv, () => { alive = true; addPainter(tick); }, () => { alive = false; });
-  alive = true; addPainter(tick);
-})();
+  board.append(
+    h('div.lv-bar'),
+    h('div.lv-top',
+      h('div.lv-no', String(G.i + 1).padStart(2, '0')),
+      h('div', h('h3.lv-name', lv.name), h('div.lv-sub', lv.sub)),
+      h('div.spacer'),
+      h('span.tag', `${G.i + 1} / ${LEVELS.length}`)
+    ),
+    h('div.lv-body', theory, play),
+    objBar
+  );
 
-/* ============================================================
-   HERO · LIVE TOKENISER
-   ============================================================ */
-(function tokeniser() {
-  const strip = $('#tok-strip'), count = $('#tok-count');
-  const SENTENCE = 'Saurab studies how language models talk to each other.';
-  // A believable subword split — the kind a BPE tokeniser actually produces.
-  const TOKENS = ['Sau', 'rab', ' studies', ' how', ' language', ' models', ' talk', ' to', ' each', ' other', '.'];
-  let i = 0;
+  const stop = lv.build(play, ctx);
+  G.cleanup = typeof stop === 'function' ? stop : null;
 
-  function add() {
-    if (i >= TOKENS.length) {
-      strip.appendChild(Object.assign(document.createElement('span'), {
-        className: 'caret', ariaHidden: 'true'
-      }));
-      count.textContent = `${TOKENS.length} tokens · ${SENTENCE.length} chars`;
-      return;
-    }
-    const t = TOKENS[i];
-    const el = document.createElement('span');
-    el.className = 'tok' + (t.startsWith(' ') ? ' sp' : '');
-    el.innerHTML = `${t.replace(/ /g, '␣')}<span class="id">${1000 + ((i * 2377) % 8000)}</span>`;
-    strip.appendChild(el);
-    count.textContent = `${++i} token${i === 1 ? '' : 's'}`;
-    setTimeout(add, REDUCED ? 0 : 120);
-  }
-  setTimeout(add, REDUCED ? 0 : 500);
-})();
+  $('#progress-text').textContent = `LEVEL ${G.i + 1} OF ${LEVELS.length}`;
+  $('#prev-btn').disabled = G.i === 0;
+  $('#next-btn').innerHTML = G.i === LEVELS.length - 1
+    ? 'FINISH <svg viewBox="0 0 16 16"><use href="#i-win"/></svg>'
+    : 'NEXT <svg viewBox="0 0 16 16"><use href="#i-arrow"/></svg>';
+  renderPips();
+  if (scroll) board.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' });
+}
 
-/* ============================================================
-   THE MODEL — one small transformer, shared by every panel
-   ============================================================ */
-const TOK = ['Saurab', 'studies', 'how', 'language', 'models', 'talk', 'to', 'each', 'other'];
-const N = TOK.length, D = 16;
+function finale() {
+  if (G.cleanup) { try { G.cleanup(); } catch {} G.cleanup = null; }
+  G.finished = true;
+  const all = G.solved.size === LEVELS.length;
+  board.style.setProperty('--c', 'var(--green)');
+  board.innerHTML = '';
+  board.append(
+    h('div.lv-bar'),
+    h('div.finale',
+      h('svg.zeb', { viewBox: '0 0 16 16', html: '<use href="#zebra"/>' }),
+      h('h3', all ? 'All six. Nothing left to hide behind.' : 'That is the whole architecture.'),
+      h('p', 'Six operations: chop the text into integers, look them up, let every token spend a ' +
+             'budget on the others, keep the numbers sane, think alone for a layer, roll a die. ' +
+             'Stack it, repeat it, and scale it until the electricity bill becomes a geopolitical ' +
+             'concern. Nothing you just did required a metaphor.'),
+      h('p', { style: 'margin-top:14px' },
+        all ? 'You solved every objective, which puts you ahead of most people with opinions on this.'
+            : `You solved ${G.solved.size} of ${LEVELS.length}. The rest are still there.`),
+      h('div.btns',
+        h('button.btn.on-c', { html: 'PLAY AGAIN', onclick: () => mount(0, true) }),
+        h('a.btn', { href: '#who', text: 'WHO WROTE THIS' }),
+        h('a.btn.ghost', { href: 'index.html', text: 'OPEN THE DESKTOP' })
+      )
+    )
+  );
+  $('#progress-text').textContent = 'COMPLETE';
+  $('#next-btn').disabled = true;
+  $('#prev-btn').disabled = false;
+  renderPips();
+  board.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' });
+}
 
-/* Token embeddings + sinusoidal positional encoding. */
-const EMB = TOK.map((t, i) => {
-  const r = rng(1000 + t.length * 97 + t.charCodeAt(0) * 31);
-  return Array.from({ length: D }, (_, k) => gauss(r) * .8 + Math.sin((i + 1) / Math.pow(10000, 2 * Math.floor(k / 2) / D)) * .5);
+$('#next-btn').addEventListener('click', () => {
+  if (G.i === LEVELS.length - 1) finale(); else mount(G.i + 1, true);
+});
+$('#prev-btn').addEventListener('click', () => {
+  if (G.finished) mount(LEVELS.length - 1, true); else mount(G.i - 1, true);
+});
+$('#skip-btn').addEventListener('click', () => {
+  if (G.i === LEVELS.length - 1) finale(); else mount(G.i + 1, true);
+});
+$('#start-btn').addEventListener('click', () => mount(0, true));
+
+addEventListener('keydown', e => {
+  if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+  if (e.key === 'ArrowRight' && !G.finished) { e.preventDefault(); $('#next-btn').click(); }
+  if (e.key === 'ArrowLeft' && G.i > 0) { e.preventDefault(); $('#prev-btn').click(); }
 });
 
-/* Four heads with the biases real heads actually develop:
-   attend to the previous token, to similar content, to the first
-   token as a sink, or to yourself. Scores are genuine dot products;
-   the bias only tilts them the way training does. */
-const HEADS = [
-  { name: 'H1 · previous', bias: (i, j) => (j === i - 1 ? 3.2 : 0) },
-  { name: 'H2 · content',  bias: () => 0 },
-  { name: 'H3 · sink',     bias: (i, j) => (j === 0 ? 2.6 : 0) },
-  { name: 'H4 · self',     bias: (i, j) => (j === i ? 2.9 : 0) }
-];
-
-function attentionMatrix(headIdx) {
-  const r = rng(4242 + headIdx * 977);
-  const Wq = Array.from({ length: D }, () => Array.from({ length: D }, () => gauss(r) * .35));
-  const Wk = Array.from({ length: D }, () => Array.from({ length: D }, () => gauss(r) * .35));
-  const proj = (v, W) => W[0].map((_, c) => v.reduce((s, x, k) => s + x * W[k][c], 0));
-  const Q = EMB.map(v => proj(v, Wq)), K = EMB.map(v => proj(v, Wk));
-  const head = HEADS[headIdx];
-  const rows = [];
-  for (let i = 0; i < N; i++) {
-    const s = [];
-    for (let j = 0; j < N; j++) {
-      // Causal mask: a token cannot attend to its own future.
-      if (j > i) { s.push(-Infinity); continue; }
-      let dot = 0;
-      for (let k = 0; k < D; k++) dot += Q[i][k] * K[j][k];
-      s.push(dot / Math.sqrt(D) + head.bias(i, j));
-    }
-    const fin = s.map(x => (x === -Infinity ? -1e9 : x));
-    const p = softmax(fin);
-    rows.push(s.map((x, j) => (x === -Infinity ? 0 : p[j])));
-  }
-  return rows;
-}
-const ATTN = HEADS.map((_, i) => attentionMatrix(i));
-
 /* ============================================================
-   LAYER 0 · EMBEDDING BARS + POSITIONAL ENCODING
+   BIO + CHROME
    ============================================================ */
-(function embedding() {
-  const grid = $('#embed-grid');
-  const show = TOK.slice(0, 6);
-  show.forEach((t, i) => {
-    const row = document.createElement('div');
-    row.className = 'vec-row';
-    row.innerHTML = `<span class="name">${t}</span><span class="vec">${
-      Array.from({ length: D }, () => '<i></i>').join('')}</span>`;
-    grid.appendChild(row);
-  });
-  const paint = () => {
-    $$('.vec-row', grid).forEach((row, i) => {
-      const v = EMB[i];
-      $$('i', row).forEach((bar, k) => {
-        const mag = clamp(Math.abs(v[k]) / 2.2, .06, 1);
-        setTimeout(() => {
-          bar.style.transform = `scaleY(${mag.toFixed(3)})`;
-          bar.style.opacity = (.25 + mag * .75).toFixed(3);
-          bar.style.background = v[k] >= 0 ? css('--embed') : css('--out');
-        }, REDUCED ? 0 : i * 90 + k * 14);
-      });
-    });
-  };
-  let done = false;
-  whenVisible(grid, () => { if (!done) { done = true; paint(); } });
-})();
+$('#papers').innerHTML = PAPERS.map(([t, v, s]) =>
+  `<div class="paper-row"><b>${esc(t)}</b>
+     <span class="st ${s}">${s === 'rev' ? 'UNDER REVIEW · ' + esc(v) : 'IN PREP · ' + esc(v)}</span>
+   </div>`).join('');
 
-(function positional() {
-  const cv = $('#pe-canvas'), ctx = cv.getContext('2d');
-  function draw() {
-    const { w, h } = fit(cv);
-    const rows = 24, cols = 64;
-    const cw = w / cols, ch = h / rows;
-    ctx.clearRect(0, 0, w, h);
-    for (let pos = 0; pos < rows; pos++) {
-      for (let k = 0; k < cols; k++) {
-        const i = Math.floor(k / 2);
-        const angle = pos / Math.pow(10000, (2 * i) / cols);
-        const v = k % 2 === 0 ? Math.sin(angle) : Math.cos(angle);   // the actual formula
-        const t = (v + 1) / 2;
-        // cyan for negative, warm for positive — a real diverging map
-        const r = Math.round(56 + t * 195), g = Math.round(189 - Math.abs(t - .5) * 150), b = Math.round(248 - t * 190);
-        ctx.fillStyle = `rgb(${r},${g},${b})`;
-        ctx.globalAlpha = .25 + Math.abs(v) * .75;
-        ctx.fillRect(k * cw, pos * ch, Math.ceil(cw), Math.ceil(ch));
+/* Decorative pixel sprites, clipped to the hero and non-interactive. */
+(function sprites() {
+  const host = $('#sprites');
+  if (!host || REDUCED) return;
+  const COLS = ['--red', '--gold', '--teal', '--blue', '--purple', '--orange'];
+  const r = rng(2026);
+  for (let i = 0; i < 12; i++) {
+    const s = 6 + Math.floor(r() * 12);
+    // Confined to the outer bands so they never sit behind the headline.
+    const side = r() < .5 ? r() * 16 : 84 + r() * 14;
+    host.appendChild(h('div.sprite', {
+      style: {
+        left: side.toFixed(1) + '%',
+        top: (4 + r() * 88).toFixed(1) + '%',
+        width: s + 'px', height: s + 'px',
+        background: `var(${COLS[i % COLS.length]})`,
+        border: '2px solid var(--ink)',
+        animationDelay: (-r() * 7).toFixed(1) + 's',
+        animationDuration: (5 + r() * 5).toFixed(1) + 's'
       }
-    }
-    ctx.globalAlpha = 1;
+    }));
   }
-  draw();
-  addEventListener('resize', draw, { passive: true });
 })();
 
-/* ============================================================
-   LAYER 1 · ATTENTION HEATMAP
-   ============================================================ */
-(function attention() {
-  const cv = $('#attn-canvas'), ctx = cv.getContext('2d');
-  const seg = $('#head-seg'), read = $('#attn-read');
-  const ylab = $('#attn-y'), xlab = $('#attn-x');
-  let head = 1, hoverRow = -1, reveal = 0, animating = false;
-
-  HEADS.forEach((hd, i) => {
-    const b = document.createElement('button');
-    b.type = 'button'; b.textContent = hd.name; b.dataset.h = i;
-    b.setAttribute('role', 'tab');
-    b.addEventListener('click', () => { head = i; sync(); reveal = 0; animating = true; });
-    seg.appendChild(b);
-  });
-  ylab.style.gridTemplateRows = `repeat(${N},1fr)`;
-  xlab.style.gridTemplateColumns = `repeat(${N},1fr)`;
-  ylab.innerHTML = TOK.map(t => `<span>${t}</span>`).join('');
-  xlab.innerHTML = TOK.map(t => `<span>${t.slice(0, 7)}</span>`).join('');
-
-  function sync() {
-    $$('button', seg).forEach(b => b.classList.toggle('on', +b.dataset.h === head));
-  }
-  sync();
-
-  function draw() {
-    const { w, h } = fit(cv);
-    const cell = Math.min(w, h) / N;
-    const ox = (w - cell * N) / 2, oy = (h - cell * N) / 2;
-    ctx.clearRect(0, 0, w, h);
-    const M = ATTN[head];
-
-    for (let i = 0; i < N; i++) {
-      for (let j = 0; j < N; j++) {
-        const x = ox + j * cell, y = oy + i * cell;
-        const masked = j > i;
-        // Cells fade in row by row so the causal structure reads as a wipe.
-        const rowT = clamp(reveal - i * .55, 0, 1);
-        if (masked) {
-          ctx.fillStyle = 'rgba(255,255,255,.022)';
-        } else {
-          const v = M[i][j] * rowT;
-          const a = Math.pow(v, .62);
-          ctx.fillStyle = `rgba(167,139,250,${(.06 + a * .94).toFixed(3)})`;
-        }
-        ctx.fillRect(x + .8, y + .8, cell - 1.6, cell - 1.6);
-
-        if (!masked && M[i][j] > .18 && cell > 26 && rowT > .9) {
-          ctx.fillStyle = M[i][j] > .5 ? 'rgba(12,6,32,.92)' : 'rgba(232,236,246,.72)';
-          ctx.font = `500 ${Math.min(11, cell * .3)}px ${css('--mono') || 'monospace'}`;
-          ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-          ctx.fillText(M[i][j].toFixed(2), x + cell / 2, y + cell / 2);
-        }
-      }
-    }
-    if (hoverRow >= 0) {
-      ctx.strokeStyle = css('--attn'); ctx.lineWidth = 1.6;
-      ctx.strokeRect(ox + .8, oy + hoverRow * cell + .8, cell * N - 1.6, cell - 1.6);
-    }
-    return { ox, oy, cell };
-  }
-
-  function readout(i) {
-    const M = ATTN[head];
-    if (i < 0) {
-      read.innerHTML = `<div class="q">Hover a row to read where that token looks. Rows are queries, columns are keys —
-        the empty upper triangle is the causal mask.</div>`;
-      return;
-    }
-    const pairs = M[i].map((v, j) => ({ j, v })).filter(p => p.j <= i).sort((a, b) => b.v - a.v).slice(0, 4);
-    read.innerHTML =
-      `<div class="q">query <b>“${TOK[i]}”</b> attends to</div>` +
-      pairs.map(p => `<div class="attn-bar"><span class="k">${TOK[p.j]}</span>
-        <span class="t"><i style="width:${(p.v * 100).toFixed(1)}%"></i></span>
-        <span class="v">${p.v.toFixed(3)}</span></div>`).join('');
-  }
-  readout(-1);
-
-  function locate(e) {
-    const r = cv.getBoundingClientRect();
-    const { cell, oy } = draw();
-    const y = (e.clientY - r.top) - oy;
-    const i = Math.floor(y / cell);
-    return i >= 0 && i < N ? i : -1;
-  }
-  cv.addEventListener('pointermove', e => {
-    const i = locate(e);
-    if (i === hoverRow) return;
-    hoverRow = i; readout(i); draw();
-    $$('span', ylab).forEach((s, k) => s.classList.toggle('hot', k === i));
-    $$('span', xlab).forEach((s, k) => s.classList.toggle('hot', i >= 0 && k <= i && ATTN[head][i][k] > .25));
-  });
-  cv.addEventListener('pointerleave', () => {
-    hoverRow = -1; readout(-1); draw();
-    $$('span', ylab).forEach(s => s.classList.remove('hot'));
-    $$('span', xlab).forEach(s => s.classList.remove('hot'));
-  });
-
-  const tick = () => {
-    if (animating) {
-      reveal += REDUCED ? 99 : .06;
-      if (reveal > N * .55 + 1.2) { reveal = 99; animating = false; }
-      draw();
-    }
-  };
-  addPainter(tick);
-  let started = false;
-  whenVisible(cv, () => { if (!started) { started = true; reveal = 0; animating = true; } });
-  addEventListener('resize', () => draw(), { passive: true });
-  draw();
-
-  /* Pipeline steps + Q/K/V cards, stepping in time with each other. */
-  const STEPS = [
-    ['Project x into Q, K, V', 'x·W<sub>q,k,v</sub>', 'q'],
-    ['Score every pair: Q·Kᵀ', `${N}×${N} matrix`, 'k'],
-    ['Scale by √d<sub>k</sub>', `÷ ${Math.sqrt(D).toFixed(1)}`, 'k'],
-    ['Mask the future', 'causal', 'k'],
-    ['Softmax each row', 'rows sum to 1', 'k'],
-    ['Weighted sum of V', 'context ✓', 'v']
-  ];
-  const pipe = $('#attn-pipe');
-  pipe.innerHTML = STEPS.map(([t, o], i) =>
-    `<div class="pipe-step" data-i="${i}"><span class="n">${i + 1}</span><span>${t}</span><span class="out">${o}</span></div>`).join('');
-  const cards = $$('.qkv-card');
-  let step = -1, timer = 0;
-  function advance() {
-    step = (step + 1) % (STEPS.length + 1);
-    $$('.pipe-step', pipe).forEach((el, i) => {
-      el.classList.toggle('on', i === step);
-      el.classList.toggle('done', i < step);
-    });
-    const want = STEPS[step]?.[2];
-    cards.forEach(c => c.classList.toggle('on', c.dataset.qkv === want));
-  }
-  whenVisible(pipe,
-    () => { if (!timer && !REDUCED) { advance(); timer = setInterval(advance, 1500); } },
-    () => { clearInterval(timer); timer = 0; });
-})();
-
-/* ============================================================
-   LAYER 2 · ADD & NORM
-   ============================================================ */
-(function layernorm() {
-  const pre = $('#bars-pre'), post = $('#bars-post');
-  const preS = $('#pre-stats'), postS = $('#post-stats');
-  const COUNT = 28;
-  const r = rng(90210);
-  // A deliberately badly-scaled activation vector, then the real LayerNorm of it.
-  const x = Array.from({ length: COUNT }, () => gauss(r) * 2.4 + 1.7);
-  const mu = x.reduce((a, b) => a + b, 0) / COUNT;
-  const varc = x.reduce((a, b) => a + (b - mu) ** 2, 0) / COUNT;
-  const sd = Math.sqrt(varc + 1e-5);
-  const y = x.map(v => (v - mu) / sd);
-
-  pre.innerHTML = post.innerHTML = Array.from({ length: COUNT }, () => '<i></i>').join('');
-  const maxA = Math.max(...x.map(Math.abs)), maxB = Math.max(...y.map(Math.abs));
-
-  function paint() {
-    $$('i', pre).forEach((b, k) => setTimeout(() => {
-      b.style.height = (6 + Math.abs(x[k]) / maxA * 78) + 'px';
-      b.style.opacity = .45 + Math.abs(x[k]) / maxA * .55;
-    }, REDUCED ? 0 : k * 16));
-    $$('i', post).forEach((b, k) => setTimeout(() => {
-      b.style.height = (6 + Math.abs(y[k]) / maxB * 78) + 'px';
-      b.style.opacity = .45 + Math.abs(y[k]) / maxB * .55;
-    }, REDUCED ? 0 : 420 + k * 16));
-    preS.textContent  = `μ = ${mu.toFixed(2)} · σ = ${Math.sqrt(varc).toFixed(2)}`;
-    postS.textContent = `μ = 0.00 · σ = 1.00`;
-  }
-  let done = false;
-  whenVisible(pre, () => { if (!done) { done = true; paint(); } });
-
-  /* A packet running along the residual stream. */
-  const pkt = $('#resid-pkt'), track = pkt.parentElement;
-  let t0 = 0, on = false;
-  const tick = ts => {
-    if (!on) return;
-    if (!t0) t0 = ts;
-    const p = ((ts - t0) / 3200) % 1;
-    const w = track.clientWidth - 13;
-    pkt.style.left = (p * w) + 'px';
-    // Lift onto the skip arc across the middle of the run.
-    const arc = p > .16 && p < .84 ? Math.sin((p - .16) / .68 * Math.PI) : 0;
-    pkt.style.transform = `translateY(${(-arc * 27).toFixed(1)}px)`;
-    pkt.style.background = arc > .5 ? css('--attn') : css('--norm');
-  };
-  if (!REDUCED) { addPainter(tick); whenVisible(track, () => on = true, () => on = false); }
-})();
-
-/* ============================================================
-   LAYER 3 · FEED-FORWARD + GELU
-   ============================================================ */
-(function ffn() {
-  const cv = $('#ffn-canvas'), ctx = cv.getContext('2d');
-  const IN = 9, HID = 22, OUT = 9;
-  const r = rng(777);
-  const w1 = Array.from({ length: HID }, () => Array.from({ length: IN }, () => gauss(r) * .5));
-  const w2 = Array.from({ length: OUT }, () => Array.from({ length: HID }, () => gauss(r) * .4));
-  const GELU = v => .5 * v * (1 + Math.tanh(Math.sqrt(2 / Math.PI) * (v + .044715 * v ** 3)));
-  let on = false, phase = 0;
-
-  function draw(ts) {
-    if (!on) return;
-    const { w, h } = fit(cv);
-    phase = REDUCED ? 1 : ((ts % 4200) / 4200);
-    ctx.clearRect(0, 0, w, h);
-
-    const pad = 26, colX = [pad + 14, w / 2, w - pad - 14];
-    const yOf = (i, n) => pad + (h - pad * 2) * (n === 1 ? .5 : i / (n - 1));
-
-    // Input signal changes slowly so the picture keeps moving without flicker.
-    const t = ts / 2600;
-    const xin = Array.from({ length: IN }, (_, i) => Math.sin(t + i * .7) * 1.5);
-    const hid = w1.map(row => GELU(row.reduce((s, wv, k) => s + wv * xin[k], 0)));
-    const out = w2.map(row => row.reduce((s, wv, k) => s + wv * hid[k], 0));
-
-    const wave = (col) => clamp((phase * 3 - col) * 2.2, 0, 1);
-
-    // Edges
-    ctx.lineWidth = .6;
-    for (let i = 0; i < IN; i++) for (let j = 0; j < HID; j++) {
-      const a = Math.abs(w1[j][i]) * Math.abs(xin[i]) * .34 * wave(0);
-      if (a < .02) continue;
-      ctx.strokeStyle = `rgba(251,191,36,${Math.min(.32, a).toFixed(3)})`;
-      ctx.beginPath(); ctx.moveTo(colX[0], yOf(i, IN)); ctx.lineTo(colX[1], yOf(j, HID)); ctx.stroke();
-    }
-    for (let j = 0; j < HID; j++) for (let k = 0; k < OUT; k++) {
-      const a = Math.abs(w2[k][j]) * Math.abs(hid[j]) * .34 * wave(1);
-      if (a < .02) continue;
-      ctx.strokeStyle = `rgba(45,212,191,${Math.min(.3, a).toFixed(3)})`;
-      ctx.beginPath(); ctx.moveTo(colX[1], yOf(j, HID)); ctx.lineTo(colX[2], yOf(k, OUT)); ctx.stroke();
-    }
-
-    // Nodes
-    const node = (x, y, v, col, lit) => {
-      const rr = 3 + Math.min(4.4, Math.abs(v) * 2.4) * lit;
-      ctx.beginPath(); ctx.arc(x, y, rr, 0, 7);
-      ctx.fillStyle = col.replace('ALPHA', (.28 + Math.min(.72, Math.abs(v) * .5) * lit).toFixed(3));
-      ctx.fill();
-    };
-    for (let i = 0; i < IN; i++)  node(colX[0], yOf(i, IN),  xin[i], 'rgba(56,189,248,ALPHA)', 1);
-    for (let j = 0; j < HID; j++) node(colX[1], yOf(j, HID), hid[j], 'rgba(251,191,36,ALPHA)', wave(0));
-    for (let k = 0; k < OUT; k++) node(colX[2], yOf(k, OUT), out[k], 'rgba(45,212,191,ALPHA)', wave(1));
-
-    ctx.font = `500 10px ${css('--mono') || 'monospace'}`;
-    ctx.textAlign = 'center'; ctx.fillStyle = 'rgba(232,236,246,.44)';
-    ctx.fillText('d_model', colX[0], h - 6);
-    ctx.fillText('4 × d_model · GELU', colX[1], h - 6);
-    ctx.fillText('d_model', colX[2], h - 6);
-  }
-  if (REDUCED) { on = true; requestAnimationFrame(draw); }
-  else { addPainter(draw); whenVisible(cv, () => on = true, () => on = false); }
-  addEventListener('resize', () => { if (on) requestAnimationFrame(draw); }, { passive: true });
-})();
-
-(function geluCurve() {
-  const cv = $('#gelu-canvas'), ctx = cv.getContext('2d');
-  const val = $('#gelu-val'), xlab = $('#gelu-x');
-  const G = v => .5 * v * (1 + Math.tanh(Math.sqrt(2 / Math.PI) * (v + .044715 * v ** 3)));
-  let on = false;
-  function draw(ts) {
-    if (!on) return;
-    const { w, h } = fit(cv);
-    ctx.clearRect(0, 0, w, h);
-    const X0 = -4, X1 = 4, Y0 = -.8, Y1 = 4;
-    const px = x => (x - X0) / (X1 - X0) * w;
-    const py = y => h - (y - Y0) / (Y1 - Y0) * h;
-
-    ctx.strokeStyle = 'rgba(255,255,255,.10)'; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(0, py(0)); ctx.lineTo(w, py(0));
-    ctx.moveTo(px(0), 0); ctx.lineTo(px(0), h); ctx.stroke();
-
-    ctx.strokeStyle = css('--ffn'); ctx.lineWidth = 2; ctx.beginPath();
-    for (let i = 0; i <= 120; i++) {
-      const x = X0 + (X1 - X0) * i / 120;
-      i ? ctx.lineTo(px(x), py(G(x))) : ctx.moveTo(px(x), py(G(x)));
-    }
-    ctx.stroke();
-
-    const t = REDUCED ? 1.2 : Math.sin(ts / 1700) * 3;
-    const gy = G(t);
-    ctx.fillStyle = css('--ffn');
-    ctx.beginPath(); ctx.arc(px(t), py(gy), 4.5, 0, 7); ctx.fill();
-    ctx.strokeStyle = 'rgba(251,191,36,.32)'; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(px(t), py(gy)); ctx.lineTo(px(t), py(0)); ctx.stroke();
-    val.textContent = gy.toFixed(2);
-    xlab.textContent = `x = ${t.toFixed(2)}`;
-  }
-  if (REDUCED) { on = true; requestAnimationFrame(draw); }
-  else { addPainter(draw); whenVisible(cv, () => on = true, () => on = false); }
-})();
-
-/* ============================================================
-   LAYER 4 · OUTPUT SOFTMAX + SAMPLING
-   ============================================================ */
-(function output() {
-  const host = $('#logits'), out = $('#sample-txt');
-  const tempEl = $('#temp'), tempVal = $('#temp-val');
-  const VOCAB = [
-    { t: ' another paper',   logit: 4.1 },
-    { t: ' a null result',   logit: 3.6 },
-    { t: ' sleep',           logit: 3.2 },
-    { t: ' more experiments',logit: 2.9 },
-    { t: ' a PhD',           logit: 2.4 },
-    { t: ' touching grass',  logit: -1.8 }
-  ];
-  const PREFIX = 'The most likely next token after "still training" is';
-
-  host.innerHTML = VOCAB.map((v, i) =>
-    `<div class="logit" data-i="${i}"><span class="tk">${v.t.trim()}</span>
-      <span class="t"><i></i></span><span class="p">0.0%</span></div>`).join('');
-
-  let T = .8;
-  function render(animate = true) {
-    const p = softmax(VOCAB.map(v => v.logit), T);
-    const best = p.indexOf(Math.max(...p));
-    $$('.logit', host).forEach((row, i) => {
-      const bar = $('i', row);
-      if (!animate) bar.style.transition = 'none';
-      bar.style.width = (p[i] * 100).toFixed(1) + '%';
-      if (!animate) requestAnimationFrame(() => bar.style.transition = '');
-      $('.p', row).textContent = (p[i] * 100).toFixed(1) + '%';
-      row.classList.toggle('win', i === best);
-    });
-    return p;
-  }
-
-  function sample(p) {
-    let r = Math.random(), acc = 0;
-    for (let i = 0; i < p.length; i++) { acc += p[i]; if (r <= acc) return i; }
-    return p.length - 1;
-  }
-
-  let typing = 0;
-  function emit() {
-    const p = render();
-    const pick = VOCAB[sample(p)].t;
-    out.innerHTML = `<span class="txt">${PREFIX}</span><span class="new">${pick}</span>`;
-    clearTimeout(typing);
-    typing = setTimeout(emit, 3400);
-  }
-
-  tempEl.addEventListener('input', () => {
-    T = +tempEl.value / 100;
-    tempVal.textContent = T.toFixed(2);
-    render();
-  });
-
-  let started = false;
-  whenVisible(host, () => {
-    if (started) return;
-    started = true;
-    render();
-    if (REDUCED) { out.innerHTML = `<span class="txt">${PREFIX}</span><span class="new">${VOCAB[0].t}</span>`; }
-    else setTimeout(emit, 700);
-  });
-})();
-
-/* ============================================================
-   ARCHITECTURE DIAGRAM
-   ============================================================ */
-(function architecture() {
-  const svg = $('#arch-svg');
-  const BLOCKS = [
-    { id: 'layer-0', y: 452, t: 'Input embedding',        s: 'tokenise · positional encode', c: '--embed' },
-    { id: 'layer-1', y: 366, t: 'Multi-head attention',   s: '4 heads · causal mask',        c: '--attn'  },
-    { id: 'layer-2', y: 292, t: 'Add & LayerNorm',        s: 'residual · μ→0 σ→1',           c: '--norm'  },
-    { id: 'layer-3', y: 206, t: 'Feed-forward',           s: '4× expand · GELU · project',   c: '--ffn'   },
-    { id: 'layer-2', y: 132, t: 'Add & LayerNorm',        s: 'residual · μ→0 σ→1',           c: '--norm'  },
-    { id: 'layer-4', y: 46,  t: 'Linear → Softmax',       s: 'output distribution',          c: '--out'   }
-  ];
-  const W = 200, X = 60, H = 52;
-  let s = '';
-
-  // Vertical spine
-  s += `<path class="edge" d="M${X + W / 2} 508 L${X + W / 2} 20"/>`;
-  // Residual bypasses around attention and FFN
-  s += `<path class="edge" stroke-dasharray="4 4" d="M${X + W / 2} 432 L${X - 22} 432 L${X - 22} 318 L${X + W / 2} 318"/>`;
-  s += `<path class="edge" stroke-dasharray="4 4" d="M${X + W / 2} 272 L${X - 22} 272 L${X - 22} 158 L${X + W / 2} 158"/>`;
-  s += `<text class="nx" x="${X - 30}" y="378" text-anchor="end" transform="rotate(-90 ${X - 30} 378)">residual</text>`;
-  s += `<text class="nx" x="${X - 30}" y="218" text-anchor="end" transform="rotate(-90 ${X - 30} 218)">residual</text>`;
-  s += `<text class="nx" x="${X + W + 12}" y="252">N×</text>`;
-  s += `<path class="edge" d="M${X + W + 6} 120 L${X + W + 6} 380" stroke-dasharray="3 3"/>`;
-
-  BLOCKS.forEach((b, i) => {
-    s += `<g class="blk" data-go="${b.id}" data-c="${b.c}" style="cursor:pointer">
-      <rect x="${X}" y="${b.y}" width="${W}" height="${H}" rx="9"
-        fill="rgba(255,255,255,.04)" stroke="var(${b.c})" stroke-opacity=".38" stroke-width="1.2"/>
-      <text class="ttl" x="${X + W / 2}" y="${b.y + 21}" text-anchor="middle">${b.t}</text>
-      <text x="${X + W / 2}" y="${b.y + 36}" text-anchor="middle" fill="rgba(232,236,246,.45)">${b.s}</text>
-    </g>`;
-  });
-  // Input / output caps
-  s += `<text x="${X + W / 2}" y="516" text-anchor="middle" class="nx">raw human input</text>`;
-  s += `<text x="${X + W / 2}" y="14" text-anchor="middle" class="nx">a research student, probably</text>`;
-  s += `<circle id="arch-pkt" cx="${X + W / 2}" cy="508" r="4.5" fill="var(--attn)"/>`;
-  svg.innerHTML = s;
-
-  $$('.blk', svg).forEach(g => {
-    const rect = $('rect', g), c = g.dataset.c;
-    g.addEventListener('pointerenter', () => {
-      rect.setAttribute('fill', `color-mix(in srgb, var(${c}) 18%, transparent)`);
-      rect.setAttribute('stroke-opacity', '1');
-    });
-    g.addEventListener('pointerleave', () => {
-      rect.setAttribute('fill', 'rgba(255,255,255,.04)');
-      rect.setAttribute('stroke-opacity', '.38');
-    });
-    g.addEventListener('click', () => $('#' + g.dataset.go)?.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' }));
-  });
-
-  // A packet climbing the spine, matching each block's colour as it passes.
-  const pkt = $('#arch-pkt');
-  let on = false, t0 = 0;
-  const tick = ts => {
-    if (!on) return;
-    if (!t0) t0 = ts;
-    const p = ((ts - t0) / 6000) % 1;
-    const y = 508 - p * 488;
-    pkt.setAttribute('cy', y.toFixed(1));
-    const hit = BLOCKS.find(b => y >= b.y && y <= b.y + H);
-    pkt.setAttribute('fill', `var(${hit ? hit.c : '--attn'})`);
-    pkt.setAttribute('r', hit ? 6 : 4.5);
-  };
-  if (!REDUCED) { addPainter(tick); whenVisible(svg, () => on = true, () => on = false); }
-})();
-
-/* ============================================================
-   SCROLL: reveal, rail, sticky nav
-   ============================================================ */
-(function scrollUi() {
-  const nav = $('#nav'), rail = $('#rail');
-  const LAYERS = [
-    { id: 'layer-0', n: 'embed',     c: '--embed' },
-    { id: 'layer-1', n: 'attention', c: '--attn'  },
-    { id: 'layer-2', n: 'add & norm',c: '--norm'  },
-    { id: 'layer-3', n: 'feed-fwd',  c: '--ffn'   },
-    { id: 'layer-4', n: 'output',    c: '--out'   }
-  ];
-  rail.innerHTML = LAYERS.map((l, i) =>
-    `<a class="rail-i" href="#${l.id}" style="--c:var(${l.c})" data-i="${i}">
-       <span class="dot"></span><span class="lbl">${i}. ${l.n}</span></a>`).join('');
-
-  const items = $$('.rail-i', rail);
-  const secs = LAYERS.map(l => $('#' + l.id)).filter(Boolean);
-
-  // Reveal-on-scroll
-  const io = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-  }), { threshold: .12, rootMargin: '0px 0px -8% 0px' });
-  $$('.rv').forEach(el => io.observe(el));
-
-  let ticking = false;
-  function update() {
-    ticking = false;
-    const y = scrollY;
-    nav.classList.toggle('stuck', y > 24);
-    rail.classList.toggle('on', y > innerHeight * .55);
-
-    let active = -1;
-    secs.forEach((s, i) => { if (s.getBoundingClientRect().top < innerHeight * .48) active = i; });
-    items.forEach((it, i) => {
-      it.classList.toggle('on', i === active);
-      it.classList.toggle('done', i < active);
-    });
-  }
-  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-  update();
-})();
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+}), { threshold: .1, rootMargin: '0px 0px -6% 0px' });
+$$('.rv').forEach(el => io.observe(el));
 
 $('#yr').textContent = new Date().getFullYear();
+
+/* Start on the level the visitor last reached, but never mid-finale. */
+mount(clamp(store.get('last', 0), 0, LEVELS.length - 1), false);
+addEventListener('beforeunload', () => store.set('last', G.i));
 </script>
 </body>
 </html>
