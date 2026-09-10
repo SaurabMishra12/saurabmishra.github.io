@@ -1,2318 +1,1656 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saurab Mishra</title>
-    <base target="_parent">
-    <meta name="description"
-        content="Saurab Mishra - AI research student exploring LLMs, multi-agent systems, NLP, and model interpretability at IISER Thiruvanathapuram.">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg: #f3f6fb;
-            --bg-alt: #ffffff;
-            --bg-subtle: #edf2fa;
-            --text-primary: #111827;
-            --text-secondary: #4b5563;
-            --text-muted: #9ca3af;
-            --accent: #0f5de2;
-            --accent-soft: #e7efff;
-            --violet: #0d9488;
-            --violet-soft: #e6f7f5;
-            --emerald: #0e9f6e;
-            --emerald-soft: #e8fbf2;
-            --rose: #e11d48;
-            --rose-soft: #ffe9ef;
-            --amber: #c27803;
-            --amber-soft: #fff5df;
-            --border: #d7e1f0;
-            --border-light: #e8eef8;
-            --radius: 20px;
-            --radius-sm: 12px;
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 10px 24px rgba(17, 24, 39, 0.08);
-            --shadow-lg: 0 20px 60px rgba(15, 35, 95, 0.15);
-            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: var(--bg);
-            color: var(--text-primary);
-            -webkit-font-smoothing: antialiased;
-            line-height: 1.6;
-            overscroll-behavior-y: none;
-            background-image:
-                radial-gradient(circle at 15% -5%, rgba(13, 148, 136, 0.12), transparent 34%),
-                radial-gradient(circle at 82% 2%, rgba(15, 93, 226, 0.12), transparent 32%);
-        }
-
-        /* ============ NAV ============ */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 62px;
-            background: rgba(255, 255, 255, 0.84);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 1px solid var(--border-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .nav-inner {
-            max-width: 1120px;
-            width: 100%;
-            padding: 0 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .nav-brand {
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            letter-spacing: -0.2px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-        }
-
-        .nav-links a {
-            font-size: 0.82rem;
-            font-weight: 400;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .nav-work-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border-radius: 999px;
-            border: 1px solid rgba(15, 93, 226, 0.2);
-            background: linear-gradient(120deg, #0f5de2 0%, #1640bf 100%);
-            color: #ffffff !important;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.2px;
-            box-shadow: 0 8px 22px rgba(15, 93, 226, 0.28);
-            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
-        }
-
-        .nav-work-btn:hover {
-            color: #ffffff;
-            transform: translateY(-1px);
-            box-shadow: 0 12px 28px rgba(22, 64, 191, 0.32);
-            filter: brightness(1.03);
-        }
-
-        .nav-work-btn:focus-visible {
-            outline: 2px solid rgba(15, 93, 226, 0.35);
-            outline-offset: 2px;
-        }
-
-        /* ============ HERO ============ */
-        .hero {
-            min-height: calc(100vh - 62px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 150px 24px 96px;
-            position: relative;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(243, 246, 251, 0.84) 100%);
-            overflow: hidden;
-            perspective: 1200px;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: linear-gradient(rgba(100, 116, 139, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(100, 116, 139, 0.07) 1px, transparent 1px);
-            background-size: 42px 42px;
-            mask-image: radial-gradient(circle at center, black 30%, transparent 78%);
-            pointer-events: none;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            inset: auto 50% 10%;
-            width: min(72vw, 760px);
-            height: min(72vw, 760px);
-            transform: translateX(-50%) translateY(var(--hero-glow-shift, 0px));
-            background: radial-gradient(circle, rgba(15, 93, 226, 0.12) 0%, rgba(13, 148, 136, 0.08) 36%, transparent 68%);
-            filter: blur(24px);
-            pointer-events: none;
-        }
-
-        .hero-stage {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            will-change: transform, opacity;
-            transition: transform 0.12s linear, opacity 0.18s linear;
-            width: 100%;
-            max-width: 1040px;
-            margin: 0 auto;
-        }
-
-        .hero-orb {
-            position: absolute;
-            border-radius: 999px;
-            filter: blur(2px);
-            opacity: 0.75;
-            pointer-events: none;
-            z-index: 1;
-            will-change: transform;
-        }
-
-        .hero-orb.orb-a {
-            width: 220px;
-            height: 220px;
-            top: 16%;
-            left: 8%;
-            background: radial-gradient(circle at 35% 35%, rgba(13, 148, 136, 0.28), rgba(13, 148, 136, 0.05) 65%, transparent 80%);
-        }
-
-        .hero-orb.orb-b {
-            width: 280px;
-            height: 280px;
-            right: 7%;
-            bottom: 12%;
-            background: radial-gradient(circle at 40% 40%, rgba(15, 93, 226, 0.24), rgba(15, 93, 226, 0.04) 62%, transparent 80%);
-        }
-
-        .hero-overline {
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 16px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: revealUp 0.8s ease 0.2s forwards;
-        }
-
-        .hero-copy {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.8rem, 8vw, 5rem);
-            font-weight: 600;
-            letter-spacing: -2px;
-            line-height: 1.05;
-            margin-bottom: 20px;
-            max-width: 12ch;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: revealUp 0.8s ease 0.35s forwards;
-        }
-
-        .hero .subtitle {
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
-            font-weight: 400;
-            color: var(--text-secondary);
-            max-width: 720px;
-            line-height: 1.7;
-            margin-bottom: 40px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: revealUp 0.8s ease 0.5s forwards;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-            justify-content: center;
-            position: relative;
-            z-index: 2;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: revealUp 0.8s ease 0.65s forwards;
-        }
-
-        .hero-media {
-            position: relative;
-            width: min(100%, 820px);
-            margin-top: 54px;
-            padding: 18px;
-            border-radius: 28px;
-            background: rgba(255, 255, 255, 0.92);
-            border: 1px solid rgba(215, 225, 240, 0.98);
-            box-shadow: 0 30px 70px rgba(15, 35, 95, 0.16);
-            backdrop-filter: blur(18px);
-            opacity: 0;
-            transform: translateY(22px);
-            animation: revealUp 0.8s ease 0.8s forwards;
-            overflow: hidden;
-        }
-
-        .hero-media::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(15, 93, 226, 0.14), transparent 38%, rgba(13, 148, 136, 0.12) 100%);
-            pointer-events: none;
-        }
-
-        .hero-photo {
-            position: relative;
-            display: grid;
-            grid-template-columns: minmax(240px, 320px) minmax(280px, 1fr);
-            gap: 22px;
-            align-items: stretch;
-        }
-
-        .hero-photo-frame {
-            position: relative;
-            border-radius: 22px;
-            overflow: hidden;
-            min-height: 360px;
-            background: linear-gradient(180deg, #dbe7ff 0%, #c9d8ff 100%);
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
-        }
-
-        .hero-photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            filter: saturate(1.02) contrast(1.04);
-        }
-
-        .hero-photo-frame::after {
-            content: '';
-            position: absolute;
-            inset: auto 0 0 0;
-            height: 45%;
-            background: linear-gradient(to top, rgba(17, 24, 39, 0.45), transparent);
-        }
-
-        .hero-tag {
-            position: absolute;
-            left: 16px;
-            bottom: 16px;
-            z-index: 2;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            border-radius: 999px;
-            background: rgba(17, 24, 39, 0.7);
-            color: #fff;
-            font-size: 0.72rem;
-            letter-spacing: 0.2px;
-            backdrop-filter: blur(10px);
-        }
-
-        .hero-aside {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            gap: 16px;
-            text-align: left;
-            padding: 8px 4px;
-        }
-
-        .hero-aside h2 {
-            font-size: clamp(1.35rem, 2.5vw, 2.15rem);
-            line-height: 1.15;
-            letter-spacing: -0.8px;
-        }
-
-        .hero-aside p {
-            color: var(--text-secondary);
-            font-size: 0.98rem;
-            line-height: 1.75;
-        }
-
-        .sarcasm-note {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            width: fit-content;
-            padding: 10px 14px;
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(215, 225, 240, 0.95);
-            box-shadow: 0 12px 24px rgba(17, 24, 39, 0.08);
-            color: var(--text-primary);
-            font-size: 0.82rem;
-            font-weight: 500;
-        }
-
-        .sarcasm-note i {
-            color: var(--violet);
-        }
-
-        .hero-metrics {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 12px;
-        }
-
-        .hero-metric {
-            padding: 14px 14px 16px;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.86);
-            border: 1px solid rgba(215, 225, 240, 0.92);
-            box-shadow: 0 10px 24px rgba(17, 24, 39, 0.06);
-        }
-
-        .hero-metric strong {
-            display: block;
-            font-size: 1.1rem;
-            margin-bottom: 4px;
-            letter-spacing: -0.4px;
-        }
-
-        .hero-metric span {
-            display: block;
-            font-size: 0.74rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        .hero-sticker {
-            position: absolute;
-            right: 18px;
-            top: 18px;
-            z-index: 3;
-            max-width: 180px;
-            padding: 12px 14px;
-            border-radius: 16px;
-            background: rgba(255, 244, 193, 0.95);
-            color: #5c4300;
-            font-size: 0.76rem;
-            font-weight: 600;
-            line-height: 1.5;
-            text-align: left;
-            box-shadow: 0 12px 28px rgba(92, 67, 0, 0.14);
-            transform: rotate(6deg);
-        }
-
-        .btn {
-            padding: 12px 28px;
-            border-radius: 999px;
-            font-size: 0.92rem;
-            font-weight: 500;
-            text-decoration: none;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: linear-gradient(120deg, #0f5de2 0%, #1640bf 100%);
-            color: white;
-            box-shadow: 0 10px 24px rgba(15, 93, 226, 0.35);
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(120deg, #0d51c4 0%, #1139a9 100%);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.8);
-            color: #1e3a8a;
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            background: var(--accent-soft);
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        /* ============ ARCHITECTURE FLOW ============ */
-        .architecture-intro {
-            padding: 110px 24px 56px;
-            text-align: center;
-            background: var(--bg);
-            position: relative;
-        }
-
-        .architecture-intro::after {
-            content: '';
-            width: 140px;
-            height: 1px;
-            margin: 26px auto 0;
-            display: block;
-            background: linear-gradient(90deg, transparent, rgba(15, 93, 226, 0.55), transparent);
-            transform: scaleX(var(--intro-line-scale, 0.65));
-            transition: transform 0.3s ease;
-        }
-
-        .architecture-intro h2 {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            font-weight: 700;
-            letter-spacing: -1px;
-            margin-bottom: 14px;
-        }
-
-        .architecture-intro p {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            max-width: 500px;
-            margin: 0 auto;
-            font-weight: 300;
-        }
-
-        /* Flow connector - vertical line with particles */
-        .flow-connector {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 24px 0;
-            background: var(--bg);
-            position: relative;
-            --flow-progress: 0;
-        }
-
-        .flow-line {
-            width: 2px;
-            height: 60px;
-            background: linear-gradient(to bottom, rgba(15, 93, 226, 0.08), rgba(15, 93, 226, 0.45), rgba(13, 148, 136, 0.08));
-            border-radius: 1px;
-            position: relative;
-            overflow: hidden;
-            transform: scaleY(calc(0.7 + (var(--flow-progress) * 0.3)));
-            transition: transform 0.2s ease;
-        }
-
-        .flow-line::after {
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: 0;
-            left: -1px;
-            width: 4px;
-            height: 28px;
-            background: linear-gradient(to bottom, transparent, rgba(15, 93, 226, 0.85), transparent);
-            animation: flowParticle 1.8s ease-in-out infinite;
-            opacity: calc(0.25 + (var(--flow-progress) * 0.9));
-            box-shadow: 0 0 12px rgba(15, 93, 226, 0.3);
-        }
-
-        .flow-connector.active .flow-line::after {
-            opacity: 1;
-        }
-
-        @keyframes flowParticle {
-            0% {
-                top: -20px;
-                opacity: 0;
-            }
-
-            20% {
-                opacity: 1;
-            }
-
-            80% {
-                opacity: 1;
-            }
-
-            100% {
-                top: 100%;
-                opacity: 0;
-            }
-        }
-
-        .flow-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            border: 2px solid var(--text-muted);
-            background: var(--bg);
-            margin: 8px 0;
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .flow-dot.active {
-            background: var(--accent);
-            border-color: var(--accent);
-            box-shadow: 0 0 12px rgba(0, 113, 227, 0.4);
-            transform: scale(1.4);
-        }
-
-        /* Architecture block */
-        .arch-section {
-            padding: 72px 24px;
-            background: var(--bg);
-            display: flex;
-            justify-content: center;
-            position: relative;
-        }
-
-        .arch-section:nth-child(even) {
-            background: var(--bg-alt);
-        }
-
-        .arch-card {
-            max-width: 1060px;
-            width: 100%;
-            display: grid;
-            grid-template-columns: minmax(320px, 1fr) minmax(320px, 1.15fr);
-            gap: 54px;
-            align-items: start;
-            opacity: 0;
-            --card-shift: 40px;
-            --card-rotate: 4deg;
-            --card-scale: 0.96;
-            transform: translate3d(0, var(--card-shift), 0) rotateX(var(--card-rotate)) scale(var(--card-scale));
-            transform-origin: center top;
-            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), filter 0.35s ease;
-            will-change: transform, opacity;
-            filter: drop-shadow(0 10px 30px rgba(15, 35, 95, 0.02));
-        }
-
-        .arch-card.visible {
-            opacity: 1;
-            --card-shift: 0px;
-            --card-rotate: 0deg;
-            --card-scale: 1;
-        }
-
-        .arch-card.is-in-view {
-            filter: drop-shadow(0 24px 44px rgba(15, 35, 95, 0.12));
-        }
-
-        .arch-card.reverse {
-            direction: ltr;
-        }
-
-        .arch-card.reverse .arch-text {
-            order: 2;
-        }
-
-        .arch-card.reverse .arch-visual {
-            order: 1;
-        }
-
-        .arch-text {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            padding-top: 6px;
-        }
-
-        .arch-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 6px 14px;
-            border-radius: 999px;
-            width: fit-content;
-        }
-
-        .arch-label.embed {
-            background: var(--accent-soft);
-            color: var(--accent);
-        }
-
-        .arch-label.attn {
-            background: var(--violet-soft);
-            color: var(--violet);
-        }
-
-        .arch-label.ffn {
-            background: var(--rose-soft);
-            color: var(--rose);
-        }
-
-        .arch-label.norm {
-            background: var(--amber-soft);
-            color: var(--amber);
-        }
-
-        .arch-label.out {
-            background: var(--emerald-soft);
-            color: var(--emerald);
-        }
-
-        .arch-text h3 {
-            font-size: 1.7rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            line-height: 1.2;
-        }
-
-        .arch-text p {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-            font-weight: 400;
-        }
-
-        .arch-text .formula {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.78rem;
-            padding: 14px 20px;
-            background: var(--bg-subtle);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-sm);
-            color: var(--text-secondary);
-            line-height: 1.8;
-        }
-
-        .arch-text .formula strong {
-            color: var(--text-primary);
-        }
-
-        /* Arch visual - diagram blocks */
-        .arch-visual {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            padding: 34px;
-            border-radius: var(--radius);
-            background: var(--bg-alt);
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-md);
-            position: relative;
-            width: 100%;
-            max-width: 500px;
-            margin-inline: auto;
-            isolation: isolate;
-            overflow: hidden;
-            --diagram-energy: 0;
-        }
-
-        .arch-visual::before {
-            content: '';
-            position: absolute;
-            inset: -20% auto auto -12%;
-            width: 220px;
-            height: 220px;
-            background: radial-gradient(circle, rgba(15, 93, 226, 0.18), transparent 66%);
-            opacity: calc(0.18 + (var(--diagram-energy) * 0.35));
-            transform: translate3d(0, calc(var(--diagram-energy) * 12px), 0);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            z-index: -1;
-        }
-
-        .arch-visual::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(15, 93, 226, 0.16), rgba(13, 148, 136, 0.22), rgba(14, 159, 110, 0.14));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: calc(0.3 + (var(--diagram-energy) * 0.55));
-            pointer-events: none;
-        }
-
-        .arch-section:nth-child(even) .arch-visual {
-            background: var(--bg);
-        }
-
-        /* ============ NODE ANIMATIONS ============ */
-        .arch-node {
-            padding: 14px 28px;
-            border-radius: var(--radius-sm);
-            font-size: 0.82rem;
-            font-weight: 500;
-            text-align: center;
-            width: 100%;
-            max-width: 240px;
-            position: relative;
-            opacity: 0;
-            transform: translateY(16px) scale(0.95);
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            backdrop-filter: blur(8px);
-            will-change: transform;
-        }
-
-        .arch-card.visible .arch-node {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        .arch-card.visible .arch-node:nth-child(1) {
-            transition-delay: 0.1s;
-        }
-
-        .arch-card.visible .arch-node:nth-child(2) {
-            transition-delay: 0.2s;
-        }
-
-        .arch-card.visible .arch-node:nth-child(3) {
-            transition-delay: 0.3s;
-        }
-
-        .arch-card.visible .arch-node:nth-child(4) {
-            transition-delay: 0.4s;
-        }
-
-        .arch-card.visible .arch-node:nth-child(5) {
-            transition-delay: 0.5s;
-        }
-
-        /* Stagger inside visual container */
-        .arch-visual>*:nth-child(1) {
-            transition-delay: 0.05s;
-        }
-
-        .arch-visual>*:nth-child(2) {
-            transition-delay: 0.15s;
-        }
-
-        .arch-visual>*:nth-child(3) {
-            transition-delay: 0.25s;
-        }
-
-        .arch-visual>*:nth-child(4) {
-            transition-delay: 0.35s;
-        }
-
-        .arch-visual>*:nth-child(5) {
-            transition-delay: 0.45s;
-        }
-
-        .arch-visual>*:nth-child(6) {
-            transition-delay: 0.55s;
-        }
-
-        .arch-visual>*:nth-child(7) {
-            transition-delay: 0.65s;
-        }
-
-        .arch-visual>*:nth-child(8) {
-            transition-delay: 0.75s;
-        }
-
-        .arch-visual>*:nth-child(9) {
-            transition-delay: 0.85s;
-        }
-
-        .arch-node:hover {
-            transform: scale(1.06) !important;
-        }
-
-        .arch-card.is-in-view .arch-node {
-            animation: floatNode 4.8s ease-in-out infinite;
-        }
-
-        .arch-card.is-in-view .arch-node:nth-of-type(2n) {
-            animation-duration: 5.4s;
-            animation-delay: 0.4s;
-        }
-
-        .arch-card.is-in-view .arch-node:nth-of-type(3n) {
-            animation-duration: 6s;
-            animation-delay: 0.8s;
-        }
-
-        @keyframes floatNode {
-            0%,
-            100% {
-                transform: translate3d(0, 0, 0) scale(1);
-            }
-
-            50% {
-                transform: translate3d(0, -8px, 0) scale(1.02);
-            }
-        }
-
-        /* Node glow pulse on visible */
-        .arch-card.visible .arch-node.node-embed {
-            animation: pulseEmbed 2s ease 1s infinite;
-        }
-
-        .arch-card.visible .arch-node.node-attn {
-            animation: pulseAttn 2s ease 1s infinite;
-        }
-
-        .arch-card.visible .arch-node.node-ffn {
-            animation: pulseFfn 2s ease 1s infinite;
-        }
-
-        .arch-card.visible .arch-node.node-norm {
-            animation: pulseNorm 2s ease 1s infinite;
-        }
-
-        .arch-card.visible .arch-node.node-out {
-            animation: pulseOut 2s ease 1s infinite;
-        }
-
-        @keyframes pulseEmbed {
-
-            0%,
-            100% {
-                box-shadow: 0 0 0 0 rgba(0, 113, 227, 0);
-            }
-
-            50% {
-                box-shadow: 0 0 16px 2px rgba(0, 113, 227, 0.15);
-            }
-        }
-
-        @keyframes pulseAttn {
-
-            0%,
-            100% {
-                box-shadow: 0 0 0 0 rgba(13, 148, 136, 0);
-            }
-
-            50% {
-                box-shadow: 0 0 16px 2px rgba(13, 148, 136, 0.15);
-            }
-        }
-
-        @keyframes pulseFfn {
-
-            0%,
-            100% {
-                box-shadow: 0 0 0 0 rgba(225, 29, 72, 0);
-            }
-
-            50% {
-                box-shadow: 0 0 16px 2px rgba(225, 29, 72, 0.15);
-            }
-        }
-
-        @keyframes pulseNorm {
-
-            0%,
-            100% {
-                box-shadow: 0 0 0 0 rgba(217, 119, 6, 0);
-            }
-
-            50% {
-                box-shadow: 0 0 16px 2px rgba(217, 119, 6, 0.15);
-            }
-        }
-
-        @keyframes pulseOut {
-
-            0%,
-            100% {
-                box-shadow: 0 0 0 0 rgba(5, 150, 105, 0);
-            }
-
-            50% {
-                box-shadow: 0 0 16px 2px rgba(5, 150, 105, 0.15);
-            }
-        }
-
-        .node-embed {
-            background: var(--accent-soft);
-            color: var(--accent);
-            border: 1px solid rgba(0, 113, 227, 0.15);
-        }
-
-        .node-attn {
-            background: var(--violet-soft);
-            color: var(--violet);
-            border: 1px solid rgba(13, 148, 136, 0.15);
-        }
-
-        .node-ffn {
-            background: var(--rose-soft);
-            color: var(--rose);
-            border: 1px solid rgba(225, 29, 72, 0.15);
-        }
-
-        .node-norm {
-            background: var(--amber-soft);
-            color: var(--amber);
-            border: 1px solid rgba(217, 119, 6, 0.15);
-        }
-
-        .node-out {
-            background: var(--emerald-soft);
-            color: var(--emerald);
-            border: 1px solid rgba(5, 150, 105, 0.15);
-        }
-
-        .node-neutral {
-            background: var(--bg-subtle);
-            color: var(--text-secondary);
-            border: 1px solid var(--border);
-        }
-
-        .node-connector {
-            width: 2px;
-            height: 20px;
-            background: linear-gradient(to bottom, rgba(15, 93, 226, 0.08), rgba(15, 93, 226, 0.6), rgba(13, 148, 136, 0.12));
-            position: relative;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .arch-card.visible .node-connector {
-            opacity: 1;
-        }
-
-        .node-connector::after {
-            content: '▼';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 8px;
-            color: var(--text-muted);
-        }
-
-        /* Data flow animation on connectors inside diagrams */
-        .arch-card.visible .node-connector::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            left: -3px;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--accent);
-            opacity: 0.3;
-            box-shadow: 0 0 10px rgba(15, 93, 226, 0.45);
-            animation: nodeDataFlow 1.3s ease-in-out infinite;
-        }
-
-        @keyframes nodeDataFlow {
-            0% {
-                top: -6px;
-                opacity: 0;
-            }
-
-            30% {
-                opacity: 1;
-            }
-
-            70% {
-                opacity: 1;
-            }
-
-            100% {
-                top: 20px;
-                opacity: 0;
-            }
-        }
-
-        .node-split {
-            display: flex;
-            gap: 12px;
-            width: 100%;
-            max-width: 100%;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .node-split .arch-node {
-            max-width: none;
-            flex: 1 1 110px;
-            padding: 10px 14px;
-            font-size: 0.75rem;
-        }
-
-        /* ============ QKV ATTENTION SIMULATION ============ */
-        .attn-sim {
-            width: 100%;
-            margin-top: 24px;
-            padding: 20px;
-            background: var(--bg-subtle);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-sm);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .attn-sim-header {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.65rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .attn-sim-header .blink {
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--emerald);
-            animation: blink 1.2s ease-in-out infinite;
-        }
-
-        @keyframes blink {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.2;
-            }
-        }
-
-        .attn-step {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 0;
-            opacity: 0;
-            transform: translateX(-10px);
-            transition: all 0.4s ease;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.72rem;
-        }
-
-        .attn-step.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .attn-step .step-num {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            font-size: 0.6rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: all 0.3s ease;
-            background: var(--bg);
-            border: 1.5px solid var(--border);
-            color: var(--text-muted);
-        }
-
-        .attn-step.active .step-num {
-            background: var(--violet);
-            border-color: var(--violet);
-            color: white;
-        }
-
-        .attn-step.done .step-num {
-            background: var(--emerald);
-            border-color: var(--emerald);
-            color: white;
-        }
-
-        .attn-step.done {
-            opacity: 0.5;
-        }
-
-        .attn-step .step-text {
-            color: var(--text-secondary);
-        }
-
-        .attn-step.active .step-text {
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-
-        .attn-step .step-val {
-            margin-left: auto;
-            padding: 2px 10px;
-            border-radius: 6px;
-            font-size: 0.65rem;
-            background: var(--violet-soft);
-            color: var(--violet);
-            opacity: 0;
-            transform: scale(0.8);
-            transition: all 0.3s ease 0.2s;
-        }
-
-        .attn-step.active .step-val,
-        .attn-step.done .step-val {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* Attention weight heatmap */
-        .attn-heatmap {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 4px;
-            margin-top: 12px;
-            max-width: 200px;
-        }
-
-        .attn-cell {
-            aspect-ratio: 1;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            background: var(--bg);
-            border: 1px solid var(--border-light);
-        }
-
-        .attn-cell.hot {
-            background: var(--violet);
-            opacity: 0.2;
-        }
-
-        .attn-cell.warm {
-            background: var(--violet);
-            opacity: 0.5;
-        }
-
-        .attn-cell.fire {
-            background: var(--violet);
-            opacity: 0.85;
-        }
-
-        /* ============ PAPER DIAGRAM ============ */
-        .paper-diagram-section {
-            padding: 80px 24px;
-            background: var(--bg-alt);
-            display: flex;
-            justify-content: center;
-        }
-
-        .paper-diagram-wrap {
-            max-width: 880px;
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1.4fr;
-            gap: 48px;
-            align-items: center;
-        }
-
-        .paper-diagram {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-            padding: 28px 20px;
-            position: relative;
-            background: var(--bg);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-sm);
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.68rem;
-            overflow: hidden;
-            --diagram-progress: 0;
-        }
-
-        .paper-diagram::before {
-            content: '';
-            position: absolute;
-            inset: -25% auto auto -10%;
-            width: 220px;
-            height: 220px;
-            background: radial-gradient(circle, rgba(13, 148, 136, 0.16), transparent 68%);
-            opacity: calc(0.12 + (var(--diagram-progress) * 0.35));
-            transform: translateY(calc(var(--diagram-progress) * 16px));
-            pointer-events: none;
-        }
-
-        .paper-diagram .pd-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.6rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-        }
-
-        .pd-block {
-            padding: 8px 16px;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: 500;
-            width: 140px;
-            position: relative;
-            opacity: 0;
-            transform: scale(0.9);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .paper-diagram.animated .pd-block {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .pd-block.embed {
-            background: var(--accent-soft);
-            color: var(--accent);
-            border: 1px solid rgba(0, 113, 227, 0.15);
-        }
-
-        .pd-block.attn {
-            background: var(--violet-soft);
-            color: var(--violet);
-            border: 1px solid rgba(13, 148, 136, 0.15);
-        }
-
-        .pd-block.norm {
-            background: var(--amber-soft);
-            color: var(--amber);
-            border: 1px solid rgba(217, 119, 6, 0.15);
-        }
-
-        .pd-block.ffn {
-            background: var(--rose-soft);
-            color: var(--rose);
-            border: 1px solid rgba(225, 29, 72, 0.15);
-        }
-
-        .pd-block.out {
-            background: var(--emerald-soft);
-            color: var(--emerald);
-            border: 1px solid rgba(5, 150, 105, 0.15);
-        }
-
-        .pd-block.neutral {
-            background: var(--bg-subtle);
-            color: var(--text-secondary);
-            border: 1px solid var(--border);
-        }
-
-        /* Stagger diagram blocks */
-        .paper-diagram.animated .pd-block:nth-child(2) {
-            transition-delay: 0.05s;
-        }
-
-        .paper-diagram.animated .pd-block:nth-child(3) {
-            transition-delay: 0.15s;
-        }
-
-        .paper-diagram.animated .pd-block:nth-child(4) {
-            transition-delay: 0.25s;
-        }
-
-        .paper-diagram.animated .pd-block:nth-child(5) {
-            transition-delay: 0.35s;
-        }
-
-        .paper-diagram.animated .pd-block:nth-child(6) {
-            transition-delay: 0.45s;
-        }
-
-        .paper-diagram.animated .pd-block:nth-child(7) {
-            transition-delay: 0.55s;
-        }
-
-        .paper-diagram.animated .pd-block:nth-child(8) {
-            transition-delay: 0.65s;
-        }
-
-        .paper-diagram.animated .pd-block:nth-child(9) {
-            transition-delay: 0.75s;
-        }
-
-        .paper-diagram.animated .pd-block:nth-child(10) {
-            transition-delay: 0.85s;
-        }
-
-        .paper-diagram.animated .pd-block:nth-child(11) {
-            transition-delay: 0.95s;
-        }
-
-        .paper-diagram.animated .pd-block:nth-child(12) {
-            transition-delay: 1.05s;
-        }
-
-        .paper-diagram.animated .pd-block:nth-child(13) {
-            transition-delay: 1.15s;
-        }
-
-        .pd-arrow {
-            width: 2px;
-            height: 16px;
-            background: var(--border);
-            margin: 0 auto;
-            position: relative;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .paper-diagram.animated .pd-arrow {
-            opacity: 1;
-        }
-
-        .pd-arrow::after {
-            content: '▼';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 6px;
-            color: var(--text-muted);
-        }
-
-        /* Active block pulse in diagram */
-        .pd-block.pd-active {
-            box-shadow: 0 0 20px 4px rgba(13, 148, 136, 0.2);
-            transform: scale(1.08) !important;
-        }
-
-        .paper-diagram.animated .pd-block {
-            animation: breatheBlock 4.4s ease-in-out infinite;
-        }
-
-        .paper-diagram.animated .pd-block:nth-of-type(2n) {
-            animation-delay: 0.35s;
-        }
-
-        @keyframes breatheBlock {
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.03);
-            }
-        }
-
-        /* Data flow particle on diagram arrows */
-        .paper-diagram.animated .pd-arrow::before {
-            content: '';
-            position: absolute;
-            left: -2px;
-            top: -4px;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--accent);
-            animation: nodeDataFlow 2s ease-in-out infinite;
-        }
-
-        .pd-nx-label {
-            position: absolute;
-            left: -36px;
-            top: 50%;
-            transform: translateY(-50%) rotate(-90deg);
-            font-size: 0.55rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-        }
-
-        .pd-nx-bracket {
-            position: absolute;
-            left: -14px;
-            top: 20%;
-            height: 60%;
-            border-left: 2px solid var(--border);
-            border-top: 2px solid var(--border);
-            border-bottom: 2px solid var(--border);
-            width: 8px;
-            border-radius: 3px 0 0 3px;
-        }
-
-        .paper-desc h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 16px;
-        }
-
-        .paper-desc p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-            font-weight: 400;
-            margin-bottom: 12px;
-        }
-
-        .paper-desc .paper-cite {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            font-style: italic;
-            padding: 12px 16px;
-            background: var(--bg-subtle);
-            border-radius: var(--radius-sm);
-            border-left: 3px solid var(--violet);
-        }
-
-        /* ============ EXPLORE SECTION ============ */
-        .explore-section {
-            padding: 108px 24px;
-            text-align: center;
-            background: var(--bg-alt);
-        }
-
-        .explore-section h2 {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            font-weight: 700;
-            letter-spacing: -1px;
-            margin-bottom: 10px;
-        }
-
-        .explore-section>p {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            margin-bottom: 48px;
-            font-weight: 300;
-        }
-
-        .explore-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(280px, 1fr));
-            gap: 26px;
-            max-width: 980px;
-            margin: 0 auto;
-        }
-
-        .explore-card {
-            background: var(--bg);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            padding: 40px 32px;
-            text-align: left;
-            text-decoration: none;
-            color: inherit;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            position: relative;
-            overflow: hidden;
-            min-height: 290px;
-            justify-content: flex-start;
-        }
-
-        .explore-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            border-radius: 20px 20px 0 0;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .explore-card:hover::before {
-            opacity: 1;
-        }
-
-        .explore-card.work-card::before {
-            background: var(--accent);
-        }
-
-        .explore-card.about-card::before {
-            background: var(--violet);
-        }
-
-        .explore-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-lg);
-            border-color: transparent;
-        }
-
-        .card-icon-wrap {
-            width: 52px;
-            height: 52px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-        }
-
-        .work-card .card-icon-wrap {
-            background: var(--accent-soft);
-            color: var(--accent);
-        }
-
-        .about-card .card-icon-wrap {
-            background: var(--violet-soft);
-            color: var(--violet);
-        }
-
-        .explore-card h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-        }
-
-        .explore-card p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            font-weight: 300;
-        }
-
-        .card-link {
-            margin-top: auto;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--accent);
-            transition: gap 0.3s ease;
-        }
-
-        .about-card .card-link {
-            color: var(--violet);
-        }
-
-        .explore-card:hover .card-link {
-            gap: 10px;
-        }
-
-        /* ============ FOOTER ============ */
-        .footer {
-            padding: 40px 24px;
-            text-align: center;
-            background: var(--bg);
-            border-top: 1px solid var(--border-light);
-        }
-
-        .footer p {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        .footer a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        /* ============ ANIMATIONS ============ */
-        @keyframes revealUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            html {
-                scroll-behavior: auto;
-            }
-
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-
-            .hero-stage,
-            .arch-card,
-            .flow-line,
-            .paper-diagram,
-            .hero-orb {
-                transform: none !important;
-            }
-        }
-
-        /* ============ RESPONSIVE ============ */
-        @media (max-width: 768px) {
-            .hero-media {
-                margin-top: 40px;
-                padding: 14px;
-            }
-
-            .hero-photo {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-photo-frame {
-                min-height: 300px;
-            }
-
-            .hero-aside {
-                padding: 4px 2px;
-            }
-
-            .hero-metrics {
-                grid-template-columns: 1fr;
-            }
-
-            .arch-card {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .arch-card.reverse .arch-text,
-            .arch-card.reverse .arch-visual {
-                order: initial;
-            }
-
-            .explore-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .paper-diagram-wrap {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-links {
-                gap: 16px;
-            }
-
-            .nav-links a {
-                font-size: 0.75rem;
-            }
-
-            .nav-work-btn {
-                padding: 7px 13px;
-                gap: 6px;
-                font-size: 0.74rem;
-            }
-
-            .hero h1 {
-                letter-spacing: -1px;
-            }
-
-            .arch-section {
-                padding: 56px 20px;
-            }
-
-            .architecture-intro {
-                padding: 88px 20px 42px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-links {
-                gap: 10px;
-            }
-
-            .nav-work-btn {
-                padding: 7px 12px;
-            }
-
-            .hero {
-                padding: 128px 16px 80px;
-            }
-
-            .hero-sticker {
-                position: static;
-                max-width: none;
-                margin-top: 12px;
-                transform: rotate(0deg);
-            }
-
-            .arch-visual {
-                padding: 24px 16px;
-            }
-
-            .explore-card {
-                padding: 30px 22px;
-                min-height: auto;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#05070f">
+<title>Saurab Mishra — The Forward Pass</title>
+<meta name="description" content="A biography shaped like a transformer forward pass. Saurab Mishra — multi-agent LLM systems and mathematical interpretability at IISER Thiruvananthapuram.">
+<meta name="author" content="Saurab Mishra">
+<link rel="canonical" href="https://saurabmishra.tech/landing.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Saurab Mishra — The Forward Pass">
+<meta property="og:description" content="A biography shaped like a transformer forward pass. Tokenise, attend, normalise, build, decode.">
+<meta property="og:image" content="https://saurabmishra.tech/saurabprofile.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%236b57d2'/%3E%3Ctext x='16' y='23' font-family='Inter,sans-serif' font-size='19' font-weight='700' fill='white' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+<style>
+/* ============================================================
+   THE FORWARD PASS — landing page
+   A single dark, cinematic surface. Every visual here is drawn
+   from real arithmetic: softmax, layer norm, GELU, sampling.
+   ============================================================ */
+:root{
+  --bg:        #05070f;
+  --bg-2:      #080c19;
+  --ink:       #e8ecf6;
+  --ink-2:     rgba(232,236,246,.72);
+  --ink-3:     rgba(232,236,246,.46);
+  --line:      rgba(255,255,255,.09);
+  --line-2:    rgba(255,255,255,.16);
+  --panel:     rgba(255,255,255,.035);
+  --panel-2:   rgba(255,255,255,.06);
+
+  --embed:  #38bdf8;   /* layer 0 — tokenise & embed */
+  --attn:   #a78bfa;   /* layer 1 — attention        */
+  --norm:   #2dd4bf;   /* layer 2 — add & norm       */
+  --ffn:    #fbbf24;   /* layer 3 — feed-forward     */
+  --out:    #fb7185;   /* layer 4 — output           */
+  --hot:    var(--attn);
+
+  --mono: "JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  --sans: Inter,"Segoe UI Variable Display","Segoe UI",-apple-system,BlinkMacSystemFont,sans-serif;
+  --ease: cubic-bezier(.16,1,.3,1);
+  --maxw: 1180px;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.65;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+canvas{ display:block; }
+::selection{ background:var(--attn); color:#0b0620; }
+:focus-visible{ outline:2px solid var(--embed); outline-offset:3px; border-radius:6px; }
+
+/* Ambient field behind everything */
+#field{ position:fixed; inset:0; z-index:0; pointer-events:none; }
+#field canvas{ width:100%; height:100%; opacity:.5; }
+#field::after{
+  content:""; position:absolute; inset:0;
+  background:radial-gradient(120% 80% at 50% 0%, transparent 30%, var(--bg) 92%);
+}
+
+.wrap{ position:relative; z-index:1; }
+.container{ width:min(var(--maxw), calc(100% - 48px)); margin-inline:auto; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:fixed; inset:0 0 auto 0; z-index:50; height:64px;
+  display:flex; align-items:center;
+  background:rgba(5,7,15,0); border-bottom:1px solid transparent;
+  transition:background .3s var(--ease), border-color .3s var(--ease), backdrop-filter .3s;
+}
+.nav.stuck{
+  background:rgba(5,7,15,.72); border-bottom-color:var(--line);
+  backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+}
+.nav .container{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.brand{ display:flex; align-items:center; gap:11px; font-weight:600; letter-spacing:-.2px; }
+.brand .m{
+  width:30px; height:30px; border-radius:8px; display:grid; place-items:center;
+  background:linear-gradient(135deg,var(--attn),var(--embed)); color:#0b0620;
+  font-weight:800; font-size:15px; flex:none;
+}
+.nav-actions{ display:flex; align-items:center; gap:10px; }
+
+.btn{
+  display:inline-flex; align-items:center; gap:9px;
+  height:40px; padding:0 18px; border-radius:20px;
+  font-size:14px; font-weight:500; cursor:pointer; white-space:nowrap;
+  border:1px solid var(--line-2); background:var(--panel); color:var(--ink);
+  transition:background .2s, border-color .2s, transform .2s var(--ease);
+}
+.btn:hover{ background:var(--panel-2); border-color:rgba(255,255,255,.3); }
+.btn:active{ transform:scale(.97); }
+.btn svg{ width:16px; height:16px; }
+.btn.primary{
+  background:linear-gradient(135deg,var(--attn),var(--embed)); color:#080418;
+  border-color:transparent; font-weight:600;
+  box-shadow:0 8px 28px -10px var(--attn);
+}
+.btn.primary:hover{ box-shadow:0 14px 40px -12px var(--attn); transform:translateY(-1px); }
+
+/* ============================================================
+   PROGRESS RAIL — the activation travelling down the stack
+   ============================================================ */
+/* Labels stay folded away so the rail never sits on top of the prose;
+   hovering it opens a small panel with the layer names. */
+#rail{
+  position:fixed; left:14px; top:50%; transform:translateY(-50%); z-index:40;
+  display:flex; flex-direction:column; gap:2px; padding:10px 12px;
+  border-radius:14px; border:1px solid transparent;
+  opacity:0; transition:opacity .45s var(--ease), background .3s, border-color .3s, backdrop-filter .3s;
+  pointer-events:none;
+}
+#rail.on{ opacity:1; pointer-events:auto; }
+#rail:hover{
+  background:rgba(8,12,25,.82); border-color:var(--line);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+}
+.rail-i{
+  display:flex; align-items:center; gap:12px; padding:5px 0;
+  color:var(--ink-3); font-size:11.5px; font-family:var(--mono);
+  letter-spacing:.02em; cursor:pointer;
+  transition:color .3s var(--ease);
+}
+.rail-i .lbl{ max-width:0; overflow:hidden; }
+#rail:hover .rail-i .lbl{ max-width:130px; }
+.rail-i .dot{
+  width:9px; height:9px; border-radius:50%; flex:none;
+  border:1.5px solid currentColor; background:transparent;
+  transition:all .35s var(--ease);
+}
+.rail-i .lbl{
+  opacity:0; transform:translateX(-6px);
+  transition:opacity .3s var(--ease), transform .3s var(--ease);
+  white-space:nowrap;
+}
+#rail:hover .rail-i .lbl{ opacity:1; transform:none; }
+.rail-i.on{ color:var(--c); }
+.rail-i.on .dot{ background:var(--c); box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 22%,transparent); transform:scale(1.15); }
+.rail-i.done .dot{ background:color-mix(in srgb,var(--c) 45%,transparent); }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{ padding:140px 0 90px; position:relative; }
+.hero-grid{ display:grid; grid-template-columns:1.15fr .85fr; gap:56px; align-items:center; }
+
+.eyebrow{
+  display:inline-flex; align-items:center; gap:9px; margin-bottom:22px;
+  padding:6px 14px 6px 10px; border-radius:20px;
+  border:1px solid var(--line-2); background:var(--panel);
+  font-family:var(--mono); font-size:11.5px; color:var(--ink-2); letter-spacing:.03em;
+}
+.eyebrow .pulse{
+  width:7px; height:7px; border-radius:50%; background:var(--norm);
+  box-shadow:0 0 0 0 color-mix(in srgb,var(--norm) 70%,transparent);
+  animation:pulse 2.4s infinite;
+}
+@keyframes pulse{
+  0%{ box-shadow:0 0 0 0 color-mix(in srgb,var(--norm) 60%,transparent); }
+  70%{ box-shadow:0 0 0 9px transparent; }
+  100%{ box-shadow:0 0 0 0 transparent; }
+}
+
+.hero h1{
+  font-size:clamp(44px,6.4vw,80px); line-height:1.02; margin:0 0 20px;
+  font-weight:700; letter-spacing:-.035em;
+}
+.hero h1 .grad{
+  background:linear-gradient(105deg,var(--embed),var(--attn) 45%,var(--norm));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero .sub{ font-size:clamp(16px,1.9vw,19px); color:var(--ink-2); max-width:52ch; margin:0 0 18px; }
+.hero .quip{
+  font-family:var(--mono); font-size:13px; color:var(--ink-3);
+  border-left:2px solid var(--attn); padding-left:14px; margin:0 0 30px; max-width:50ch;
+}
+.hero-cta{ display:flex; flex-wrap:wrap; gap:12px; }
+
+/* Live tokeniser strip */
+.tok-panel{
+  margin-top:38px; padding:18px; border-radius:14px;
+  background:var(--panel); border:1px solid var(--line);
+}
+.tok-head{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  font-family:var(--mono); font-size:11px; color:var(--ink-3);
+  text-transform:uppercase; letter-spacing:.09em; margin-bottom:13px;
+}
+.tok-strip{ display:flex; flex-wrap:wrap; gap:5px; min-height:60px; align-content:flex-start; }
+.tok{
+  font-family:var(--mono); font-size:12.5px; padding:4px 8px; border-radius:5px;
+  background:color-mix(in srgb,var(--embed) 13%,transparent);
+  border:1px solid color-mix(in srgb,var(--embed) 30%,transparent);
+  color:#bfe6ff; white-space:pre; opacity:0; transform:translateY(6px) scale(.94);
+  animation:tokIn .34s var(--ease) forwards;
+}
+.tok.sp{ background:rgba(255,255,255,.05); border-color:var(--line); color:var(--ink-3); }
+.tok .id{ opacity:.45; font-size:10px; margin-left:5px; }
+@keyframes tokIn{ to{ opacity:1; transform:none; } }
+.caret{
+  display:inline-block; width:8px; height:16px; background:var(--embed);
+  vertical-align:-3px; animation:blink 1.05s steps(2) infinite;
+}
+@keyframes blink{ 50%{ opacity:0 } }
+
+/* Hero portrait */
+.portrait{ position:relative; }
+.portrait-frame{
+  position:relative; border-radius:20px; overflow:hidden;
+  border:1px solid var(--line-2);
+  box-shadow:0 40px 90px -40px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.03) inset;
+}
+/* The photo is a tall 9:16 with the subject small at the base of the tree,
+   so it is framed 3:4 low enough to keep both him and the trunk. */
+.portrait-frame > img:first-child{
+  width:100%; aspect-ratio:3/4; object-fit:cover; object-position:50% 58%;
+  filter:saturate(.94) contrast(1.04);
+}
+.portrait-frame::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg,transparent 40%,rgba(5,7,15,.86));
+}
+.portrait-badge{
+  position:absolute; left:14px; bottom:44px; z-index:2;
+  width:58px; height:58px; border-radius:50%; object-fit:cover;
+  border:2px solid rgba(255,255,255,.55);
+  box-shadow:0 8px 24px rgba(0,0,0,.6);
+}
+.portrait-cap{
+  position:absolute; left:82px; right:14px; bottom:14px; z-index:2;
+  font-family:var(--mono); font-size:11.5px; color:var(--ink-2);
+  display:flex; align-items:center; gap:8px;
+}
+.portrait-cap .pulse{ width:6px; height:6px; border-radius:50%; background:var(--out); flex:none; }
+.stickers{ display:grid; gap:10px; margin-top:14px; }
+.sticker{
+  padding:12px 14px; border-radius:12px; font-size:13px; line-height:1.5;
+  background:var(--panel); border:1px solid var(--line); color:var(--ink-2);
+}
+.sticker b{ color:var(--ink); font-weight:600; }
+
+/* ============================================================
+   SECTION FURNITURE
+   ============================================================ */
+.section{ padding:88px 0; position:relative; }
+.sec-head{ max-width:640px; margin-bottom:44px; }
+.layer-tag{
+  display:inline-flex; align-items:center; gap:9px; margin-bottom:16px;
+  padding:5px 13px; border-radius:16px; font-family:var(--mono); font-size:11.5px;
+  letter-spacing:.05em; text-transform:uppercase;
+  background:color-mix(in srgb,var(--c) 14%,transparent);
+  border:1px solid color-mix(in srgb,var(--c) 34%,transparent);
+  color:var(--c);
+}
+.layer-tag .n{
+  width:18px; height:18px; border-radius:5px; display:grid; place-items:center;
+  background:var(--c); color:#05070f; font-weight:700; font-size:10px;
+}
+h2.sec-t{ font-size:clamp(28px,3.6vw,42px); line-height:1.12; margin:0 0 14px; font-weight:700; letter-spacing:-.028em; }
+p.sec-p{ font-size:16px; color:var(--ink-2); margin:0 0 14px; }
+p.sec-p:last-child{ margin-bottom:0; }
+.split{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+.split.wide-r{ grid-template-columns:.9fr 1.1fr; }
+.split.wide-l{ grid-template-columns:1.1fr .9fr; }
+
+.formula{
+  font-family:var(--mono); font-size:12.5px; line-height:2; margin-top:22px;
+  padding:14px 16px; border-radius:10px; color:var(--ink-2);
+  background:rgba(0,0,0,.35); border:1px solid var(--line);
+  border-left:2px solid var(--c);
+  overflow-x:auto;
+}
+.formula b{ color:var(--c); font-weight:600; }
+.formula .dim{ color:var(--ink-3); }
+
+.stage{
+  position:relative; border-radius:16px; padding:20px;
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+  border:1px solid var(--line);
+  box-shadow:0 30px 70px -50px #000;
+}
+.stage-head{
+  display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:16px;
+  font-family:var(--mono); font-size:11px; color:var(--ink-3);
+  text-transform:uppercase; letter-spacing:.09em;
+}
+.stage-head .live{ display:inline-flex; align-items:center; gap:7px; color:var(--c); }
+.stage-head .live i{
+  width:6px; height:6px; border-radius:50%; background:var(--c); display:block;
+  animation:pulse 2s infinite;
+}
+.seg{
+  display:flex; gap:3px; padding:3px; border-radius:9px;
+  background:rgba(0,0,0,.35); border:1px solid var(--line);
+}
+.seg button{
+  border:0; background:transparent; color:var(--ink-3); cursor:pointer;
+  font-family:var(--mono); font-size:11px; padding:4px 10px; border-radius:6px;
+  transition:background .2s, color .2s;
+}
+.seg button:hover{ color:var(--ink); }
+.seg button.on{ background:color-mix(in srgb,var(--c) 24%,transparent); color:var(--c); }
+
+/* Reveal on scroll */
+.rv{ opacity:0; transform:translateY(26px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+.rv.in{ opacity:1; transform:none; }
+.rv.d1{ transition-delay:.08s } .rv.d2{ transition-delay:.16s } .rv.d3{ transition-delay:.24s }
+/* ============================================================
+   L0 · TOKENISE & EMBED
+   ============================================================ */
+.embed-grid{ display:grid; grid-template-columns:1fr; gap:14px; }
+.vec-row{ display:flex; align-items:center; gap:12px; }
+.vec-row .name{
+  font-family:var(--mono); font-size:12px; color:var(--ink-2);
+  width:96px; flex:none; text-align:right; white-space:nowrap;
+  overflow:hidden; text-overflow:ellipsis;
+}
+.vec{ display:flex; gap:2px; flex:1; min-width:0; height:26px; }
+.vec i{
+  flex:1; border-radius:2px; align-self:stretch;
+  background:var(--embed); opacity:.15;
+  transform:scaleY(.12); transform-origin:center;
+  transition:transform .5s var(--ease), opacity .5s var(--ease);
+}
+.pe-canvas{ width:100%; height:150px; border-radius:10px; background:rgba(0,0,0,.3); border:1px solid var(--line); }
+.pe-note{ font-family:var(--mono); font-size:11px; color:var(--ink-3); margin-top:10px; text-align:center; }
+
+/* ============================================================
+   L1 · ATTENTION
+   ============================================================ */
+.attn-wrap{ display:grid; grid-template-columns:auto 1fr; gap:10px; }
+.attn-ylab{
+  display:grid; align-content:stretch; gap:2px; padding-top:22px;
+  font-family:var(--mono); font-size:10.5px; color:var(--ink-3);
+}
+.attn-ylab span{
+  display:flex; align-items:center; justify-content:flex-end; white-space:nowrap;
+  padding-right:6px; border-radius:3px; transition:color .2s, background .2s;
+}
+.attn-ylab span.hot{ color:var(--attn); background:color-mix(in srgb,var(--attn) 14%,transparent); }
+.attn-main{ min-width:0; }
+.attn-xlab{
+  display:grid; gap:2px; height:22px;
+  font-family:var(--mono); font-size:10.5px; color:var(--ink-3);
+}
+.attn-xlab span{
+  display:flex; align-items:flex-end; justify-content:center; overflow:hidden;
+  white-space:nowrap; transition:color .2s;
+}
+.attn-xlab span.hot{ color:var(--attn); }
+#attn-canvas{ width:100%; aspect-ratio:1; border-radius:8px; cursor:crosshair; }
+
+.attn-read{
+  margin-top:16px; padding:14px; border-radius:10px;
+  background:rgba(0,0,0,.32); border:1px solid var(--line);
+  font-family:var(--mono); font-size:12px; min-height:104px;
+}
+.attn-read .q{ color:var(--ink-3); margin-bottom:9px; }
+.attn-read .q b{ color:var(--attn); }
+.attn-bar{ display:flex; align-items:center; gap:9px; margin-bottom:5px; }
+.attn-bar .k{ width:98px; flex:none; text-align:right; color:var(--ink-2); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.attn-bar .t{ flex:1; height:8px; border-radius:4px; background:rgba(255,255,255,.06); overflow:hidden; }
+.attn-bar .t i{
+  display:block; height:100%; border-radius:4px;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--attn) 55%,transparent),var(--attn));
+  width:0; transition:width .4s var(--ease);
+}
+.attn-bar .v{ width:46px; flex:none; text-align:right; color:var(--ink-3); font-size:11px; }
+
+.qkv{ display:grid; grid-template-columns:repeat(3,1fr); gap:9px; margin-top:16px; }
+.qkv-card{
+  padding:11px 12px; border-radius:9px; text-align:center;
+  background:rgba(255,255,255,.03); border:1px solid var(--line);
+  font-family:var(--mono); font-size:11px; color:var(--ink-3);
+  transition:border-color .3s, background .3s, transform .3s var(--ease);
+}
+.qkv-card.on{
+  border-color:color-mix(in srgb,var(--attn) 46%,transparent);
+  background:color-mix(in srgb,var(--attn) 11%,transparent);
+  color:var(--attn); transform:translateY(-2px);
+}
+.qkv-card b{ display:block; font-size:16px; color:var(--ink); margin-bottom:3px; font-weight:600; }
+.qkv-card.on b{ color:var(--attn); }
+
+.pipeline{ display:grid; gap:6px; margin-top:16px; }
+.pipe-step{
+  display:grid; grid-template-columns:22px 1fr auto; align-items:center; gap:11px;
+  padding:9px 12px; border-radius:8px;
+  background:rgba(255,255,255,.025); border:1px solid transparent;
+  font-family:var(--mono); font-size:12px; color:var(--ink-3);
+  transition:all .35s var(--ease);
+}
+.pipe-step .n{
+  width:22px; height:22px; border-radius:6px; display:grid; place-items:center;
+  background:rgba(255,255,255,.06); font-size:10.5px; color:var(--ink-3);
+  transition:all .35s var(--ease);
+}
+.pipe-step .out{ color:var(--ink-3); font-size:11px; }
+.pipe-step.on{
+  background:color-mix(in srgb,var(--c) 11%,transparent);
+  border-color:color-mix(in srgb,var(--c) 34%,transparent); color:var(--ink);
+}
+.pipe-step.on .n{ background:var(--c); color:#05070f; font-weight:700; }
+.pipe-step.on .out{ color:var(--c); }
+.pipe-step.done .n{ background:color-mix(in srgb,var(--c) 30%,transparent); color:var(--c); }
+
+/* ============================================================
+   L2 · ADD & NORM
+   ============================================================ */
+.norm-viz{ display:grid; gap:20px; }
+.norm-panel{ }
+.norm-lab{
+  display:flex; align-items:baseline; justify-content:space-between;
+  font-family:var(--mono); font-size:11px; color:var(--ink-3); margin-bottom:8px;
+}
+.norm-lab b{ color:var(--ink-2); font-weight:500; }
+.bars{ display:flex; align-items:center; gap:3px; height:92px; }
+.bars i{
+  flex:1; border-radius:2px; align-self:center;
+  background:var(--norm); transition:height .6s var(--ease), background .6s;
+  min-height:2px;
+}
+.bars.pre i{ background:var(--out); }
+.axis{ height:1px; background:var(--line-2); margin-top:-46px; margin-bottom:46px; position:relative; }
+
+.resid{
+  position:relative; margin-top:8px; padding:16px; border-radius:12px;
+  background:rgba(0,0,0,.3); border:1px solid var(--line);
+}
+.resid-track{ position:relative; height:78px; }
+.resid-line{
+  position:absolute; left:0; right:0; top:38px; height:3px; border-radius:2px;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--norm) 20%,transparent),var(--norm),color-mix(in srgb,var(--norm) 20%,transparent));
+}
+.resid-skip{
+  position:absolute; left:8%; right:8%; top:6px; height:34px;
+  border:2px solid color-mix(in srgb,var(--attn) 55%,transparent);
+  border-bottom:0; border-radius:16px 16px 0 0;
+}
+.resid-skip::after{
+  content:"skip connection"; position:absolute; top:-9px; left:50%; transform:translateX(-50%);
+  background:var(--bg-2); padding:0 8px; font-family:var(--mono); font-size:10px; color:var(--attn);
+}
+.resid-block{
+  position:absolute; left:50%; transform:translateX(-50%); top:24px;
+  padding:6px 14px; border-radius:8px; font-family:var(--mono); font-size:11px;
+  background:var(--bg-2); border:1px solid var(--line-2); color:var(--ink-2);
+}
+.resid-pkt{
+  position:absolute; top:33px; width:13px; height:13px; border-radius:50%;
+  background:var(--norm); box-shadow:0 0 14px var(--norm); left:0;
+}
+.resid-note{ font-family:var(--mono); font-size:11px; color:var(--ink-3); text-align:center; margin-top:4px; }
+
+/* ============================================================
+   L3 · FEED-FORWARD
+   ============================================================ */
+#ffn-canvas{ width:100%; height:270px; }
+.gelu{ display:grid; grid-template-columns:1fr auto; gap:18px; align-items:center; margin-top:14px; }
+#gelu-canvas{ width:100%; height:110px; border-radius:8px; background:rgba(0,0,0,.3); border:1px solid var(--line); }
+.gelu-num{ font-family:var(--mono); font-size:11.5px; color:var(--ink-3); text-align:right; white-space:nowrap; }
+.gelu-num b{ display:block; font-size:17px; color:var(--ffn); font-weight:600; }
+
+/* ============================================================
+   L4 · OUTPUT
+   ============================================================ */
+.logits{ display:grid; gap:7px; }
+.logit{
+  display:grid; grid-template-columns:150px 1fr 58px; align-items:center; gap:11px;
+  font-family:var(--mono); font-size:12px;
+}
+.logit .tk{ color:var(--ink-2); text-align:right; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.logit .t{ height:20px; border-radius:5px; background:rgba(255,255,255,.05); overflow:hidden; position:relative; }
+.logit .t i{
+  position:absolute; inset:0 auto 0 0; border-radius:5px; width:0;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--out) 45%,transparent),var(--out));
+  transition:width .65s var(--ease);
+}
+.logit .p{ color:var(--ink-3); text-align:right; font-size:11px; }
+.logit.win .tk{ color:var(--out); font-weight:600; }
+.logit.win .p{ color:var(--out); }
+
+.sample-out{
+  margin-top:20px; padding:16px 18px; border-radius:12px;
+  background:rgba(0,0,0,.35); border:1px solid var(--line);
+  font-family:var(--mono); font-size:13.5px; line-height:1.9; min-height:78px;
+}
+.sample-out .lbl{ font-size:10.5px; color:var(--ink-3); text-transform:uppercase; letter-spacing:.09em; display:block; margin-bottom:7px; }
+.sample-out .txt{ color:var(--ink); }
+.sample-out .new{ color:var(--out); background:color-mix(in srgb,var(--out) 16%,transparent); border-radius:3px; padding:0 3px; }
+.temp-row{ display:flex; align-items:center; gap:12px; margin-top:16px; font-family:var(--mono); font-size:11.5px; color:var(--ink-3); }
+.temp-row input[type=range]{ flex:1; accent-color:var(--out); }
+
+/* ============================================================
+   ARCHITECTURE DIAGRAM  ("Curiosity Is All You Need")
+   ============================================================ */
+.paper{
+  display:grid; grid-template-columns:minmax(0,420px) 1fr; gap:52px; align-items:center;
+}
+.paper-fig{
+  padding:26px 22px; border-radius:14px; position:relative;
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+  border:1px solid var(--line);
+}
+.paper-fig .cap{
+  font-family:var(--mono); font-size:11px; color:var(--ink-3);
+  text-align:center; margin-top:16px;
+}
+.paper-fig .cap b{ color:var(--ink-2); }
+#arch-svg{ width:100%; height:auto; overflow:visible; }
+#arch-svg .blk{ transition:opacity .4s var(--ease); }
+#arch-svg .blk rect{ transition:fill .45s var(--ease), stroke .45s var(--ease); }
+#arch-svg text{ font-family:var(--mono); font-size:9.4px; fill:var(--ink-2); }
+#arch-svg .ttl{ font-size:10.4px; fill:var(--ink); font-weight:600; }
+#arch-svg .edge{ stroke:var(--line-2); stroke-width:1.4; fill:none; }
+#arch-svg .flow{ stroke:var(--attn); stroke-width:2; fill:none; stroke-linecap:round; }
+#arch-svg .nx{ font-size:9px; fill:var(--ink-3); }
+
+.cite{
+  margin-top:22px; padding:14px 16px; border-radius:10px;
+  background:rgba(0,0,0,.3); border:1px solid var(--line); border-left:2px solid var(--attn);
+  font-family:var(--mono); font-size:11.5px; color:var(--ink-3); line-height:1.8;
+}
+.cite b{ color:var(--ink-2); }
+
+/* ============================================================
+   EXPLORE + FOOTER
+   ============================================================ */
+.cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px; }
+.card{
+  display:block; padding:26px 24px; border-radius:16px; position:relative; overflow:hidden;
+  background:var(--panel); border:1px solid var(--line);
+  transition:transform .35s var(--ease), border-color .3s, background .3s;
+}
+.card::before{
+  content:""; position:absolute; inset:0 0 auto 0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--c),transparent);
+  opacity:0; transition:opacity .35s;
+}
+.card:hover{ transform:translateY(-4px); background:var(--panel-2); border-color:color-mix(in srgb,var(--c) 38%,transparent); }
+.card:hover::before{ opacity:1; }
+.card .ic{
+  width:44px; height:44px; border-radius:12px; display:grid; place-items:center; margin-bottom:16px;
+  background:color-mix(in srgb,var(--c) 15%,transparent);
+  border:1px solid color-mix(in srgb,var(--c) 30%,transparent); color:var(--c);
+}
+.card .ic svg{ width:21px; height:21px; }
+.card h3{ margin:0 0 8px; font-size:17px; font-weight:600; letter-spacing:-.01em; }
+.card p{ margin:0 0 16px; font-size:13.5px; color:var(--ink-3); line-height:1.6; }
+.card .go{ font-family:var(--mono); font-size:12px; color:var(--c); display:inline-flex; align-items:center; gap:7px; }
+.card:hover .go svg{ transform:translateX(3px); }
+.card .go svg{ width:13px; height:13px; transition:transform .25s var(--ease); }
+
+.footer{
+  padding:56px 0 44px; border-top:1px solid var(--line); margin-top:40px;
+  color:var(--ink-3); font-size:13.5px;
+}
+.footer .container{ display:flex; flex-wrap:wrap; gap:18px; justify-content:space-between; align-items:center; }
+.footer a{ color:var(--ink-2); border-bottom:1px solid var(--line-2); }
+.footer a:hover{ color:var(--embed); border-color:var(--embed); }
+.f-links{ display:flex; gap:18px; flex-wrap:wrap; font-family:var(--mono); font-size:12.5px; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:980px){
+  #rail{ display:none; }
+  .hero-grid, .split, .split.wide-r, .split.wide-l, .paper{ grid-template-columns:1fr; gap:34px; }
+  .hero{ padding:112px 0 64px; }
+  .section{ padding:64px 0; }
+  .paper-fig{ order:-1; }
+  .container{ width:calc(100% - 36px); }
+}
+@media (max-width:640px){
+  .container{ width:calc(100% - 32px); }
+  .hero h1{ font-size:clamp(36px,10vw,52px); }
+  .nav{ height:56px; }
+  .brand{ font-size:14.5px; gap:8px; }
+  .brand .m{ width:26px; height:26px; font-size:13px; border-radius:7px; }
+  .btn{ height:36px; padding:0 14px; font-size:13px; }
+  .nav-long{ display:none; }
+  .attn-wrap{ grid-template-columns:1fr; }
+  .attn-ylab{ display:none; }
+  .logit{ grid-template-columns:104px 1fr 48px; font-size:11px; }
+  .attn-bar .k{ width:74px; }
+  .vec-row .name{ width:72px; font-size:11px; }
+  .qkv{ grid-template-columns:1fr; }
+  .nav-actions .btn.ghost{ display:none; }
+  .footer .container{ flex-direction:column; align-items:flex-start; }
+}
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+  .rv{ opacity:1; transform:none; }
+}
+</style>
 </head>
-
 <body>
-    <!-- NAV -->
-    <nav class="nav">
-        <div class="nav-inner">
-            <a href="landing.html" class="nav-brand">Saurab Mishra</a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-work-btn"><i class="fa-solid fa-briefcase"></i> Work</a>
-            </div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="g-arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="g-monitor" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="13" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 20.5h7M12 17v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="g-flask" viewBox="0 0 24 24"><path d="M9.5 3v6.5L4.4 18a2 2 0 0 0 1.7 3h11.8a2 2 0 0 0 1.7-3l-5.1-8.5V3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 3h8M7.4 14h9.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="g-mail" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 6.5l9 6.5 9-6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="g-term" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="16" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M7 10l3 2.5L7 15M12.5 15.5h5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</defs></svg>
+
+<div id="field"><canvas id="field-canvas"></canvas></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <a class="brand" href="landing.html"><span class="m">S</span> Saurab Mishra</a>
+    <div class="nav-actions">
+      <a class="btn ghost" href="#architecture">The architecture</a>
+      <a class="btn primary" href="index.html">
+        <svg viewBox="0 0 24 24"><use href="#g-monitor"/></svg> Open<span class="nav-long">&nbsp;the desktop</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ PROGRESS RAIL ============ -->
+<aside id="rail" aria-label="Forward pass progress"></aside>
+
+<div class="wrap">
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow"><span class="pulse"></span> forward pass · in progress · loss still nonzero</div>
+      <h1>A biography that runs like a <span class="grad">transformer</span>.</h1>
+      <p class="sub">I am a BS-MS student in Computational and Applied Mathematics at IISER Thiruvananthapuram,
+        working on multi-agent language models and the mathematics hiding inside their representations.</p>
+      <p class="quip">Student by enrolment, researcher by curiosity, occasional casualty of exam season.
+        Every visualisation on this page runs real arithmetic — no fake bars.</p>
+      <div class="hero-cta">
+        <a class="btn primary" href="index.html"><svg viewBox="0 0 24 24"><use href="#g-monitor"/></svg> Explore my work</a>
+        <a class="btn" href="#layer-0"><svg viewBox="0 0 24 24"><use href="#g-arrow"/></svg> Run the forward pass</a>
+      </div>
+
+      <div class="tok-panel">
+        <div class="tok-head">
+          <span>Layer 0 · tokeniser</span>
+          <span id="tok-count">0 tokens</span>
         </div>
-    </nav>
-
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-orb orb-a"></div>
-        <div class="hero-orb orb-b"></div>
-        <div class="hero-stage">
-            <div class="hero-copy">
-                <p class="hero-overline">Student by enrollment, researcher by curiosity, occasional casualty of exam season</p>
-                <h1>Saurab Mishra</h1>
-                <p class="subtitle">I started ML for fun and ended up deep in research papers, failed runs, and exam week chaos.</p>
-                <div class="hero-cta">
-                    <a href="index.html" class="btn btn-primary"><i class="fa-solid fa-terminal"></i> Explore my work</a>
-                </div>
-            </div>
-
-            <div class="hero-media">
-                <div class="hero-sticker">System status: stable until exams and reproducibility checks begin.</div>
-                <div class="hero-photo">
-                    <div class="hero-photo-frame">
-                        <img src="saurabtree.jpeg" alt="Saurab Mishra standing under a towering tree.">
-                        <div class="hero-tag"><i class="fa-solid fa-camera-retro"></i> Research mode: confidently confused</div>
-                    </div>
-                    <div class="hero-aside">
-                        <div>
-                            <h2>Professional research posture. Unprofessional internal monologue.</h2>
-                            <p>My interests want LLMs, systems, and building cool things. My course list wants abstract math proofs, surprise exam patterns, and emotional damage. Every semester feels like two different operating systems fighting for the same RAM, and I am the unlucky process manager asking: why is this theorem in my AI timeline right before finals?</p>
-                        </div>
-
-                        <div class="sarcasm-note"><i class="fa-solid fa-comment-dots"></i> "Yes, this experiment was definitely planned and not discovered at 2:13 AM."</div>
-
-                        <div class="hero-metrics">
-                            <div class="hero-metric">
-                                <strong>87%</strong>
-                                <span>Chance the code worked once and now owns the roadmap.</span>
-                            </div>
-                            <div class="hero-metric">
-                                <strong>3 AM</strong>
-                                <span>Peak model insight, peak confusion, same timestamp.</span>
-                            </div>
-                            <div class="hero-metric">
-                                <strong>Infinite</strong>
-                                <span>Confidence level while saying "small quick fix".</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ARCHITECTURE INTRO -->
-    <section class="architecture-intro reveal">
-        <h2>The Forward Pass of Saurab Mishra</h2>
-        <p>Processing raw human input into something occasionally useful, a biography in 5 layers.</p>
-    </section>
-
-    <!-- FLOW: EMBEDDING -->
-    <div class="flow-connector">
-        <div class="flow-line"></div>
-        <div class="flow-dot"></div>
-        <div class="flow-line"></div>
+        <div class="tok-strip" id="tok-strip"></div>
+      </div>
     </div>
 
-    <section class="arch-section">
-        <div class="arch-card reveal">
-            <div class="arch-text">
-                <span class="arch-label embed"><i class="fa-solid fa-layer-group"></i> Step 1</span>
-                <h3>Input Embedding</h3>
-                <p>Every great model starts with raw, unoptimized noise. In my case: an Indian kid who mistakenly
-                    thought 'playing video games' naturally translated to 'enjoying calculus.' I somehow ended up at
-                    IISER Thiruvanathapuram studying topics that work better as sedatives at parties. The tokenization phase
-                    was brutal, mostly breaking down my remaining innocence into highly dimensional academic trauma.
-                </p>
-                <div class="formula">
-                    <strong>Saurab</strong> = DropOut(social_skills) + PosEncode(IISER_TVM)<br>
-                    <strong>batch_size</strong> = 1 · <strong>focus_level</strong> = overflow_error
-                </div>
-            </div>
-            <div class="arch-visual">
-                <div class="arch-node node-neutral">Raw Human Input</div>
-                <div class="node-connector"></div>
-                <div class="arch-node node-embed">IISER Thiruvanathapuram</div>
-                <div class="node-connector"></div>
-                <div class="node-split">
-                    <div class="arch-node node-embed">Curiosity</div>
-                    <div class="arch-node node-embed">Coffee</div>
-                </div>
-                <div class="node-connector"></div>
-                <div class="arch-node node-embed" style="font-weight:600;">Research Student</div>
-            </div>
-        </div>
-    </section>
+    <div class="portrait">
+      <div class="portrait-frame">
+        <img src="saurabtree.jpeg" alt="Saurab Mishra standing at the base of a very large tree" loading="eager" decoding="async"
+             onerror="this.src='saurabprofile.jpg'">
+        <img class="portrait-badge" src="saurabprofile.jpg" alt="" loading="lazy" decoding="async"
+             onerror="this.remove()">
+        <div class="portrait-cap"><span class="pulse"></span> research mode: confidently confused</div>
+      </div>
+      <div class="stickers">
+        <div class="sticker"><b>Professional posture, unprofessional internal monologue.</b>
+          My interests want language models and systems. My course list wants abstract proofs and surprise exams.
+          Two operating systems fighting over the same RAM, and I am the process manager.</div>
+        <div class="sticker">“Yes, this experiment was definitely planned, and not discovered at 2:13 AM.”</div>
+      </div>
+    </div>
+  </div>
+</header>
 
-    <!-- FLOW: ATTENTION -->
-    <div class="flow-connector">
-        <div class="flow-line"></div>
-        <div class="flow-dot"></div>
-        <div class="flow-line"></div>
+<!-- ============ LAYER 0 · EMBED ============ -->
+<section class="section" id="layer-0" data-layer="0" style="--c:var(--embed)">
+  <div class="container">
+    <div class="sec-head rv">
+      <span class="layer-tag"><span class="n">0</span> Input embedding</span>
+      <h2 class="sec-t">Turning a person into a vector</h2>
+      <p class="sec-p">Every model starts with raw, unoptimised noise. In my case: a kid who assumed that
+        enjoying video games would translate cleanly into enjoying calculus, and who ended up at IISER
+        Thiruvananthapuram studying subjects that double as sedatives at parties.</p>
+      <p class="sec-p">Tokenisation was brutal. Positional encoding was worse — it turns out the order you learn
+        things in matters as much as what you learn.</p>
+      <div class="formula">
+        <b>saurab</b> = Embed(curiosity) + PosEncode(IISER_TVM)<br>
+        <span class="dim">d_model</span> = 64 · <span class="dim">batch_size</span> = 1 · <span class="dim">focus</span> = overflow
+      </div>
     </div>
 
-    <section class="arch-section">
-        <div class="arch-card reverse reveal">
-            <div class="arch-text">
-                <span class="arch-label attn"><i class="fa-solid fa-arrows-split-up-and-left"></i> Step 2</span>
-                <h3>Multi-Head Obsession</h3>
-                <p>Like a proper attention mechanism, I try to attend to everything simultaneously: LLMs, multi-agent
-                    systems, XAI, and why my code worked yesterday but not today. I have multiple heads, but absolutely
-                    zero attention span for anything outside an IDE. My Query is "how do I force this model to stop
-                    lying?", my Key is chronic sleep deprivation, and my Value... well, my value is still converging.
-                </p>
-                <div class="formula">
-                    <strong>Obsession</strong>(Q, K, V) = softmax(Papers × ArXiv<sup>T</sup> / √sleep)<br>
-                    <strong>heads</strong> = [LLM, MAS, NLP, XAI] · <strong>social_life</strong> = nan
-                </div>
-                <!-- QKV Attention Simulation -->
-                <div class="attn-sim" id="attnSim">
-                    <div class="attn-sim-header"><span class="blink"></span> ATTENTION SIMULATION LIVE</div>
-                    <div class="attn-step" data-step="0">
-                        <span class="step-num">1</span>
-                        <span class="step-text">Project input → Q, K, V</span>
-                        <span class="step-val">x·W<sub>q</sub></span>
-                    </div>
-                    <div class="attn-step" data-step="1">
-                        <span class="step-num">2</span>
-                        <span class="step-text">Compute Q·K<sup>T</sup> scores</span>
-                        <span class="step-val">[0.8, 0.2, 0.6, 0.9]</span>
-                    </div>
-                    <div class="attn-step" data-step="2">
-                        <span class="step-num">3</span>
-                        <span class="step-text">Scale by √d<sub>k</sub></span>
-                        <span class="step-val">÷ 8.0</span>
-                    </div>
-                    <div class="attn-step" data-step="3">
-                        <span class="step-num">4</span>
-                        <span class="step-text">Apply softmax</span>
-                        <span class="step-val">[0.31, 0.12, 0.22, 0.35]</span>
-                    </div>
-                    <div class="attn-step" data-step="4">
-                        <span class="step-num">5</span>
-                        <span class="step-text">Multiply attention × V</span>
-                        <span class="step-val">context ✓</span>
-                    </div>
-                </div>
-            </div>
-            <div class="arch-visual">
-                <div class="arch-node node-embed" style="opacity:0.6;">Research Student</div>
-                <div class="node-connector"></div>
-                <div class="node-split">
-                    <div class="arch-node node-attn">LLMs</div>
-                    <div class="arch-node node-attn">NLP</div>
-                    <div class="arch-node node-attn">XAI</div>
-                </div>
-                <div class="node-connector"></div>
-                <div class="arch-node node-attn">ArXiv at 3 AM</div>
-                <div class="node-connector"></div>
-                <div class="arch-node node-attn" style="font-weight:600;">"I Swear I'll Sleep"</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FLOW: LAYER NORM + RESIDUAL -->
-    <div class="flow-connector">
-        <div class="flow-line"></div>
-        <div class="flow-dot"></div>
-        <div class="flow-line"></div>
+    <div class="split">
+      <div class="stage rv d1">
+        <div class="stage-head"><span>Token → vector</span><span class="live"><i></i>live</span></div>
+        <div class="embed-grid" id="embed-grid"></div>
+      </div>
+      <div class="stage rv d2">
+        <div class="stage-head"><span>Positional encoding</span><span>sin / cos · 64 dims</span></div>
+        <canvas class="pe-canvas" id="pe-canvas" aria-label="Sinusoidal positional encoding heatmap"></canvas>
+        <div class="pe-note">PE(pos, 2i) = sin(pos / 10000<sup>2i/d</sup>) &nbsp;·&nbsp; each row is one position</div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <section class="arch-section">
-        <div class="arch-card reveal">
-            <div class="arch-text">
-                <span class="arch-label norm"><i class="fa-solid fa-equals"></i> Step 3</span>
-                <h3>Reality Normalization</h3>
-                <p>Ah, Reality Normalization, that incredibly humbling layer where your 'groundbreaking' idea gets
-                    absolutely dismantled by Reviewer 2. Residual connections? That's just me falling back on the excuse
-                    "at least the Python script runs" when the mathematical proofs collapse. The skip connection to the
-                    campus coffee machine is literally the only thing preventing a vanishing gradient of my will to
-                    live.</p>
-                <div class="formula">
-                    <strong>sanity</strong> = LayerNorm(ego - Reviewer2(scathing_remarks))<br>
-                    <strong>ε</strong> = 1e-5 · skip_to(coffee) preserves gradient
-                </div>
-            </div>
-            <div class="arch-visual">
-                <div class="arch-node node-attn" style="opacity:0.6;">Sleep-Deprived</div>
-                <div class="node-connector"></div>
-                <div class="node-split">
-                    <div class="arch-node node-norm">Deadlines</div>
-                    <div class="arch-node node-neutral" style="font-size:0.7rem;">Revision Loop ↩</div>
-                </div>
-                <div class="node-connector"></div>
-                <div class="arch-node node-norm" style="font-weight:600;">Somehow Functional</div>
-            </div>
+<!-- ============ LAYER 1 · ATTENTION ============ -->
+<section class="section" id="layer-1" data-layer="1" style="--c:var(--attn)">
+  <div class="container">
+    <div class="split wide-r">
+      <div class="sec-head rv" style="margin-bottom:0">
+        <span class="layer-tag"><span class="n">1</span> Multi-head attention</span>
+        <h2 class="sec-t">Multi-head obsession</h2>
+        <p class="sec-p">Like a well-behaved attention mechanism, I try to attend to everything at once:
+          multi-agent systems, interpretability, retrieval, and the question of why the code worked yesterday.
+          Several heads. No attention span outside an editor.</p>
+        <p class="sec-p">My Query is <em>how do I get this model to stop confidently making things up</em>.
+          My Key is chronic sleep deprivation. My Value is still converging.</p>
+        <div class="formula">
+          <b>Attention</b>(Q, K, V) = softmax(QKᵀ / √d<sub>k</sub>) V<br>
+          <span class="dim">heads</span> = [multi-agent, interpretability, retrieval, RL] · <span class="dim">d_k</span> = 16
         </div>
-    </section>
+        <div class="qkv" id="qkv">
+          <div class="qkv-card" data-qkv="q"><b>Q</b>query · what am I looking for</div>
+          <div class="qkv-card" data-qkv="k"><b>K</b>key · what is on offer</div>
+          <div class="qkv-card" data-qkv="v"><b>V</b>value · what gets carried forward</div>
+        </div>
+      </div>
 
-    <!-- FLOW: FFN -->
-    <div class="flow-connector">
-        <div class="flow-line"></div>
-        <div class="flow-dot"></div>
-        <div class="flow-line"></div>
+      <div class="stage rv d1">
+        <div class="stage-head">
+          <span>Attention weights</span>
+          <div class="seg" id="head-seg" role="tablist" aria-label="Attention head"></div>
+        </div>
+        <div class="attn-wrap">
+          <div class="attn-ylab" id="attn-y"></div>
+          <div class="attn-main">
+            <div class="attn-xlab" id="attn-x"></div>
+            <canvas id="attn-canvas" aria-label="Attention weight matrix. Hover a row to read its distribution."></canvas>
+          </div>
+        </div>
+        <div class="attn-read" id="attn-read"></div>
+        <div class="pipeline" id="attn-pipe" style="--c:var(--attn)"></div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <section class="arch-section">
-        <div class="arch-card reverse reveal">
-            <div class="arch-text">
-                <span class="arch-label ffn"><i class="fa-solid fa-network-wired"></i> Step 4</span>
-                <h3>The Build Phase</h3>
-                <p>This is where the alleged "thinking" takes place. While normal people expand their social circles, I
-                    exclusively expand my dimension of hidden vectors. I build multi-agent systems, dissect LLMs, and
-                    maintain a GitHub profile that clearly screams "I have no offline hobbies." PyTorch is my primary
-                    love language; TensorFlow is that toxic ex we agreed never to text again.</p>
-                <div class="formula">
-                    <strong>Projects</strong>(x) = GELU(ambition × PyTorch + bias)<br>
-                    <strong>hidden_talents</strong> = 3072 → completely unmarketable
-                </div>
-            </div>
-            <div class="arch-visual">
-                <div class="arch-node node-norm" style="opacity:0.6;">Motivated</div>
-                <div class="node-connector"></div>
-                <div class="arch-node node-ffn">CrewAI + LLaMA 3.3</div>
-                <div class="node-connector"></div>
-                <div class="arch-node node-ffn">RAG Pipelines</div>
-                <div class="node-connector"></div>
-                <div class="arch-node node-ffn" style="font-weight:600;">"It Works on My Machine"</div>
-            </div>
+<!-- ============ LAYER 2 · ADD & NORM ============ -->
+<section class="section" id="layer-2" data-layer="2" style="--c:var(--norm)">
+  <div class="container">
+    <div class="split wide-l">
+      <div class="stage rv d1">
+        <div class="stage-head"><span>Add &amp; LayerNorm</span><span class="live"><i></i>μ → 0 · σ → 1</span></div>
+        <div class="norm-viz">
+          <div class="norm-panel">
+            <div class="norm-lab"><b>before</b><span id="pre-stats">μ = — · σ = —</span></div>
+            <div class="bars pre" id="bars-pre"></div>
+          </div>
+          <div class="norm-panel">
+            <div class="norm-lab"><b>after</b><span id="post-stats">μ = — · σ = —</span></div>
+            <div class="bars post" id="bars-post"></div>
+          </div>
         </div>
-    </section>
+        <div class="resid">
+          <div class="resid-track">
+            <div class="resid-skip"></div>
+            <div class="resid-line"></div>
+            <div class="resid-block">sublayer</div>
+            <div class="resid-pkt" id="resid-pkt"></div>
+          </div>
+          <div class="resid-note">x + Sublayer(x) — the residual stream is the only reason the gradient survives</div>
+        </div>
+      </div>
 
-    <!-- FLOW: OUTPUT -->
-    <div class="flow-connector">
-        <div class="flow-line"></div>
-        <div class="flow-dot"></div>
-        <div class="flow-line"></div>
+      <div class="sec-head rv" style="margin-bottom:0">
+        <span class="layer-tag"><span class="n">2</span> Add &amp; norm</span>
+        <h2 class="sec-t">Reality normalisation</h2>
+        <p class="sec-p">The humbling layer, where a groundbreaking idea meets Reviewer 2 and comes out
+          re-scaled. One of my papers exists entirely because a mechanism I believed in turned out to be
+          decorative — and that null result became the finding rather than a footnote.</p>
+        <p class="sec-p">Residual connections are just the habit of falling back on “at least the script runs”
+          when the proof collapses. The skip connection to the coffee machine is load-bearing.</p>
+        <div class="formula">
+          <b>sanity</b> = LayerNorm(x + Sublayer(x))<br>
+          <span class="dim">ε</span> = 1e-5 · <span class="dim">skip_to</span>(coffee) preserves the gradient
+        </div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <section class="arch-section">
-        <div class="arch-card reveal">
-            <div class="arch-text">
-                <span class="arch-label out"><i class="fa-solid fa-chart-bar"></i> Step 5</span>
-                <h3>Output Layer</h3>
-                <p>After all that expensive compute, what is the output? A research student clutching IBM
-                    certifications, a Credly profile with actual badges, and the concerning social habit of explaining
-                    neural architectures to captive audiences who definitely did not ask. I'm actively working on LLM
-                    interpretability, because apparently, accepting that AI works by magic isn't scientifically rigorous
-                    enough. The forward pass is incomplete. Loss is still nonzero. Send help.</p>
-                <div class="formula">
-                    <strong>status</strong> = still_training(actively, please_wait)<br>
-                    <strong>P</strong>(touching_grass) = 1e-9
-                </div>
-            </div>
-            <div class="arch-visual">
-                <div class="arch-node node-ffn" style="opacity:0.6;">All That Work</div>
-                <div class="node-connector"></div>
-                <div class="arch-node node-norm">IBM Certified</div>
-                <div class="node-connector"></div>
-                <div class="arch-node node-out">Research Student</div>
-                <div class="node-connector"></div>
-                <div class="arch-node node-out" style="font-weight:600;">Hire Me → Maybe</div>
-            </div>
+<!-- ============ LAYER 3 · FEED-FORWARD ============ -->
+<section class="section" id="layer-3" data-layer="3" style="--c:var(--ffn)">
+  <div class="container">
+    <div class="split wide-r">
+      <div class="sec-head rv" style="margin-bottom:0">
+        <span class="layer-tag"><span class="n">3</span> Feed-forward</span>
+        <h2 class="sec-t">The build phase</h2>
+        <p class="sec-p">Where the alleged thinking happens. Normal people expand their social circle;
+          I expand a hidden dimension by a factor of four, apply a nonlinearity, and project it back down.</p>
+        <p class="sec-p">In practice this is PPO-trained communication controllers, retrieval pipelines with
+          honest evaluation, and a GitHub profile that makes my offline hobbies look theoretical.
+          All of it scoped to two free T4s and a twelve-hour session limit.</p>
+        <div class="formula">
+          <b>FFN</b>(x) = W₂ · GELU(W₁x + b₁) + b₂<br>
+          <span class="dim">d_ff</span> = 4 × d_model · <span class="dim">compute_budget</span> = whatever Kaggle allows today
         </div>
-    </section>
+        <div class="gelu">
+          <canvas id="gelu-canvas" aria-label="GELU activation curve"></canvas>
+          <div class="gelu-num"><b id="gelu-val">0.00</b>GELU(x)<br><span id="gelu-x">x = 0.00</span></div>
+        </div>
+      </div>
 
-    <!-- SEPARATOR -->
-    <div class="flow-connector">
-        <div class="flow-line"></div>
-        <div class="flow-dot"></div>
-        <div class="flow-line"></div>
+      <div class="stage rv d1">
+        <div class="stage-head"><span>Expand → activate → project</span><span class="live"><i></i>64 → 256 → 64</span></div>
+        <canvas id="ffn-canvas" aria-label="Feed-forward network expanding and projecting activations"></canvas>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- PAPER DIAGRAM -->
-    <section class="paper-diagram-section">
-        <div class="paper-diagram-wrap reveal">
-            <div class="paper-diagram" id="paperDiagram">
-                <span class="pd-title">"Curiosity Is All You Need"</span>
-                <div class="pd-block neutral">Naïve Ambition</div>
-                <div class="pd-arrow"></div>
-                <div class="pd-block embed">IISER Thiruvanathapuram</div>
-                <div class="pd-arrow"></div>
-                <div class="pd-block embed">+ Curiosity Boost</div>
-                <div class="pd-arrow"></div>
-                <div class="pd-block attn">Multi-Agent Obsession</div>
-                <div class="pd-arrow"></div>
-                <div class="pd-block norm">Reality Check &amp; Norm</div>
-                <div class="pd-arrow"></div>
-                <div class="pd-block ffn">LLM / RAG Projects</div>
-                <div class="pd-arrow"></div>
-                <div class="pd-block norm">Burnout Prevention</div>
-                <div class="pd-arrow"></div>
-                <div class="pd-block out">Explainability Pipeline</div>
-                <div class="pd-arrow"></div>
-                <div class="pd-block out">Research Student Output</div>
-                <span class="pd-nx-label">∞×</span>
-                <span class="pd-nx-bracket"></span>
-            </div>
-            <div class="paper-desc">
-                <h3>The Architecture That Ruined My Sleep</h3>
-                <p>I subjected myself to this architecture in 2024, and here I am in 2026 still waiting for the code to
-                    compile.
-                    The diagram on the left illustrates the tragic pipeline that took a healthy, functioning human and
-                    trapped
-                    them in a latent space of multi-agent systems and Large Language Models. I study exactly what goes
-                    on inside
-                    these cursed blocks, specifically, why my scripts run flawlessly at 3 AM but spontaneously combust
-                    by sunrise.</p>
-                <p>Because if we're going to give neural networks the ability to confidently gaslight humanity, the
-                    least
-                    we can do is figure out <em>how</em> they're doing it. And that's my problem now.</p>
-                <div class="paper-cite">
-                    "Curiosity Is All You Need"<br>
-                    S. Mishra et al., IISER TVM 2026
-                </div>
-            </div>
+<!-- ============ LAYER 4 · OUTPUT ============ -->
+<section class="section" id="layer-4" data-layer="4" style="--c:var(--out)">
+  <div class="container">
+    <div class="split wide-l">
+      <div class="stage rv d1">
+        <div class="stage-head"><span>Output distribution</span><span class="live"><i></i>softmax over vocabulary</span></div>
+        <div class="logits" id="logits"></div>
+        <div class="temp-row">
+          <span>temperature</span>
+          <input type="range" id="temp" min="20" max="180" value="80" aria-label="Sampling temperature">
+          <span id="temp-val">0.80</span>
         </div>
-    </section>
-
-    <!-- EXPLORE SECTION -->
-    <section class="explore-section">
-        <h2 class="reveal">Explore</h2>
-        <p class="reveal">Dive into my workspace or learn more about me.</p>
-
-        <div class="explore-grid">
-            <a href="index.html" class="explore-card work-card reveal">
-                <div class="card-icon-wrap"><i class="fa-solid fa-terminal"></i></div>
-                <h3>Work</h3>
-                <p>Projects, research papers, blogs, and developer tools, all inside an interactive OS-style workspace.
-                </p>
-                <span class="card-link">Open workspace <i class="fa-solid fa-arrow-right"></i></span>
-            </a>
+        <div class="sample-out">
+          <span class="lbl">sampled continuation</span>
+          <span class="txt" id="sample-txt"></span>
         </div>
-    </section>
+      </div>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <p><a href="index.html">Explore my work</a> for a perfectly calm window-like experience where nothing ever breaks.</p>
-    </footer>
+      <div class="sec-head rv" style="margin-bottom:0">
+        <span class="layer-tag"><span class="n">4</span> Output layer</span>
+        <h2 class="sec-t">Still training</h2>
+        <p class="sec-p">After all that compute, what comes out? Six manuscripts under review or in preparation,
+          a club of two hundred people I started and then handed on, a hackathon for a thousand, and the
+          social habit of explaining architectures to audiences who did not ask.</p>
+        <p class="sec-p">I work on interpretability because accepting that these systems work by magic is not a
+          scientific position. If we are going to let neural networks confidently mislead people, the least we can
+          do is work out how. That is my problem now.</p>
+        <div class="formula">
+          <b>status</b> = still_training(actively, please_wait)<br>
+          <span class="dim">P</span>(touching_grass) = 1e-9 · <span class="dim">loss</span> = nonzero
+        </div>
+        <div class="hero-cta" style="margin-top:24px">
+          <a class="btn primary" href="index.html"><svg viewBox="0 0 24 24"><use href="#g-monitor"/></svg> See the actual work</a>
+          <a class="btn" href="mailto:saurab23@iisertvm.ac.in"><svg viewBox="0 0 24 24"><use href="#g-mail"/></svg> Email me</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // ==========================================
-        // SCROLL REVEAL - arch cards + generic reveals
-        // ==========================================
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const hero = document.querySelector('.hero');
-        const heroStage = document.querySelector('.hero-stage');
-        const heroOrbs = document.querySelectorAll('.hero-orb');
-        const architectureIntro = document.querySelector('.architecture-intro');
-        const archCards = [...document.querySelectorAll('.arch-card')];
-        const flowConnectors = [...document.querySelectorAll('.flow-connector')];
-        const nav = document.querySelector('.nav');
+<!-- ============ ARCHITECTURE ============ -->
+<section class="section" id="architecture" style="--c:var(--attn)">
+  <div class="container">
+    <div class="sec-head rv" style="max-width:720px;margin-inline:auto;text-align:center">
+      <h2 class="sec-t">Curiosity Is All You Need</h2>
+      <p class="sec-p">The full architecture, drawn the way papers draw them. I submitted myself to this pipeline in
+        2024 and it has not converged yet.</p>
+    </div>
+    <div class="paper">
+      <figure class="paper-fig rv" style="margin:0">
+        <svg id="arch-svg" viewBox="0 0 320 520" role="img" aria-label="Transformer block diagram of the sections on this page"></svg>
+        <figcaption class="cap"><b>Figure 1.</b> The architecture that ruined my sleep.<br>Hover a block to jump to it.</figcaption>
+      </figure>
+      <div class="rv d1">
+        <p class="sec-p">The diagram is the page. Each block is one of the five layers above, in the order you just
+          read them, wrapped in the residual stream that carries everything forward.</p>
+        <p class="sec-p">What I actually study is what happens inside these blocks — whether the representations
+          they build have geometric structure you can describe rather than just visualise, whether sudden jumps in
+          capability behave like phase transitions, and whether any of it can be derived rather than ablated.</p>
+        <p class="sec-p">Concretely, that means small open models, pretrained checkpoints and activation analysis,
+          because that is what fits on the hardware I have. The constraint turns out to pick better questions than
+          I would have picked without it.</p>
+        <div class="cite">
+          <b>S. Mishra.</b> “Curiosity Is All You Need.” <em>IISER Thiruvananthapuram</em>, 2026.<br>
+          <span style="color:var(--ink-3)">Under review. Perpetually.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+<!-- ============ EXPLORE ============ -->
+<section class="section">
+  <div class="container">
+    <div class="sec-head rv" style="max-width:640px">
+      <h2 class="sec-t">Where to go next</h2>
+      <p class="sec-p">The real work lives one click away, in a desktop that behaves like a desktop.</p>
+    </div>
+    <div class="cards">
+      <a class="card rv" href="index.html" style="--c:var(--embed)">
+        <div class="ic"><svg viewBox="0 0 24 24"><use href="#g-monitor"/></svg></div>
+        <h3>The desktop</h3>
+        <p>Projects, papers, writing and a working terminal, inside a window manager with snap layouts and a start menu.</p>
+        <span class="go">Open the workspace <svg viewBox="0 0 24 24"><use href="#g-arrow"/></svg></span>
+      </a>
+      <a class="card rv d1" href="index.html#research" style="--c:var(--attn)">
+        <div class="ic"><svg viewBox="0 0 24 24"><use href="#g-flask"/></svg></div>
+        <h3>Research</h3>
+        <p>Six manuscripts across ACL, TMLR, COLING and legal NLP. Each one says exactly where it stands, including the null result.</p>
+        <span class="go">Read the work <svg viewBox="0 0 24 24"><use href="#g-arrow"/></svg></span>
+      </a>
+      <a class="card rv d2" href="index.html" style="--c:var(--ffn)">
+        <div class="ic"><svg viewBox="0 0 24 24"><use href="#g-term"/></svg></div>
+        <h3>The terminal</h3>
+        <p>Type <code style="font-family:var(--mono);color:var(--ffn)">papers</code>, <code style="font-family:var(--mono);color:var(--ffn)">neofetch</code> or <code style="font-family:var(--mono);color:var(--ffn)">help</code>. It is a real shell over a fake filesystem.</p>
+        <span class="go">Open a shell <svg viewBox="0 0 24 24"><use href="#g-arrow"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
 
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    entry.target.style.opacity = '';
-                    entry.target.style.transform = '';
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+<footer class="footer">
+  <div class="container">
+    <div>© <span id="yr"></span> Saurab Mishra · IISER Thiruvananthapuram · <a href="index.html">the desktop</a></div>
+    <div class="f-links">
+      <a href="https://github.com/SaurabMishra12" target="_blank" rel="noopener">github</a>
+      <a href="https://www.linkedin.com/in/saurab-mishra-493a73178/" target="_blank" rel="noopener">linkedin</a>
+      <a href="https://medium.com/@saurabmishra" target="_blank" rel="noopener">medium</a>
+      <a href="https://www.youtube.com/@saurab_mishra" target="_blank" rel="noopener">youtube</a>
+      <a href="mailto:saurab23@iisertvm.ac.in">email</a>
+    </div>
+  </div>
+</footer>
 
-        document.querySelectorAll('.reveal').forEach(el => {
-            if (!el.classList.contains('arch-card')) {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'all 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
-            }
-            revealObserver.observe(el);
-        });
+</div>
+<script>
+"use strict";
+/* ============================================================
+   THE FORWARD PASS — behaviour
+   Every visualisation below computes the thing it depicts:
+   real dot products, real softmax, real layer norm, real GELU.
+   One rAF loop drives only the canvases currently on screen.
+   ============================================================ */
 
-        // ==========================================
-        // FLOW DOTS - animate on scroll
-        // ==========================================
-        const dotObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const dot = entry.target.querySelector('.flow-dot');
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    if (dot) dot.classList.add('active');
-                }
-            });
-        }, { threshold: 0.5 });
-        document.querySelectorAll('.flow-connector').forEach(el => dotObserver.observe(el));
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
-        // ==========================================
-        // QKV ATTENTION SIMULATION
-        // ==========================================
-        let attnInterval = null;
-        const attnObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !attnInterval) {
-                    runAttnSimulation();
-                } else if (!entry.isIntersecting && attnInterval) {
-                    clearInterval(attnInterval);
-                    attnInterval = null;
-                }
-            });
-        }, { threshold: 0.3 });
+/* Seeded PRNG so the "learned" weights are the same on every visit. */
+function rng(seed) {
+  let s = seed >>> 0;
+  return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
+}
+const gauss = r => { const u = Math.max(1e-9, r()), v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
 
-        const attnSim = document.getElementById('attnSim');
-        if (attnSim) attnObserver.observe(attnSim);
+/* Real softmax, with temperature. */
+function softmax(xs, T = 1) {
+  const m = Math.max(...xs);
+  const e = xs.map(x => Math.exp((x - m) / T));
+  const s = e.reduce((a, b) => a + b, 0) || 1;
+  return e.map(x => x / s);
+}
 
-        function runAttnSimulation() {
-            const steps = attnSim.querySelectorAll('.attn-step');
-            let current = 0;
+/* ---------- render loop: only visible canvases tick ---------- */
+const painters = new Set();
+let looping = false;
+function loop(t) {
+  looping = painters.size > 0;
+  for (const p of painters) p(t);
+  if (looping) requestAnimationFrame(loop);
+}
+function addPainter(p) { painters.add(p); if (!looping) { looping = true; requestAnimationFrame(loop); } }
+function whenVisible(el, on, off) {
+  new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? on() : off?.()),
+    { rootMargin: '120px' }).observe(el);
+}
+/** Size a canvas to its CSS box at device pixel ratio. Returns {w,h} in CSS px. */
+function fit(cv) {
+  const r = cv.getBoundingClientRect();
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  const w = Math.max(1, Math.round(r.width)), h = Math.max(1, Math.round(r.height));
+  if (cv.width !== w * dpr || cv.height !== h * dpr) {
+    cv.width = w * dpr; cv.height = h * dpr;
+    cv.getContext('2d').setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  return { w, h };
+}
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 
-            function tick() {
-                steps.forEach((s, i) => {
-                    s.classList.remove('active', 'done');
-                    if (i < current) s.classList.add('done', 'active');
-                    if (i === current) s.classList.add('active');
-                });
-                current++;
-                if (current > steps.length) {
-                    current = 0;
-                    // Brief pause before restarting
-                    clearInterval(attnInterval);
-                    setTimeout(() => {
-                        steps.forEach(s => s.classList.remove('active', 'done'));
-                        attnInterval = setInterval(tick, 800);
-                    }, 1500);
-                }
-            }
-            attnInterval = setInterval(tick, 800);
-            tick();
+/* ============================================================
+   AMBIENT FIELD — drifting tokens in latent space
+   ============================================================ */
+(function field() {
+  const cv = $('#field-canvas'), ctx = cv.getContext('2d');
+  let pts = [], w = 0, h = 0, alive = false;
+
+  function seed() {
+    ({ w, h } = fit(cv));
+    const n = clamp(Math.round(w * h / 26000), 26, 78);
+    const r = rng(20260910);
+    pts = Array.from({ length: n }, () => ({
+      x: r() * w, y: r() * h,
+      vx: (r() - .5) * .13, vy: (r() - .5) * .13,
+      s: .8 + r() * 1.9, h: r()
+    }));
+  }
+  seed();
+  addEventListener('resize', seed, { passive: true });
+
+  const draw = () => {
+    ctx.clearRect(0, 0, w, h);
+    // Edges first, so the nodes sit on top.
+    for (let i = 0; i < pts.length; i++) {
+      const a = pts[i];
+      for (let j = i + 1; j < pts.length; j++) {
+        const b = pts[j], dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy;
+        if (d2 > 21000) continue;
+        const o = (1 - d2 / 21000) * .17;
+        ctx.strokeStyle = `rgba(120,160,255,${o.toFixed(3)})`;
+        ctx.lineWidth = .7;
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      }
+    }
+    for (const p of pts) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < -20) p.x = w + 20; if (p.x > w + 20) p.x = -20;
+      if (p.y < -20) p.y = h + 20; if (p.y > h + 20) p.y = -20;
+      ctx.fillStyle = p.h > .62 ? 'rgba(167,139,250,.55)' : p.h > .3 ? 'rgba(56,189,248,.5)' : 'rgba(45,212,191,.42)';
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, 7); ctx.fill();
+    }
+  };
+
+  if (REDUCED) { draw(); return; }
+  const tick = () => { if (alive) draw(); };
+  whenVisible(cv, () => { alive = true; addPainter(tick); }, () => { alive = false; });
+  alive = true; addPainter(tick);
+})();
+
+/* ============================================================
+   HERO · LIVE TOKENISER
+   ============================================================ */
+(function tokeniser() {
+  const strip = $('#tok-strip'), count = $('#tok-count');
+  const SENTENCE = 'Saurab studies how language models talk to each other.';
+  // A believable subword split — the kind a BPE tokeniser actually produces.
+  const TOKENS = ['Sau', 'rab', ' studies', ' how', ' language', ' models', ' talk', ' to', ' each', ' other', '.'];
+  let i = 0;
+
+  function add() {
+    if (i >= TOKENS.length) {
+      strip.appendChild(Object.assign(document.createElement('span'), {
+        className: 'caret', ariaHidden: 'true'
+      }));
+      count.textContent = `${TOKENS.length} tokens · ${SENTENCE.length} chars`;
+      return;
+    }
+    const t = TOKENS[i];
+    const el = document.createElement('span');
+    el.className = 'tok' + (t.startsWith(' ') ? ' sp' : '');
+    el.innerHTML = `${t.replace(/ /g, '␣')}<span class="id">${1000 + ((i * 2377) % 8000)}</span>`;
+    strip.appendChild(el);
+    count.textContent = `${++i} token${i === 1 ? '' : 's'}`;
+    setTimeout(add, REDUCED ? 0 : 120);
+  }
+  setTimeout(add, REDUCED ? 0 : 500);
+})();
+
+/* ============================================================
+   THE MODEL — one small transformer, shared by every panel
+   ============================================================ */
+const TOK = ['Saurab', 'studies', 'how', 'language', 'models', 'talk', 'to', 'each', 'other'];
+const N = TOK.length, D = 16;
+
+/* Token embeddings + sinusoidal positional encoding. */
+const EMB = TOK.map((t, i) => {
+  const r = rng(1000 + t.length * 97 + t.charCodeAt(0) * 31);
+  return Array.from({ length: D }, (_, k) => gauss(r) * .8 + Math.sin((i + 1) / Math.pow(10000, 2 * Math.floor(k / 2) / D)) * .5);
+});
+
+/* Four heads with the biases real heads actually develop:
+   attend to the previous token, to similar content, to the first
+   token as a sink, or to yourself. Scores are genuine dot products;
+   the bias only tilts them the way training does. */
+const HEADS = [
+  { name: 'H1 · previous', bias: (i, j) => (j === i - 1 ? 3.2 : 0) },
+  { name: 'H2 · content',  bias: () => 0 },
+  { name: 'H3 · sink',     bias: (i, j) => (j === 0 ? 2.6 : 0) },
+  { name: 'H4 · self',     bias: (i, j) => (j === i ? 2.9 : 0) }
+];
+
+function attentionMatrix(headIdx) {
+  const r = rng(4242 + headIdx * 977);
+  const Wq = Array.from({ length: D }, () => Array.from({ length: D }, () => gauss(r) * .35));
+  const Wk = Array.from({ length: D }, () => Array.from({ length: D }, () => gauss(r) * .35));
+  const proj = (v, W) => W[0].map((_, c) => v.reduce((s, x, k) => s + x * W[k][c], 0));
+  const Q = EMB.map(v => proj(v, Wq)), K = EMB.map(v => proj(v, Wk));
+  const head = HEADS[headIdx];
+  const rows = [];
+  for (let i = 0; i < N; i++) {
+    const s = [];
+    for (let j = 0; j < N; j++) {
+      // Causal mask: a token cannot attend to its own future.
+      if (j > i) { s.push(-Infinity); continue; }
+      let dot = 0;
+      for (let k = 0; k < D; k++) dot += Q[i][k] * K[j][k];
+      s.push(dot / Math.sqrt(D) + head.bias(i, j));
+    }
+    const fin = s.map(x => (x === -Infinity ? -1e9 : x));
+    const p = softmax(fin);
+    rows.push(s.map((x, j) => (x === -Infinity ? 0 : p[j])));
+  }
+  return rows;
+}
+const ATTN = HEADS.map((_, i) => attentionMatrix(i));
+
+/* ============================================================
+   LAYER 0 · EMBEDDING BARS + POSITIONAL ENCODING
+   ============================================================ */
+(function embedding() {
+  const grid = $('#embed-grid');
+  const show = TOK.slice(0, 6);
+  show.forEach((t, i) => {
+    const row = document.createElement('div');
+    row.className = 'vec-row';
+    row.innerHTML = `<span class="name">${t}</span><span class="vec">${
+      Array.from({ length: D }, () => '<i></i>').join('')}</span>`;
+    grid.appendChild(row);
+  });
+  const paint = () => {
+    $$('.vec-row', grid).forEach((row, i) => {
+      const v = EMB[i];
+      $$('i', row).forEach((bar, k) => {
+        const mag = clamp(Math.abs(v[k]) / 2.2, .06, 1);
+        setTimeout(() => {
+          bar.style.transform = `scaleY(${mag.toFixed(3)})`;
+          bar.style.opacity = (.25 + mag * .75).toFixed(3);
+          bar.style.background = v[k] >= 0 ? css('--embed') : css('--out');
+        }, REDUCED ? 0 : i * 90 + k * 14);
+      });
+    });
+  };
+  let done = false;
+  whenVisible(grid, () => { if (!done) { done = true; paint(); } });
+})();
+
+(function positional() {
+  const cv = $('#pe-canvas'), ctx = cv.getContext('2d');
+  function draw() {
+    const { w, h } = fit(cv);
+    const rows = 24, cols = 64;
+    const cw = w / cols, ch = h / rows;
+    ctx.clearRect(0, 0, w, h);
+    for (let pos = 0; pos < rows; pos++) {
+      for (let k = 0; k < cols; k++) {
+        const i = Math.floor(k / 2);
+        const angle = pos / Math.pow(10000, (2 * i) / cols);
+        const v = k % 2 === 0 ? Math.sin(angle) : Math.cos(angle);   // the actual formula
+        const t = (v + 1) / 2;
+        // cyan for negative, warm for positive — a real diverging map
+        const r = Math.round(56 + t * 195), g = Math.round(189 - Math.abs(t - .5) * 150), b = Math.round(248 - t * 190);
+        ctx.fillStyle = `rgb(${r},${g},${b})`;
+        ctx.globalAlpha = .25 + Math.abs(v) * .75;
+        ctx.fillRect(k * cw, pos * ch, Math.ceil(cw), Math.ceil(ch));
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+  draw();
+  addEventListener('resize', draw, { passive: true });
+})();
+
+/* ============================================================
+   LAYER 1 · ATTENTION HEATMAP
+   ============================================================ */
+(function attention() {
+  const cv = $('#attn-canvas'), ctx = cv.getContext('2d');
+  const seg = $('#head-seg'), read = $('#attn-read');
+  const ylab = $('#attn-y'), xlab = $('#attn-x');
+  let head = 1, hoverRow = -1, reveal = 0, animating = false;
+
+  HEADS.forEach((hd, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.textContent = hd.name; b.dataset.h = i;
+    b.setAttribute('role', 'tab');
+    b.addEventListener('click', () => { head = i; sync(); reveal = 0; animating = true; });
+    seg.appendChild(b);
+  });
+  ylab.style.gridTemplateRows = `repeat(${N},1fr)`;
+  xlab.style.gridTemplateColumns = `repeat(${N},1fr)`;
+  ylab.innerHTML = TOK.map(t => `<span>${t}</span>`).join('');
+  xlab.innerHTML = TOK.map(t => `<span>${t.slice(0, 7)}</span>`).join('');
+
+  function sync() {
+    $$('button', seg).forEach(b => b.classList.toggle('on', +b.dataset.h === head));
+  }
+  sync();
+
+  function draw() {
+    const { w, h } = fit(cv);
+    const cell = Math.min(w, h) / N;
+    const ox = (w - cell * N) / 2, oy = (h - cell * N) / 2;
+    ctx.clearRect(0, 0, w, h);
+    const M = ATTN[head];
+
+    for (let i = 0; i < N; i++) {
+      for (let j = 0; j < N; j++) {
+        const x = ox + j * cell, y = oy + i * cell;
+        const masked = j > i;
+        // Cells fade in row by row so the causal structure reads as a wipe.
+        const rowT = clamp(reveal - i * .55, 0, 1);
+        if (masked) {
+          ctx.fillStyle = 'rgba(255,255,255,.022)';
+        } else {
+          const v = M[i][j] * rowT;
+          const a = Math.pow(v, .62);
+          ctx.fillStyle = `rgba(167,139,250,${(.06 + a * .94).toFixed(3)})`;
         }
+        ctx.fillRect(x + .8, y + .8, cell - 1.6, cell - 1.6);
 
-        // ==========================================
-        // PAPER DIAGRAM - animate blocks on scroll
-        // ==========================================
-        const diagramObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
-                    // Cycle through blocks highlighting them
-                    startDiagramHighlight(entry.target);
-                }
-            });
-        }, { threshold: 0.3 });
-
-        const paperDiagramEl = document.getElementById('paperDiagram');
-        if (paperDiagramEl) diagramObserver.observe(paperDiagramEl);
-
-        function startDiagramHighlight(diagram) {
-            if (diagram.dataset.highlightStarted === 'true') {
-                return;
-            }
-            diagram.dataset.highlightStarted = 'true';
-            const blocks = diagram.querySelectorAll('.pd-block');
-            let idx = 0;
-            setInterval(() => {
-                blocks.forEach(b => b.classList.remove('pd-active'));
-                if (blocks[idx]) blocks[idx].classList.add('pd-active');
-                idx = (idx + 1) % blocks.length;
-            }, 1200);
+        if (!masked && M[i][j] > .18 && cell > 26 && rowT > .9) {
+          ctx.fillStyle = M[i][j] > .5 ? 'rgba(12,6,32,.92)' : 'rgba(232,236,246,.72)';
+          ctx.font = `500 ${Math.min(11, cell * .3)}px ${css('--mono') || 'monospace'}`;
+          ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+          ctx.fillText(M[i][j].toFixed(2), x + cell / 2, y + cell / 2);
         }
+      }
+    }
+    if (hoverRow >= 0) {
+      ctx.strokeStyle = css('--attn'); ctx.lineWidth = 1.6;
+      ctx.strokeRect(ox + .8, oy + hoverRow * cell + .8, cell * N - 1.6, cell - 1.6);
+    }
+    return { ox, oy, cell };
+  }
 
-        // ==========================================
-        // SCROLL MOTION ENGINE
-        // ==========================================
-        let scrollTicking = false;
+  function readout(i) {
+    const M = ATTN[head];
+    if (i < 0) {
+      read.innerHTML = `<div class="q">Hover a row to read where that token looks. Rows are queries, columns are keys —
+        the empty upper triangle is the causal mask.</div>`;
+      return;
+    }
+    const pairs = M[i].map((v, j) => ({ j, v })).filter(p => p.j <= i).sort((a, b) => b.v - a.v).slice(0, 4);
+    read.innerHTML =
+      `<div class="q">query <b>“${TOK[i]}”</b> attends to</div>` +
+      pairs.map(p => `<div class="attn-bar"><span class="k">${TOK[p.j]}</span>
+        <span class="t"><i style="width:${(p.v * 100).toFixed(1)}%"></i></span>
+        <span class="v">${p.v.toFixed(3)}</span></div>`).join('');
+  }
+  readout(-1);
 
-        function updateScrollMotion() {
-            scrollTicking = false;
+  function locate(e) {
+    const r = cv.getBoundingClientRect();
+    const { cell, oy } = draw();
+    const y = (e.clientY - r.top) - oy;
+    const i = Math.floor(y / cell);
+    return i >= 0 && i < N ? i : -1;
+  }
+  cv.addEventListener('pointermove', e => {
+    const i = locate(e);
+    if (i === hoverRow) return;
+    hoverRow = i; readout(i); draw();
+    $$('span', ylab).forEach((s, k) => s.classList.toggle('hot', k === i));
+    $$('span', xlab).forEach((s, k) => s.classList.toggle('hot', i >= 0 && k <= i && ATTN[head][i][k] > .25));
+  });
+  cv.addEventListener('pointerleave', () => {
+    hoverRow = -1; readout(-1); draw();
+    $$('span', ylab).forEach(s => s.classList.remove('hot'));
+    $$('span', xlab).forEach(s => s.classList.remove('hot'));
+  });
 
-            const scrollY = window.scrollY;
-            if (nav) {
-                nav.style.borderBottomColor = scrollY > 50 ? 'var(--border)' : 'var(--border-light)';
-            }
+  const tick = () => {
+    if (animating) {
+      reveal += REDUCED ? 99 : .06;
+      if (reveal > N * .55 + 1.2) { reveal = 99; animating = false; }
+      draw();
+    }
+  };
+  addPainter(tick);
+  let started = false;
+  whenVisible(cv, () => { if (!started) { started = true; reveal = 0; animating = true; } });
+  addEventListener('resize', () => draw(), { passive: true });
+  draw();
 
-            if (prefersReducedMotion) {
-                return;
-            }
+  /* Pipeline steps + Q/K/V cards, stepping in time with each other. */
+  const STEPS = [
+    ['Project x into Q, K, V', 'x·W<sub>q,k,v</sub>', 'q'],
+    ['Score every pair: Q·Kᵀ', `${N}×${N} matrix`, 'k'],
+    ['Scale by √d<sub>k</sub>', `÷ ${Math.sqrt(D).toFixed(1)}`, 'k'],
+    ['Mask the future', 'causal', 'k'],
+    ['Softmax each row', 'rows sum to 1', 'k'],
+    ['Weighted sum of V', 'context ✓', 'v']
+  ];
+  const pipe = $('#attn-pipe');
+  pipe.innerHTML = STEPS.map(([t, o], i) =>
+    `<div class="pipe-step" data-i="${i}"><span class="n">${i + 1}</span><span>${t}</span><span class="out">${o}</span></div>`).join('');
+  const cards = $$('.qkv-card');
+  let step = -1, timer = 0;
+  function advance() {
+    step = (step + 1) % (STEPS.length + 1);
+    $$('.pipe-step', pipe).forEach((el, i) => {
+      el.classList.toggle('on', i === step);
+      el.classList.toggle('done', i < step);
+    });
+    const want = STEPS[step]?.[2];
+    cards.forEach(c => c.classList.toggle('on', c.dataset.qkv === want));
+  }
+  whenVisible(pipe,
+    () => { if (!timer && !REDUCED) { advance(); timer = setInterval(advance, 1500); } },
+    () => { clearInterval(timer); timer = 0; });
+})();
 
-            if (hero && heroStage) {
-                const heroProgress = clamp(scrollY / Math.max(hero.offsetHeight, 1), 0, 1);
-                heroStage.style.transform = `translate3d(0, ${heroProgress * 72}px, 0) scale(${1 - (heroProgress * 0.08)})`;
-                heroStage.style.opacity = '1';
-                hero.style.setProperty('--hero-glow-shift', `${scrollY * 0.12}px`);
+/* ============================================================
+   LAYER 2 · ADD & NORM
+   ============================================================ */
+(function layernorm() {
+  const pre = $('#bars-pre'), post = $('#bars-post');
+  const preS = $('#pre-stats'), postS = $('#post-stats');
+  const COUNT = 28;
+  const r = rng(90210);
+  // A deliberately badly-scaled activation vector, then the real LayerNorm of it.
+  const x = Array.from({ length: COUNT }, () => gauss(r) * 2.4 + 1.7);
+  const mu = x.reduce((a, b) => a + b, 0) / COUNT;
+  const varc = x.reduce((a, b) => a + (b - mu) ** 2, 0) / COUNT;
+  const sd = Math.sqrt(varc + 1e-5);
+  const y = x.map(v => (v - mu) / sd);
 
-                heroOrbs.forEach((orb, index) => {
-                    const speed = index === 0 ? 0.18 : -0.14;
-                    const drift = scrollY * speed;
-                    orb.style.transform = `translate3d(0, ${drift}px, 0) scale(${1 + (heroProgress * 0.06)})`;
-                });
-            }
+  pre.innerHTML = post.innerHTML = Array.from({ length: COUNT }, () => '<i></i>').join('');
+  const maxA = Math.max(...x.map(Math.abs)), maxB = Math.max(...y.map(Math.abs));
 
-            if (architectureIntro) {
-                const introRect = architectureIntro.getBoundingClientRect();
-                const introProgress = clamp(1 - Math.abs((window.innerHeight * 0.5) - (introRect.top + introRect.height * 0.5)) / (window.innerHeight * 0.8), 0, 1);
-                architectureIntro.style.transform = `translate3d(0, ${(1 - introProgress) * 18}px, 0)`;
-                architectureIntro.style.opacity = `${0.55 + (introProgress * 0.45)}`;
-                architectureIntro.style.setProperty('--intro-line-scale', `${0.7 + (introProgress * 0.45)}`);
-            }
+  function paint() {
+    $$('i', pre).forEach((b, k) => setTimeout(() => {
+      b.style.height = (6 + Math.abs(x[k]) / maxA * 78) + 'px';
+      b.style.opacity = .45 + Math.abs(x[k]) / maxA * .55;
+    }, REDUCED ? 0 : k * 16));
+    $$('i', post).forEach((b, k) => setTimeout(() => {
+      b.style.height = (6 + Math.abs(y[k]) / maxB * 78) + 'px';
+      b.style.opacity = .45 + Math.abs(y[k]) / maxB * .55;
+    }, REDUCED ? 0 : 420 + k * 16));
+    preS.textContent  = `μ = ${mu.toFixed(2)} · σ = ${Math.sqrt(varc).toFixed(2)}`;
+    postS.textContent = `μ = 0.00 · σ = 1.00`;
+  }
+  let done = false;
+  whenVisible(pre, () => { if (!done) { done = true; paint(); } });
 
-            archCards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const centerOffset = (window.innerHeight * 0.5) - (rect.top + rect.height * 0.5);
-                const intensity = clamp(1 - Math.abs(centerOffset) / (window.innerHeight * 0.82), 0, 1);
-                const rotate = clamp((centerOffset / window.innerHeight) * 8, -5, 5);
-                const shift = (1 - intensity) * 26;
-                const scale = 0.97 + (intensity * 0.035);
+  /* A packet running along the residual stream. */
+  const pkt = $('#resid-pkt'), track = pkt.parentElement;
+  let t0 = 0, on = false;
+  const tick = ts => {
+    if (!on) return;
+    if (!t0) t0 = ts;
+    const p = ((ts - t0) / 3200) % 1;
+    const w = track.clientWidth - 13;
+    pkt.style.left = (p * w) + 'px';
+    // Lift onto the skip arc across the middle of the run.
+    const arc = p > .16 && p < .84 ? Math.sin((p - .16) / .68 * Math.PI) : 0;
+    pkt.style.transform = `translateY(${(-arc * 27).toFixed(1)}px)`;
+    pkt.style.background = arc > .5 ? css('--attn') : css('--norm');
+  };
+  if (!REDUCED) { addPainter(tick); whenVisible(track, () => on = true, () => on = false); }
+})();
 
-                card.style.setProperty('--card-shift', `${shift}px`);
-                card.style.setProperty('--card-rotate', `${rotate}deg`);
-                card.style.setProperty('--card-scale', scale.toFixed(3));
-                card.classList.toggle('is-in-view', intensity > 0.52);
+/* ============================================================
+   LAYER 3 · FEED-FORWARD + GELU
+   ============================================================ */
+(function ffn() {
+  const cv = $('#ffn-canvas'), ctx = cv.getContext('2d');
+  const IN = 9, HID = 22, OUT = 9;
+  const r = rng(777);
+  const w1 = Array.from({ length: HID }, () => Array.from({ length: IN }, () => gauss(r) * .5));
+  const w2 = Array.from({ length: OUT }, () => Array.from({ length: HID }, () => gauss(r) * .4));
+  const GELU = v => .5 * v * (1 + Math.tanh(Math.sqrt(2 / Math.PI) * (v + .044715 * v ** 3)));
+  let on = false, phase = 0;
 
-                const visual = card.querySelector('.arch-visual');
-                if (visual) {
-                    visual.style.setProperty('--diagram-energy', intensity.toFixed(3));
-                }
-            });
+  function draw(ts) {
+    if (!on) return;
+    const { w, h } = fit(cv);
+    phase = REDUCED ? 1 : ((ts % 4200) / 4200);
+    ctx.clearRect(0, 0, w, h);
 
-            flowConnectors.forEach(connector => {
-                const rect = connector.getBoundingClientRect();
-                const progress = clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height), 0, 1);
-                connector.style.setProperty('--flow-progress', progress.toFixed(3));
-            });
+    const pad = 26, colX = [pad + 14, w / 2, w - pad - 14];
+    const yOf = (i, n) => pad + (h - pad * 2) * (n === 1 ? .5 : i / (n - 1));
 
-            if (paperDiagramEl) {
-                const rect = paperDiagramEl.getBoundingClientRect();
-                const progress = clamp(1 - Math.abs((window.innerHeight * 0.5) - (rect.top + rect.height * 0.5)) / (window.innerHeight * 0.85), 0, 1);
-                paperDiagramEl.style.setProperty('--diagram-progress', progress.toFixed(3));
-            }
-        }
+    // Input signal changes slowly so the picture keeps moving without flicker.
+    const t = ts / 2600;
+    const xin = Array.from({ length: IN }, (_, i) => Math.sin(t + i * .7) * 1.5);
+    const hid = w1.map(row => GELU(row.reduce((s, wv, k) => s + wv * xin[k], 0)));
+    const out = w2.map(row => row.reduce((s, wv, k) => s + wv * hid[k], 0));
 
-        function requestScrollMotion() {
-            if (scrollTicking) {
-                return;
-            }
+    const wave = (col) => clamp((phase * 3 - col) * 2.2, 0, 1);
 
-            scrollTicking = true;
-            window.requestAnimationFrame(updateScrollMotion);
-        }
+    // Edges
+    ctx.lineWidth = .6;
+    for (let i = 0; i < IN; i++) for (let j = 0; j < HID; j++) {
+      const a = Math.abs(w1[j][i]) * Math.abs(xin[i]) * .34 * wave(0);
+      if (a < .02) continue;
+      ctx.strokeStyle = `rgba(251,191,36,${Math.min(.32, a).toFixed(3)})`;
+      ctx.beginPath(); ctx.moveTo(colX[0], yOf(i, IN)); ctx.lineTo(colX[1], yOf(j, HID)); ctx.stroke();
+    }
+    for (let j = 0; j < HID; j++) for (let k = 0; k < OUT; k++) {
+      const a = Math.abs(w2[k][j]) * Math.abs(hid[j]) * .34 * wave(1);
+      if (a < .02) continue;
+      ctx.strokeStyle = `rgba(45,212,191,${Math.min(.3, a).toFixed(3)})`;
+      ctx.beginPath(); ctx.moveTo(colX[1], yOf(j, HID)); ctx.lineTo(colX[2], yOf(k, OUT)); ctx.stroke();
+    }
 
-        window.addEventListener('scroll', requestScrollMotion, { passive: true });
-        window.addEventListener('resize', requestScrollMotion);
-        updateScrollMotion();
-    </script>
+    // Nodes
+    const node = (x, y, v, col, lit) => {
+      const rr = 3 + Math.min(4.4, Math.abs(v) * 2.4) * lit;
+      ctx.beginPath(); ctx.arc(x, y, rr, 0, 7);
+      ctx.fillStyle = col.replace('ALPHA', (.28 + Math.min(.72, Math.abs(v) * .5) * lit).toFixed(3));
+      ctx.fill();
+    };
+    for (let i = 0; i < IN; i++)  node(colX[0], yOf(i, IN),  xin[i], 'rgba(56,189,248,ALPHA)', 1);
+    for (let j = 0; j < HID; j++) node(colX[1], yOf(j, HID), hid[j], 'rgba(251,191,36,ALPHA)', wave(0));
+    for (let k = 0; k < OUT; k++) node(colX[2], yOf(k, OUT), out[k], 'rgba(45,212,191,ALPHA)', wave(1));
+
+    ctx.font = `500 10px ${css('--mono') || 'monospace'}`;
+    ctx.textAlign = 'center'; ctx.fillStyle = 'rgba(232,236,246,.44)';
+    ctx.fillText('d_model', colX[0], h - 6);
+    ctx.fillText('4 × d_model · GELU', colX[1], h - 6);
+    ctx.fillText('d_model', colX[2], h - 6);
+  }
+  if (REDUCED) { on = true; requestAnimationFrame(draw); }
+  else { addPainter(draw); whenVisible(cv, () => on = true, () => on = false); }
+  addEventListener('resize', () => { if (on) requestAnimationFrame(draw); }, { passive: true });
+})();
+
+(function geluCurve() {
+  const cv = $('#gelu-canvas'), ctx = cv.getContext('2d');
+  const val = $('#gelu-val'), xlab = $('#gelu-x');
+  const G = v => .5 * v * (1 + Math.tanh(Math.sqrt(2 / Math.PI) * (v + .044715 * v ** 3)));
+  let on = false;
+  function draw(ts) {
+    if (!on) return;
+    const { w, h } = fit(cv);
+    ctx.clearRect(0, 0, w, h);
+    const X0 = -4, X1 = 4, Y0 = -.8, Y1 = 4;
+    const px = x => (x - X0) / (X1 - X0) * w;
+    const py = y => h - (y - Y0) / (Y1 - Y0) * h;
+
+    ctx.strokeStyle = 'rgba(255,255,255,.10)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(0, py(0)); ctx.lineTo(w, py(0));
+    ctx.moveTo(px(0), 0); ctx.lineTo(px(0), h); ctx.stroke();
+
+    ctx.strokeStyle = css('--ffn'); ctx.lineWidth = 2; ctx.beginPath();
+    for (let i = 0; i <= 120; i++) {
+      const x = X0 + (X1 - X0) * i / 120;
+      i ? ctx.lineTo(px(x), py(G(x))) : ctx.moveTo(px(x), py(G(x)));
+    }
+    ctx.stroke();
+
+    const t = REDUCED ? 1.2 : Math.sin(ts / 1700) * 3;
+    const gy = G(t);
+    ctx.fillStyle = css('--ffn');
+    ctx.beginPath(); ctx.arc(px(t), py(gy), 4.5, 0, 7); ctx.fill();
+    ctx.strokeStyle = 'rgba(251,191,36,.32)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(px(t), py(gy)); ctx.lineTo(px(t), py(0)); ctx.stroke();
+    val.textContent = gy.toFixed(2);
+    xlab.textContent = `x = ${t.toFixed(2)}`;
+  }
+  if (REDUCED) { on = true; requestAnimationFrame(draw); }
+  else { addPainter(draw); whenVisible(cv, () => on = true, () => on = false); }
+})();
+
+/* ============================================================
+   LAYER 4 · OUTPUT SOFTMAX + SAMPLING
+   ============================================================ */
+(function output() {
+  const host = $('#logits'), out = $('#sample-txt');
+  const tempEl = $('#temp'), tempVal = $('#temp-val');
+  const VOCAB = [
+    { t: ' another paper',   logit: 4.1 },
+    { t: ' a null result',   logit: 3.6 },
+    { t: ' sleep',           logit: 3.2 },
+    { t: ' more experiments',logit: 2.9 },
+    { t: ' a PhD',           logit: 2.4 },
+    { t: ' touching grass',  logit: -1.8 }
+  ];
+  const PREFIX = 'The most likely next token after "still training" is';
+
+  host.innerHTML = VOCAB.map((v, i) =>
+    `<div class="logit" data-i="${i}"><span class="tk">${v.t.trim()}</span>
+      <span class="t"><i></i></span><span class="p">0.0%</span></div>`).join('');
+
+  let T = .8;
+  function render(animate = true) {
+    const p = softmax(VOCAB.map(v => v.logit), T);
+    const best = p.indexOf(Math.max(...p));
+    $$('.logit', host).forEach((row, i) => {
+      const bar = $('i', row);
+      if (!animate) bar.style.transition = 'none';
+      bar.style.width = (p[i] * 100).toFixed(1) + '%';
+      if (!animate) requestAnimationFrame(() => bar.style.transition = '');
+      $('.p', row).textContent = (p[i] * 100).toFixed(1) + '%';
+      row.classList.toggle('win', i === best);
+    });
+    return p;
+  }
+
+  function sample(p) {
+    let r = Math.random(), acc = 0;
+    for (let i = 0; i < p.length; i++) { acc += p[i]; if (r <= acc) return i; }
+    return p.length - 1;
+  }
+
+  let typing = 0;
+  function emit() {
+    const p = render();
+    const pick = VOCAB[sample(p)].t;
+    out.innerHTML = `<span class="txt">${PREFIX}</span><span class="new">${pick}</span>`;
+    clearTimeout(typing);
+    typing = setTimeout(emit, 3400);
+  }
+
+  tempEl.addEventListener('input', () => {
+    T = +tempEl.value / 100;
+    tempVal.textContent = T.toFixed(2);
+    render();
+  });
+
+  let started = false;
+  whenVisible(host, () => {
+    if (started) return;
+    started = true;
+    render();
+    if (REDUCED) { out.innerHTML = `<span class="txt">${PREFIX}</span><span class="new">${VOCAB[0].t}</span>`; }
+    else setTimeout(emit, 700);
+  });
+})();
+
+/* ============================================================
+   ARCHITECTURE DIAGRAM
+   ============================================================ */
+(function architecture() {
+  const svg = $('#arch-svg');
+  const BLOCKS = [
+    { id: 'layer-0', y: 452, t: 'Input embedding',        s: 'tokenise · positional encode', c: '--embed' },
+    { id: 'layer-1', y: 366, t: 'Multi-head attention',   s: '4 heads · causal mask',        c: '--attn'  },
+    { id: 'layer-2', y: 292, t: 'Add & LayerNorm',        s: 'residual · μ→0 σ→1',           c: '--norm'  },
+    { id: 'layer-3', y: 206, t: 'Feed-forward',           s: '4× expand · GELU · project',   c: '--ffn'   },
+    { id: 'layer-2', y: 132, t: 'Add & LayerNorm',        s: 'residual · μ→0 σ→1',           c: '--norm'  },
+    { id: 'layer-4', y: 46,  t: 'Linear → Softmax',       s: 'output distribution',          c: '--out'   }
+  ];
+  const W = 200, X = 60, H = 52;
+  let s = '';
+
+  // Vertical spine
+  s += `<path class="edge" d="M${X + W / 2} 508 L${X + W / 2} 20"/>`;
+  // Residual bypasses around attention and FFN
+  s += `<path class="edge" stroke-dasharray="4 4" d="M${X + W / 2} 432 L${X - 22} 432 L${X - 22} 318 L${X + W / 2} 318"/>`;
+  s += `<path class="edge" stroke-dasharray="4 4" d="M${X + W / 2} 272 L${X - 22} 272 L${X - 22} 158 L${X + W / 2} 158"/>`;
+  s += `<text class="nx" x="${X - 30}" y="378" text-anchor="end" transform="rotate(-90 ${X - 30} 378)">residual</text>`;
+  s += `<text class="nx" x="${X - 30}" y="218" text-anchor="end" transform="rotate(-90 ${X - 30} 218)">residual</text>`;
+  s += `<text class="nx" x="${X + W + 12}" y="252">N×</text>`;
+  s += `<path class="edge" d="M${X + W + 6} 120 L${X + W + 6} 380" stroke-dasharray="3 3"/>`;
+
+  BLOCKS.forEach((b, i) => {
+    s += `<g class="blk" data-go="${b.id}" data-c="${b.c}" style="cursor:pointer">
+      <rect x="${X}" y="${b.y}" width="${W}" height="${H}" rx="9"
+        fill="rgba(255,255,255,.04)" stroke="var(${b.c})" stroke-opacity=".38" stroke-width="1.2"/>
+      <text class="ttl" x="${X + W / 2}" y="${b.y + 21}" text-anchor="middle">${b.t}</text>
+      <text x="${X + W / 2}" y="${b.y + 36}" text-anchor="middle" fill="rgba(232,236,246,.45)">${b.s}</text>
+    </g>`;
+  });
+  // Input / output caps
+  s += `<text x="${X + W / 2}" y="516" text-anchor="middle" class="nx">raw human input</text>`;
+  s += `<text x="${X + W / 2}" y="14" text-anchor="middle" class="nx">a research student, probably</text>`;
+  s += `<circle id="arch-pkt" cx="${X + W / 2}" cy="508" r="4.5" fill="var(--attn)"/>`;
+  svg.innerHTML = s;
+
+  $$('.blk', svg).forEach(g => {
+    const rect = $('rect', g), c = g.dataset.c;
+    g.addEventListener('pointerenter', () => {
+      rect.setAttribute('fill', `color-mix(in srgb, var(${c}) 18%, transparent)`);
+      rect.setAttribute('stroke-opacity', '1');
+    });
+    g.addEventListener('pointerleave', () => {
+      rect.setAttribute('fill', 'rgba(255,255,255,.04)');
+      rect.setAttribute('stroke-opacity', '.38');
+    });
+    g.addEventListener('click', () => $('#' + g.dataset.go)?.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' }));
+  });
+
+  // A packet climbing the spine, matching each block's colour as it passes.
+  const pkt = $('#arch-pkt');
+  let on = false, t0 = 0;
+  const tick = ts => {
+    if (!on) return;
+    if (!t0) t0 = ts;
+    const p = ((ts - t0) / 6000) % 1;
+    const y = 508 - p * 488;
+    pkt.setAttribute('cy', y.toFixed(1));
+    const hit = BLOCKS.find(b => y >= b.y && y <= b.y + H);
+    pkt.setAttribute('fill', `var(${hit ? hit.c : '--attn'})`);
+    pkt.setAttribute('r', hit ? 6 : 4.5);
+  };
+  if (!REDUCED) { addPainter(tick); whenVisible(svg, () => on = true, () => on = false); }
+})();
+
+/* ============================================================
+   SCROLL: reveal, rail, sticky nav
+   ============================================================ */
+(function scrollUi() {
+  const nav = $('#nav'), rail = $('#rail');
+  const LAYERS = [
+    { id: 'layer-0', n: 'embed',     c: '--embed' },
+    { id: 'layer-1', n: 'attention', c: '--attn'  },
+    { id: 'layer-2', n: 'add & norm',c: '--norm'  },
+    { id: 'layer-3', n: 'feed-fwd',  c: '--ffn'   },
+    { id: 'layer-4', n: 'output',    c: '--out'   }
+  ];
+  rail.innerHTML = LAYERS.map((l, i) =>
+    `<a class="rail-i" href="#${l.id}" style="--c:var(${l.c})" data-i="${i}">
+       <span class="dot"></span><span class="lbl">${i}. ${l.n}</span></a>`).join('');
+
+  const items = $$('.rail-i', rail);
+  const secs = LAYERS.map(l => $('#' + l.id)).filter(Boolean);
+
+  // Reveal-on-scroll
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: .12, rootMargin: '0px 0px -8% 0px' });
+  $$('.rv').forEach(el => io.observe(el));
+
+  let ticking = false;
+  function update() {
+    ticking = false;
+    const y = scrollY;
+    nav.classList.toggle('stuck', y > 24);
+    rail.classList.toggle('on', y > innerHeight * .55);
+
+    let active = -1;
+    secs.forEach((s, i) => { if (s.getBoundingClientRect().top < innerHeight * .48) active = i; });
+    items.forEach((it, i) => {
+      it.classList.toggle('on', i === active);
+      it.classList.toggle('done', i < active);
+    });
+  }
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  update();
+})();
+
+$('#yr').textContent = new Date().getFullYear();
+</script>
 </body>
-
 </html>
