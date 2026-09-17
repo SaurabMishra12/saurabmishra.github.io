@@ -2391,7 +2391,7 @@ function buildResearch() {
       <h2>What is in it</h2><ul>${p.points.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
       <h2>Topics</h2>${chips(p.tags, 'accent')}
       <div class="card" style="margin-top:22px">
-        <p style="margin:0;font-size:13px">This manuscript is not published yet. If you would like to read the current draft,
+        <p style="margin:0;font-size:13px">This manuscript is UNDER REVIEW. If you would like to read the current draft,
         email <a href="mailto:${ME.email}">${ME.email}</a> and I will send it over.</p>
       </div>`;
     d.append(bar, body);
@@ -2432,7 +2432,7 @@ function buildResearch() {
     pane.appendChild(h('h1', { text: id === 'all' ? 'Research' : id === 'review' ? 'Under review' : 'In preparation' }));
     pane.appendChild(h('p.subhead', {
       text: id === 'all'
-        ? 'Six manuscripts. None of them are published yet — each card says exactly where it stands.'
+        ? 'Six manuscripts— each card says exactly where it stands.'
         : `${list.length} manuscript${list.length === 1 ? '' : 's'}.`
     }));
     for (const p of list) pane.appendChild(paperCard(p, openPaper));
@@ -3774,7 +3774,7 @@ function buildTerminal() {
     about: () => write(`<span class="c">${esc(ME.name)}</span> — ${esc(ME.role)}\n\n${esc(ME.blurb)}\n\n<span class="d">Type 'papers' for the research, or 'open about' for the full window.</span>`),
     whoami: () => write('saurab — BS-MS student, IISER Thiruvananthapuram. Multi-agent LLMs and the mathematics underneath them.'),
 
-    papers: () => write(`<span class="c">${PAPERS.length} manuscripts</span> <span class="d">(none published yet — status shown per paper)</span>\n\n` +
+    papers: () => write(`<span class="c">${PAPERS.length} manuscripts</span> <span class="d">(UNDER REVIEW — status shown per paper)</span>\n\n` +
       PAPERS.map(p => `  <span class="w">${p.short.padEnd(14)}</span><span class="${p.status === 'Under review' ? 'p' : 'm'}">${p.status.padEnd(16)}</span><span class="d">${p.venue}</span>\n    ${esc(p.title)}`).join('\n\n')),
 
     projects: a => {
