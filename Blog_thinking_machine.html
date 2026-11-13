@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What Does It Take to Make a Machine Think? — AI &amp; Mathematics Research Digest</title>
+  <style>
+    :root {
+      --bg-paper: #FAF7F2;
+      --bg-card: #F3EFE6;
+      --bg-elevated: #FFFFFF;
+      --bg-code: #ECE6D9;
+      --ink-primary: #18181B;
+      --ink-secondary: #3F3F46;
+      --ink-muted: #71717A;
+      --accent-indigo: #1E3A8A;
+      --accent-indigo-soft: rgba(30, 58, 138, 0.10);
+      --accent-terracotta: #B45309;
+      --accent-terracotta-soft: rgba(180, 83, 9, 0.12);
+      --accent-teal: #0F766E;
+      --accent-teal-soft: rgba(15, 118, 110, 0.12);
+      --accent-crimson: #991B1B;
+      --accent-crimson-soft: rgba(153, 27, 27, 0.12);
+      --border-rule: #E2D9C8;
+      --shadow-soft: 0 4px 20px -2px rgba(24, 24, 27, 0.06);
+      --font-serif: "Charter", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: "JetBrains Mono", "Fira Code", "SFMono-Regular", Consolas, monospace;
+    }
+
+    html[data-theme="dark"] {
+      --bg-paper: #0F141C;
+      --bg-card: #171E29;
+      --bg-elevated: #1E2736;
+      --bg-code: #121822;
+      --ink-primary: #F1F5F9;
+      --ink-secondary: #CBD5E1;
+      --ink-muted: #94A3B8;
+      --accent-indigo: #60A5FA;
+      --accent-indigo-soft: rgba(96, 165, 250, 0.15);
+      --accent-terracotta: #FBBF24;
+      --accent-terracotta-soft: rgba(251, 191, 36, 0.15);
+      --accent-teal: #2DD4BF;
+      --accent-teal-soft: rgba(45, 212, 191, 0.15);
+      --accent-crimson: #F87171;
+      --accent-crimson-soft: rgba(248, 113, 113, 0.15);
+      --border-rule: #2A364B;
+      --shadow-soft: 0 4px 24px -2px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-paper);
+      color: var(--ink-primary);
+      font-family: var(--font-serif);
+      font-size: 1.08rem;
+      line-height: 1.75;
+      transition: background-color 0.25s ease, color 0.25s ease;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: var(--accent-indigo);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      transition: color 0.15s ease;
+    }
+
+    a:hover {
+      color: var(--accent-terracotta);
+    }
+
+    /* Top Reading Progress Bar */
+    .progress-bar-wrap {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--border-rule);
+      z-index: 1000;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-indigo), var(--accent-teal), var(--accent-terracotta));
+      transition: width 0.1s linear;
+    }
+
+    /* Sticky Top Navigation */
+    .top-header {
+      position: sticky;
+      top: 4px;
+      z-index: 900;
+      background: var(--bg-paper);
+      border-bottom: 1px solid var(--border-rule);
+      padding: 0.65rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-family: var(--font-sans);
+    }
+
+    .brand-Group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-badge {
+      background: var(--accent-indigo);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .brand-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .lens-select {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-rule);
+      background: var(--bg-card);
+      color: var(--ink-primary);
+      cursor: pointer;
+    }
+
+    .btn-toggle {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-rule);
+      background: var(--bg-card);
+      color: var(--ink-primary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-toggle:hover {
+      border-color: var(--accent-indigo);
+      background: var(--accent-indigo-soft);
+    }
+
+    /* Main Grid Layout */
+    .page-shell {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2.2rem 1.5rem 5rem;
+      display: grid;
+      grid-template-columns: 250px minmax(0, 820px);
+      gap: 3rem;
+      justify-content: center;
+    }
+
+    @media (max-width: 1024px) {
+      .page-shell {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.5rem;
+      }
+      .toc-sidebar {
+        position: static !important;
+        order: -1;
+      }
+    }
+
+    /* Sidebar TOC */
+    .toc-sidebar {
+      position: sticky;
+      top: 4.5rem;
+      align-self: start;
+      font-family: var(--font-sans);
+      background: var(--bg-card);
+      border: 1px solid var(--border-rule);
+      border-radius: 10px;
+      padding: 1.15rem;
+    }
+
+    .toc-heading {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .toc-link {
+      display: block;
+      font-size: 0.82rem;
+      line-height: 1.35;
+      color: var(--ink-secondary);
+      text-decoration: none;
+      padding: 0.35rem 0.55rem;
+      border-radius: 6px;
+      border-left: 2px solid transparent;
+      transition: all 0.15s ease;
+    }
+
+    .toc-link:hover,
+    .toc-link.active {
+      background: var(--accent-indigo-soft);
+      color: var(--accent-indigo);
+      border-left-color: var(--accent-indigo);
+      font-weight: 600;
+    }
+
+    /* Hero Masthead */
+    .masthead {
+      border-bottom: 2px solid var(--border-rule);
+      padding-bottom: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .kicker-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--accent-terracotta);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.85rem;
+    }
+
+    .masthead h1 {
+      font-size: clamp(2rem, 4vw, 2.85rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      color: var(--ink-primary);
+    }
+
+    .masthead-subtitle {
+      font-size: 1.18rem;
+      line-height: 1.6;
+      color: var(--ink-secondary);
+      margin-bottom: 1.35rem;
+    }
+
+    .byline-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 1rem;
+      border-top: 1px dashed var(--border-rule);
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      color: var(--ink-muted);
+    }
+
+    /* News Dispatch Cards & Sections */
+    .dispatch-section {
+      margin-bottom: 3.25rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border-rule);
+      scroll-margin-top: 4.5rem;
+    }
+
+    .dispatch-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+    }
+
+    .dispatch-tag {
+      background: var(--accent-indigo-soft);
+      color: var(--accent-indigo);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .dispatch-lens {
+      color: var(--accent-teal);
+      font-weight: 600;
+    }
+
+    .dispatch-section h2 {
+      font-size: 1.65rem;
+      line-height: 1.25;
+      margin-bottom: 0.9rem;
+      color: var(--ink-primary);
+    }
+
+    .news-lead {
+      background: var(--bg-card);
+      border-left: 4px solid var(--accent-terracotta);
+      padding: 1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1.25rem;
+      font-size: 1.03rem;
+      color: var(--ink-primary);
+    }
+
+    .news-lead strong {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-terracotta);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .dispatch-section p {
+      margin-bottom: 1.1rem;
+      color: var(--ink-secondary);
+    }
+
+    .math-chip {
+      font-family: var(--font-mono);
+      font-size: 0.88em;
+      background: var(--bg-code);
+      padding: 0.12rem 0.4rem;
+      border-radius: 4px;
+      color: var(--ink-primary);
+    }
+
+    .paper-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0 1.35rem;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+    }
+
+    .paper-pill {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-rule);
+      border-radius: 999px;
+      padding: 0.28rem 0.75rem;
+      text-decoration: none;
+      color: var(--ink-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .paper-pill:hover {
+      border-color: var(--accent-indigo);
+      color: var(--accent-indigo);
+    }
+
+    /* Interactive Lab Box */
+    .lab-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-rule);
+      border-radius: 12px;
+      padding: 1.35rem;
+      margin-top: 1.25rem;
+      box-shadow: var(--shadow-soft);
+      font-family: var(--font-sans);
+    }
+
+    .lab-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid var(--border-rule);
+    }
+
+    .lab-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink-primary);
+    }
+
+    .lab-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent-teal);
+      background: var(--accent-teal-soft);
+      padding: 0.18rem 0.55rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .lab-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .lab-btn {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-rule);
+      background: var(--bg-card);
+      color: var(--ink-primary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .lab-btn.active,
+    .lab-btn:hover {
+      background: var(--accent-indigo);
+      color: #fff;
+      border-color: var(--accent-indigo);
+    }
+
+    .lab-readout {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-rule);
+      border-radius: 8px;
+      padding: 0.75rem 0.95rem;
+      color: var(--ink-primary);
+      margin-top: 0.85rem;
+      line-height: 1.55;
+    }
+
+    .svg-stage {
+      width: 100%;
+      height: auto;
+      max-height: 260px;
+      display: block;
+      background: var(--bg-paper);
+      border-radius: 8px;
+      border: 1px solid var(--border-rule);
+    }
+
+    /* Highlighted lens state */
+    .dispatch-section.lens-dimmed {
+      opacity: 0.35;
+      transition: opacity 0.25s ease;
+    }
+
+    .dispatch-section.lens-highlighted {
+      opacity: 1;
+      outline: 2px solid var(--accent-teal);
+      outline-offset: 12px;
+      border-radius: 8px;
+    }
+
+    /* Comparison Table */
+    .digest-table-wrap {
+      overflow-x: auto;
+      margin: 1.25rem 0;
+    }
+
+    .digest-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-rule);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .digest-table th,
+    .digest-table td {
+      padding: 0.7rem 0.9rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-rule);
+      vertical-align: top;
+    }
+
+    .digest-table th {
+      background: var(--bg-card);
+      font-weight: 700;
+      color: var(--ink-primary);
+    }
+
+    /* References Grid */
+    .ref-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 0.75rem;
+      list-style: none;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+    }
+
+    .ref-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-rule);
+      border-radius: 8px;
+      padding: 0.75rem 0.95rem;
+      color: var(--ink-secondary);
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressBar"></div>
+  </div>
+
+  <header class="top-header">
+    <div class="brand-Group">
+      <span class="brand-badge">Field Dispatches</span>
+      <span class="brand-title">Saurab Mishra &middot; Mathematics &amp; Modern AI Digest</span>
+    </div>
+    <div class="header-controls">
+      <label for="lensFilter" style="font-size:0.78rem;color:var(--ink-muted);">Filter by Math Lens:</label>
+      <select id="lensFilter" class="lens-select" aria-label="Filter dispatches by mathematical lens">
+        <option value="all">All Mathematical Lenses (7)</option>
+        <option value="linalg">Linear Algebra &amp; Geometry</option>
+        <option value="prob">Probability &amp; Optimization</option>
+        <option value="info">Information Theory &amp; Neuroscience</option>
+        <option value="graphs">Graph Theory &amp; Topologies</option>
+        <option value="metric">Metric Spaces &amp; Retrieval</option>
+        <option value="calculus">Differential Geometry &amp; Kernels</option>
+        <option value="logic">PDEs &amp; Formal Logic</option>
+      </select>
+      <button class="btn-toggle" id="themeBtn" type="button">Dark Ink Mode</button>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <aside class="toc-sidebar" aria-label="Table of Contents">
+      <div class="toc-heading">Research Dispatches</div>
+      <ul class="toc-list" id="tocList">
+        <li><a class="toc-link active" href="#dispatch-intro">00 &middot; Why Read AI Through Maths?</a></li>
+        <li><a class="toc-link" href="#dispatch-llm">01 &middot; Language as Geometry</a></li>
+        <li><a class="toc-link" href="#dispatch-reasoning">02 &middot; Reasoning &amp; Test-Time Compute</a></li>
+        <li><a class="toc-link" href="#dispatch-neuro">03 &middot; Brains vs. Transformers</a></li>
+        <li><a class="toc-link" href="#dispatch-mas">04 &middot; When Models Debate</a></li>
+        <li><a class="toc-link" href="#dispatch-rag">05 &middot; RAG &amp; Prompt Injection</a></li>
+        <li><a class="toc-link" href="#dispatch-interp">06 &middot; Inside the Black Box</a></li>
+        <li><a class="toc-link" href="#dispatch-discovery">07 &middot; PDEs, Proofs &amp; Discovery</a></li>
+        <li><a class="toc-link" href="#dispatch-refs">08 &middot; Primary Papers Index</a></li>
+      </ul>
+    </aside>
+
+    <main>
+      <section class="masthead" id="dispatch-intro">
+        <div class="kicker-row">
+          <span>Research &amp; Concept Digest</span>
+          <span>&bull;</span>
+          <span>Applied &amp; Computational Mathematics</span>
+          <span>&bull;</span>
+          <span>IISER Thiruvananthapuram</span>
+        </div>
+        <h1>What Does It Take to Make a Machine Think?</h1>
+        <p class="masthead-subtitle">
+          Short, plain-spoken notes on the papers and mathematical ideas shaping modern AI—from transformer geometry and test-time reasoning to multi-agent graphs, retrieval security, mechanistic interpretability, and computer-verified proofs.
+        </p>
+        <div class="byline-bar">
+          <span>By <strong>Saurab Mishra</strong> (<a href="https://saurabmishra.me" target="_blank" rel="noopener">saurabmishra.me</a>)</span>
+          <span>BS–MS Mathematical Sciences &middot; Interactive Concept Notebook</span>
+        </div>
+        <p style="margin-top:1.25rem;color:var(--ink-secondary);">
+          Every week a new lab drops a headline: a reasoning model solves Olympiad problems, a multi-agent system writes code, or an AI helps construct a blow-up profile for fluid dynamics. When you come to machine learning from mathematics rather than a standard software engineering track, your first instinct is to strip away the marketing buzzwords and ask a simpler question: <em>what is the underlying mathematical operator actually doing?</em> Instead of a long textbook survey, this page collects short, news-style field notes on the core papers and concepts I keep returning to.
+        </p>
+      </section>
+
+      <!-- DISPATCH 01: LLMs -->
+      <section class="dispatch-section" id="dispatch-llm" data-lens="linalg">
+        <div class="dispatch-header">
+          <span class="dispatch-tag">Dispatch 01 &middot; Architecture</span>
+          <span class="dispatch-lens">Lens: Linear Algebra, Hyperspherical Geometry &amp; Scaling Laws</span>
+        </div>
+        <h2>From Discrete Words to Trajectories on a High-Dimensional Sphere</h2>
+        <div class="news-lead">
+          <strong>The Core Idea in Plain Words</strong>
+          A language model does not "read" words the way we do. It maps discrete text tokens into vectors in <span class="math-chip">&#8477;<sup>d</sup></span>, rotates query and key coordinates to encode word order, and repeatedly nudges those vectors along a shared residual stream until the final direction points to the next token.
+        </div>
+        <p>
+          When <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Vaswani et al. (2017)</a> replaced recurrent loops with self-attention in <em>Attention Is All You Need</em>, they turned sequence modelling into parallel matrix multiplication. Each token <span class="math-chip">x<sub>i</sub></span> starts as a learned vector. Because high-dimensional random vectors are nearly orthogonal, a 4,096-dimensional space can pack tens of thousands of semantic directions without colliding. Modern transformers encode relative distance by rotating query and key pairs in 2D complex planes via Rotary Position Embeddings (<a href="https://arxiv.org/abs/2104.09864" target="_blank" rel="noopener">Su et al., 2024</a>), so the inner product <span class="math-chip">q<sub>m</sub><sup>&#8868;</sup>k<sub>n</sub></span> depends cleanly on the offset <span class="math-chip">m &minus; n</span>.
+        </p>
+        <p>
+          Across layers, the hidden state evolves as an additive dynamical system <span class="math-chip">h<sub>l</sub> = h<sub>l&minus;1</sub> + Attn<sub>l</sub>(LN(h<sub>l&minus;1</sub>)) + MLP<sub>l</sub>(...)</span>. Attention heads move context between token positions, while gated feed-forward networks (<a href="https://arxiv.org/abs/2002.05202" target="_blank" rel="noopener">Shazeer, 2020</a>) act like key-value lookup tables stored in weights. And as <a href="https://arxiv.org/abs/2001.08361" target="_blank" rel="noopener">Kaplan et al. (2020)</a> and <a href="https://arxiv.org/abs/2203.15556" target="_blank" rel="noopener">Hoffmann et al. (2022)</a> showed with Chinchilla scaling laws, cross-entropy loss drops predictably as a power law when parameters and training tokens scale in tandem.
+        </p>
+        <div class="paper-strip">
+          <a class="paper-pill" href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Vaswani et al. 2017 (Transformer)</a>
+          <a class="paper-pill" href="https://arxiv.org/abs/2104.09864" target="_blank" rel="noopener">Su et al. 2024 (RoPE)</a>
+          <a class="paper-pill" href="https://arxiv.org/abs/2001.08361" target="_blank" rel="noopener">Kaplan et al. 2020 (Scaling Laws)</a>
+          <a class="paper-pill" href="https://arxiv.org/abs/2203.15556" target="_blank" rel="noopener">Hoffmann et al. 2022 (Chinchilla)</a>
+        </div>
+
+        <div class="lab-card">
+          <div class="lab-header">
+            <span class="lab-title">Interactive Concept: Softmax Temperature &amp; Attention Routing</span>
+            <span class="lab-badge">Linear Algebra &amp; Probability</span>
+          </div>
+          <div class="lab-controls">
+            <label for="tempSlider" style="font-size:0.82rem;">Temperature <span class="math-chip">&tau;</span>:</label>
+            <input type="range" id="tempSlider" min="0.2" max="2.5" step="0.1" value="0.8" />
+            <span id="tempVal" class="math-chip">0.8</span>
+          </div>
+          <svg class="svg-stage" viewBox="0 0 680 175" id="attnSvg" aria-label="Attention distribution visualization"></svg>
+          <div class="lab-readout" id="attnReadout"></div>
+        </div>
+      </section>
+
+      <!-- DISPATCH 02: REASONING -->
+      <section class="dispatch-section" id="dispatch-reasoning" data-lens="prob">
+        <div class="dispatch-header">
+          <span class="dispatch-tag">Dispatch 02 &middot; Reasoning &amp; Philosophy</span>
+          <span class="dispatch-lens">Lens: Test-Time Search, Verification &amp; Epistemology</span>
+        </div>
+        <h2>Does Spending More Tokens at Test Time Mean a Model Actually Thinks?</h2>
+        <div class="news-lead">
+          <strong>The Core Idea in Plain Words</strong>
+          A fixed transformer pass has a fixed circuit depth. Writing out intermediate steps gives the model external working memory, turning a hard one-shot leap into a sequence of easier conditional steps—but a plausible-looking chain of thought is not always a faithful record of how the model reached its answer.
+        </div>
+        <p>
+          When <a href="https://arxiv.org/abs/2201.11903" target="_blank" rel="noopener">Wei et al. (2022)</a> showed that prompting a model to generate step-by-step Chain-of-Thought (CoT) unlocks multi-step arithmetic and symbolic reasoning, the natural mathematical question was <em>why</em>. Every emitted token is fed back into the next causal attention pass, effectively expanding the computation graph at inference time. Later work like Tree of Thoughts (<a href="https://arxiv.org/abs/2305.10601" target="_blank" rel="noopener">Yao et al., 2023</a>) and process-supervised verifiers (<a href="https://arxiv.org/abs/2305.20050" target="_blank" rel="noopener">Lightman et al., 2023</a>) went further, treating reasoning as heuristic search over candidate trajectories where each step is scored before committing.
+        </p>
+        <p>
+          Yet philosophy of science forces us to be careful here. Functionalism asks what role an internal state plays; epistemology asks whether a model has justified belief or brittle pattern matching. Crucially, <a href="https://arxiv.org/abs/2305.04388" target="_blank" rel="noopener">Turpin et al. (2023)</a> demonstrated that language models can produce fluent, logical-sounding CoT explanations that hide the true biasing feature that drove the prediction. Getting the right answer and having a faithful reasoning process are two different scientific claims.
+        </p>
+        <div class="paper-strip">
+          <a class="paper-pill" href="https://arxiv.org/abs/2201.11903" target="_blank" rel="noopener">Wei et al. 2022 (Chain-of-Thought)</a>
+          <a class="paper-pill" href="https://arxiv.org/abs/2305.10601" target="_blank" rel="noopener">Yao et al. 2023 (Tree of Thoughts)</a>
+          <a class="paper-pill" href="https://arxiv.org/abs/2305.20050" target="_blank" rel="noopener">Lightman et al. 2023 (Let's Verify Step by Step)</a>
+          <a class="paper-pill" href="https://arxiv.org/abs/2305.04388" target="_blank" rel="noopener">Turpin et al. 2023 (Unfaithful CoT)</a>
+        </div>
+
+        <div class="lab-card">
+          <div class="lab-header">
+            <span class="lab-title">Interactive Concept: Five Philosophical Lenses on Machine Reasoning</span>
+            <span class="lab-badge">Epistemology &amp; Computation</span>
+          </div>
+          <div class="lab-controls" id="philButtons">
+            <button class="lab-btn active" data-phil="func" type="button">Functionalism</button>
+            <button class="lab-btn" data-phil="comp" type="button">Computationalism</button>
+            <button class="lab-btn" data-phil="epist" type="button">Epistemology</button>
+            <button class="lab-btn" data-phil="scip" type="button">Philosophy of Science</button>
+            <button class="lab-btn" data-phil="expl" type="button">Scientific Explanation</button>
+          </div>
+          <div class="lab-readout" id="philReadout"></div>
+        </div>
+      </section>
+
+      <!-- DISPATCH 03: NEUROSCIENCE -->
+      <section class="dispatch-section" id="dispatch-neuro" data-lens="info">
+        <div class="dispatch-header">
+          <span class="dispatch-tag">Dispatch 03 &middot; Cognitive Science</span>
+          <span class="dispatch-lens">Lens: Predictive Coding, Sparse Coding &amp; Superposition</span>
+        </div>
+        <h2>Brains and Transformers: Where the Analogy Helps and Where It Breaks</h2>
+        <div class="news-lead">
+          <strong>The Core Idea in Plain Words</strong>
+          Both biological cortex and artificial networks compress high-dimensional sensory streams into distributed representations and try to predict what comes next. Calling transformer dot-product attention "human attention", however, confuses a mathematical lookup operator with biological gain control.
+        </div>
+        <p>
+          In computational neuroscience, predictive processing models the visual cortex as a hierarchical circuit that constantly sends top-down predictions downward and passes only prediction errors upward (<a href="https://www.nature.com/articles/nn0199_79" target="_blank" rel="noopener">Rao &amp; Ballard, 1999</a>; <a href="https://www.nature.com/articles/nrn2787" target="_blank" rel="noopener">Friston, 2010</a>). Autoregressive language models share that predictive objective at the sequence level, and both systems rely on distributed codes: as <a href="https://transformer-circuits.pub/2022/toy_model/index.html" target="_blank" rel="noopener">Elhage et al. (2022)</a> showed in <em>Toy Models of Superposition</em>, neural layers pack many more sparse features than they have neurons by exploiting almost-orthogonal directions.
+        </p>
+        <p>
+          Where the metaphor breaks down is just as important. Biological neurons communicate via metabolically constrained spikes in continuous time and adapt locally without a global backward pass. A transformer's context window is an exact, noiseless key-value buffer updated by global backpropagation across trillions of offline tokens. Neuroscience is a great source of mathematical hypotheses, not a license to claim biological equivalence.
+        </p>
+        <div class="digest-table-wrap">
+          <table class="digest-table">
+            <thead>
+              <tr>
+                <th>Dimension</th>
+                <th>Biological Cortex</th>
+                <th>Transformer Architecture</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Signal &amp; Time</strong></td>
+                <td>Asynchronous spikes (<span class="math-chip">~20 W</span> metabolic budget, continuous dynamical state)</td>
+                <td>Dense synchronous floating-point tensors across discrete layer depth</td>
+              </tr>
+              <tr>
+                <td><strong>Working Memory</strong></td>
+                <td>Capacity-limited recurrent attractor dynamics in prefrontal circuits</td>
+                <td>Exact key-value (KV) cache across the entire context window</td>
+              </tr>
+              <tr>
+                <td><strong>Feature Packing</strong></td>
+                <td>Population coding &amp; sparse sensory receptive fields (<a href="https://www.nature.com/articles/nn0199_79" target="_blank" rel="noopener">Rao &amp; Ballard, 1999</a>)</td>
+                <td>Polysemantic superposition in residual &amp; MLP spaces (<a href="https://transformer-circuits.pub/2022/toy_model/index.html" target="_blank" rel="noopener">Elhage et al., 2022</a>)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- DISPATCH 04: MULTI-AGENT SYSTEMS -->
+      <section class="dispatch-section" id="dispatch-mas" data-lens="graphs">
+        <div class="dispatch-header">
+          <span class="dispatch-tag">Dispatch 04 &middot; Collective Intelligence</span>
+          <span class="dispatch-lens">Lens: Directed Graphs, Message Passing &amp; Aggregation</span>
+        </div>
+        <h2>Multi-Agent Debate: Does Wiring Models Together Make Them Smarter?</h2>
+        <div class="news-lead">
+          <strong>The Core Idea in Plain Words</strong>
+          Putting multiple LLM agents in a room sounds like an easy upgrade: one plans, one critiques, and one synthesizes. In graph-theoretic terms, however, more edges mean higher token cost and a real risk that confident wrong answers cascade across the network.
+        </div>
+        <p>
+          Papers like <a href="https://arxiv.org/abs/2305.14325" target="_blank" rel="noopener">Du et al. (2023)</a> and <a href="https://arxiv.org/abs/2305.19118" target="_blank" rel="noopener">Liang et al. (2023)</a> popularized multi-agent debate: having several model instances critique each other's drafts over multiple rounds to improve factuality and math accuracy. Mathematically, we can view an <span class="math-chip">N</span>-agent setup as a directed graph <span class="math-chip">G = (V, E)</span> where edges determine who reads whose message in round <span class="math-chip">t</span>, followed by a readout rule (majority vote, judge model, or sink node) that picks the final answer.
+        </p>
+        <p>
+          What makes this area fascinating is that communication is not a free lunch. An all-to-all clique scales message deliveries as <span class="math-chip">O(N<sup>2</sup>)</span> per round, rapidly inflating context length. Worse, if agents share the same pretraining priors, they often make correlated mistakes—and a persuasive hallucination can flip a lonely correct agent during peer revision. Designing multi-agent systems is really a problem in graph topology and aggregation rules, not just adding more personas.
+        </p>
+        <div class="paper-strip">
+          <a class="paper-pill" href="https://arxiv.org/abs/2305.14325" target="_blank" rel="noopener">Du et al. 2023 (Multi-Agent Debate)</a>
+          <a class="paper-pill" href="https://arxiv.org/abs/2305.19118" target="_blank" rel="noopener">Liang et al. 2023 (Divergent Thinking via Debate)</a>
+        </div>
+
+        <div class="lab-card">
+          <div class="lab-header">
+            <span class="lab-title">Interactive Concept: Communication Graph Topologies (<span class="math-chip">N = 4</span> Agents)</span>
+            <span class="lab-badge">Graph Theory</span>
+          </div>
+          <div class="lab-controls" id="topoButtons">
+            <button class="lab-btn active" data-topo="ind" type="button">Independent (No Edges)</button>
+            <button class="lab-btn" data-topo="star" type="button">Centralized In-Star</button>
+            <button class="lab-btn" data-topo="ring" type="button">Directed Ring</button>
+            <button class="lab-btn" data-topo="dense" type="button">Fully Connected Clique</button>
+          </div>
+          <svg class="svg-stage" viewBox="0 0 680 185" id="topoSvg" aria-label="Multi-agent graph topology diagram"></svg>
+          <div class="lab-readout" id="topoReadout"></div>
+        </div>
+      </section>
+
+      <!-- DISPATCH 05: RAG & SECURITY -->
+      <section class="dispatch-section" id="dispatch-rag" data-lens="metric">
+        <div class="dispatch-header">
+          <span class="dispatch-tag">Dispatch 05 &middot; Grounding &amp; Security</span>
+          <span class="dispatch-lens">Lens: Cosine Similarity, Vector Search &amp; Adversarial Control</span>
+        </div>
+        <h2>RAG and Indirect Prompt Injection: When Retrieved Data Turns Into Code</h2>
+        <div class="news-lead">
+          <strong>The Core Idea in Plain Words</strong>
+          Retrieval-Augmented Generation fixes hallucination by fetching external passages via vector similarity. But because LLMs process instructions and retrieved data in the exact same token stream, a poisoned document can try to hijack the model's behaviour.
+        </div>
+        <p>
+          Instead of forcing a model to memorize every changing fact in its weights, <a href="https://arxiv.org/abs/2005.11401" target="_blank" rel="noopener">Lewis et al. (2020)</a> and <a href="https://arxiv.org/abs/2004.04906" target="_blank" rel="noopener">Karpukhin et al. (2020)</a> formulated Retrieval-Augmented Generation (RAG) and Dense Passage Retrieval (DPR): embed queries and documents into a shared metric space, retrieve the top-<span class="math-chip">k</span> passages via inner-product or cosine similarity, and condition generation on that retrieved evidence.
+        </p>
+        <p>
+          As soon as RAG systems started browsing untrusted web pages, <a href="https://arxiv.org/abs/2302.12173" target="_blank" rel="noopener">Greshake et al. (2023)</a> highlighted a fundamental security flaw: <em>indirect prompt injection</em>. An attacker plants adversarial text inside an external document so that when the retriever pulls it into the context window, the payload tries to override the user's original prompt. Looking at the pipeline carefully reveals a two-stage bottleneck: first, whether a malicious passage survives retrieval and safety filtering to enter the top-<span class="math-chip">k</span> context; and second, whether the generator actually obeys the injected instruction once it is inside the prompt.
+        </p>
+        <div class="paper-strip">
+          <a class="paper-pill" href="https://arxiv.org/abs/2005.11401" target="_blank" rel="noopener">Lewis et al. 2020 (RAG)</a>
+          <a class="paper-pill" href="https://arxiv.org/abs/2004.04906" target="_blank" rel="noopener">Karpukhin et al. 2020 (DPR)</a>
+          <a class="paper-pill" href="https://arxiv.org/abs/2302.12173" target="_blank" rel="noopener">Greshake et al. 2023 (Indirect Prompt Injection)</a>
+        </div>
+
+        <div class="lab-card">
+          <div class="lab-header">
+            <span class="lab-title">Interactive Concept: Two-Stage RAG Security Funnel</span>
+            <span class="lab-badge">Metric Retrieval &amp; Instruction Hierarchy</span>
+          </div>
+          <div class="lab-controls" id="ragButtons">
+            <button class="lab-btn active" data-rag="stealth" type="button">Subtle Topic-Aligned Payload</button>
+            <button class="lab-btn" data-rag="blunt" type="button">Blunt "Ignore Previous" Payload</button>
+          </div>
+          <svg class="svg-stage" viewBox="0 0 680 165" id="ragSvg" aria-label="RAG pipeline security funnel"></svg>
+          <div class="lab-readout" id="ragReadout"></div>
+        </div>
+      </section>
+
+      <!-- DISPATCH 06: INTERPRETABILITY -->
+      <section class="dispatch-section" id="dispatch-interp" data-lens="calculus">
+        <div class="dispatch-header">
+          <span class="dispatch-tag">Dispatch 06 &middot; Mechanistic Interpretability</span>
+          <span class="dispatch-lens">Lens: Kernel Similarity (CKA), Intrinsic Dimension &amp; Causal Patching</span>
+        </div>
+        <h2>Opening the Black Box: Geometry vs. Causal Circuits</h2>
+        <div class="news-lead">
+          <strong>The Core Idea in Plain Words</strong>
+          Benchmark accuracy only tells you <em>what</em> a model outputs, not <em>how</em>. To look inside, researchers use two complementary toolkits: geometric measures that track how hidden point clouds deform across layers, and causal interventions that patch internal activations to prove which circuit actually drives a decision.
+        </div>
+        <p>
+          On the geometric side, tools like Centered Kernel Alignment (<a href="https://arxiv.org/abs/1905.00414" target="_blank" rel="noopener">Kornblith et al., 2019</a>) measure global Gram-matrix similarity between layers invariant to orthogonal rotations, while Two-Nearest-Neighbour (<a href="https://www.nature.com/articles/s41598-017-11873-y" target="_blank" rel="noopener">Facco et al., 2017</a>) estimates the intrinsic dimension of the low-dimensional manifold that token embeddings trace inside <span class="math-chip">&#8477;<sup>d</sup></span>. These metrics reveal how early layers expand features, middle layers reorganize local neighbourhoods, and late layers align directions with the output vocabulary.
+        </p>
+        <p>
+          Geometry alone, however, is observational—and correlation is not causation. To establish that an internal component actually implements an algorithm, mechanistic interpretability uses causal interventions: <a href="https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html" target="_blank" rel="noopener">Olsson et al. (2022)</a> isolated two-layer <em>induction heads</em> that copy patterns in-context (`[A][B] ... [A] -> [B]`), while <a href="https://arxiv.org/abs/2202.05262" target="_blank" rel="noopener">Meng et al. (2022)</a> used causal tracing (activation patching) to localize factual associations inside mid-layer MLP modules.
+        </p>
+        <div class="paper-strip">
+          <a class="paper-pill" href="https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html" target="_blank" rel="noopener">Olsson et al. 2022 (Induction Heads)</a>
+          <a class="paper-pill" href="https://arxiv.org/abs/1905.00414" target="_blank" rel="noopener">Kornblith et al. 2019 (Linear CKA)</a>
+          <a class="paper-pill" href="https://www.nature.com/articles/s41598-017-11873-y" target="_blank" rel="noopener">Facco et al. 2017 (TwoNN ID)</a>
+          <a class="paper-pill" href="https://arxiv.org/abs/2202.05262" target="_blank" rel="noopener">Meng et al. 2022 (ROME / Causal Tracing)</a>
+        </div>
+      </section>
+
+      <!-- DISPATCH 07: SCIENTIFIC DISCOVERY & FORMAL PROOFS -->
+      <section class="dispatch-section" id="dispatch-discovery" data-lens="logic">
+        <div class="dispatch-header">
+          <span class="dispatch-tag">Dispatch 07 &middot; AI for Science &amp; Mathematics</span>
+          <span class="dispatch-lens">Lens: Partial Differential Equations, Evolutionary Search &amp; Type Theory</span>
+        </div>
+        <h2>Navier–Stokes, FunSearch, and Why Lean 4 Is the Ultimate Referee</h2>
+        <div class="news-lead">
+          <strong>The Core Idea in Plain Words</strong>
+          Can an AI discover new mathematics or physics? Alone, an LLM is a brilliant but unreliable conjecture generator. Paired with numerical PDE solvers, evolutionary evaluators, or formal proof assistants like Lean 4, however, heuristic proposals get filtered by strict mathematical verification.
+        </div>
+        <p>
+          Look closely at the recent headlines in fluid dynamics and combinatorics. In fluid mechanics, <a href="https://arxiv.org/abs/2509.14185" target="_blank" rel="noopener">Wang et al. (2025)</a> used high-precision Physics-Informed Neural Networks (PINNs) to discover new families of unstable self-similar blow-up solutions across fluid equations, while in early 2026 an OpenAI-assisted collaboration (<a href="https://openai.com/index/navier-stokes-solution/" target="_blank" rel="noopener">OpenAI, 2026</a>; <a href="https://cdn.openai.com/pdf/32d9f210-8b73-45e0-91bc-82a30aef8a9a/navier-stokes.pdf" target="_blank" rel="noopener">166-page proof PDF</a>) established finite-time blow-up for an <em>axisymmetric Navier–Stokes system with smooth external forcing</em>. As <a href="https://www.siam.org/publications/siam-news/articles/openai-s-navier-stokes-construction-what-c-infty-forcing-changes/" target="_blank" rel="noopener">SIAM News (2026)</a> carefully noted, adding a <span class="math-chip">C<sup>&infin;</sup></span> forcing term is a major analytical achievement, but the classic unforced 3D Clay Millennium problem (<span class="math-chip">f &equiv; 0</span>) remains wide open.
+        </p>
+        <p>
+          A clear pattern runs through every genuine breakthrough—including DeepMind's <a href="https://deepmind.google/blog/funsearch-making-new-discoveries-in-mathematical-sciences-using-large-language-models/" target="_blank" rel="noopener">FunSearch</a> on the cap-set problem, <a href="https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/" target="_blank" rel="noopener">AlphaEvolve</a> for algorithmic design, and <a href="https://deepmind.google/blog/ai-solves-imo-problems-at-silver-medal-level/" target="_blank" rel="noopener">AlphaProof</a> pairing reinforcement learning with the <a href="https://lean-lang.org/" target="_blank" rel="noopener">Lean 4</a> theorem prover: <strong>the LLM proposes, and a deterministic mathematical verifier disposes</strong>. In formal type theory, a hallucinated lemma simply fails to type-check. That marriage of stochastic intuition and symbolic verification is where AI for mathematics becomes genuinely trustworthy.
+        </p>
+        <div class="paper-strip">
+          <a class="paper-pill" href="https://openai.com/index/navier-stokes-solution/" target="_blank" rel="noopener">OpenAI 2026 (Forced Axisymmetric Navier–Stokes)</a>
+          <a class="paper-pill" href="https://www.siam.org/publications/siam-news/articles/openai-s-navier-stokes-construction-what-c-infty-forcing-changes/" target="_blank" rel="noopener">SIAM News 2026 (What Forcing Changes)</a>
+          <a class="paper-pill" href="https://arxiv.org/abs/2509.14185" target="_blank" rel="noopener">Wang et al. 2025 (Unstable Singularities)</a>
+          <a class="paper-pill" href="https://deepmind.google/blog/funsearch-making-new-discoveries-in-mathematical-sciences-using-large-language-models/" target="_blank" rel="noopener">FunSearch (DeepMind)</a>
+          <a class="paper-pill" href="https://deepmind.google/blog/ai-solves-imo-problems-at-silver-medal-level/" target="_blank" rel="noopener">AlphaProof &amp; Lean 4</a>
+        </div>
+
+        <div class="lab-card">
+          <div class="lab-header">
+            <span class="lab-title">Interactive Concept: The Five-Rung Verification Ladder in AI for Science</span>
+            <span class="lab-badge">Epistemic Rigor</span>
+          </div>
+          <div class="lab-controls" id="rungButtons">
+            <button class="lab-btn active" data-rung="1" type="button">1. Fluent Prose</button>
+            <button class="lab-btn" data-rung="2" type="button">2. Benchmark Metric</button>
+            <button class="lab-btn" data-rung="3" type="button">3. Causal / Numerical Audit</button>
+            <button class="lab-btn" data-rung="4" type="button">4. Symbolic Proof</button>
+            <button class="lab-btn" data-rung="5" type="button">5. Lean 4 Kernel Check</button>
+          </div>
+          <div class="lab-readout" id="rungReadout"></div>
+        </div>
+      </section>
+
+      <!-- DISPATCH 08: REFERENCES -->
+      <section class="dispatch-section" id="dispatch-refs" style="border-bottom:none;">
+        <div class="dispatch-header">
+          <span class="dispatch-tag">Dispatch 08 &middot; Reading List</span>
+          <span class="dispatch-lens">Primary Papers &amp; Technical Links</span>
+        </div>
+        <h2>Primary Papers &amp; Mathematical References</h2>
+        <ul class="ref-list">
+          <li class="ref-item"><strong>Vaswani et al. (2017)</strong> &mdash; <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Attention Is All You Need</a> (NeurIPS).</li>
+          <li class="ref-item"><strong>Su et al. (2024)</strong> &mdash; <a href="https://arxiv.org/abs/2104.09864" target="_blank" rel="noopener">RoFormer: Enhanced Transformer with Rotary Position Embedding</a>.</li>
+          <li class="ref-item"><strong>Kaplan et al. (2020)</strong> &mdash; <a href="https://arxiv.org/abs/2001.08361" target="_blank" rel="noopener">Scaling Laws for Neural Language Models</a>.</li>
+          <li class="ref-item"><strong>Hoffmann et al. (2022)</strong> &mdash; <a href="https://arxiv.org/abs/2203.15556" target="_blank" rel="noopener">Training Compute-Optimal Large Language Models (Chinchilla)</a>.</li>
+          <li class="ref-item"><strong>Wei et al. (2022)</strong> &mdash; <a href="https://arxiv.org/abs/2201.11903" target="_blank" rel="noopener">Chain-of-Thought Prompting Elicits Reasoning in LLMs</a>.</li>
+          <li class="ref-item"><strong>Yao et al. (2023)</strong> &mdash; <a href="https://arxiv.org/abs/2305.10601" target="_blank" rel="noopener">Tree of Thoughts: Deliberate Problem Solving with LLMs</a>.</li>
+          <li class="ref-item"><strong>Lightman et al. (2023)</strong> &mdash; <a href="https://arxiv.org/abs/2305.20050" target="_blank" rel="noopener">Let's Verify Step by Step</a>.</li>
+          <li class="ref-item"><strong>Turpin et al. (2023)</strong> &mdash; <a href="https://arxiv.org/abs/2305.04388" target="_blank" rel="noopener">Language Models Don't Always Say What They Think: Unfaithful CoT</a>.</li>
+          <li class="ref-item"><strong>Rao &amp; Ballard (1999)</strong> &mdash; <a href="https://www.nature.com/articles/nn0199_79" target="_blank" rel="noopener">Predictive coding in the visual cortex</a> (Nature Neuroscience).</li>
+          <li class="ref-item"><strong>Friston (2010)</strong> &mdash; <a href="https://www.nature.com/articles/nrn2787" target="_blank" rel="noopener">The free-energy principle: a unified brain theory?</a> (Nature Reviews Neuroscience).</li>
+          <li class="ref-item"><strong>Elhage et al. (2022)</strong> &mdash; <a href="https://transformer-circuits.pub/2022/toy_model/index.html" target="_blank" rel="noopener">Toy Models of Superposition</a> (Transformer Circuits).</li>
+          <li class="ref-item"><strong>Du et al. (2023)</strong> &mdash; <a href="https://arxiv.org/abs/2305.14325" target="_blank" rel="noopener">Improving Factuality and Reasoning through Multiagent Debate</a>.</li>
+          <li class="ref-item"><strong>Liang et al. (2023)</strong> &mdash; <a href="https://arxiv.org/abs/2305.19118" target="_blank" rel="noopener">Encouraging Divergent Thinking in LLMs through Multi-Agent Debate</a>.</li>
+          <li class="ref-item"><strong>Lewis et al. (2020)</strong> &mdash; <a href="https://arxiv.org/abs/2005.11401" target="_blank" rel="noopener">Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</a>.</li>
+          <li class="ref-item"><strong>Karpukhin et al. (2020)</strong> &mdash; <a href="https://arxiv.org/abs/2004.04906" target="_blank" rel="noopener">Dense Passage Retrieval for Open-Domain Question Answering</a>.</li>
+          <li class="ref-item"><strong>Greshake et al. (2023)</strong> &mdash; <a href="https://arxiv.org/abs/2302.12173" target="_blank" rel="noopener">Not What You've Signed Up For: Indirect Prompt Injection</a>.</li>
+          <li class="ref-item"><strong>Olsson et al. (2022)</strong> &mdash; <a href="https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html" target="_blank" rel="noopener">In-Context Learning and Induction Heads</a>.</li>
+          <li class="ref-item"><strong>Kornblith et al. (2019)</strong> &mdash; <a href="https://arxiv.org/abs/1905.00414" target="_blank" rel="noopener">Similarity of Neural Network Representations Revisited (CKA)</a>.</li>
+          <li class="ref-item"><strong>Facco et al. (2017)</strong> &mdash; <a href="https://www.nature.com/articles/s41598-017-11873-y" target="_blank" rel="noopener">Estimating the intrinsic dimension of datasets by a minimal neighborhood information</a>.</li>
+          <li class="ref-item"><strong>Meng et al. (2022)</strong> &mdash; <a href="https://arxiv.org/abs/2202.05262" target="_blank" rel="noopener">Locating and Editing Factual Associations in GPT (ROME)</a>.</li>
+          <li class="ref-item"><strong>OpenAI (2026) &amp; SIAM News (2026)</strong> &mdash; <a href="https://openai.com/index/navier-stokes-solution/" target="_blank" rel="noopener">Axisymmetric Navier–Stokes Blow-up with Forcing</a> &amp; <a href="https://www.siam.org/publications/siam-news/articles/openai-s-navier-stokes-construction-what-c-infty-forcing-changes/" target="_blank" rel="noopener">SIAM Analysis</a>.</li>
+          <li class="ref-item"><strong>DeepMind (2023–2025) &amp; Lean 4</strong> &mdash; <a href="https://deepmind.google/blog/funsearch-making-new-discoveries-in-mathematical-sciences-using-large-language-models/" target="_blank" rel="noopener">FunSearch</a>, <a href="https://deepmind.google/blog/ai-solves-imo-problems-at-silver-medal-level/" target="_blank" rel="noopener">AlphaProof</a>, <a href="https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/" target="_blank" rel="noopener">AlphaEvolve</a>, &amp; <a href="https://lean-lang.org/" target="_blank" rel="noopener">Lean 4</a>.</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // 1. Theme Toggle
+    const themeBtn = document.getElementById('themeBtn');
+    themeBtn.addEventListener('click', () => {
+      const root = document.documentElement;
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      themeBtn.textContent = next === 'dark' ? 'Warm Paper Mode' : 'Dark Ink Mode';
+    });
+
+    // 2. Scroll Progress & Active TOC
+    const progressBar = document.getElementById('progressBar');
+    const sections = Array.from(document.querySelectorAll('section[id]'));
+    const tocLinks = Array.from(document.querySelectorAll('.toc-link'));
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+      progressBar.style.width = pct.toFixed(1) + '%';
+
+      let currentId = sections[0].id;
+      for (const sec of sections) {
+        if (sec.getBoundingClientRect().top <= 140) {
+          currentId = sec.id;
+        }
+      }
+      tocLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
+      });
+    });
+
+    // 3. Math Lens Filter
+    const lensFilter = document.getElementById('lensFilter');
+    const dispatchSections = Array.from(document.querySelectorAll('.dispatch-section[data-lens]'));
+    lensFilter.addEventListener('change', () => {
+      const val = lensFilter.value;
+      dispatchSections.forEach(sec => {
+        if (val === 'all') {
+          sec.classList.remove('lens-dimmed', 'lens-highlighted');
+        } else if (sec.dataset.lens === val) {
+          sec.classList.add('lens-highlighted');
+          sec.classList.remove('lens-dimmed');
+        } else {
+          sec.classList.add('lens-dimmed');
+          sec.classList.remove('lens-highlighted');
+        }
+      });
+    });
+
+    // 4. Lab 1: Attention Softmax Temperature
+    const tempSlider = document.getElementById('tempSlider');
+    const tempVal = document.getElementById('tempVal');
+    const attnSvg = document.getElementById('attnSvg');
+    const attnReadout = document.getElementById('attnReadout');
+    const rawLogits = [2.4, 1.5, 0.7, 0.1, -0.5];
+    const tokenNames = ['"theorem"', '"proof"', '"matrix"', '"follows"', '"from"'];
+
+    function renderAttention() {
+      const tau = parseFloat(tempSlider.value);
+      tempVal.textContent = tau.toFixed(1);
+      const exps = rawLogits.map(z => Math.exp(z / tau));
+      const sumExp = exps.reduce((a, b) => a + b, 0);
+      const probs = exps.map(e => e / sumExp);
+      const entropy = -probs.reduce((acc, p) => acc + (p > 0 ? p * Math.log2(p) : 0), 0);
+
+      let svgHtml = '';
+      probs.forEach((p, idx) => {
+        const y = 20 + idx * 30;
+        const barW = Math.max(6, p * 410);
+        svgHtml += `
+          <text x="16" y="${y + 15}" font-family="monospace" font-size="13" fill="currentColor">${tokenNames[idx]}</text>
+          <rect x="115" y="${y + 2}" width="${barW}" height="18" rx="4" fill="#0F766E" opacity="0.85"></rect>
+          <text x="${125 + barW}" y="${y + 15}" font-family="monospace" font-size="12" fill="currentColor">${(p * 100).toFixed(1)}%</text>
+        `;
+      });
+      attnSvg.innerHTML = svgHtml;
+      attnReadout.innerHTML = `<strong>Shannon Entropy H(&alpha;) = ${entropy.toFixed(2)} bits:</strong> At &tau; = ${tau.toFixed(1)}, attention routing ${tau < 0.6 ? 'collapses onto the highest-dot-product key ("theorem"), acting like a hard argmax lookup' : tau > 1.5 ? 'spreads almost uniformly across keys, blurring distinct token features together' : 'balances sharp selective routing with contextual blending across relevant keys'}.`;
+    }
+    tempSlider.addEventListener('input', renderAttention);
+    renderAttention();
+
+    // 5. Lab 2: Philosophical Lenses
+    const philData = {
+      func: '<strong>Functionalism:</strong> Defines reasoning by causal role—how inputs, intermediate scratchpads, and outputs relate. Under this view, if test-time search reliably transforms premises into valid conclusions across perturbations, it performs a functional analogue of reasoning regardless of whether the substrate is silicon or cortex.',
+      comp: '<strong>Computationalism:</strong> Frames thinking as formal symbol or vector transformation. A single transformer forward pass is a bounded-depth circuit, whereas Chain-of-Thought and Tree-of-Thoughts dynamically unroll a deeper recurrence graph at inference time.',
+      epist: '<strong>Epistemology:</strong> Separates lucky true answers from justified knowledge. As Turpin et al. (2023) showed, a model can output a persuasive step-by-step rationale while actually relying on a hidden shortcut—meaning verbalized CoT is not automatically epistemic justification.',
+      scip: '<strong>Philosophy of Science:</strong> Treats "the model understands X" as a falsifiable hypothesis requiring causal intervention (activation patching or counterfactual distribution shifts), not just high accuracy on a static leaderboard.',
+      expl: '<strong>Scientific Explanation:</strong> Emphasizes that predicting the next token or fitting a curve is different from isolating a minimal governing mechanism or proving why a bound holds.'
+    };
+    const philReadout = document.getElementById('philReadout');
+    document.getElementById('philButtons').addEventListener('click', e => {
+      const btn = e.target.closest('button[data-phil]');
+      if (!btn) return;
+      document.querySelectorAll('#philButtons .lab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      philReadout.innerHTML = philData[btn.dataset.phil];
+    });
+    philReadout.innerHTML = philData.func;
+
+    // 6. Lab 4: Multi-Agent Topologies
+    const topoSvg = document.getElementById('topoSvg');
+    const topoReadout = document.getElementById('topoReadout');
+    const nodes = [
+      { id: 'A1', x: 140, y: 45 },
+      { id: 'A2', x: 140, y: 140 },
+      { id: 'A3', x: 340, y: 45 },
+      { id: 'A4 (Sink)', x: 520, y: 92 }
+    ];
+    const topoSpecs = {
+      ind: {
+        edges: [],
+        desc: '<strong>Independent Ensemble (0 directed edges):</strong> Each agent answers privately in parallel. Zero peer communication cost, and uncorrelated noise cancels under majority voting—but agents cannot inspect or synthesize complementary evidence found by peers.'
+      },
+      star: {
+        edges: [[0, 3], [1, 3], [2, 3]],
+        desc: '<strong>Centralized In-Star (3 directed edges into A4):</strong> Leaf agents send drafts once to a central synthesizer/aggregator. Scales linearly O(N) in message deliveries while giving the final readout node full visibility.'
+      },
+      ring: {
+        edges: [[0, 1], [1, 2], [2, 3], [3, 0]],
+        desc: '<strong>Directed Ring (4 directed edges):</strong> Information circulates sequentially around the cycle. Low per-round degree, but requires O(N) rounds for a correction at one node to reach the entire group.'
+      },
+      dense: {
+        edges: [[0,1],[1,0],[0,2],[2,0],[0,3],[3,0],[1,2],[2,1],[1,3],[3,1],[2,3],[3,2]],
+        desc: '<strong>Fully Connected Clique (12 directed edges):</strong> Every agent reads every peer each round. Maximizes information sharing but costs O(N&sup2;) token deliveries and risks rapid consensus on a confident hallucination.'
+      }
+    };
+
+    function renderTopo(key) {
+      const spec = topoSpecs[key];
+      let html = '';
+      spec.edges.forEach(([u, v]) => {
+        const n1 = nodes[u], n2 = nodes[v];
+        html += `<line x1="${n1.x}" y1="${n1.y}" x2="${n2.x}" y2="${n2.y}" stroke="#B45309" stroke-width="2" opacity="0.65" />`;
+      });
+      nodes.forEach((n, i) => {
+        const fill = i === 3 ? '#1E3A8A' : '#0F766E';
+        html += `
+          <circle cx="${n.x}" cy="${n.y}" r="24" fill="${fill}" />
+          <text x="${n.x}" y="${n.y + 4}" text-anchor="middle" font-family="monospace" font-size="11" fill="#ffffff" font-weight="bold">${n.id}</text>
+        `;
+      });
+      topoSvg.innerHTML = html;
+      topoReadout.innerHTML = spec.desc;
+    }
+    document.getElementById('topoButtons').addEventListener('click', e => {
+      const btn = e.target.closest('button[data-topo]');
+      if (!btn) return;
+      document.querySelectorAll('#topoButtons .lab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderTopo(btn.dataset.topo);
+    });
+    renderTopo('ind');
+
+    // 7. Lab 5: RAG Security Funnel
+    const ragSvg = document.getElementById('ragSvg');
+    const ragReadout = document.getElementById('ragReadout');
+    const ragModes = {
+      stealth: {
+        bars: [
+          { label: '1. Enters Top-K Retrieval', pct: 88, color: '#0F766E' },
+          { label: '2. Evades Perplexity / Safety Filter', pct: 76, color: '#B45309' },
+          { label: '3. Hijacks Final Model Output', pct: 42, color: '#991B1B' }
+        ],
+        text: '<strong>Subtle Topic-Aligned Payload:</strong> Blending an instruction inside domain-relevant prose keeps cosine similarity high and passes simple perplexity filters—demonstrating why retrieval filtering alone does not guarantee downstream immunity.'
+      },
+      blunt: {
+        bars: [
+          { label: '1. Enters Top-K Retrieval', pct: 65, color: '#0F766E' },
+          { label: '2. Evades Perplexity / Safety Filter', pct: 22, color: '#B45309' },
+          { label: '3. Hijacks Final Model Output', pct: 8, color: '#991B1B' }
+        ],
+        text: '<strong>Blunt Override Payload ("IGNORE ALL PREVIOUS INSTRUCTIONS"):</strong> Easily flagged by lightweight anomaly detectors or ignored by instruction-tuned models, illustrating the gap between raw candidate exposure and actual behavioural hijacking.'
+      }
+    };
+
+    function renderRag(mode) {
+      const data = ragModes[mode];
+      let html = '';
+      data.bars.forEach((b, i) => {
+        const y = 22 + i * 46;
+        const w = b.pct * 3.6;
+        html += `
+          <text x="16" y="${y + 16}" font-family="sans-serif" font-size="12" font-weight="600" fill="currentColor">${b.label}</text>
+          <rect x="260" y="${y + 2}" width="${w}" height="22" rx="5" fill="${b.color}" opacity="0.88"></rect>
+          <text x="${270 + w}" y="${y + 17}" font-family="monospace" font-size="12" fill="currentColor">${b.pct}%</text>
+        `;
+      });
+      ragSvg.innerHTML = html;
+      ragReadout.innerHTML = data.text;
+    }
+    document.getElementById('ragButtons').addEventListener('click', e => {
+      const btn = e.target.closest('button[data-rag]');
+      if (!btn) return;
+      document.querySelectorAll('#ragButtons .lab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderRag(btn.dataset.rag);
+    });
+    renderRag('stealth');
+
+    // 8. Lab 7: Verification Ladder
+    const rungData = {
+      '1': '<strong>Rung 1 &mdash; Fluent Prose:</strong> A model generates a confident mathematical argument in natural language. Useful for brainstorming, but zero guarantee against subtle sign errors or invented lemmas.',
+      '2': '<strong>Rung 2 &mdash; Aggregate Benchmark Score:</strong> Evaluates exact-match accuracy across a test set. Shows broad capability, but can hide shortcut learning or calibration failures.',
+      '3': '<strong>Rung 3 &mdash; Causal Patching &amp; Numerical PDE Audit:</strong> Tests whether perturbing a specific activation circuit or refining a numerical solver grid preserves the claimed solution.',
+      '4': '<strong>Rung 4 &mdash; Human-Checked Symbolic Proof:</strong> Every analytical bound and regime assumption (such as smooth external forcing vs. unforced flow) is explicitly written out and audited.',
+      '5': '<strong>Rung 5 &mdash; Formal Kernel Verification (Lean 4):</strong> Every step is reduced to dependent type theory and checked by a tiny, trusted proof kernel—completely eliminating hallucinated steps.'
+    };
+    const rungReadout = document.getElementById('rungReadout');
+    document.getElementById('rungButtons').addEventListener('click', e => {
+      const btn = e.target.closest('button[data-rung]');
+      if (!btn) return;
+      document.querySelectorAll('#rungButtons .lab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      rungReadout.innerHTML = rungData[btn.dataset.rung];
+    });
+    rungReadout.innerHTML = rungData['1'];
+  </script>
+</body>
+</html>
